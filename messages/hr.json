@@ -445,5 +445,45 @@
       "ddsReference": "Unesite referentni broj DDS.",
       "duplicateRef": "Pošiljka s ovom internom oznakom već postoji."
     }
+  },
+  "share": {
+    "title": "Paket za kupca",
+    "supplier": "Dobavljač",
+    "shipment": "Pošiljka",
+    "ddsReference": "Referentni broj DDS",
+    "verification": "Verifikacijski broj",
+    "notSubmitted": "Izjava još nije podnesena.",
+    "products": "Proizvodi",
+    "plots": "Čestice",
+    "documents": "Dokumenti",
+    "map": "Karta čestica",
+    "area": "Površina (ha)",
+    "downloadPdf": "Preuzmi PDF",
+    "downloadGeojson": "Preuzmi GeoJSON",
+    "createLink": "Izradi poveznicu za kupca",
+    "expiresIn": "Valjanost poveznice",
+    "daysOption": "{days} dana",
+    "includeDocuments": "Prikaži popis dokumenata",
+    "linkCreated": "Poveznica je izrađena. Kopirajte je i pošaljite kupcu – prikazuje se samo jednom.",
+    "activeLinks": "Poveznice za kupce",
+    "expires": "Vrijedi do {date}",
+    "lastViewed": "Zadnji pregled: {date}",
+    "neverViewed": "Još nije otvorena",
+    "revoke": "Opozovi",
+    "revoked": "Opozvana",
+    "unavailable": "Poveznica nije valjana ili je istekla.",
+    "unavailableHint": "Za novu poveznicu obratite se dobavljaču.",
+    "generatedBy": "Pripremljeno s LesTrace",
+    "validTo": "Vrijedi do",
+    "noDocuments": "Nema dokumenata.",
+    "date": "Datum",
+    "customer": "Kupac",
+    "taxId": "OIB / porezni broj",
+    "eori": "EORI",
+    "country": "Država",
+    "quantity": "Količina",
+    "errors": {
+      "unknown": "Poveznicu nije bilo moguće izraditi."
+    }
   }
 }

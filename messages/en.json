@@ -442,5 +442,45 @@
       "ddsReference": "Enter the DDS reference number.",
       "duplicateRef": "A shipment with this internal reference already exists."
     }
+  },
+  "share": {
+    "title": "Buyer package",
+    "supplier": "Supplier",
+    "shipment": "Shipment",
+    "ddsReference": "DDS reference number",
+    "verification": "Verification number",
+    "notSubmitted": "The statement has not been submitted yet.",
+    "products": "Products",
+    "plots": "Plots",
+    "documents": "Documents",
+    "map": "Plot map",
+    "area": "Area (ha)",
+    "downloadPdf": "Download PDF",
+    "downloadGeojson": "Download GeoJSON",
+    "createLink": "Create a link for the buyer",
+    "expiresIn": "Link valid for",
+    "daysOption": "{days} days",
+    "includeDocuments": "Show the list of documents",
+    "linkCreated": "The link was created. Copy it and send it to the buyer – it is shown only once.",
+    "activeLinks": "Buyer links",
+    "expires": "Valid until {date}",
+    "lastViewed": "Last viewed: {date}",
+    "neverViewed": "Not opened yet",
+    "revoke": "Revoke",
+    "revoked": "Revoked",
+    "unavailable": "The link is not valid or has expired.",
+    "unavailableHint": "Ask the supplier for a new link.",
+    "generatedBy": "Prepared with LesTrace",
+    "validTo": "Valid until",
+    "noDocuments": "No documents.",
+    "date": "Date",
+    "customer": "Customer",
+    "taxId": "Tax number",
+    "eori": "EORI",
+    "country": "Country",
+    "quantity": "Quantity",
+    "errors": {
+      "unknown": "The link could not be created."
+    }
   }
 }

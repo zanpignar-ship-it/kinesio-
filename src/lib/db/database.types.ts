@@ -986,6 +986,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      buyer_package: { Args: { p_token: string }; Returns: Json }
       plots_in_bbox: {
         Args: {
           p_exclude?: string

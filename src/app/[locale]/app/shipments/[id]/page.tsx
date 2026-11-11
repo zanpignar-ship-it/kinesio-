@@ -3,6 +3,8 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { CopyButton } from '@/components/shipments/copy-button';
 import { ShipmentStatusBadge } from '@/components/shipments/shipment-status-badge';
 import { StatusActions } from '@/components/shipments/status-actions';
+import { SharePanel } from '@/components/share/share-panel';
+import { createServerSupabase } from '@/lib/supabase/server';
 import { StatusBadge } from '@/components/plots/status-badge';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/navigation';
@@ -31,6 +33,14 @@ export default async function ShipmentPage({ params }: { params: Promise<{ local
     items: data.items.map((i) => ({ hsCode: i.hsCode, description: i.product, tradeName: i.tradeName, scientificName: i.scientificName, commonName: i.commonName, netMassKg: i.netMassKg, volumeM3: i.volumeM3, pieces: i.pieces })),
     references: data.references.map((r) => ({ kind: r.kind, referenceNo: r.reference_no, verificationNo: r.verification_no })),
   });
+  const supabase = await createServerSupabase();
+  const { data: shares } = await supabase
+    .from('buyer_shares')
+    .select('id, expires_at, revoked_at, last_viewed_at')
+    .eq('organization_id', org.id)
+    .contains('shipment_ids', [sh.id])
+    .order('created_at', { ascending: false })
+    .limit(20);
   const value = (key: string, v: string) => (key === 'activity' ? t(`activities.${v as 'export'}`) : v);
   return (
     <div className="flex flex-col gap-6">
@@ -112,6 +122,8 @@ export default async function ShipmentPage({ params }: { params: Promise<{ local
           </ul>
         </section>
       ) : null}
+
+      <SharePanel shipmentId={sh.id} shares={shares ?? []} />
 
       <StatusActions id={sh.id} status={data.status} ready={data.readiness.ready} ddsReference={sh.dds_reference_no} ddsVerification={sh.dds_verification_no} />
     </div>

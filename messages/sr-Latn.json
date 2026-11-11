@@ -445,5 +445,45 @@
       "ddsReference": "Unesite referentni broj DDS.",
       "duplicateRef": "Pošiljka s ovom internom oznakom već postoji."
     }
+  },
+  "share": {
+    "title": "Paket za kupca",
+    "supplier": "Dobavljač",
+    "shipment": "Pošiljka",
+    "ddsReference": "Referentni broj DDS",
+    "verification": "Verifikacioni broj",
+    "notSubmitted": "Izjava još nije podneta.",
+    "products": "Proizvodi",
+    "plots": "Parcele",
+    "documents": "Dokumenti",
+    "map": "Mapa parcela",
+    "area": "Površina (ha)",
+    "downloadPdf": "Preuzmi PDF",
+    "downloadGeojson": "Preuzmi GeoJSON",
+    "createLink": "Napravi link za kupca",
+    "expiresIn": "Važenje linka",
+    "daysOption": "{days} dana",
+    "includeDocuments": "Prikaži spisak dokumenata",
+    "linkCreated": "Link je napravljen. Kopirajte ga i pošaljite kupcu – prikazuje se samo jednom.",
+    "activeLinks": "Linkovi za kupce",
+    "expires": "Važi do {date}",
+    "lastViewed": "Poslednji pregled: {date}",
+    "neverViewed": "Još nije otvoren",
+    "revoke": "Opozovi",
+    "revoked": "Opozvan",
+    "unavailable": "Link nije važeći ili je istekao.",
+    "unavailableHint": "Za novi link obratite se dobavljaču.",
+    "generatedBy": "Pripremljeno sa LesTrace",
+    "validTo": "Važi do",
+    "noDocuments": "Nema dokumenata.",
+    "date": "Datum",
+    "customer": "Kupac",
+    "taxId": "PIB",
+    "eori": "EORI",
+    "country": "Država",
+    "quantity": "Količina",
+    "errors": {
+      "unknown": "Link nije bilo moguće napraviti."
+    }
   }
 }
