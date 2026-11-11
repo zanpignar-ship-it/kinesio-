@@ -1,0 +1,26 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "ProductionPlace": "Parcela 1", "ProducerName": "Gozd d.o.o.", "ProducerCountry": "SI", "Area": 2.5 },
+      "geometry": { "type": "Point", "coordinates": [14.505751, 46.049865] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "ProductionPlace": "Parcela 2", "ProducerCountry": "SI" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[14.861234, 45.641234], [14.862514, 45.641234], [14.862514, 45.642134], [14.861234, 45.642134], [14.861234, 45.641234]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "ProductionPlace": "Parcela 3" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[14.861234, 45.641234], [14.862514, 45.641234], [14.862514, 45.642134], [14.861234, 45.642134], [14.861234, 45.641234]]]
+      }
+    }
+  ]
+}
