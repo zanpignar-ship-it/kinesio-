@@ -128,7 +128,8 @@
     "shipments": "Pošiljke",
     "nav": {
       "dashboard": "Nadzorna plošča",
-      "plots": "Parcele"
+      "plots": "Parcele",
+      "documents": "Dokumenti"
     }
   },
   "plots": {
@@ -230,5 +231,60 @@
     "empty": "Datoteka ne vsebuje parcel.",
     "unnamed": "Parcela",
     "more": "in še {count} …"
+  },
+  "documents": {
+    "title": "Dokumenti",
+    "new": "Nov dokument",
+    "empty": "Še nimate dokumentov.",
+    "emptyHint": "Naložite dovoljenje za posek, odločbo, dobavnico ali certifikat.",
+    "all": "Vsi",
+    "types": {
+      "felling_permit": "Dovoljenje za posek",
+      "decision": "Odločba",
+      "delivery_note": "Dobavnica",
+      "certificate_fsc": "Certifikat FSC",
+      "certificate_pefc": "Certifikat PEFC",
+      "other": "Drugo"
+    },
+    "expiry": {
+      "none": "Brez roka",
+      "valid": "Veljaven",
+      "expiring": "Kmalu poteče",
+      "expired": "Potekel"
+    },
+    "file": "Datoteka (PDF ali fotografija)",
+    "fileHint": "Na telefonu lahko dokument tudi fotografirate. Največ 20 MB.",
+    "docTitle": "Naziv",
+    "type": "Vrsta",
+    "validFrom": "Velja od",
+    "validTo": "Velja do",
+    "plots": "Parcele",
+    "plotsHint": "Izberite parcele, za katere velja dokument.",
+    "searchPlots": "Išči parcelo",
+    "noPlots": "Še nimate parcel.",
+    "save": "Shrani dokument",
+    "uploading": "Nalagam …",
+    "open": "Odpri",
+    "edit": "Uredi",
+    "delete": "Izbriši",
+    "deleteConfirm": "Dokument bo trajno izbrisan. Nadaljujem?",
+    "back": "Nazaj na dokumente",
+    "uploaded": "Naloženo",
+    "linkedPlots": "Povezane parcele",
+    "noLinkedPlots": "Dokument ni povezan s parcelami.",
+    "expiringCard": "Dokumenti, ki potečejo v 30 dneh",
+    "expiringNone": "Noben dokument ne poteče v naslednjih 30 dneh.",
+    "editTitle": "Uredi dokument",
+    "selected": "Izbranih: {count}",
+    "errors": {
+      "title": "Vnesite naziv dokumenta.",
+      "type": "Izberite vrsto dokumenta.",
+      "dates": "Datum »velja do« mora biti za datumom »velja od«.",
+      "file": "Izberite datoteko PDF ali sliko do 20 MB.",
+      "upload": "Nalaganje ni uspelo. Poskusite znova.",
+      "unknown": "Shranjevanje ni uspelo. Poskusite znova.",
+      "inUse": "Dokument je uporabljen v pošiljki in ga ni mogoče izbrisati.",
+      "notFound": "Dokumenta ni mogoče najti."
+    }
   }
 }

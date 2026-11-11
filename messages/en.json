@@ -128,7 +128,8 @@
     "shipments": "Shipments",
     "nav": {
       "dashboard": "Dashboard",
-      "plots": "Plots"
+      "plots": "Plots",
+      "documents": "Documents"
     }
   },
   "plots": {
@@ -230,5 +231,60 @@
     "empty": "The file contains no plots.",
     "unnamed": "Plot",
     "more": "and {count} more …"
+  },
+  "documents": {
+    "title": "Documents",
+    "new": "New document",
+    "empty": "You have no documents yet.",
+    "emptyHint": "Upload a felling permit, decision, delivery note or certificate.",
+    "all": "All",
+    "types": {
+      "felling_permit": "Felling permit",
+      "decision": "Decision",
+      "delivery_note": "Delivery note",
+      "certificate_fsc": "FSC certificate",
+      "certificate_pefc": "PEFC certificate",
+      "other": "Other"
+    },
+    "expiry": {
+      "none": "No end date",
+      "valid": "Valid",
+      "expiring": "Expires soon",
+      "expired": "Expired"
+    },
+    "file": "File (PDF or photo)",
+    "fileHint": "On a phone you can also take a photo of the document. Max 20 MB.",
+    "docTitle": "Title",
+    "type": "Type",
+    "validFrom": "Valid from",
+    "validTo": "Valid until",
+    "plots": "Plots",
+    "plotsHint": "Choose the plots the document applies to.",
+    "searchPlots": "Search plots",
+    "noPlots": "You have no plots yet.",
+    "save": "Save document",
+    "uploading": "Uploading …",
+    "open": "Open",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteConfirm": "The document will be deleted permanently. Continue?",
+    "back": "Back to documents",
+    "uploaded": "Uploaded",
+    "linkedPlots": "Linked plots",
+    "noLinkedPlots": "The document is not linked to any plot.",
+    "expiringCard": "Documents expiring within 30 days",
+    "expiringNone": "No document expires in the next 30 days.",
+    "editTitle": "Edit document",
+    "selected": "Selected: {count}",
+    "errors": {
+      "title": "Enter a document title.",
+      "type": "Choose a document type.",
+      "dates": "\"Valid until\" must be after \"valid from\".",
+      "file": "Choose a PDF or an image up to 20 MB.",
+      "upload": "The upload failed. Please try again.",
+      "unknown": "Saving failed. Please try again.",
+      "inUse": "The document is used in a shipment and cannot be deleted.",
+      "notFound": "The document was not found."
+    }
   }
 }

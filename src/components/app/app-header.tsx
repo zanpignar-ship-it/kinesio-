@@ -23,6 +23,9 @@ export async function AppHeader({ current, all, email }: Props) {
           <Link href="/app/plots" className="underline-offset-4 hover:underline">
             {t('app.nav.plots')}
           </Link>
+          <Link href="/app/documents" className="underline-offset-4 hover:underline">
+            {t('app.nav.documents')}
+          </Link>
         </nav>
         {all.length > 1 ? (
           <form action={switchOrganization} className="flex items-center gap-2">

@@ -131,7 +131,8 @@
     "shipments": "Pošiljke",
     "nav": {
       "dashboard": "Kontrolna ploča",
-      "plots": "Parcele"
+      "plots": "Parcele",
+      "documents": "Dokumenti"
     }
   },
   "plots": {
@@ -233,5 +234,60 @@
     "empty": "Datoteka ne sadrži parcele.",
     "unnamed": "Parcela",
     "more": "i još {count} …"
+  },
+  "documents": {
+    "title": "Dokumenti",
+    "new": "Novi dokument",
+    "empty": "Još nemate dokumenata.",
+    "emptyHint": "Učitajte dozvolu za sječu, rješenje, otpremnicu ili certifikat.",
+    "all": "Svi",
+    "types": {
+      "felling_permit": "Dozvola za sječu",
+      "decision": "Rješenje",
+      "delivery_note": "Otpremnica",
+      "certificate_fsc": "FSC certifikat",
+      "certificate_pefc": "PEFC certifikat",
+      "other": "Ostalo"
+    },
+    "expiry": {
+      "none": "Bez roka",
+      "valid": "Važeći",
+      "expiring": "Uskoro ističe",
+      "expired": "Istekao"
+    },
+    "file": "Datoteka (PDF ili fotografija)",
+    "fileHint": "Na telefonu dokument možete i fotografisati. Najviše 20 MB.",
+    "docTitle": "Naziv",
+    "type": "Vrsta",
+    "validFrom": "Važi od",
+    "validTo": "Važi do",
+    "plots": "Parcele",
+    "plotsHint": "Odaberite parcele na koje se dokument odnosi.",
+    "searchPlots": "Traži parcelu",
+    "noPlots": "Još nemate parcela.",
+    "save": "Spremi dokument",
+    "uploading": "Učitavam …",
+    "open": "Otvori",
+    "edit": "Uredi",
+    "delete": "Izbriši",
+    "deleteConfirm": "Dokument će biti trajno izbrisan. Nastaviti?",
+    "back": "Nazad na dokumente",
+    "uploaded": "Učitano",
+    "linkedPlots": "Povezane parcele",
+    "noLinkedPlots": "Dokument nije povezan s parcelama.",
+    "expiringCard": "Dokumenti koji ističu u 30 dana",
+    "expiringNone": "Nijedan dokument ne ističe u narednih 30 dana.",
+    "editTitle": "Uredi dokument",
+    "selected": "Odabrano: {count}",
+    "errors": {
+      "title": "Unesite naziv dokumenta.",
+      "type": "Odaberite vrstu dokumenta.",
+      "dates": "Datum »važi do« mora biti nakon datuma »važi od«.",
+      "file": "Odaberite PDF ili sliku do 20 MB.",
+      "upload": "Učitavanje nije uspjelo. Pokušajte ponovo.",
+      "unknown": "Spremanje nije uspjelo. Pokušajte ponovo.",
+      "inUse": "Dokument se koristi u pošiljci i ne može se izbrisati.",
+      "notFound": "Dokument nije pronađen."
+    }
   }
 }

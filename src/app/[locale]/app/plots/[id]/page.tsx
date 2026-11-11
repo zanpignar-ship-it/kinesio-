@@ -11,6 +11,8 @@ import { Link } from '@/i18n/navigation';
 import { getCurrentMembership, requireUser } from '@/lib/auth/session';
 import type { Issue } from '@/lib/geo/types';
 import { getPlot } from '@/lib/plots/queries';
+import { documentsForPlot } from '@/lib/documents/queries';
+import { ExpiryBadge } from '@/components/documents/expiry-badge';
 
 type Props = { params: Promise<{ locale: string; id: string }> };
 
@@ -23,7 +25,9 @@ export default async function PlotPage({ params }: Props) {
   const plot = await getPlot(current.organization.id, id);
   if (!plot) notFound();
   const t = await getTranslations('plots');
+  const td = await getTranslations('documents');
   const format = await getFormatter();
+  const documents = await documentsForPlot(current.organization.id, plot.id);
   const geometry = geometryFromDb(plot.geom);
   const single: GeoJSON.FeatureCollection = {
     type: 'FeatureCollection',
@@ -65,6 +69,28 @@ export default async function PlotPage({ params }: Props) {
       <section className="flex flex-col gap-3">
         <h2 className="font-semibold">{t('issues')}</h2>
         <IssueList issues={issues} />
+      </section>
+      <section className="flex flex-col gap-3">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h2 className="font-semibold">{td('title')}</h2>
+          <Button asChild variant="outline" size="sm">
+            <Link href={{ pathname: '/app/documents/new', query: { plot: plot.id } }}>{td('new')}</Link>
+          </Button>
+        </div>
+        {documents.length === 0 ? (
+          <p className="text-muted-foreground text-sm">{td('empty')}</p>
+        ) : (
+          <ul className="divide-y rounded-xl border">
+            {documents.map((d) => (
+              <li key={d.id} className="flex items-center gap-3 px-4 py-2">
+                <Link href={`/app/documents/${d.id}`} className="flex-1 underline-offset-4 hover:underline">
+                  {d.title}
+                </Link>
+                <ExpiryBadge expiry={d.expiry} />
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
       <PlotActions id={plot.id} archived={Boolean(plot.archived_at)} />
     </div>
