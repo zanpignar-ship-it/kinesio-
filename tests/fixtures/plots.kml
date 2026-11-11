@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <Placemark>
+      <name>Parcela Kočevje</name>
+      <Polygon><outerBoundaryIs><LinearRing><coordinates>
+        14.861234,45.641234,0 14.862514,45.641234,0 14.862514,45.642134,0 14.861234,45.642134,0 14.861234,45.641234,0
+      </coordinates></LinearRing></outerBoundaryIs></Polygon>
+    </Placemark>
+    <Placemark>
+      <name>Točka Ljubljana</name>
+      <Point><coordinates>14.505751,46.049865</coordinates></Point>
+    </Placemark>
+  </Document>
+</kml>
