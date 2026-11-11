@@ -112,7 +112,8 @@
       "IT": "Italy",
       "HU": "Hungary",
       "DE": "Germany"
-    }
+    },
+    "saved": "Saved."
   },
   "app": {
     "menu": "Menu",
@@ -131,7 +132,8 @@
       "plots": "Plots",
       "documents": "Documents",
       "shipments": "Shipments",
-      "masterData": "Master data"
+      "masterData": "Master data",
+      "settings": "Settings"
     }
   },
   "plots": {
@@ -482,5 +484,75 @@
     "errors": {
       "unknown": "The link could not be created."
     }
+  },
+  "settings": {
+    "title": "Settings",
+    "organization": "Organization details",
+    "ownerOnlyHint": "Only the organization owner can change these details.",
+    "save": "Save changes",
+    "archiveTitle": "Archive for inspections",
+    "archiveIntro": "Download all plots (GeoJSON and CSV), documents, shipments and the audit trail as one ZIP file. EUDR requires keeping records for 5 years.",
+    "archiveDownload": "Download archive (ZIP)",
+    "deleteTitle": "Delete account",
+    "deleteIntro": "Your account will be permanently deleted. Organizations where you are the only member are deleted with all their data and files. Download the archive first.",
+    "deleteConfirmLabel": "To confirm, type your email address ({email})",
+    "deleteButton": "Delete account permanently",
+    "errors": {
+      "ownerOnly": "Only the owner can change these details.",
+      "confirm": "The email address does not match.",
+      "notAvailable": "Account deletion is not available yet. Please try again later.",
+      "transferOwnership": "First transfer ownership or remove the other members in these organizations:",
+      "unknown": "Something went wrong. Please try again."
+    }
+  },
+  "legal": {
+    "terms": "Terms of use",
+    "privacy": "Privacy",
+    "draft": "Draft – a lawyer must review this text before public use.",
+    "updated": "Last updated: {date}",
+    "termsSections": [
+      {
+        "h": "Purpose",
+        "p": "LesTrace is a tool that helps collect and organise data for due diligence under Regulation (EU) 2023/1115 (EUDR). It does not submit due diligence statements to the EU Information System."
+      },
+      {
+        "h": "Your responsibility",
+        "p": "The user (operator or trader) is responsible for the accuracy of the data, the risk assessment and the due diligence statement. Checks in LesTrace are an aid, not legal advice."
+      },
+      {
+        "h": "Data and retention",
+        "p": "Data is stored on servers in the EU. You can download an archive of all your data at any time. Keeping records for at least 5 years is your obligation."
+      },
+      {
+        "h": "Buyer links",
+        "p": "A buyer link lets someone view selected shipments without signing in. You can revoke it at any time."
+      },
+      {
+        "h": "Changes",
+        "p": "We may update these terms; we will tell you about material changes in the app."
+      }
+    ],
+    "privacySections": [
+      {
+        "h": "Controller",
+        "p": "The data controller will be named when the service is launched. TODO: preveri."
+      },
+      {
+        "h": "What data",
+        "p": "Email and password for sign-in, data about your organization, plots (possibly names of forest owners), documents and shipments, and an audit trail of changes."
+      },
+      {
+        "h": "Purpose and legal basis",
+        "p": "Providing the service (contract) and helping you meet your EUDR obligations (your legal obligation)."
+      },
+      {
+        "h": "Processors",
+        "p": "Supabase (database and storage, EU – Frankfurt) and Vercel (hosting). Satellite imagery is loaded by your browser directly from the map provider (Esri)."
+      },
+      {
+        "h": "Your rights",
+        "p": "Access, rectification, portability (ZIP archive) and erasure (delete account in settings). You can complain to your data protection authority."
+      }
+    ]
   }
 }

@@ -987,6 +987,7 @@ export type Database = {
     }
     Functions: {
       buyer_package: { Args: { p_token: string }; Returns: Json }
+      delete_my_account: { Args: { p_dry_run?: boolean }; Returns: Json }
       plots_in_bbox: {
         Args: {
           p_exclude?: string

@@ -115,7 +115,8 @@
       "IT": "Italija",
       "HU": "Mađarska",
       "DE": "Njemačka"
-    }
+    },
+    "saved": "Sačuvano."
   },
   "app": {
     "menu": "Meni",
@@ -134,7 +135,8 @@
       "plots": "Parcele",
       "documents": "Dokumenti",
       "shipments": "Pošiljke",
-      "masterData": "Šifarnici"
+      "masterData": "Šifarnici",
+      "settings": "Postavke"
     }
   },
   "plots": {
@@ -485,5 +487,75 @@
     "errors": {
       "unknown": "Link nije bilo moguće napraviti."
     }
+  },
+  "settings": {
+    "title": "Postavke",
+    "organization": "Podaci o organizaciji",
+    "ownerOnlyHint": "Podatke može mijenjati samo vlasnik organizacije.",
+    "save": "Sačuvaj izmjene",
+    "archiveTitle": "Arhiva za inspekciju",
+    "archiveIntro": "Preuzmite sve parcele (GeoJSON i CSV), dokumente, pošiljke i revizijski trag u jednoj ZIP datoteci. EUDR zahtijeva čuvanje 5 godina.",
+    "archiveDownload": "Preuzmi arhivu (ZIP)",
+    "deleteTitle": "Brisanje računa",
+    "deleteIntro": "Račun će biti trajno izbrisan. Organizacije u kojima ste jedini član bit će izbrisane zajedno sa svim podacima i datotekama. Prije brisanja preuzmite arhivu.",
+    "deleteConfirmLabel": "Za potvrdu upišite svoju e-adresu ({email})",
+    "deleteButton": "Trajno izbriši račun",
+    "errors": {
+      "ownerOnly": "Podatke može mijenjati samo vlasnik.",
+      "confirm": "Upisana e-adresa se ne podudara.",
+      "notAvailable": "Brisanje računa još nije dostupno. Pokušajte ponovo kasnije.",
+      "transferOwnership": "Najprije prenesite vlasništvo ili uklonite ostale članove u organizacijama:",
+      "unknown": "Došlo je do greške. Pokušajte ponovo."
+    }
+  },
+  "legal": {
+    "terms": "Uslovi korištenja",
+    "privacy": "Privatnost",
+    "draft": "Nacrt – tekst prije javne upotrebe mora pregledati pravnik.",
+    "updated": "Posljednja izmjena: {date}",
+    "termsSections": [
+      {
+        "h": "Svrha",
+        "p": "LesTrace je alat koji pomaže prikupiti i urediti podatke za dubinsku analizu prema Uredbi (EU) 2023/1115 (EUDR). Alat ne podnosi izjave o dubinskoj analizi u informacioni sistem EU."
+      },
+      {
+        "h": "Odgovornost korisnika",
+        "p": "Za tačnost podataka, procjenu rizika i izjavu o dubinskoj analizi odgovoran je korisnik (subjekt ili trgovac). Rezultati provjera u LesTraceu su pomoć, a ne pravni savjet."
+      },
+      {
+        "h": "Podaci i čuvanje",
+        "p": "Podaci se čuvaju na serverima u EU. Korisnik u svakom trenutku može preuzeti arhivu svih podataka. Čuvanje najmanje 5 godina obaveza je korisnika."
+      },
+      {
+        "h": "Linkovi za kupce",
+        "p": "Link za kupca omogućava pregled odabranih pošiljki bez prijave. Korisnik ga može opozvati u svakom trenutku."
+      },
+      {
+        "h": "Izmjene",
+        "p": "Uslove možemo ažurirati; o bitnim izmjenama obavijestit ćemo vas u aplikaciji."
+      }
+    ],
+    "privacySections": [
+      {
+        "h": "Kontrolor",
+        "p": "Kontrolor ličnih podataka bit će naveden pri objavi usluge. TODO: preveri."
+      },
+      {
+        "h": "Koji podaci",
+        "p": "E-adresa i lozinka za prijavu, podaci o organizaciji, parcelama (moguće i imena vlasnika šuma), dokumentima i pošiljkama te revizijski trag izmjena."
+      },
+      {
+        "h": "Svrha i pravni osnov",
+        "p": "Pružanje usluge (ugovor) i ispunjavanje obaveza korisnika prema EUDR (zakonska obaveza korisnika)."
+      },
+      {
+        "h": "Obrađivači",
+        "p": "Supabase (baza i pohrana, EU – Frankfurt) i Vercel (hosting). Satelitske podloge vaš preglednik učitava direktno od pružaoca mapa (Esri)."
+      },
+      {
+        "h": "Vaša prava",
+        "p": "Pristup, ispravka, prenosivost (ZIP arhiva) i brisanje (brisanje računa u postavkama). Prigovor možete podnijeti nadzornom organu (u BiH Agencija za zaštitu ličnih podataka)."
+      }
+    ]
   }
 }

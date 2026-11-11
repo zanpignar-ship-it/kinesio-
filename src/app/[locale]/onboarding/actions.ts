@@ -6,7 +6,7 @@ import { ORG_COOKIE } from '@/lib/auth/pick-organization';
 import { organizationSchema } from '@/lib/auth/schemas';
 import { createServerSupabase } from '@/lib/supabase/server';
 
-export type OrgFormState = { error?: string; values?: Record<string, string> };
+export type OrgFormState = { error?: string; saved?: boolean; values?: Record<string, string> };
 
 export async function createOrganization(_prev: OrgFormState, formData: FormData): Promise<OrgFormState> {
   const raw = Object.fromEntries([...formData.entries()].filter(([, v]) => typeof v === 'string')) as Record<string, string>;

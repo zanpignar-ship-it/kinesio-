@@ -5,22 +5,31 @@ import { useLocale, useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { createOrganization } from '@/app/[locale]/onboarding/actions';
+import { createOrganization, type OrgFormState } from '@/app/[locale]/onboarding/actions';
 import { ORG_COUNTRIES } from '@/lib/auth/schemas';
 import { Constants } from '@/lib/db/database.types';
 
 const selectClass =
   'border-input h-10 w-full rounded-md border bg-transparent px-3 text-base shadow-xs outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] md:text-sm';
 
-export function OrganizationForm() {
+type Props = {
+  /** Server action; defaults to creating a new organization. */
+  submit?: (prev: OrgFormState, formData: FormData) => Promise<OrgFormState>;
+  initial?: Record<string, string>;
+  submitLabel?: string;
+  disabled?: boolean;
+};
+
+export function OrganizationForm({ submit = createOrganization, initial = {}, submitLabel, disabled = false }: Props) {
   const t = useTranslations('org');
   const tAll = useTranslations();
   const locale = useLocale();
-  const [state, action, pending] = useActionState(createOrganization, {});
-  const v = state.values ?? {};
+  const [state, action, pending] = useActionState(submit, {});
+  const v = state.values ?? initial;
   return (
     <form action={action} className="flex flex-col gap-5" noValidate>
       <input type="hidden" name="locale" value={locale} />
+      <fieldset disabled={disabled} className="contents">
       <div className="flex flex-col gap-2">
         <Label htmlFor="name">{t('name')}</Label>
         <Input id="name" name="name" required autoComplete="organization" defaultValue={v.name} />
@@ -66,14 +75,22 @@ export function OrganizationForm() {
           <Input id={f} name={f} defaultValue={v[f]} />
         </div>
       ))}
+      </fieldset>
+      {state.saved ? (
+        <p role="status" className="text-sm text-green-700 dark:text-green-400">
+          {t('saved')}
+        </p>
+      ) : null}
       {state.error ? (
         <p role="alert" className="text-destructive text-sm">
           {tAll(state.error)}
         </p>
       ) : null}
-      <Button type="submit" size="lg" disabled={pending}>
-        {t('create')}
-      </Button>
+      {disabled ? null : (
+        <Button type="submit" size="lg" disabled={pending}>
+          {submitLabel ?? t('create')}
+        </Button>
+      )}
     </form>
   );
 }
