@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { expect, test } from '@playwright/test';
-import { crs, newUser, signIn, signUpWithOrganization, supabaseAs } from './helpers/auth';
+import { crs, newUser, signUpWithOrganization, supabaseAs } from './helpers/auth';
 
 test.describe.configure({ mode: 'serial' });
 const user = newUser();
@@ -18,7 +18,6 @@ test('the owner downloads the buyer PDF and creates a buyer link', async ({ page
   const ship = await client.from('shipments').insert({ organization_id: organizationId, internal_ref: 'B-1', mode: 'submit_dds', activity: 'export', country_of_production: 'SI' }).select('id').single();
   await client.from('shipment_plots').insert({ organization_id: organizationId, shipment_id: ship.data!.id, plot_id: plot.data!.id, geom_snapshot: { type: 'Polygon', crs, coordinates: [ring] } as unknown as string });
 
-  await signIn(page, user);
   await page.goto(`/sl/app/shipments/${ship.data!.id}`);
   const download = page.waitForEvent('download');
   await page.getByRole('link', { name: 'Prenesi PDF' }).click();
