@@ -986,7 +986,21 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      plots_in_bbox: {
+        Args: {
+          p_exclude?: string
+          p_maxx: number
+          p_maxy: number
+          p_minx: number
+          p_miny: number
+          p_org: string
+        }
+        Returns: {
+          geom: Json
+          id: string
+        }[]
+      }
+      plots_map: { Args: { p_org: string }; Returns: Json }
     }
     Enums: {
       document_type:
