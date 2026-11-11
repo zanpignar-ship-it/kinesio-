@@ -185,5 +185,30 @@
       "tooMany": "Odjednom možete uvesti najviše 2.000 parcela.",
       "notFound": "Parcela nije pronađena."
     }
+  },
+  "map": {
+    "satellite": "Satelit",
+    "streets": "Mapa",
+    "locate": "Gde sam?",
+    "locateError": "Lokaciju nije bilo moguće odrediti.",
+    "label": "Mapa parcela"
+  },
+  "draw": {
+    "newTitle": "Nova parcela",
+    "editTitle": "Uredi parcelu",
+    "point": "Tačka",
+    "polygon": "Poligon",
+    "hintPoint": "Dodirnite mapu na mestu gde se nalazi parcela.",
+    "hintPolygon": "Dodirnite temena parcele redom. Temena možete prevući.",
+    "undo": "Poništi",
+    "clear": "Očisti",
+    "empty": "Najpre označite parcelu na mapi.",
+    "tooFewPoints": "Poligonu su potrebne najmanje 3 tačke.",
+    "area": "Površina: {value} ha",
+    "declaredArea": "Površina (ha)",
+    "declaredAreaHint": "Za tačku upišite površinu parcele u hektarima.",
+    "save": "Sačuvaj parcelu",
+    "cancel": "Otkaži",
+    "multiPart": "Ova parcela (više delova) ne može se uređivati na mapi; možete promeniti podatke."
   }
 }

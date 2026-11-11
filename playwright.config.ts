@@ -5,6 +5,7 @@ import { defineConfig, devices } from '@playwright/test';
 if (existsSync('.env.local')) process.loadEnvFile('.env.local');
 // Sandboxes that only reach the internet through an HTTPS proxy: let Node's fetch use it.
 if (process.env.HTTPS_PROXY) process.env.NODE_USE_ENV_PROXY = '1';
+process.env.NEXT_TELEMETRY_DISABLED = '1';
 
 const PORT = 3100;
 

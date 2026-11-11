@@ -185,5 +185,30 @@
       "tooMany": "Odjednom možete uvesti najviše 2.000 čestica.",
       "notFound": "Čestica nije pronađena."
     }
+  },
+  "map": {
+    "satellite": "Satelit",
+    "streets": "Karta",
+    "locate": "Gdje sam?",
+    "locateError": "Lokaciju nije bilo moguće odrediti.",
+    "label": "Karta čestica"
+  },
+  "draw": {
+    "newTitle": "Nova čestica",
+    "editTitle": "Uredi česticu",
+    "point": "Točka",
+    "polygon": "Poligon",
+    "hintPoint": "Dodirnite kartu na mjestu gdje se nalazi čestica.",
+    "hintPolygon": "Dodirnite vrhove čestice redom. Vrhove možete povući.",
+    "undo": "Poništi",
+    "clear": "Očisti",
+    "empty": "Najprije označite česticu na karti.",
+    "tooFewPoints": "Poligon treba najmanje 3 točke.",
+    "area": "Površina: {value} ha",
+    "declaredArea": "Površina (ha)",
+    "declaredAreaHint": "Za točku upišite površinu čestice u hektarima.",
+    "save": "Spremi česticu",
+    "cancel": "Odustani",
+    "multiPart": "Ova čestica (više dijelova) ne može se uređivati na karti; možete promijeniti podatke."
   }
 }

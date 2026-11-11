@@ -182,5 +182,30 @@
       "tooMany": "You can import at most 2,000 plots at once.",
       "notFound": "The plot was not found."
     }
+  },
+  "map": {
+    "satellite": "Satellite",
+    "streets": "Map",
+    "locate": "Where am I?",
+    "locateError": "Your location could not be determined.",
+    "label": "Plot map"
+  },
+  "draw": {
+    "newTitle": "New plot",
+    "editTitle": "Edit plot",
+    "point": "Point",
+    "polygon": "Polygon",
+    "hintPoint": "Tap the map where the plot lies.",
+    "hintPolygon": "Tap the corners of the plot in order. You can drag corners.",
+    "undo": "Undo",
+    "clear": "Clear",
+    "empty": "Mark the plot on the map first.",
+    "tooFewPoints": "A polygon needs at least 3 points.",
+    "area": "Area: {value} ha",
+    "declaredArea": "Area (ha)",
+    "declaredAreaHint": "For a point, enter the plot area in hectares.",
+    "save": "Save plot",
+    "cancel": "Cancel",
+    "multiPart": "This plot has several parts and cannot be edited on the map; you can change its details."
   }
 }

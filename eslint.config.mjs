@@ -3,7 +3,7 @@ import nextTs from 'eslint-config-next/typescript';
 import i18next from 'eslint-plugin-i18next';
 
 const config = [
-  { ignores: ['.next/**', 'node_modules/**', 'next-env.d.ts', 'src/lib/db/database.types.ts', 'playwright-report/**', 'test-results/**'] },
+  { ignores: ['.next/**', 'node_modules/**', 'next-env.d.ts', 'src/lib/db/database.types.ts', 'playwright-report/**', 'test-results/**', 'public/maplibre/**'] },
   ...nextVitals,
   ...nextTs,
   {

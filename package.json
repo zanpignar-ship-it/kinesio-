@@ -12,7 +12,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:db": "bash scripts/db-test.sh",
-    "test:e2e": "playwright test --trace off"
+    "test:e2e": "playwright test --trace off",
+    "postinstall": "node scripts/copy-maplibre-worker.mjs",
+    "prebuild": "node scripts/copy-maplibre-worker.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.63.0",
@@ -45,6 +47,7 @@
     "clsx": "^2.1.1",
     "jszip": "^3.10.2",
     "lucide-react": "^1.72.0",
+    "maplibre-gl": "^6.17.0",
     "next": "^16.4.6",
     "next-intl": "^4.15.0",
     "papaparse": "^5.7.0",

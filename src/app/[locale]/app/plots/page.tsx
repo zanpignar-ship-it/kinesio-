@@ -1,6 +1,9 @@
 import { getFormatter, getTranslations, setRequestLocale } from 'next-intl/server';
 import { Button } from '@/components/ui/button';
+import type * as GeoJSON from 'geojson';
+import { PlotsOverviewMap } from '@/components/map/plots-overview-map';
 import { StatusBadge } from '@/components/plots/status-badge';
+import { createServerSupabase } from '@/lib/supabase/server';
 import { Link } from '@/i18n/navigation';
 import { getCurrentMembership, requireUser } from '@/lib/auth/session';
 import type { PlotStatus } from '@/lib/geo/types';
@@ -16,7 +19,12 @@ export default async function PlotsPage({ params, searchParams }: Props) {
   const { current } = await getCurrentMembership(user.id);
   if (!current) return null;
   const filters = parseFilters(await searchParams);
-  const { rows, total, byStatus } = await listPlots(current.organization.id, filters);
+  const supabase = await createServerSupabase();
+  const [{ rows, total, byStatus }, map] = await Promise.all([
+    listPlots(current.organization.id, filters),
+    supabase.rpc('plots_map', { p_org: current.organization.id }),
+  ]);
+  const mapData = (map.data ?? { type: 'FeatureCollection', features: [] }) as unknown as GeoJSON.FeatureCollection;
   const t = await getTranslations('plots');
   const format = await getFormatter();
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
@@ -56,6 +64,8 @@ export default async function PlotsPage({ params, searchParams }: Props) {
           </Link>
         ))}
       </nav>
+
+      {mapData.features.length > 0 ? <PlotsOverviewMap plots={mapData} className="h-[45vh] min-h-72" /> : null}
 
       <form className="flex gap-2" action="" method="get">
         {filters.status ? <input type="hidden" name="status" value={filters.status} /> : null}

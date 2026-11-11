@@ -1,6 +1,9 @@
 import { notFound } from 'next/navigation';
 import { getFormatter, getTranslations, setRequestLocale } from 'next-intl/server';
+import type * as GeoJSON from 'geojson';
+import { PlotMapClient } from '@/components/map/map-client';
 import { IssueList } from '@/components/plots/issue-list';
+import { geometryFromDb } from '@/lib/plots/geometry';
 import { PlotActions } from '@/components/plots/plot-actions';
 import { StatusBadge } from '@/components/plots/status-badge';
 import { Button } from '@/components/ui/button';
@@ -21,6 +24,11 @@ export default async function PlotPage({ params }: Props) {
   if (!plot) notFound();
   const t = await getTranslations('plots');
   const format = await getFormatter();
+  const geometry = geometryFromDb(plot.geom);
+  const single: GeoJSON.FeatureCollection = {
+    type: 'FeatureCollection',
+    features: geometry ? [{ type: 'Feature', properties: { id: plot.id, label: plot.label, validation_status: plot.validation_status }, geometry }] : [],
+  };
   const issues = (Array.isArray(plot.validation_issues) ? plot.validation_issues : []) as unknown as Issue[];
   const facts: [string, string | null][] = [
     [t('country'), plot.country],
@@ -43,6 +51,7 @@ export default async function PlotPage({ params }: Props) {
           <Link href={`/app/plots/${plot.id}/edit`}>{t('edit')}</Link>
         </Button>
       </div>
+      {geometry ? <PlotMapClient className="h-[45vh] min-h-72" plots={single} /> : null}
       <dl className="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-2">
         {facts
           .filter(([, v]) => v)
