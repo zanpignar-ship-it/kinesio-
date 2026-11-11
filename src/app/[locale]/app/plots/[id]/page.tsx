@@ -1,0 +1,63 @@
+import { notFound } from 'next/navigation';
+import { getFormatter, getTranslations, setRequestLocale } from 'next-intl/server';
+import { IssueList } from '@/components/plots/issue-list';
+import { PlotActions } from '@/components/plots/plot-actions';
+import { StatusBadge } from '@/components/plots/status-badge';
+import { Button } from '@/components/ui/button';
+import { Link } from '@/i18n/navigation';
+import { getCurrentMembership, requireUser } from '@/lib/auth/session';
+import type { Issue } from '@/lib/geo/types';
+import { getPlot } from '@/lib/plots/queries';
+
+type Props = { params: Promise<{ locale: string; id: string }> };
+
+export default async function PlotPage({ params }: Props) {
+  const { locale, id } = await params;
+  setRequestLocale(locale);
+  const user = await requireUser(locale, `/app/plots/${id}`);
+  const { current } = await getCurrentMembership(user.id);
+  if (!current || !/^[0-9a-f-]{36}$/i.test(id)) notFound();
+  const plot = await getPlot(current.organization.id, id);
+  if (!plot) notFound();
+  const t = await getTranslations('plots');
+  const format = await getFormatter();
+  const issues = (Array.isArray(plot.validation_issues) ? plot.validation_issues : []) as unknown as Issue[];
+  const facts: [string, string | null][] = [
+    [t('country'), plot.country],
+    [t('area'), plot.area_ha === null ? null : t('hectares', { value: format.number(Number(plot.area_ha), { maximumFractionDigits: 4 }) })],
+    [t('cadastral'), plot.cadastral_no],
+    [t('cadastralMunicipality'), plot.cadastral_municipality],
+    [t('postalAddress'), plot.postal_address],
+    [t('updated'), format.dateTime(new Date(plot.updated_at), { dateStyle: 'medium', timeStyle: 'short' })],
+  ];
+  return (
+    <div className="flex flex-col gap-6">
+      <Link href="/app/plots" className="text-muted-foreground text-sm underline-offset-4 hover:underline">
+        ← {t('back')}
+      </Link>
+      <div className="flex flex-wrap items-center gap-3">
+        <h1 className="text-2xl font-bold tracking-tight">{plot.label}</h1>
+        <StatusBadge status={plot.validation_status} />
+        {plot.archived_at ? <span className="text-muted-foreground text-sm">{t('archived')}</span> : null}
+        <Button asChild variant="outline" size="sm" className="ml-auto">
+          <Link href={`/app/plots/${plot.id}/edit`}>{t('edit')}</Link>
+        </Button>
+      </div>
+      <dl className="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-2">
+        {facts
+          .filter(([, v]) => v)
+          .map(([k, v]) => (
+            <div key={k}>
+              <dt className="text-muted-foreground text-sm">{k}</dt>
+              <dd className="font-medium">{v}</dd>
+            </div>
+          ))}
+      </dl>
+      <section className="flex flex-col gap-3">
+        <h2 className="font-semibold">{t('issues')}</h2>
+        <IssueList issues={issues} />
+      </section>
+      <PlotActions id={plot.id} archived={Boolean(plot.archived_at)} />
+    </div>
+  );
+}

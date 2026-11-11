@@ -1,0 +1,102 @@
+import { getFormatter, getTranslations, setRequestLocale } from 'next-intl/server';
+import { Button } from '@/components/ui/button';
+import { StatusBadge } from '@/components/plots/status-badge';
+import { Link } from '@/i18n/navigation';
+import { getCurrentMembership, requireUser } from '@/lib/auth/session';
+import type { PlotStatus } from '@/lib/geo/types';
+import { PAGE_SIZE, listPlots, parseFilters } from '@/lib/plots/queries';
+import { cn } from '@/lib/utils';
+
+type Props = { params: Promise<{ locale: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> };
+
+export default async function PlotsPage({ params, searchParams }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const user = await requireUser(locale, '/app/plots');
+  const { current } = await getCurrentMembership(user.id);
+  if (!current) return null;
+  const filters = parseFilters(await searchParams);
+  const { rows, total, byStatus } = await listPlots(current.organization.id, filters);
+  const t = await getTranslations('plots');
+  const format = await getFormatter();
+  const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  const all = byStatus.valid + byStatus.warning + byStatus.error;
+  const href = (overrides: Partial<{ status: PlotStatus | undefined; page: number }>) => {
+    const query: Record<string, string> = {};
+    const status = 'status' in overrides ? overrides.status : filters.status;
+    if (status) query.status = status;
+    if (filters.q) query.q = filters.q;
+    if (filters.country) query.country = filters.country;
+    const page = overrides.page ?? 1;
+    if (page > 1) query.page = String(page);
+    return { pathname: '/app/plots', query };
+  };
+
+  return (
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <h1 className="text-2xl font-bold tracking-tight">{t('title')}</h1>
+        <div className="flex gap-2">
+          <Button asChild variant="outline">
+            <Link href="/app/plots/import">{t('import')}</Link>
+          </Button>
+          <Button asChild>
+            <Link href="/app/plots/new">{t('new')}</Link>
+          </Button>
+        </div>
+      </div>
+
+      <nav className="flex flex-wrap gap-2" aria-label={t('issues')}>
+        <Link href={href({ status: undefined })} className={cn('rounded-full border px-3 py-1.5 text-sm', !filters.status && 'bg-foreground text-background')}>
+          {t('all')} <span data-testid="count-all">{all}</span>
+        </Link>
+        {(['valid', 'warning', 'error'] as const).map((s) => (
+          <Link key={s} href={href({ status: s })} className={cn('rounded-full border px-3 py-1.5 text-sm', filters.status === s && 'bg-foreground text-background')}>
+            {t(`status.${s}`)} <span data-testid={`count-${s}`}>{byStatus[s]}</span>
+          </Link>
+        ))}
+      </nav>
+
+      <form className="flex gap-2" action="" method="get">
+        {filters.status ? <input type="hidden" name="status" value={filters.status} /> : null}
+        <label htmlFor="q" className="sr-only">
+          {t('search')}
+        </label>
+        <input id="q" name="q" defaultValue={filters.q} placeholder={t('search')} className="border-input h-10 w-full max-w-sm rounded-md border bg-transparent px-3 text-base md:text-sm" />
+        <Button type="submit" variant="outline">
+          {t('searchButton')}
+        </Button>
+      </form>
+
+      {rows.length === 0 ? (
+        <div className="rounded-xl border border-dashed p-8 text-center">
+          <p className="font-medium">{t('empty')}</p>
+          <p className="text-muted-foreground mt-1 text-sm">{t('emptyHint')}</p>
+        </div>
+      ) : (
+        <ul className="divide-y rounded-xl border">
+          {rows.map((p) => (
+            <li key={p.id} data-testid="plot-row" className="flex flex-wrap items-center gap-x-4 gap-y-1 px-4 py-3">
+              <Link href={`/app/plots/${p.id}`} className="min-w-0 flex-1 truncate font-medium underline-offset-4 hover:underline">
+                {p.label}
+              </Link>
+              <span className="text-muted-foreground text-sm">{p.country}</span>
+              <span className="text-muted-foreground w-24 text-right text-sm tabular-nums">
+                {p.area_ha === null ? '–' : t('hectares', { value: format.number(Number(p.area_ha), { maximumFractionDigits: 2 }) })}
+              </span>
+              <StatusBadge status={p.validation_status} />
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {pages > 1 ? (
+        <div className="flex items-center justify-between text-sm">
+          {filters.page > 1 ? <Link href={href({ page: filters.page - 1 })}>{t('previous')}</Link> : <span />}
+          <span className="text-muted-foreground">{t('pageOf', { page: filters.page, pages })}</span>
+          {filters.page < pages ? <Link href={href({ page: filters.page + 1 })}>{t('next')}</Link> : <span />}
+        </div>
+      ) : null}
+    </div>
+  );
+}

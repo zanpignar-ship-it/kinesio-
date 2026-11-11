@@ -125,6 +125,62 @@
     "comingSoon": "Kmalu na voljo",
     "plots": "Parcele",
     "documents": "Dokumenti",
-    "shipments": "Pošiljke"
+    "shipments": "Pošiljke",
+    "nav": {
+      "dashboard": "Nadzorna plošča",
+      "plots": "Parcele"
+    }
+  },
+  "plots": {
+    "title": "Parcele",
+    "new": "Nova parcela",
+    "import": "Uvoz",
+    "empty": "Še nimate parcel.",
+    "emptyHint": "Narišite parcelo na karti ali uvozite datoteko (GeoJSON, KML, Shapefile, CSV).",
+    "total": "{count} parcel",
+    "all": "Vse",
+    "status": {
+      "valid": "Veljavne",
+      "warning": "Z opozorilom",
+      "error": "Z napako"
+    },
+    "statusOne": {
+      "valid": "Veljavna",
+      "warning": "Opozorilo",
+      "error": "Napaka"
+    },
+    "search": "Iskanje po oznaki",
+    "searchButton": "Išči",
+    "label": "Oznaka",
+    "country": "Država",
+    "area": "Površina",
+    "hectares": "{value} ha",
+    "updated": "Spremenjeno",
+    "issues": "Preverjanje",
+    "noIssues": "Parcela je pripravljena za izjavo.",
+    "cadastral": "Katastrska številka",
+    "cadastralMunicipality": "Katastrska občina",
+    "postalAddress": "Naslov",
+    "edit": "Uredi",
+    "archive": "Arhiviraj",
+    "restore": "Obnovi",
+    "delete": "Izbriši",
+    "deleteConfirm": "Parcela bo trajno izbrisana. Nadaljujem?",
+    "archived": "Arhivirana",
+    "back": "Nazaj na seznam",
+    "previous": "Prejšnja stran",
+    "next": "Naslednja stran",
+    "pageOf": "Stran {page} od {pages}",
+    "errors": {
+      "label": "Vnesite oznako parcele.",
+      "country": "Izberite državo.",
+      "area": "Površina mora biti število v hektarjih.",
+      "geometry": "Oblika parcele ni veljavna.",
+      "geometryRequired": "Narišite parcelo ali vnesite naslov.",
+      "unknown": "Shranjevanje ni uspelo. Poskusite znova.",
+      "inUse": "Parcela je uporabljena v pošiljki in je ni mogoče izbrisati. Lahko jo arhivirate.",
+      "tooMany": "Naenkrat lahko uvozite največ 2.000 parcel.",
+      "notFound": "Parcele ni mogoče najti."
+    }
   }
 }

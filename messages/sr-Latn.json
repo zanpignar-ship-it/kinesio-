@@ -128,6 +128,62 @@
     "comingSoon": "Uskoro dostupno",
     "plots": "Parcele",
     "documents": "Dokumenti",
-    "shipments": "Pošiljke"
+    "shipments": "Pošiljke",
+    "nav": {
+      "dashboard": "Kontrolna tabla",
+      "plots": "Parcele"
+    }
+  },
+  "plots": {
+    "title": "Parcele",
+    "new": "Nova parcela",
+    "import": "Uvoz",
+    "empty": "Još nemate parcela.",
+    "emptyHint": "Nacrtajte parcelu na karti ili uvezite datoteku (GeoJSON, KML, Shapefile, CSV).",
+    "total": "{count} parcela",
+    "all": "Sve",
+    "status": {
+      "valid": "Važeće",
+      "warning": "Sa upozorenjem",
+      "error": "Sa greškom"
+    },
+    "statusOne": {
+      "valid": "Važeća",
+      "warning": "Upozorenje",
+      "error": "Greška"
+    },
+    "search": "Pretraga po oznaci",
+    "searchButton": "Traži",
+    "label": "Oznaka",
+    "country": "Država",
+    "area": "Površina",
+    "hectares": "{value} ha",
+    "updated": "Izmenjeno",
+    "issues": "Provera",
+    "noIssues": "Parcela je spremna za izjavu.",
+    "cadastral": "Katastarski broj",
+    "cadastralMunicipality": "Katastarska opština",
+    "postalAddress": "Adresa",
+    "edit": "Uredi",
+    "archive": "Arhiviraj",
+    "restore": "Vrati",
+    "delete": "Obriši",
+    "deleteConfirm": "Parcela će biti trajno obrisana. Nastaviti?",
+    "archived": "Arhivirana",
+    "back": "Nazad na spisak",
+    "previous": "Prethodna strana",
+    "next": "Sledeća strana",
+    "pageOf": "Strana {page} od {pages}",
+    "errors": {
+      "label": "Unesite oznaku parcele.",
+      "country": "Izaberite državu.",
+      "area": "Površina mora biti broj u hektarima.",
+      "geometry": "Oblik parcele nije važeći.",
+      "geometryRequired": "Nacrtajte parcelu ili unesite adresu.",
+      "unknown": "Čuvanje nije uspelo. Pokušajte ponovo.",
+      "inUse": "Parcela se koristi u pošiljci i ne može se obrisati. Možete je arhivirati.",
+      "tooMany": "Odjednom možete uvesti najviše 2.000 parcela.",
+      "notFound": "Parcela nije pronađena."
+    }
   }
 }

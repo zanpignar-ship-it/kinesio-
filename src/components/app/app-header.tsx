@@ -16,6 +16,14 @@ export async function AppHeader({ current, all, email }: Props) {
         <Link href="/app" className="text-primary font-semibold">
           {t('common.appName')}
         </Link>
+        <nav className="order-last flex w-full gap-4 text-sm sm:order-none sm:w-auto">
+          <Link href="/app" className="underline-offset-4 hover:underline">
+            {t('app.nav.dashboard')}
+          </Link>
+          <Link href="/app/plots" className="underline-offset-4 hover:underline">
+            {t('app.nav.plots')}
+          </Link>
+        </nav>
         {all.length > 1 ? (
           <form action={switchOrganization} className="flex items-center gap-2">
             <input type="hidden" name="locale" value={locale} />

@@ -128,6 +128,62 @@
     "comingSoon": "Uskoro dostupno",
     "plots": "Čestice",
     "documents": "Dokumenti",
-    "shipments": "Pošiljke"
+    "shipments": "Pošiljke",
+    "nav": {
+      "dashboard": "Nadzorna ploča",
+      "plots": "Čestice"
+    }
+  },
+  "plots": {
+    "title": "Čestice",
+    "new": "Nova čestica",
+    "import": "Uvoz",
+    "empty": "Još nemate čestica.",
+    "emptyHint": "Nacrtajte česticu na karti ili uvezite datoteku (GeoJSON, KML, Shapefile, CSV).",
+    "total": "{count} čestica",
+    "all": "Sve",
+    "status": {
+      "valid": "Valjane",
+      "warning": "S upozorenjem",
+      "error": "S pogreškom"
+    },
+    "statusOne": {
+      "valid": "Valjana",
+      "warning": "Upozorenje",
+      "error": "Pogreška"
+    },
+    "search": "Pretraga po oznaci",
+    "searchButton": "Traži",
+    "label": "Oznaka",
+    "country": "Država",
+    "area": "Površina",
+    "hectares": "{value} ha",
+    "updated": "Izmijenjeno",
+    "issues": "Provjera",
+    "noIssues": "Čestica je spremna za izjavu.",
+    "cadastral": "Katastarski broj",
+    "cadastralMunicipality": "Katastarska općina",
+    "postalAddress": "Adresa",
+    "edit": "Uredi",
+    "archive": "Arhiviraj",
+    "restore": "Vrati",
+    "delete": "Izbriši",
+    "deleteConfirm": "Čestica će biti trajno izbrisana. Nastaviti?",
+    "archived": "Arhivirana",
+    "back": "Natrag na popis",
+    "previous": "Prethodna stranica",
+    "next": "Sljedeća stranica",
+    "pageOf": "Stranica {page} od {pages}",
+    "errors": {
+      "label": "Unesite oznaku čestice.",
+      "country": "Odaberite državu.",
+      "area": "Površina mora biti broj u hektarima.",
+      "geometry": "Oblik čestice nije valjan.",
+      "geometryRequired": "Nacrtajte česticu ili unesite adresu.",
+      "unknown": "Spremanje nije uspjelo. Pokušajte ponovno.",
+      "inUse": "Čestica se koristi u pošiljci i ne može se izbrisati. Možete je arhivirati.",
+      "tooMany": "Odjednom možete uvesti najviše 2.000 čestica.",
+      "notFound": "Čestica nije pronađena."
+    }
   }
 }

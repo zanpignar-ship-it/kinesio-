@@ -125,6 +125,62 @@
     "comingSoon": "Coming soon",
     "plots": "Plots",
     "documents": "Documents",
-    "shipments": "Shipments"
+    "shipments": "Shipments",
+    "nav": {
+      "dashboard": "Dashboard",
+      "plots": "Plots"
+    }
+  },
+  "plots": {
+    "title": "Plots",
+    "new": "New plot",
+    "import": "Import",
+    "empty": "You have no plots yet.",
+    "emptyHint": "Draw a plot on the map or import a file (GeoJSON, KML, Shapefile, CSV).",
+    "total": "{count} plots",
+    "all": "All",
+    "status": {
+      "valid": "Valid",
+      "warning": "With warnings",
+      "error": "With errors"
+    },
+    "statusOne": {
+      "valid": "Valid",
+      "warning": "Warning",
+      "error": "Error"
+    },
+    "search": "Search by label",
+    "searchButton": "Search",
+    "label": "Label",
+    "country": "Country",
+    "area": "Area",
+    "hectares": "{value} ha",
+    "updated": "Updated",
+    "issues": "Checks",
+    "noIssues": "The plot is ready for a statement.",
+    "cadastral": "Cadastral number",
+    "cadastralMunicipality": "Cadastral municipality",
+    "postalAddress": "Address",
+    "edit": "Edit",
+    "archive": "Archive",
+    "restore": "Restore",
+    "delete": "Delete",
+    "deleteConfirm": "The plot will be deleted permanently. Continue?",
+    "archived": "Archived",
+    "back": "Back to the list",
+    "previous": "Previous page",
+    "next": "Next page",
+    "pageOf": "Page {page} of {pages}",
+    "errors": {
+      "label": "Enter a plot label.",
+      "country": "Choose a country.",
+      "area": "The area must be a number of hectares.",
+      "geometry": "The plot shape is not valid.",
+      "geometryRequired": "Draw the plot or enter an address.",
+      "unknown": "Saving failed. Please try again.",
+      "inUse": "The plot is used in a shipment and cannot be deleted. You can archive it.",
+      "tooMany": "You can import at most 2,000 plots at once.",
+      "notFound": "The plot was not found."
+    }
   }
 }

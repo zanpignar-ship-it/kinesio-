@@ -1,4 +1,10 @@
+import { existsSync } from 'node:fs';
 import { defineConfig, devices } from '@playwright/test';
+
+// Local runs: Supabase settings for test helpers come from .env.local (next start reads it on its own).
+if (existsSync('.env.local')) process.loadEnvFile('.env.local');
+// Sandboxes that only reach the internet through an HTTPS proxy: let Node's fetch use it.
+if (process.env.HTTPS_PROXY) process.env.NODE_USE_ENV_PROXY = '1';
 
 const PORT = 3100;
 
