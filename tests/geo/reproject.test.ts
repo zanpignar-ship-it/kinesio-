@@ -57,7 +57,7 @@ describe('guessCrs', () => {
     const r = guessCrs({ type: 'Point', coordinates: [461752.091, 101237.118] });
     expect(r.crs).toBe('EPSG:3794');
     expect(r.issue?.code).toBe('CRS_GUESSED');
-    expect(r.issue?.severity).toBe('warning');
+    expect(r.issue?.severity).toBe('error');
     expect(r.issue?.params?.crs).toBe('EPSG:3794');
   });
   it('accepts degrees as WGS-84 without an issue', () => {

@@ -20,10 +20,12 @@
       "DUPLICATE_PLOT": "Parcela je skoraj enaka že vneseni parceli ({ids}).",
       "AREA_ZERO": "Poligon nima površine (vse točke ležijo na isti črti).",
       "NO_GEOMETRY": "Parcela nima geolokacije. Primerna je le za poenostavljeno izjavo, ne za izjavo o skrbnem pregledu.",
-      "CRS_GUESSED": "Datoteka nima podatka o koordinatnem sistemu. Domnevamo {crs} (slovenski D96/TM). Potrdite, da je to pravilno.",
+      "CRS_GUESSED": "Datoteka nima podatka o koordinatnem sistemu. Domnevamo {crs} (slovenski D96/TM), lahko pa gre tudi za {alternatives} (stari D48/GK, razlika ~600 m). Potrdite pravi sistem.",
       "CRS_UNKNOWN": "Koordinatnega sistema datoteke ne poznamo. Izvozite datoteko v WGS-84 (EPSG:4326) ali D96/TM (EPSG:3794).",
       "PARSE_FAILED": "Datoteke ali vrstice ni bilo mogoče prebrati.",
-      "EXPORT_TOO_LARGE": "Datoteka GeoJSON je prevelika ({bytes} bajtov, največ {max}). Razdelite pošiljko ali poenostavite poligone."
+      "EXPORT_TOO_LARGE": "Datoteka GeoJSON je prevelika ({bytes} bajtov, največ {max}). Razdelite pošiljko ali poenostavite poligone.",
+      "POLYGON_HOLE_OUTSIDE": "Luknja v poligonu leži zunaj njegove zunanje meje. Popravite obris parcele.",
+      "LABEL_POINTS_REMOVED": "Oznake (točke) ob poligonu smo odstranili; uporabljen je samo poligon."
     }
   }
 }

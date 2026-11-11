@@ -3,7 +3,7 @@ import { DOMParser } from '@xmldom/xmldom';
 import JSZip from 'jszip';
 import { countDecimals, decimalStatsFromNumbers } from '../precision';
 import type { DecimalStats } from '../types';
-import { failed, finalize, type ParseResult, type RawFeature } from './common';
+import { failed, finalize, type FinalizeOptions, type ParseResult, type RawFeature } from './common';
 
 /** Decimals of lon/lat as written in the <coordinates> of one Placemark. */
 function placemarkDecimals(placemark: Element): DecimalStats | null {
@@ -23,7 +23,7 @@ function placemarkDecimals(placemark: Element): DecimalStats | null {
   return Number.isFinite(min) ? { min, max } : null;
 }
 
-export function parseKml(text: string): ParseResult {
+export function parseKml(text: string, opts: FinalizeOptions = {}): ParseResult {
   let doc: Document;
   try {
     doc = new DOMParser().parseFromString(text, 'text/xml') as unknown as Document;
@@ -42,10 +42,10 @@ export function parseKml(text: string): ParseResult {
     };
   });
   // KML is always WGS-84 by definition.
-  return finalize(raw, 'EPSG:4326');
+  return finalize(raw, 'EPSG:4326', [], opts);
 }
 
-export async function parseKmz(data: Uint8Array): Promise<ParseResult> {
+export async function parseKmz(data: Uint8Array, opts: FinalizeOptions = {}): Promise<ParseResult> {
   let zip: JSZip;
   try {
     zip = await JSZip.loadAsync(data);
@@ -56,5 +56,5 @@ export async function parseKmz(data: Uint8Array): Promise<ParseResult> {
   const name = names.find((n) => n.toLowerCase().endsWith('doc.kml')) ?? names[0];
   const file = name ? zip.file(name) : null;
   if (!file) return failed();
-  return parseKml(await file.async('string'));
+  return parseKml(await file.async('string'), opts);
 }

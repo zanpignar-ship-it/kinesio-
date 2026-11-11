@@ -1,4 +1,4 @@
-import { booleanClockwise, kinks, polygon as turfPolygon } from '@turf/turf';
+import { booleanClockwise, booleanPointInPolygon, kinks, polygon as turfPolygon } from '@turf/turf';
 import type * as GeoJSON from 'geojson';
 import { ALLOWED_GEOMETRY_TYPES } from '@/lib/eudr/rules';
 import { allPositions, mapPositions } from './coords';
@@ -55,6 +55,13 @@ function normalizePolygon(rings: Ring[], partIndex: number | undefined): Polygon
     return ring;
   });
 
+  const [outer] = out;
+  if (outer && out.length > 1) {
+    const shell = turfPolygon([outer]);
+    const holeOutside = out.slice(1).some((hole) => hole.some((p) => !booleanPointInPolygon(p, shell)));
+    if (holeOutside) issues.push(withPart({ code: 'POLYGON_HOLE_OUTSIDE', severity: 'error' }));
+  }
+
   const k = kinks(turfPolygon(out));
   const first = k.features[0];
   if (first) {
@@ -70,20 +77,45 @@ function normalizePolygon(rings: Ring[], partIndex: number | undefined): Polygon
   return { rings: out, issues, closed, rewound };
 }
 
+/**
+ * KML MultiGeometry arrives as a GeometryCollection: polygons → (Multi)Polygon, points → (Multi)Point,
+ * polygons with label points → the polygons only. Anything else (lines, nesting) → null.
+ */
+function mergeCollection(gc: GeoJSON.GeometryCollection): { geometry: PlotGeometry; droppedPoints: boolean } | null {
+  const polygons: GeoJSON.Position[][][] = [];
+  const points: GeoJSON.Position[] = [];
+  for (const g of gc.geometries) {
+    if (g.type === 'Polygon') polygons.push(g.coordinates);
+    else if (g.type === 'MultiPolygon') polygons.push(...g.coordinates);
+    else if (g.type === 'Point') points.push(g.coordinates);
+    else if (g.type === 'MultiPoint') points.push(...g.coordinates);
+    else return null;
+  }
+  const [firstPolygon] = polygons;
+  if (firstPolygon) {
+    const geometry: PlotGeometry = polygons.length === 1 ? { type: 'Polygon', coordinates: firstPolygon } : { type: 'MultiPolygon', coordinates: polygons };
+    return { geometry, droppedPoints: points.length > 0 };
+  }
+  const [firstPoint] = points;
+  if (!firstPoint) return null;
+  return { geometry: points.length === 1 ? { type: 'Point', coordinates: firstPoint } : { type: 'MultiPoint', coordinates: points }, droppedPoints: false };
+}
+
 export function normalizeGeometry(input: GeoJSON.Geometry): { geometry: PlotGeometry | null; issues: Issue[] } {
   let geometry: GeoJSON.Geometry = input;
+  const issues: Issue[] = [];
   if (geometry.type === 'GeometryCollection') {
-    const allowed = geometry.geometries.filter(isAllowed);
-    if (allowed.length !== 1 || geometry.geometries.length !== 1) {
+    const merged = mergeCollection(geometry);
+    if (!merged) {
       return { geometry: null, issues: [{ code: 'GEOM_TYPE_NOT_ALLOWED', severity: 'error', params: { type: 'GeometryCollection' } }] };
     }
-    geometry = allowed[0] as PlotGeometry;
+    geometry = merged.geometry;
+    if (merged.droppedPoints) issues.push({ code: 'LABEL_POINTS_REMOVED', severity: 'info' });
   }
   if (!isAllowed(geometry)) {
     return { geometry: null, issues: [{ code: 'GEOM_TYPE_NOT_ALLOWED', severity: 'error', params: { type: geometry.type } }] };
   }
 
-  const issues: Issue[] = [];
   if (allPositions(geometry).some((p) => p.length > 2)) {
     issues.push({ code: 'Z_COORDINATE_REMOVED', severity: 'info' });
     geometry = mapPositions(geometry, (p) => [p[0] ?? 0, p[1] ?? 0]);

@@ -1,14 +1,14 @@
 import JSZip from 'jszip';
 import { parseDbf, parseShp } from 'shpjs';
 import { decimalStatsFromNumbers } from '../precision';
-import { failed, finalize, type ParseResult, type RawFeature } from './common';
+import { failed, finalize, type FinalizeOptions, type ParseResult, type RawFeature } from './common';
 
 function find(zip: JSZip, ext: string): JSZip.JSZipObject | null {
   const name = Object.keys(zip.files).find((n) => n.toLowerCase().endsWith(ext) && !n.startsWith('__MACOSX'));
   return name ? zip.file(name) : null;
 }
 
-export async function parseShapefileZip(data: Uint8Array): Promise<ParseResult> {
+export async function parseShapefileZip(data: Uint8Array, opts: FinalizeOptions = {}): Promise<ParseResult> {
   let zip: JSZip;
   try {
     zip = await JSZip.loadAsync(data);
@@ -35,5 +35,5 @@ export async function parseShapefileZip(data: Uint8Array): Promise<ParseResult> 
     properties: { ...(props[i] ?? {}) },
     decimals: decimalStatsFromNumbers(geometry),
   }));
-  return finalize(raw, prj ? await prj.async('string') : null);
+  return finalize(raw, prj ? await prj.async('string') : null, [], opts);
 }

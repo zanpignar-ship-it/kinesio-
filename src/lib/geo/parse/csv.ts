@@ -1,10 +1,11 @@
 import Papa from 'papaparse';
 import { countDecimals } from '../precision';
 import type { Issue } from '../types';
-import { finalize, type ParseResult, type RawFeature } from './common';
+import { finalize, type FinalizeOptions, type ParseResult, type RawFeature } from './common';
 
-const LAT = ['lat', 'latitude', 'sirina', 'geografska sirina', 'y'];
-const LON = ['lon', 'lng', 'long', 'longitude', 'dolzina', 'geografska dolzina', 'x'];
+// x/y follow GIS order (x = easting); the surveying order (y = easting) is detected from the values.
+const LAT = ['lat', 'latitude', 'sirina', 'geografska sirina', 'n', 'northing', 'north', 'y'];
+const LON = ['lon', 'lng', 'long', 'longitude', 'dolzina', 'geografska dolzina', 'e', 'easting', 'east', 'x'];
 const NAME = ['name', 'ime', 'oznaka', 'label', 'naziv'];
 const AREA = ['area', 'area_ha', 'povrsina', 'povrsina_ha', 'ha'];
 
@@ -26,7 +27,7 @@ function pick(row: Record<string, string>, names: string[]): string | undefined 
 
 const toNumber = (s: string): number => Number(s.replace(/\s/g, '').replace(',', '.'));
 
-export function parseCsv(text: string): ParseResult {
+export function parseCsv(text: string, opts: FinalizeOptions = {}): ParseResult {
   const result = Papa.parse<Record<string, string>>(text.replace(/^﻿/, ''), {
     header: true,
     skipEmptyLines: 'greedy',
@@ -57,5 +58,5 @@ export function parseCsv(text: string): ParseResult {
       decimals: { min: Math.min(dLat, dLon), max: Math.max(dLat, dLon) },
     });
   });
-  return finalize(raw, null, issues);
+  return finalize(raw, null, issues, opts);
 }

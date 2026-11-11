@@ -1,6 +1,6 @@
 /**
  * Try a plot file without the web app:
- *   npx tsx scripts/try-file.ts <datoteka> [--country SI]
+ *   npx tsx scripts/try-file.ts <datoteka> [--country SI] [--crs EPSG:3794]
  * Prints the validation result per plot (in Slovenian) and writes out.geojson for TRACES.
  */
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -8,6 +8,7 @@ import { basename } from 'node:path';
 import sl from '../messages/sl.json';
 import { buildEudrGeoJson, serializeEudrGeoJson, type ExportPlot } from '../src/lib/geo/export-eudr';
 import { parsePlotFile } from '../src/lib/geo/parse';
+import { parseCrsHint } from '../src/lib/geo/reproject';
 import type { Issue } from '../src/lib/geo/types';
 import { validatePlot } from '../src/lib/geo/validate';
 
@@ -22,15 +23,19 @@ function message(issue: Issue): string {
 
 const [file, ...rest] = process.argv.slice(2);
 if (!file) {
-  console.error('Uporaba: npx tsx scripts/try-file.ts <datoteka> [--country SI]');
+  console.error('Uporaba: npx tsx scripts/try-file.ts <datoteka> [--country SI] [--crs EPSG:3794]');
   process.exit(1);
 }
 const countryIndex = rest.indexOf('--country');
 const country = (countryIndex >= 0 ? rest[countryIndex + 1] : undefined) ?? 'SI';
 
-const result = await parsePlotFile(basename(file), new Uint8Array(readFileSync(file)));
+const crsIndex = rest.indexOf('--crs');
+const crs = crsIndex >= 0 ? parseCrsHint(rest[crsIndex + 1] ?? '') : null;
+
+const result = await parsePlotFile(basename(file), new Uint8Array(readFileSync(file)), crs ? { crs } : {});
 console.log(`Koordinatni sistem: ${result.detectedCrs}, parcel: ${result.features.length}`);
 for (const issue of [...(result.crsIssue ? [result.crsIssue] : []), ...result.issues]) console.log(`  ${message(issue)}`);
+if (result.crsIssue?.code === 'CRS_GUESSED') console.log('  Za potrditev ponovite ukaz z --crs EPSG:3794 (D96/TM) ali --crs EPSG:3912 (D48/GK).');
 
 const exportable: ExportPlot[] = [];
 const accepted: { id: string; geometry: NonNullable<ReturnType<typeof validatePlot>['geometry']> }[] = [];

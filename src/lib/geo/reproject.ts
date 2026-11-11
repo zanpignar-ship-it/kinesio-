@@ -85,16 +85,33 @@ export function parseCrsHint(hint: string): SupportedCrs | null {
 
 /**
  * Guess the CRS of a geometry without metadata. Degrees → WGS-84; metres inside the
- * Slovenian D96/TM extent → EPSG:3794 (must be confirmed by the user); otherwise CRS_UNKNOWN.
+ * Slovenian grid extent → EPSG:3794 with a CRS_GUESSED error (user must confirm; D48/GK is the
+ * alternative); otherwise CRS_UNKNOWN.
  * With CRS_UNKNOWN the returned crs is EPSG:4326 and the coordinates stay as they are
  * (validation then reports COORD_LOOKS_PROJECTED).
  */
+const inSloveneGrid = ([x = 0, y = 0]: GeoJSON.Position): boolean => x >= 370_000 && x <= 630_000 && y >= 20_000 && y <= 200_000;
+
+/**
+ * True when metre coordinates only fit the Slovenian grid (D96/TM, D48/GK) with the axes
+ * swapped – the surveying convention Y = easting, X = northing written as "x, y".
+ */
+export function sloveneGridAxesSwapped(geometry: GeoJSON.Geometry): boolean {
+  const positions = allPositions(geometry);
+  return positions.length > 0 && !positions.every(inSloveneGrid) && positions.every(([x = 0, y = 0]) => inSloveneGrid([y, x]));
+}
+
 export function guessCrs(geometry: GeoJSON.Geometry): { crs: SupportedCrs; issue: Issue | null } {
   const positions = allPositions(geometry);
   const inDegrees = positions.every(([x = 0, y = 0]) => Math.abs(x) <= 180 && Math.abs(y) <= 90);
   if (inDegrees) return { crs: 'EPSG:4326', issue: null };
-  const inD96 = positions.every(([x = 0, y = 0]) => x >= 370_000 && x <= 630_000 && y >= 20_000 && y <= 200_000);
-  if (inD96) return { crs: 'EPSG:3794', issue: { code: 'CRS_GUESSED', severity: 'warning', params: { crs: 'EPSG:3794' } } };
+  if (positions.every(inSloveneGrid) || sloveneGridAxesSwapped(geometry)) {
+    // D96/TM and D48/GK share the same number range (~600 m apart): the user must confirm.
+    return {
+      crs: 'EPSG:3794',
+      issue: { code: 'CRS_GUESSED', severity: 'error', params: { crs: 'EPSG:3794', alternatives: 'EPSG:3912' } },
+    };
+  }
   return { crs: 'EPSG:4326', issue: { code: 'CRS_UNKNOWN', severity: 'error' } };
 }
 

@@ -2,7 +2,7 @@ import type * as GeoJSON from 'geojson';
 import { allPositions } from '../coords';
 import { countDecimals, decimalStatsFromNumbers } from '../precision';
 import type { DecimalStats } from '../types';
-import { failed, finalize, type ParseResult, type RawFeature } from './common';
+import { failed, finalize, type FinalizeOptions, type ParseResult, type RawFeature } from './common';
 
 type Reviver = (key: string, value: unknown) => unknown;
 
@@ -42,7 +42,7 @@ function isObject(v: unknown): v is Record<string, unknown> {
   return typeof v === 'object' && v !== null && !Array.isArray(v);
 }
 
-export function parseGeoJson(text: string): ParseResult {
+export function parseGeoJson(text: string, opts: FinalizeOptions = {}): ParseResult {
   let parsed: ReturnType<typeof parseWithDecimals>;
   try {
     parsed = parseWithDecimals(text);
@@ -63,5 +63,5 @@ export function parseGeoJson(text: string): ParseResult {
     properties: isObject(f.properties) ? f.properties : {},
     decimals: f.geometry ? statsFor(f.geometry, parsed.decimalsOf) : null,
   }));
-  return finalize(raw, typeof crsMember === 'string' ? crsMember : null);
+  return finalize(raw, typeof crsMember === 'string' ? crsMember : null, [], opts);
 }
