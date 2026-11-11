@@ -34,15 +34,16 @@ export function asService<T>(fn: (c: Client) => Promise<T>): Promise<T> {
   }, fn);
 }
 
-/** Expect a statement to fail with the given SQLSTATE (42501 = RLS / privilege, 23503 = FK, 23514 = check). */
-export async function expectSqlError(c: Client, sql: string, params: unknown[], code: string): Promise<void> {
+/** Expect a statement to fail with one of the given SQLSTATEs (42501 = RLS, 23503 = FK, 23514 = check, P0001 = trigger). */
+export async function expectSqlError(c: Client, sql: string, params: unknown[], code: string | string[]): Promise<void> {
+  const codes = Array.isArray(code) ? code : [code];
   await c.query('savepoint s');
   try {
     await c.query(sql, params);
   } catch (e) {
     await c.query('rollback to savepoint s');
     const actual = (e as { code?: string }).code;
-    if (actual !== code) throw new Error(`Expected SQLSTATE ${code}, got ${actual}: ${(e as Error).message}`);
+    if (!actual || !codes.includes(actual)) throw new Error(`Expected SQLSTATE ${codes.join('/')}, got ${actual}: ${(e as Error).message}`);
     return;
   }
   throw new Error(`Expected SQLSTATE ${code}, but the statement succeeded: ${sql}`);

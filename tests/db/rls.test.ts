@@ -8,6 +8,9 @@ const count = async (c: { query: (s: string, p?: unknown[]) => Promise<{ rows: {
   Number((await c.query(sql, p)).rows[0]?.n);
 
 /** A copy of one of the user's own rows, moved to `targetOrg` (with a fresh id where the table has one). */
+/** Rejected by RLS (42501) or earlier by a guard trigger (23503 shipment ownership, P0001 immutable organization_id). */
+const REJECTED = ['42501', '23503', 'P0001'];
+
 const copyIntoOrg = (table: string) => `
   insert into ${table}
   select (jsonb_populate_record(null::${table},
@@ -23,7 +26,7 @@ describe.each(TENANT_TABLES)('RLS on %s', (table) => {
     });
   });
   it('alice cannot insert a row into org B', async () => {
-    await asUser(ids.alice, (c) => expectSqlError(c, copyIntoOrg(table), [ids.orgA, ids.orgB], '42501'));
+    await asUser(ids.alice, (c) => expectSqlError(c, copyIntoOrg(table), [ids.orgA, ids.orgB], REJECTED));
   });
   it('alice cannot update or delete org B rows', async () => {
     await asUser(ids.alice, async (c) => {
@@ -34,14 +37,14 @@ describe.each(TENANT_TABLES)('RLS on %s', (table) => {
   });
   it('alice cannot move her row to org B', async () => {
     await asUser(ids.alice, (c) =>
-      expectSqlError(c, `update ${table} set organization_id = $2 where organization_id = $1`, [ids.orgA, ids.orgB], '42501'),
+      expectSqlError(c, `update ${table} set organization_id = $2 where organization_id = $1`, [ids.orgA, ids.orgB], REJECTED),
     );
   });
   it('carol (member of A and B) sees both, bob cannot write into A', async () => {
     await asUser(ids.carol, async (c) => {
       expect(await count(c, `select count(*) n from ${table} where organization_id in ($1, $2)`, [ids.orgA, ids.orgB])).toBe(2);
     });
-    await asUser(ids.bob, (c) => expectSqlError(c, copyIntoOrg(table), [ids.orgB, ids.orgA], '42501'));
+    await asUser(ids.bob, (c) => expectSqlError(c, copyIntoOrg(table), [ids.orgB, ids.orgA], REJECTED));
   });
   it('anon sees nothing', async () => {
     await asUser(null, async (c) => {
