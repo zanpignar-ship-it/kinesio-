@@ -1,0 +1,29 @@
+{
+  "geo": {
+    "issues": {
+      "GEOM_TYPE_NOT_ALLOWED": "Vrsta geometrije {type} ni dovoljena. Uporabite točko ali poligon.",
+      "COORD_OUT_OF_RANGE": "Koordinate so izven veljavnega obsega (dolžina −180 do 180, širina −90 do 90).",
+      "COORD_SWAPPED": "Zemljepisna širina in dolžina sta verjetno zamenjani. Preverite vrstni red stolpcev.",
+      "COORD_LOOKS_PROJECTED": "Koordinate so v metrih (npr. D96/TM), ne v stopinjah WGS-84. Izberite pravi koordinatni sistem pri uvozu.",
+      "PRECISION_TOO_LOW": "Koordinate imajo le {found} decimalnih mest, zahtevanih je vsaj {required}.",
+      "PRECISION_PARTIAL": "Nekatere koordinate imajo le {found} decimalnih mest (morda so se izgubile ničle na koncu). Priporočeno je vsaj {required}.",
+      "POLYGON_CLOSED_AUTOMATICALLY": "Poligon ni bil zaprt, zato smo ga zaprli samodejno. Preverite obliko na karti.",
+      "POLYGON_TOO_FEW_POINTS": "Poligon ima premalo točk (potrebne so vsaj 3 različne točke).",
+      "POLYGON_SELF_INTERSECTION": "Meja poligona seka samo sebe (pri {lon}, {lat}). Popravite vrstni red točk.",
+      "RING_ORIENTATION_FIXED": "Smer obrisa poligona smo samodejno popravili.",
+      "Z_COORDINATE_REMOVED": "Nadmorska višina je bila odstranjena, ker je EUDR ne potrebuje.",
+      "POINT_OVER_4HA": "Parcela ima {areaHa} ha. Parcele, večje od {maxHa} ha, morajo biti vnesene kot poligon.",
+      "POINT_POLYGON_RECOMMENDED": "Parcela je vnesena kot točka. Dovoljeno je, a poligon je priporočen.",
+      "POINT_AREA_MISSING": "Pri točki manjka površina. Sistem TRACES bi privzel {defaultHa} ha.",
+      "OUTSIDE_COUNTRY": "Parcela ne leži v izbrani državi ({country}).",
+      "COUNTRY_CHECK_UNAVAILABLE": "Za državo {country} lege parcele še ne moremo preveriti.",
+      "DUPLICATE_PLOT": "Parcela je skoraj enaka že vneseni parceli ({ids}).",
+      "AREA_ZERO": "Poligon nima površine (vse točke ležijo na isti črti).",
+      "NO_GEOMETRY": "Parcela nima geolokacije. Primerna je le za poenostavljeno izjavo, ne za izjavo o skrbnem pregledu.",
+      "CRS_GUESSED": "Datoteka nima podatka o koordinatnem sistemu. Domnevamo {crs} (slovenski D96/TM). Potrdite, da je to pravilno.",
+      "CRS_UNKNOWN": "Koordinatnega sistema datoteke ne poznamo. Izvozite datoteko v WGS-84 (EPSG:4326) ali D96/TM (EPSG:3794).",
+      "PARSE_FAILED": "Datoteke ali vrstice ni bilo mogoče prebrati.",
+      "EXPORT_TOO_LARGE": "Datoteka GeoJSON je prevelika ({bytes} bajtov, največ {max}). Razdelite pošiljko ali poenostavite poligone."
+    }
+  }
+}
