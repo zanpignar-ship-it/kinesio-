@@ -1,0 +1,50 @@
+{
+  "common": {
+    "appName": "LesTrace",
+    "disclaimer": "LesTrace is a data preparation tool. The user is responsible for the due diligence statement.",
+    "language": "Language",
+    "localeNames": {
+      "sl": "Slovenščina",
+      "hr": "Hrvatski",
+      "sr-Latn": "Srpski (latinica)",
+      "bs": "Bosanski",
+      "en": "English"
+    }
+  },
+  "home": {
+    "title": "EUDR data for the timber industry",
+    "subtitle": "Enter your plots and documents once and get a correct GeoJSON, due diligence statement data and a buyer package for every shipment.",
+    "deadlineLarge": "Large and medium companies: EUDR applies from 30 Dec 2026.",
+    "deadlineSmall": "Micro and small companies: EUDR applies from 30 Jun 2027.",
+    "comingSoon": "Sign-in is coming soon."
+  },
+  "geo": {
+    "issues": {
+      "GEOM_TYPE_NOT_ALLOWED": "Geometry type {type} is not allowed. Use a point or a polygon.",
+      "COORD_OUT_OF_RANGE": "Coordinates are out of range (longitude −180 to 180, latitude −90 to 90).",
+      "COORD_SWAPPED": "Latitude and longitude seem to be swapped. Check the column order.",
+      "COORD_LOOKS_PROJECTED": "Coordinates are in metres (e.g. D96/TM), not WGS-84 degrees. Choose the right coordinate system when importing.",
+      "PRECISION_TOO_LOW": "Coordinates have only {found} decimal places; at least {required} are required.",
+      "PRECISION_PARTIAL": "Some coordinates have only {found} decimal places (trailing zeros may have been lost). At least {required} are recommended.",
+      "POLYGON_CLOSED_AUTOMATICALLY": "The polygon was not closed, so we closed it automatically. Check its shape on the map.",
+      "POLYGON_TOO_FEW_POINTS": "The polygon has too few points (at least 3 distinct points are needed).",
+      "POLYGON_SELF_INTERSECTION": "The polygon boundary crosses itself (at {lon}, {lat}). Fix the order of the points.",
+      "POLYGON_HOLE_OUTSIDE": "A hole of the polygon lies outside its outer boundary. Fix the plot outline.",
+      "LABEL_POINTS_REMOVED": "Label points next to the polygon were removed; only the polygon is used.",
+      "RING_ORIENTATION_FIXED": "The direction of the polygon outline was fixed automatically.",
+      "Z_COORDINATE_REMOVED": "Altitude was removed because EUDR does not need it.",
+      "POINT_OVER_4HA": "The plot has {areaHa} ha. Plots larger than {maxHa} ha must be entered as a polygon.",
+      "POINT_POLYGON_RECOMMENDED": "The plot is entered as a point. This is allowed, but a polygon is recommended.",
+      "POINT_AREA_MISSING": "The point has no area. TRACES would assume {defaultHa} ha.",
+      "OUTSIDE_COUNTRY": "The plot is not in the selected country ({country}).",
+      "COUNTRY_CHECK_UNAVAILABLE": "We cannot check plot locations for {country} yet.",
+      "DUPLICATE_PLOT": "The plot is almost identical to an existing plot ({ids}).",
+      "AREA_ZERO": "The polygon has no area (all points lie on one line).",
+      "NO_GEOMETRY": "The plot has no geolocation. It can only be used for a simplified declaration, not for a due diligence statement.",
+      "CRS_GUESSED": "The file does not state its coordinate system. We assume {crs} (Slovenian D96/TM), but it could also be {alternatives} (old D48/GK, ~600 m apart). Please confirm the right system.",
+      "CRS_UNKNOWN": "The file's coordinate system is unknown. Export the file in WGS-84 (EPSG:4326) or D96/TM (EPSG:3794).",
+      "PARSE_FAILED": "The file or row could not be read.",
+      "EXPORT_TOO_LARGE": "The GeoJSON file is too large ({bytes} bytes, max {max}). Split the shipment or simplify the polygons."
+    }
+  }
+}

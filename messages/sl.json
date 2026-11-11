@@ -1,4 +1,23 @@
 {
+  "common": {
+    "appName": "LesTrace",
+    "disclaimer": "LesTrace je orodje za pripravo podatkov. Odgovornost za izjavo o skrbnem pregledu nosi uporabnik.",
+    "language": "Jezik",
+    "localeNames": {
+      "sl": "Slovenščina",
+      "hr": "Hrvatski",
+      "sr-Latn": "Srpski (latinica)",
+      "bs": "Bosanski",
+      "en": "English"
+    }
+  },
+  "home": {
+    "title": "Podatki za EUDR za lesno panogo",
+    "subtitle": "Enkrat vnesite parcele in dokumente, za vsako pošiljko pa dobite pravilen GeoJSON, podatke za izjavo o skrbnem pregledu in paket za kupca.",
+    "deadlineLarge": "Velika in srednja podjetja: EUDR velja od 30. 12. 2026.",
+    "deadlineSmall": "Mikro in mala podjetja: EUDR velja od 30. 6. 2027.",
+    "comingSoon": "Prijava bo kmalu na voljo."
+  },
   "geo": {
     "issues": {
       "GEOM_TYPE_NOT_ALLOWED": "Vrsta geometrije {type} ni dovoljena. Uporabite točko ali poligon.",

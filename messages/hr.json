@@ -1,0 +1,53 @@
+{
+  "_meta": {
+    "machineTranslated": true
+  },
+  "common": {
+    "appName": "LesTrace",
+    "disclaimer": "LesTrace je alat za pripremu podataka. Odgovornost za izjavu o dužnoj pažnji snosi korisnik.",
+    "language": "Jezik",
+    "localeNames": {
+      "sl": "Slovenščina",
+      "hr": "Hrvatski",
+      "sr-Latn": "Srpski (latinica)",
+      "bs": "Bosanski",
+      "en": "English"
+    }
+  },
+  "home": {
+    "title": "EUDR podaci za drvnu industriju",
+    "subtitle": "Jednom unesite čestice i dokumente, a za svaku pošiljku dobivate ispravan GeoJSON, podatke za izjavu o dužnoj pažnji i paket za kupca.",
+    "deadlineLarge": "Velika i srednja poduzeća: EUDR se primjenjuje od 30. 12. 2026.",
+    "deadlineSmall": "Mikro i mala poduzeća: EUDR se primjenjuje od 30. 6. 2027.",
+    "comingSoon": "Prijava će uskoro biti dostupna."
+  },
+  "geo": {
+    "issues": {
+      "GEOM_TYPE_NOT_ALLOWED": "Vrsta geometrije {type} nije dopuštena. Koristite točku ili poligon.",
+      "COORD_OUT_OF_RANGE": "Koordinate su izvan valjanog raspona (duljina −180 do 180, širina −90 do 90).",
+      "COORD_SWAPPED": "Geografska širina i duljina vjerojatno su zamijenjene. Provjerite redoslijed stupaca.",
+      "COORD_LOOKS_PROJECTED": "Koordinate su u metrima (npr. HTRS96/TM), a ne u stupnjevima WGS-84. Pri uvozu odaberite ispravan koordinatni sustav.",
+      "PRECISION_TOO_LOW": "Koordinate imaju samo {found} decimalnih mjesta, potrebno je najmanje {required}.",
+      "PRECISION_PARTIAL": "Neke koordinate imaju samo {found} decimalnih mjesta (možda su izgubljene nule na kraju). Preporučeno je najmanje {required}.",
+      "POLYGON_CLOSED_AUTOMATICALLY": "Poligon nije bio zatvoren pa smo ga zatvorili automatski. Provjerite oblik na karti.",
+      "POLYGON_TOO_FEW_POINTS": "Poligon ima premalo točaka (potrebne su najmanje 3 različite točke).",
+      "POLYGON_SELF_INTERSECTION": "Granica poligona siječe samu sebe (kod {lon}, {lat}). Ispravite redoslijed točaka.",
+      "POLYGON_HOLE_OUTSIDE": "Rupa u poligonu nalazi se izvan njegove vanjske granice. Ispravite obris čestice.",
+      "LABEL_POINTS_REMOVED": "Oznake (točke) uz poligon su uklonjene; koristi se samo poligon.",
+      "RING_ORIENTATION_FIXED": "Smjer obrisa poligona automatski je ispravljen.",
+      "Z_COORDINATE_REMOVED": "Nadmorska visina je uklonjena jer je EUDR ne zahtijeva.",
+      "POINT_OVER_4HA": "Čestica ima {areaHa} ha. Čestice veće od {maxHa} ha moraju se unijeti kao poligon.",
+      "POINT_POLYGON_RECOMMENDED": "Čestica je unesena kao točka. To je dopušteno, ali preporučuje se poligon.",
+      "POINT_AREA_MISSING": "Za točku nedostaje površina. Sustav TRACES pretpostavio bi {defaultHa} ha.",
+      "OUTSIDE_COUNTRY": "Čestica se ne nalazi u odabranoj državi ({country}).",
+      "COUNTRY_CHECK_UNAVAILABLE": "Za državu {country} položaj čestice još ne možemo provjeriti.",
+      "DUPLICATE_PLOT": "Čestica je gotovo jednaka već unesenoj čestici ({ids}).",
+      "AREA_ZERO": "Poligon nema površinu (sve točke leže na istoj liniji).",
+      "NO_GEOMETRY": "Čestica nema geolokaciju. Prikladna je samo za pojednostavljenu izjavu, a ne za izjavu o dužnoj pažnji.",
+      "CRS_GUESSED": "Datoteka nema podatak o koordinatnom sustavu. Pretpostavljamo {crs} (slovenski D96/TM), no može biti i {alternatives} (stari D48/GK, razlika ~600 m). Potvrdite ispravan sustav.",
+      "CRS_UNKNOWN": "Koordinatni sustav datoteke nije poznat. Izvezite datoteku u WGS-84 (EPSG:4326) ili D96/TM (EPSG:3794).",
+      "PARSE_FAILED": "Datoteku ili redak nije bilo moguće pročitati.",
+      "EXPORT_TOO_LARGE": "Datoteka GeoJSON je prevelika ({bytes} bajtova, najviše {max}). Podijelite pošiljku ili pojednostavite poligone."
+    }
+  }
+}
