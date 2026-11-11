@@ -184,7 +184,8 @@
       "inUse": "Parcela se koristi u pošiljci i ne može se obrisati. Možete je arhivirati.",
       "tooMany": "Odjednom možete uvesti najviše 2.000 parcela.",
       "notFound": "Parcela nije pronađena."
-    }
+    },
+    "archivedFilter": "Arhivirane"
   },
   "map": {
     "satellite": "Satelit",

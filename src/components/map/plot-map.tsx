@@ -80,6 +80,8 @@ export function PlotMap({ plots, draft, onAdd, onMove, onPlotClick, className }:
       pitchWithRotate: false,
     });
     map.touchZoomRotate.disableRotation();
+    // While drawing, a double tap must add a corner, not zoom (and add two corners).
+    if (handlers.current.onAdd) map.doubleClickZoom.disable();
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
     const addLayers = () => {
       if (!map.getSource('plots')) {

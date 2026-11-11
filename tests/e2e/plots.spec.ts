@@ -44,4 +44,13 @@ test('a plot can be archived and disappears from the list', async ({ page }) => 
   await page.getByRole('button', { name: 'Arhiviraj' }).click();
   await expect(page).toHaveURL(/\/sl\/app\/plots$/);
   await expect(page.getByTestId('plot-row')).toHaveCount(2);
+
+  // Archived plots stay findable and can be restored.
+  await page.getByRole('link', { name: /Arhivirane/ }).click();
+  await expect(page).toHaveURL(/archived=1/);
+  await expect(page.getByTestId('plot-row')).toHaveCount(1);
+  await page.getByRole('link', { name: 'Gozd B' }).click();
+  await page.getByRole('button', { name: 'Obnovi' }).click();
+  await expect(page).toHaveURL(/\/sl\/app\/plots$/);
+  await expect(page.getByTestId('plot-row')).toHaveCount(3);
 });

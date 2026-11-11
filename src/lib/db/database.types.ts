@@ -1001,6 +1001,13 @@ export type Database = {
         }[]
       }
       plots_map: { Args: { p_org: string }; Returns: Json }
+      plots_near: {
+        Args: { p_geoms: Json; p_org: string }
+        Returns: {
+          geom: Json
+          id: string
+        }[]
+      }
     }
     Enums: {
       document_type:

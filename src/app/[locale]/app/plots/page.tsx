@@ -20,7 +20,7 @@ export default async function PlotsPage({ params, searchParams }: Props) {
   if (!current) return null;
   const filters = parseFilters(await searchParams);
   const supabase = await createServerSupabase();
-  const [{ rows, total, byStatus }, map] = await Promise.all([
+  const [{ rows, total, byStatus, archivedCount }, map] = await Promise.all([
     listPlots(current.organization.id, filters),
     supabase.rpc('plots_map', { p_org: current.organization.id }),
   ]);
@@ -29,8 +29,9 @@ export default async function PlotsPage({ params, searchParams }: Props) {
   const format = await getFormatter();
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   const all = byStatus.valid + byStatus.warning + byStatus.error;
-  const href = (overrides: Partial<{ status: PlotStatus | undefined; page: number }>) => {
+  const href = (overrides: Partial<{ status: PlotStatus | undefined; page: number; archived: boolean }>) => {
     const query: Record<string, string> = {};
+    if (overrides.archived ?? (filters.archived && !('status' in overrides))) query.archived = '1';
     const status = 'status' in overrides ? overrides.status : filters.status;
     if (status) query.status = status;
     if (filters.q) query.q = filters.q;
@@ -55,20 +56,26 @@ export default async function PlotsPage({ params, searchParams }: Props) {
       </div>
 
       <nav className="flex flex-wrap gap-2" aria-label={t('issues')}>
-        <Link href={href({ status: undefined })} className={cn('rounded-full border px-3 py-1.5 text-sm', !filters.status && 'bg-foreground text-background')}>
+        <Link href={href({ status: undefined, archived: false })} className={cn('rounded-full border px-3 py-1.5 text-sm', !filters.status && !filters.archived && 'bg-foreground text-background')}>
           {t('all')} <span data-testid="count-all">{all}</span>
         </Link>
         {(['valid', 'warning', 'error'] as const).map((s) => (
-          <Link key={s} href={href({ status: s })} className={cn('rounded-full border px-3 py-1.5 text-sm', filters.status === s && 'bg-foreground text-background')}>
+          <Link key={s} href={href({ status: s, archived: false })} className={cn('rounded-full border px-3 py-1.5 text-sm', filters.status === s && !filters.archived && 'bg-foreground text-background')}>
             {t(`status.${s}`)} <span data-testid={`count-${s}`}>{byStatus[s]}</span>
           </Link>
         ))}
+        {archivedCount > 0 || filters.archived ? (
+          <Link href={href({ status: undefined, archived: true })} className={cn('rounded-full border px-3 py-1.5 text-sm', filters.archived && 'bg-foreground text-background')}>
+            {t('archivedFilter')} <span data-testid="count-archived">{archivedCount}</span>
+          </Link>
+        ) : null}
       </nav>
 
       {mapData.features.length > 0 ? <PlotsOverviewMap plots={mapData} className="h-[45vh] min-h-72" /> : null}
 
       <form className="flex gap-2" action="" method="get">
         {filters.status ? <input type="hidden" name="status" value={filters.status} /> : null}
+        {filters.archived ? <input type="hidden" name="archived" value="1" /> : null}
         <label htmlFor="q" className="sr-only">
           {t('search')}
         </label>

@@ -4,14 +4,13 @@ import { revalidatePath } from 'next/cache';
 import type * as GeoJSON from 'geojson';
 import { redirect } from '@/i18n/navigation';
 import type { Json } from '@/lib/db/database.types';
-import type { DecimalStats, PlotGeometry } from '@/lib/geo/types';
+import type { PlotGeometry } from '@/lib/geo/types';
 import { getPlotContext, nearbyPlots } from '@/lib/plots/context';
-import { geometrySchema, plotFormSchema } from '@/lib/plots/schemas';
-import { preparePlot, type PreparedPlot } from '@/lib/plots/service';
+import { geometrySchema, importPayloadSchema, plotFormSchema } from '@/lib/plots/schemas';
+import { prepareDrawnPlot, preparePlot, type PreparedPlot } from '@/lib/plots/service';
 
 export type PlotFormState = { error?: string; values?: Record<string, string> };
 
-const MAX_IMPORT = 2000;
 
 function readForm(formData: FormData): Record<string, string> {
   return Object.fromEntries([...formData.entries()].filter(([, v]) => typeof v === 'string')) as Record<string, string>;
@@ -41,11 +40,19 @@ async function savePlot(formData: FormData, plotId: string | null): Promise<Plot
   if (geometry === 'invalid') return { error: 'plots.errors.geometry', values };
   if (!geometry && !form.data.postalAddress) return { error: 'plots.errors.geometryRequired', values };
 
-  const others = geometry ? await nearbyPlots(supabase, organizationId, [geometry as PlotGeometry], plotId ?? undefined) : [];
-  const row = toRow(preparePlot({ ...form.data, geometry }, others));
+  let others: { id: string; geometry: PlotGeometry }[] = [];
+  try {
+    others = geometry ? await nearbyPlots(supabase, organizationId, [geometry as PlotGeometry], plotId ?? undefined) : [];
+  } catch {
+    return { error: 'plots.errors.unknown', values };
+  }
+  const row = toRow(prepareDrawnPlot({ ...form.data, geometry }, others));
 
   if (plotId) {
-    const { error } = await supabase.from('plots').update(row).eq('id', plotId).eq('organization_id', organizationId);
+    // The edit form has no address field: keep a stored address instead of clearing it.
+    const update: Partial<typeof row> = { ...row };
+    if (form.data.postalAddress === undefined) delete update.postal_address;
+    const { error } = await supabase.from('plots').update(update).eq('id', plotId).eq('organization_id', organizationId);
     if (error) return { error: 'plots.errors.unknown', values };
     revalidatePath(`/${locale}/app/plots`);
     redirect({ href: `/app/plots/${plotId}`, locale });
@@ -97,39 +104,49 @@ export async function deletePlot(_prev: PlotFormState, formData: FormData): Prom
   return {};
 }
 
-export type ImportRow = { label: string; geometry: GeoJSON.Geometry | null; declaredAreaHa?: number; decimals: DecimalStats | null };
+/** What the browser sends; everything is re-checked with importPayloadSchema. */
 export type ImportPayload = {
   locale: string;
   country: string;
   fileName: string;
   filePath: string | null;
   detectedCrs: string;
-  rows: ImportRow[];
+  rows: { label: unknown; geometry: unknown; declaredAreaHa?: unknown; decimals: unknown }[];
 };
 export type ImportResult = { error?: string; inserted?: number; counts?: { valid: number; warning: number; error: number } };
 
 /** Save many plots at once (one insert). Every row is validated again on the server. */
-export async function importPlots(payload: ImportPayload): Promise<ImportResult> {
+export async function importPlots(input: ImportPayload): Promise<ImportResult> {
+  try {
+    return await importPlotsUnsafe(input);
+  } catch {
+    return { error: 'plots.errors.unknown' };
+  }
+}
+
+async function importPlotsUnsafe(input: ImportPayload): Promise<ImportResult> {
   const ctx = await getPlotContext();
   if (!ctx) return { error: 'plots.errors.unknown' };
-  if (payload.rows.length === 0) return { error: 'imp.empty' };
-  if (payload.rows.length > MAX_IMPORT) return { error: 'plots.errors.tooMany' };
-  const form = plotFormSchema.safeParse({ label: 'x', country: payload.country });
-  if (!form.success) return { error: 'plots.errors.country' };
+  const parsed = importPayloadSchema.safeParse(input);
+  if (!parsed.success) {
+    const tooMany = parsed.error.issues.some((i) => i.path[0] === 'rows' && i.code === 'too_big');
+    const empty = parsed.error.issues.some((i) => i.path[0] === 'rows' && i.code === 'too_small');
+    return { error: tooMany ? 'plots.errors.tooMany' : empty ? 'imp.empty' : 'plots.errors.unknown' };
+  }
+  const payload = parsed.data;
   const { supabase, organizationId } = ctx;
+  // Only files inside the organization's own folder can be referenced.
+  const filePath = payload.filePath && payload.filePath.startsWith(`${organizationId}/`) ? payload.filePath : null;
 
-  const geoms = payload.rows.flatMap((r) => {
-    const g = r.geometry ? geometrySchema.safeParse(r.geometry) : null;
-    return g?.success ? [g.data as PlotGeometry] : [];
-  });
+  const geoms = payload.rows.flatMap((r) => (r.geometry ? [r.geometry as PlotGeometry] : []));
   const existing = await nearbyPlots(supabase, organizationId, geoms);
 
   const { data: imp, error: impError } = await supabase
     .from('plot_imports')
     .insert({
       organization_id: organizationId,
-      file_name: payload.fileName.slice(0, 255),
-      file_path: payload.filePath ?? '',
+      file_name: payload.fileName,
+      file_path: filePath ?? '',
       detected_crs: payload.detectedCrs,
       feature_count: payload.rows.length,
     })
@@ -140,16 +157,21 @@ export async function importPlots(payload: ImportPayload): Promise<ImportResult>
   const counts = { valid: 0, warning: 0, error: 0 };
   const seen: { id: string; geometry: PlotGeometry }[] = [...existing];
   const rows = payload.rows.map((r, i) => {
-    const parsed = r.geometry ? geometrySchema.safeParse(r.geometry) : null;
-    const geometry = parsed?.success ? (parsed.data as GeoJSON.Geometry) : null;
-    const label = r.label.trim().slice(0, 120) || `${i + 1}`;
-    const prepared = preparePlot({ label, country: payload.country, geometry, declaredAreaHa: r.declaredAreaHa, decimals: r.decimals }, seen);
+    const label = r.label || `${i + 1}`;
+    const prepared = preparePlot(
+      { label, country: payload.country, geometry: r.geometry as GeoJSON.Geometry | null, declaredAreaHa: r.declaredAreaHa, decimals: r.decimals },
+      seen,
+    );
     counts[prepared.validation_status] += 1;
-    if (prepared.geom) seen.push({ id: `import-${i + 1}`, geometry: prepared.geom });
+    if (prepared.geom) seen.push({ id: label, geometry: prepared.geom });
     return { ...toRow(prepared), organization_id: organizationId, source_import_id: imp.id };
   });
   const { error } = await supabase.from('plots').insert(rows);
-  if (error) return { error: 'plots.errors.unknown' };
+  if (error) {
+    // Do not leave an import record without plots.
+    await supabase.from('plot_imports').delete().eq('id', imp.id);
+    return { error: 'plots.errors.unknown' };
+  }
   revalidatePath(`/${payload.locale}/app/plots`);
   return { inserted: rows.length, counts };
 }

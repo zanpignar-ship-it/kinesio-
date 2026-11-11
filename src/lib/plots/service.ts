@@ -51,3 +51,11 @@ export function preparePlot(input: PlotInput, others: { id: string; geometry: Pl
     postal_address: input.postalAddress ?? null,
   };
 }
+
+/**
+ * Plots drawn in the app: coordinates come from our own tool (7 decimals, trailing zeros dropped by JSON),
+ * so the precision rule – meant for imported files – is skipped. The export always writes 6 decimals.
+ */
+export function prepareDrawnPlot(input: Omit<PlotInput, 'decimals'>, others: { id: string; geometry: PlotGeometry }[]): PreparedPlot {
+  return preparePlot({ ...input, decimals: null }, others);
+}

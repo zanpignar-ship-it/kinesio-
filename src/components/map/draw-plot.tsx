@@ -11,6 +11,7 @@ import { createPlot, updatePlot } from '@/app/[locale]/app/plots/actions';
 import { ORG_COUNTRIES } from '@/lib/auth/schemas';
 import { validatePlot } from '@/lib/geo/validate';
 import { drawReducer, initialDraw, toGeometry, type DrawState } from '@/lib/map/draw-state';
+import { showsAreaField } from '@/lib/plots/area-field';
 import { PlotMapClient } from './map-client';
 
 type Initial = {
@@ -96,7 +97,7 @@ export function DrawPlot({ initial, others }: { initial: Initial; others?: GeoJS
             ))}
           </select>
         </div>
-        {draw.mode === 'point' && !initial.multiPart ? (
+        {showsAreaField(draw.mode, initial.multiPart ? (initial.geometry?.type ?? null) : null) ? (
           <div className="flex flex-col gap-2">
             <Label htmlFor="declaredAreaHa">{t('declaredArea')}</Label>
             <Input id="declaredAreaHa" name="declaredAreaHa" inputMode="decimal" value={declared} onChange={(e) => setDeclared(e.target.value)} />

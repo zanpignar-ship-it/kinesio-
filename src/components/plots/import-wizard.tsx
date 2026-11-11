@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState, useTransition } from 'react';
+import { useMemo, useRef, useState, useTransition } from 'react';
 import type * as GeoJSON from 'geojson';
 import { useLocale, useTranslations } from 'next-intl';
 import { PlotMapClient } from '@/components/map/map-client';
@@ -41,14 +41,18 @@ export function ImportWizard({ organizationId, defaultCountry }: Props) {
   const preview = useMemo(() => (parsed && !needsCrs ? previewImport(parsed.features, country, t('unnamed')) : null), [parsed, needsCrs, country, t]);
   const rows = preview ? selectImportRows(preview.items, includeErrors) : [];
 
+  // Only the latest parse may update the screen (quick D96/D48 switches can finish out of order).
+  const parseRun = useRef(0);
   const parse = async (f: { name: string; data: Uint8Array }, chosen: SupportedCrs | null) => {
+    const run = ++parseRun.current;
     setParsing(true);
     try {
       const result = await parsePlotFile(f.name, f.data, chosen ? { crs: chosen } : {});
+      if (run !== parseRun.current) return;
       if (!chosen) setCrsAsked(result.crsIssue?.code === 'CRS_GUESSED');
       setParsed(result);
     } finally {
-      setParsing(false);
+      if (run === parseRun.current) setParsing(false);
     }
   };
 
@@ -75,7 +79,11 @@ export function ImportWizard({ organizationId, defaultCountry }: Props) {
       let filePath: string | null = `${organizationId}/${crypto.randomUUID()}/${file.name.replace(/[^\w.\-]+/g, '_')}`;
       const upload = await createBrowserSupabase().storage.from('plot-imports').upload(filePath, file.data, { contentType: file.type, upsert: false });
       if (upload.error) filePath = null;
-      setResult(await importPlots({ locale, country, fileName: file.name, filePath, detectedCrs: crs ?? parsed.detectedCrs, rows }));
+      try {
+        setResult(await importPlots({ locale, country, fileName: file.name, filePath, detectedCrs: crs ?? parsed.detectedCrs, rows }));
+      } catch {
+        setResult({ error: 'plots.errors.unknown' });
+      }
     });
 
   if (result?.inserted !== undefined) {
@@ -86,7 +94,7 @@ export function ImportWizard({ organizationId, defaultCountry }: Props) {
           <Button asChild>
             <Link href="/app/plots">{t('toList')}</Link>
           </Button>
-          <Button variant="outline" onClick={() => { setFile(null); setParsed(null); setResult(null); }}>
+          <Button variant="outline" onClick={() => { setFile(null); setParsed(null); setResult(null); setCrs(null); setCrsAsked(false); }}>
             {t('another')}
           </Button>
         </div>

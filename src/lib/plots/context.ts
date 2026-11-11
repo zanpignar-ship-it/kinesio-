@@ -1,5 +1,5 @@
 import 'server-only';
-import { bbox } from '@turf/turf';
+import type { Json } from '@/lib/db/database.types';
 import type { PlotGeometry } from '@/lib/geo/types';
 import { getCurrentMembership, getSessionUser } from '@/lib/auth/session';
 import { createServerSupabase } from '@/lib/supabase/server';
@@ -15,24 +15,21 @@ export async function getPlotContext() {
 
 type Supabase = Awaited<ReturnType<typeof createServerSupabase>>;
 
-/** Existing plots near `geometries` (bbox + ~50 m), used for duplicate detection. */
+/** Existing plots near any of `geometries` (each geometry's box + ~50 m), used for duplicate detection. */
 export async function nearbyPlots(
   supabase: Supabase,
   organizationId: string,
   geometries: PlotGeometry[],
   excludeId?: string,
 ): Promise<{ id: string; geometry: PlotGeometry }[]> {
-  if (geometries.length === 0) return [];
-  const [minx, miny, maxx, maxy] = bbox({ type: 'GeometryCollection', geometries });
-  const pad = 0.0005;
-  const { data, error } = await supabase.rpc('plots_in_bbox', {
-    p_org: organizationId,
-    p_minx: minx - pad,
-    p_miny: miny - pad,
-    p_maxx: maxx + pad,
-    p_maxy: maxy + pad,
-    ...(excludeId ? { p_exclude: excludeId } : {}),
-  });
-  if (error) throw error;
-  return (data ?? []).map((r) => ({ id: r.id, geometry: r.geom as unknown as PlotGeometry }));
+  const found = new Map<string, PlotGeometry>();
+  for (let i = 0; i < geometries.length; i += 500) {
+    const { data, error } = await supabase.rpc('plots_near', {
+      p_org: organizationId,
+      p_geoms: geometries.slice(i, i + 500) as unknown as Json,
+    });
+    if (error) throw error;
+    for (const r of data ?? []) if (r.id !== excludeId) found.set(r.id, r.geom as unknown as PlotGeometry);
+  }
+  return [...found].map(([id, geometry]) => ({ id, geometry }));
 }
