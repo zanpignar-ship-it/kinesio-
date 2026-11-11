@@ -112,7 +112,7 @@ export type ImportResult = { error?: string; inserted?: number; counts?: { valid
 export async function importPlots(payload: ImportPayload): Promise<ImportResult> {
   const ctx = await getPlotContext();
   if (!ctx) return { error: 'plots.errors.unknown' };
-  if (payload.rows.length === 0) return { error: 'plots.import.empty' };
+  if (payload.rows.length === 0) return { error: 'imp.empty' };
   if (payload.rows.length > MAX_IMPORT) return { error: 'plots.errors.tooMany' };
   const form = plotFormSchema.safeParse({ label: 'x', country: payload.country });
   if (!form.success) return { error: 'plots.errors.country' };

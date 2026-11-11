@@ -210,5 +210,27 @@
     "save": "Spremi česticu",
     "cancel": "Odustani",
     "multiPart": "Ova čestica (više dijelova) ne može se uređivati na karti; možete promijeniti podatke."
+  },
+  "imp": {
+    "title": "Uvoz čestica",
+    "intro": "Odaberite datoteku s granicama ili točkama čestica. Prije spremanja prikazat ćemo pregled i pogreške.",
+    "chooseFile": "Odaberite datoteku",
+    "formats": "GeoJSON, KML, KMZ, Shapefile (.zip) ili CSV (stupci širina, duljina, naziv).",
+    "parsing": "Čitam datoteku …",
+    "fileIssues": "O datoteci",
+    "crsTitle": "U kojem je koordinatnom sustavu datoteka?",
+    "crsD96": "D96/TM (EPSG:3794) – današnji slovenski sustav",
+    "crsD48": "D48/GK (EPSG:3912) – stari slovenski sustav",
+    "country": "Država čestica",
+    "summary": "{count} čestica u datoteci",
+    "includeErrors": "Uvezi i čestice s pogreškama (ispravite ih kasnije)",
+    "save": "Spremi čestice ({count})",
+    "saving": "Spremam …",
+    "done": "Spremljenih čestica: {count}.",
+    "toList": "Na popis čestica",
+    "another": "Uvezi drugu datoteku",
+    "empty": "Datoteka ne sadrži čestice.",
+    "unnamed": "Čestica",
+    "more": "i još {count} …"
   }
 }

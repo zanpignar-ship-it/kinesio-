@@ -207,5 +207,27 @@
     "save": "Save plot",
     "cancel": "Cancel",
     "multiPart": "This plot has several parts and cannot be edited on the map; you can change its details."
+  },
+  "imp": {
+    "title": "Import plots",
+    "intro": "Choose a file with plot boundaries or points. You will see a preview and any problems before anything is saved.",
+    "chooseFile": "Choose a file",
+    "formats": "GeoJSON, KML, KMZ, Shapefile (.zip) or CSV (latitude, longitude, name columns).",
+    "parsing": "Reading the file …",
+    "fileIssues": "About the file",
+    "crsTitle": "Which coordinate system is the file in?",
+    "crsD96": "D96/TM (EPSG:3794) – current Slovenian system",
+    "crsD48": "D48/GK (EPSG:3912) – old Slovenian system",
+    "country": "Country of the plots",
+    "summary": "{count} plots in the file",
+    "includeErrors": "Also import plots with errors (fix them later)",
+    "save": "Save plots ({count})",
+    "saving": "Saving …",
+    "done": "Plots saved: {count}.",
+    "toList": "Go to the plot list",
+    "another": "Import another file",
+    "empty": "The file contains no plots.",
+    "unnamed": "Plot",
+    "more": "and {count} more …"
   }
 }

@@ -210,5 +210,27 @@
     "save": "Sačuvaj parcelu",
     "cancel": "Otkaži",
     "multiPart": "Ova parcela (više delova) ne može se uređivati na mapi; možete promeniti podatke."
+  },
+  "imp": {
+    "title": "Uvoz parcela",
+    "intro": "Izaberite datoteku sa granicama ili tačkama parcela. Pre čuvanja prikazaćemo pregled i greške.",
+    "chooseFile": "Izaberite datoteku",
+    "formats": "GeoJSON, KML, KMZ, Shapefile (.zip) ili CSV (kolone širina, dužina, naziv).",
+    "parsing": "Čitam datoteku …",
+    "fileIssues": "O datoteci",
+    "crsTitle": "U kom je koordinatnom sistemu datoteka?",
+    "crsD96": "D96/TM (EPSG:3794) – današnji slovenački sistem",
+    "crsD48": "D48/GK (EPSG:3912) – stari slovenački sistem",
+    "country": "Država parcela",
+    "summary": "{count} parcela u datoteci",
+    "includeErrors": "Uvezi i parcele sa greškama (ispravite ih kasnije)",
+    "save": "Sačuvaj parcele ({count})",
+    "saving": "Čuvam …",
+    "done": "Sačuvano parcela: {count}.",
+    "toList": "Na spisak parcela",
+    "another": "Uvezi drugu datoteku",
+    "empty": "Datoteka ne sadrži parcele.",
+    "unnamed": "Parcela",
+    "more": "i još {count} …"
   }
 }
