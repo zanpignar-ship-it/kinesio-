@@ -5,3 +5,8 @@ node_modules/
 coverage/
 out.geojson
 *.tsbuildinfo
+.next/
+next-env.d.ts
+playwright-report/
+test-results/
+.vercel
