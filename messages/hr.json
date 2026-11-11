@@ -18,8 +18,7 @@
     "title": "EUDR podaci za drvnu industriju",
     "subtitle": "Jednom unesite čestice i dokumente, a za svaku pošiljku dobivate ispravan GeoJSON, podatke za izjavu o dužnoj pažnji i paket za kupca.",
     "deadlineLarge": "Velika i srednja poduzeća: EUDR se primjenjuje od 30. 12. 2026.",
-    "deadlineSmall": "Mikro i mala poduzeća: EUDR se primjenjuje od 30. 6. 2027.",
-    "comingSoon": "Prijava će uskoro biti dostupna."
+    "deadlineSmall": "Mikro i mala poduzeća: EUDR se primjenjuje od 30. 6. 2027."
   },
   "geo": {
     "issues": {

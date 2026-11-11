@@ -15,8 +15,7 @@
     "title": "EUDR data for the timber industry",
     "subtitle": "Enter your plots and documents once and get a correct GeoJSON, due diligence statement data and a buyer package for every shipment.",
     "deadlineLarge": "Large and medium companies: EUDR applies from 30 Dec 2026.",
-    "deadlineSmall": "Micro and small companies: EUDR applies from 30 Jun 2027.",
-    "comingSoon": "Sign-in is coming soon."
+    "deadlineSmall": "Micro and small companies: EUDR applies from 30 Jun 2027."
   },
   "geo": {
     "issues": {

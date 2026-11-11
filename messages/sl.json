@@ -15,8 +15,7 @@
     "title": "Podatki za EUDR za lesno panogo",
     "subtitle": "Enkrat vnesite parcele in dokumente, za vsako pošiljko pa dobite pravilen GeoJSON, podatke za izjavo o skrbnem pregledu in paket za kupca.",
     "deadlineLarge": "Velika in srednja podjetja: EUDR velja od 30. 12. 2026.",
-    "deadlineSmall": "Mikro in mala podjetja: EUDR velja od 30. 6. 2027.",
-    "comingSoon": "Prijava bo kmalu na voljo."
+    "deadlineSmall": "Mikro in mala podjetja: EUDR velja od 30. 6. 2027."
   },
   "geo": {
     "issues": {

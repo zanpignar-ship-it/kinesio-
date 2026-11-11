@@ -36,3 +36,9 @@ test('the login page fits a phone screen', async ({ page }) => {
   await page.goto('/sl/login');
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
 });
+
+test('the home page links to sign-up and login', async ({ page }) => {
+  await page.goto('/sl');
+  await page.getByRole('link', { name: msg('sl').auth.signUpTitle }).click();
+  await expect(page).toHaveURL(/\/sl\/signup$/);
+});
