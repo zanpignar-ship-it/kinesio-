@@ -30,8 +30,7 @@ $$;
 revoke all on function private.org_has_members(uuid) from public, anon;
 grant execute on function private.org_has_members(uuid) to authenticated;
 
-drop policy organizations_select on public.organizations;
-create policy organizations_select on public.organizations for select to authenticated
+alter policy organizations_select on public.organizations
   using (
     id in (select private.user_org_ids())
     or (created_by = (select auth.uid()) and not private.org_has_members(id))
@@ -107,15 +106,12 @@ $$;
 create trigger organization_links_guard before insert or update on public.organization_links
   for each row execute function private.organization_links_guard();
 
-drop policy organization_links_insert on public.organization_links;
-drop policy organization_links_update on public.organization_links;
-drop policy organization_links_delete on public.organization_links;
-create policy organization_links_insert on public.organization_links for insert to authenticated
+alter policy organization_links_insert on public.organization_links
   with check (organization_id in (select private.user_owner_org_ids()));
-create policy organization_links_update on public.organization_links for update to authenticated
+alter policy organization_links_update on public.organization_links
   using (organization_id in (select private.user_owner_org_ids()) or partner_organization_id in (select private.user_owner_org_ids()))
   with check (organization_id in (select private.user_owner_org_ids()) or partner_organization_id in (select private.user_owner_org_ids()));
-create policy organization_links_delete on public.organization_links for delete to authenticated
+alter policy organization_links_delete on public.organization_links
   using (organization_id in (select private.user_owner_org_ids()) or partner_organization_id in (select private.user_owner_org_ids()));
 
 -- 4: shared shipments must belong to the organization of the share.
