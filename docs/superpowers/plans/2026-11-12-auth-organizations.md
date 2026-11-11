@@ -10,6 +10,11 @@
 
 **Spec:** `docs/superpowers/specs/2026-11-11-lestrace-design.md` (§5.1 v promptu, §7 strani 1–3 in 10, §8 varnost)
 
+## Razdelitev (dogovor z naročnikom 2026-11-12)
+
+- **Korak 3a (zdaj):** Task 1 (brez žetonov vabil), iz Task 3 samo prijava in registracija z geslom ter odjava (brez e-pošte; v Supabase je *Confirm email* izklopljen), Task 4 v celoti.
+- **Korak 3b (na koncu, pred prvimi strankami):** povezava po e-pošti, pozabljeno geslo, Task 2, Task 5, Task 6, ponoven vklop *Confirm email*, lastna domena za e-pošto.
+
 ## Global Constraints
 
 - Vsa besedila v `messages/*.json` (5 jezikov, enaki ključi; preverja obstoječi test); brez neposrednega teksta v JSX.
