@@ -309,12 +309,12 @@
       "email": "Email",
       "eori": "EORI",
       "hsCode": "HS code",
-      "species": "Tree species",
       "speciesNone": "– none –",
       "tradeName": "Trade name",
       "kind": "Type",
       "taxId": "Tax number",
-      "simplifiedDeclarationId": "Simplified declaration identifier"
+      "simplifiedDeclarationId": "Simplified declaration identifier",
+      "speciesId": "Tree species"
     },
     "kinds": {
       "forest_owner": "Forest owner",

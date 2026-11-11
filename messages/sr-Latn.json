@@ -312,12 +312,12 @@
       "email": "E-pošta",
       "eori": "EORI",
       "hsCode": "HS oznaka",
-      "species": "Vrsta drveta",
       "speciesNone": "– bez –",
       "tradeName": "Trgovački naziv",
       "kind": "Vrsta",
       "taxId": "PIB / poreski broj",
-      "simplifiedDeclarationId": "Identifikator pojednostavljene izjave"
+      "simplifiedDeclarationId": "Identifikator pojednostavljene izjave",
+      "speciesId": "Vrsta drveta"
     },
     "kinds": {
       "forest_owner": "Vlasnik šume",

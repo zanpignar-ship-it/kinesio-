@@ -309,12 +309,12 @@
       "email": "E-pošta",
       "eori": "EORI",
       "hsCode": "HS koda",
-      "species": "Drevesna vrsta",
       "speciesNone": "– brez –",
       "tradeName": "Trgovsko ime",
       "kind": "Vrsta",
       "taxId": "Davčna številka",
-      "simplifiedDeclarationId": "Identifikator poenostavljene izjave"
+      "simplifiedDeclarationId": "Identifikator poenostavljene izjave",
+      "speciesId": "Drevesna vrsta"
     },
     "kinds": {
       "forest_owner": "Lastnik gozda",
