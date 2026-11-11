@@ -132,7 +132,9 @@
     "nav": {
       "dashboard": "Nadzorna ploča",
       "plots": "Čestice",
-      "documents": "Dokumenti"
+      "documents": "Dokumenti",
+      "shipments": "Pošiljke",
+      "masterData": "Šifrarnici"
     }
   },
   "plots": {
@@ -288,6 +290,160 @@
       "unknown": "Spremanje nije uspjelo. Pokušajte ponovno.",
       "inUse": "Dokument se koristi u pošiljci i ne može se izbrisati.",
       "notFound": "Dokument nije pronađen."
+    }
+  },
+  "md": {
+    "title": "Šifrarnici",
+    "customers": "Kupci",
+    "products": "Proizvodi",
+    "suppliers": "Dobavljači",
+    "new": "Dodaj",
+    "save": "Spremi",
+    "edit": "Uredi",
+    "delete": "Izbriši",
+    "deleteConfirm": "Zapis će biti izbrisan. Nastaviti?",
+    "empty": "Popis je prazan.",
+    "back": "Natrag",
+    "outOfScope": "nije u opsegu EUDR-a",
+    "fields": {
+      "name": "Naziv",
+      "country": "Država",
+      "address": "Adresa",
+      "email": "E-pošta",
+      "eori": "EORI",
+      "hsCode": "HS oznaka",
+      "species": "Vrsta drveta",
+      "speciesNone": "– bez –",
+      "tradeName": "Trgovački naziv",
+      "kind": "Vrsta",
+      "taxId": "OIB / porezni broj",
+      "simplifiedDeclarationId": "Identifikator pojednostavljene izjave"
+    },
+    "kinds": {
+      "forest_owner": "Vlasnik šume",
+      "company": "Poduzeće"
+    },
+    "errors": {
+      "name": "Unesite naziv.",
+      "country": "Odaberite državu.",
+      "email": "Unesite valjanu adresu e-pošte.",
+      "hsCode": "Odaberite HS oznaku.",
+      "kind": "Odaberite vrstu.",
+      "tooLong": "Tekst je predug.",
+      "unknown": "Spremanje nije uspjelo. Pokušajte ponovno.",
+      "inUse": "Zapis se koristi u pošiljci ili čestici i ne može se izbrisati."
+    }
+  },
+  "ship": {
+    "title": "Pošiljke",
+    "new": "Nova pošiljka",
+    "empty": "Još nemate pošiljaka.",
+    "emptyHint": "Pošiljka povezuje kupca, proizvode, čestice i dokumente. Za svaku dobivate GeoJSON i podatke za izjavu DDS.",
+    "internalRef": "Interna oznaka",
+    "customer": "Kupac",
+    "none": "– bez –",
+    "date": "Datum otpreme",
+    "mode": "Način",
+    "modes": {
+      "submit_dds": "Podnosim izjavu DDS (prvi stavljam drvo na tržište ili ga izvozim)",
+      "forward_references": "Prosljeđujem reference dobavljača (DDS je već podnio dobavljač)"
+    },
+    "activity": "Djelatnost",
+    "activities": {
+      "domestic": "Tržište EU",
+      "import": "Uvoz u EU",
+      "export": "Izvoz iz EU"
+    },
+    "countryOfProduction": "Država proizvodnje",
+    "items": "Proizvodi",
+    "addItem": "Dodaj proizvod",
+    "remove": "Ukloni",
+    "product": "Proizvod",
+    "netMassKg": "Neto masa (kg)",
+    "volumeM3": "Volumen (m³)",
+    "pieces": "Komadi",
+    "plots": "Čestice",
+    "documents": "Dokumenti",
+    "references": "Reference dobavljača",
+    "referenceNo": "Referentni broj",
+    "verificationNo": "Verifikacijski broj",
+    "refKind": "Vrsta",
+    "refKinds": {
+      "dds": "Izjava DDS",
+      "simplified_declaration": "Pojednostavljena izjava"
+    },
+    "supplier": "Dobavljač",
+    "addReference": "Dodaj referencu",
+    "save": "Spremi pošiljku",
+    "noProducts": "Najprije dodajte proizvod u šifrarnicima.",
+    "status": {
+      "draft": "Nacrt",
+      "ready": "Spremno",
+      "submitted": "Podneseno",
+      "rejected": "Odbijeno"
+    },
+    "checklist": "Kontrolni popis",
+    "checklistOk": "Pošiljka je spremna za izjavu.",
+    "markReady": "Označi kao spremno",
+    "downloadGeojson": "Preuzmi GeoJSON",
+    "ddsSummary": "Podaci za izjavu DDS",
+    "ddsHint": "Prepišite ove podatke u TRACES (EUDR Information System). Za geolokaciju učitajte preuzeti GeoJSON.",
+    "copy": "Kopiraj",
+    "copied": "Kopirano",
+    "submitTitle": "Nakon podnošenja u TRACES",
+    "submitHint": "Upišite dva broja koja je vratio TRACES.",
+    "ddsReference": "Referentni broj DDS",
+    "ddsVerification": "Verifikacijski broj",
+    "markSubmitted": "Spremi kao podneseno",
+    "markRejected": "Označi kao odbijeno",
+    "copyShipment": "Kopiraj pošiljku (novi teret)",
+    "edit": "Uredi",
+    "back": "Natrag na pošiljke",
+    "locked": "Podnesena pošiljka ne može se mijenjati.",
+    "editTitle": "Uredi pošiljku",
+    "checks": {
+      "itemsMissing": "Dodajte barem jedan proizvod.",
+      "hsOutOfScope": "HS oznaka {codes} nije u opsegu EUDR-a.",
+      "speciesMissing": "Proizvodu {products} nedostaje vrsta drveta (znanstveni naziv je obavezan).",
+      "netMassRequired": "Kod uvoza i izvoza neto masa je obavezna ({products}).",
+      "quantityMissing": "Upišite količinu ({products}).",
+      "plotsMissing": "Dodajte barem jednu česticu.",
+      "referencesMissing": "Dodajte barem jedan referentni broj dobavljača.",
+      "countryMissing": "Odaberite državu proizvodnje.",
+      "plotErrors": "Čestice s pogreškom: {plots}. Ispravite ih prije podnošenja.",
+      "plotNoGeometry": "Čestice bez geolokacije: {plots}.",
+      "geojsonTooLarge": "Datoteka GeoJSON veća je od 25 MB. Podijelite pošiljku.",
+      "plotNoDocuments": "Čestice bez dokumenata: {plots}.",
+      "expiredDocuments": "Istekli dokumenti: {count}."
+    },
+    "dds": {
+      "activity": "Djelatnost",
+      "operatorName": "Operater",
+      "operatorCountry": "Država operatera",
+      "operatorId": "EORI / porezni broj",
+      "internalRef": "Interna referenca",
+      "hsCode": "HS oznaka",
+      "description": "Opis",
+      "tradeName": "Trgovački naziv",
+      "scientificName": "Znanstveni naziv",
+      "commonName": "Uobičajeni naziv",
+      "netMassKg": "Neto masa (kg)",
+      "volumeM3": "Volumen (m³)",
+      "supplementaryUnits": "Dopunske jedinice",
+      "countryOfProduction": "Država proizvodnje",
+      "geolocation": "Geolokacija (broj čestica u GeoJSON-u)",
+      "references": "Reference prethodnih izjava",
+      "item": "Proizvod {n}"
+    },
+    "errors": {
+      "internalRef": "Unesite internu oznaku.",
+      "unknown": "Spremanje nije uspjelo. Pokušajte ponovno.",
+      "product": "Odaberite proizvod.",
+      "quantity": "Količina mora biti pozitivan broj.",
+      "referenceNo": "Unesite referentni broj.",
+      "notReady": "Pošiljka još nije spremna.",
+      "ddsReference": "Unesite referentni broj DDS.",
+      "duplicateRef": "Pošiljka s ovom internom oznakom već postoji."
     }
   }
 }

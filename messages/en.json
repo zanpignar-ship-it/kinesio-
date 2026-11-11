@@ -129,7 +129,9 @@
     "nav": {
       "dashboard": "Dashboard",
       "plots": "Plots",
-      "documents": "Documents"
+      "documents": "Documents",
+      "shipments": "Shipments",
+      "masterData": "Master data"
     }
   },
   "plots": {
@@ -285,6 +287,160 @@
       "unknown": "Saving failed. Please try again.",
       "inUse": "The document is used in a shipment and cannot be deleted.",
       "notFound": "The document was not found."
+    }
+  },
+  "md": {
+    "title": "Master data",
+    "customers": "Customers",
+    "products": "Products",
+    "suppliers": "Suppliers",
+    "new": "Add",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteConfirm": "The record will be deleted. Continue?",
+    "empty": "The list is empty.",
+    "back": "Back",
+    "outOfScope": "not in EUDR scope",
+    "fields": {
+      "name": "Name",
+      "country": "Country",
+      "address": "Address",
+      "email": "Email",
+      "eori": "EORI",
+      "hsCode": "HS code",
+      "species": "Tree species",
+      "speciesNone": "– none –",
+      "tradeName": "Trade name",
+      "kind": "Type",
+      "taxId": "Tax number",
+      "simplifiedDeclarationId": "Simplified declaration identifier"
+    },
+    "kinds": {
+      "forest_owner": "Forest owner",
+      "company": "Company"
+    },
+    "errors": {
+      "name": "Enter a name.",
+      "country": "Choose a country.",
+      "email": "Enter a valid email address.",
+      "hsCode": "Choose an HS code.",
+      "kind": "Choose a type.",
+      "tooLong": "The text is too long.",
+      "unknown": "Saving failed. Please try again.",
+      "inUse": "The record is used in a shipment or plot and cannot be deleted."
+    }
+  },
+  "ship": {
+    "title": "Shipments",
+    "new": "New shipment",
+    "empty": "You have no shipments yet.",
+    "emptyHint": "A shipment links a customer, products, plots and documents. For each one you get a GeoJSON and the due diligence statement data.",
+    "internalRef": "Internal reference",
+    "customer": "Customer",
+    "none": "– none –",
+    "date": "Dispatch date",
+    "mode": "Mode",
+    "modes": {
+      "submit_dds": "I submit the DDS (I place the timber on the market first or export it)",
+      "forward_references": "I pass on supplier references (the supplier already submitted the DDS)"
+    },
+    "activity": "Activity",
+    "activities": {
+      "domestic": "EU market",
+      "import": "Import into the EU",
+      "export": "Export from the EU"
+    },
+    "countryOfProduction": "Country of production",
+    "items": "Products",
+    "addItem": "Add product",
+    "remove": "Remove",
+    "product": "Product",
+    "netMassKg": "Net mass (kg)",
+    "volumeM3": "Volume (m³)",
+    "pieces": "Pieces",
+    "plots": "Plots",
+    "documents": "Documents",
+    "references": "Supplier references",
+    "referenceNo": "Reference number",
+    "verificationNo": "Verification number",
+    "refKind": "Type",
+    "refKinds": {
+      "dds": "Due diligence statement",
+      "simplified_declaration": "Simplified declaration"
+    },
+    "supplier": "Supplier",
+    "addReference": "Add reference",
+    "save": "Save shipment",
+    "noProducts": "Add a product in master data first.",
+    "status": {
+      "draft": "Draft",
+      "ready": "Ready",
+      "submitted": "Submitted",
+      "rejected": "Rejected"
+    },
+    "checklist": "Checklist",
+    "checklistOk": "The shipment is ready for the statement.",
+    "markReady": "Mark as ready",
+    "downloadGeojson": "Download GeoJSON",
+    "ddsSummary": "Due diligence statement data",
+    "ddsHint": "Copy these values into TRACES (EUDR Information System). Upload the downloaded GeoJSON for the geolocation.",
+    "copy": "Copy",
+    "copied": "Copied",
+    "submitTitle": "After submitting in TRACES",
+    "submitHint": "Enter the two numbers returned by TRACES.",
+    "ddsReference": "DDS reference number",
+    "ddsVerification": "Verification number",
+    "markSubmitted": "Save as submitted",
+    "markRejected": "Mark as rejected",
+    "copyShipment": "Copy shipment (new load)",
+    "edit": "Edit",
+    "back": "Back to shipments",
+    "locked": "A submitted shipment cannot be changed.",
+    "editTitle": "Edit shipment",
+    "checks": {
+      "itemsMissing": "Add at least one product.",
+      "hsOutOfScope": "HS code {codes} is not in EUDR scope.",
+      "speciesMissing": "Product {products} has no tree species (the scientific name is required).",
+      "netMassRequired": "Net mass is required for import and export ({products}).",
+      "quantityMissing": "Enter a quantity ({products}).",
+      "plotsMissing": "Add at least one plot.",
+      "referencesMissing": "Add at least one supplier reference number.",
+      "countryMissing": "Choose the country of production.",
+      "plotErrors": "Plots with errors: {plots}. Fix them before submitting.",
+      "plotNoGeometry": "Plots without geolocation: {plots}.",
+      "geojsonTooLarge": "The GeoJSON is larger than 25 MB. Split the shipment.",
+      "plotNoDocuments": "Plots without documents: {plots}.",
+      "expiredDocuments": "Expired documents: {count}."
+    },
+    "dds": {
+      "activity": "Activity",
+      "operatorName": "Operator",
+      "operatorCountry": "Operator country",
+      "operatorId": "EORI / tax number",
+      "internalRef": "Internal reference",
+      "hsCode": "HS code",
+      "description": "Description",
+      "tradeName": "Trade name",
+      "scientificName": "Scientific name",
+      "commonName": "Common name",
+      "netMassKg": "Net mass (kg)",
+      "volumeM3": "Volume (m³)",
+      "supplementaryUnits": "Supplementary units",
+      "countryOfProduction": "Country of production",
+      "geolocation": "Geolocation (plots in the GeoJSON)",
+      "references": "References of earlier statements",
+      "item": "Product {n}"
+    },
+    "errors": {
+      "internalRef": "Enter an internal reference.",
+      "unknown": "Saving failed. Please try again.",
+      "product": "Choose a product.",
+      "quantity": "The quantity must be a positive number.",
+      "referenceNo": "Enter a reference number.",
+      "notReady": "The shipment is not ready yet.",
+      "ddsReference": "Enter the DDS reference number.",
+      "duplicateRef": "A shipment with this internal reference already exists."
     }
   }
 }

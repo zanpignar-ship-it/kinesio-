@@ -59,12 +59,13 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
             </Card>
           </Link>
         ))}
-        <Card>
-          <CardHeader>
-            <CardTitle>{t('shipments')}</CardTitle>
-            <CardDescription>{t('comingSoon')}</CardDescription>
-          </CardHeader>
-        </Card>
+        <Link href="/app/shipments" className="rounded-xl">
+          <Card className="h-full hover:border-primary">
+            <CardHeader>
+              <CardTitle>{t('shipments')}</CardTitle>
+            </CardHeader>
+          </Card>
+        </Link>
       </div>
     </div>
   );

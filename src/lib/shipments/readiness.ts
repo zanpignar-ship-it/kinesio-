@@ -1,0 +1,73 @@
+import { EXPORT_MAX_BYTES } from '@/lib/eudr/rules';
+import type { PlotStatus } from '@/lib/geo/types';
+
+export type ReadinessInput = {
+  mode: 'submit_dds' | 'forward_references';
+  activity: 'domestic' | 'import' | 'export';
+  countryOfProduction: string | null;
+  items: { product: string; hsCode: string; hsInScope: boolean; scientificName: string | null; netMassKg: number | null; volumeM3: number | null; pieces: number | null }[];
+  plots: { label: string; status: PlotStatus; hasGeometry: boolean; documentCount: number; expiredDocuments: number }[];
+  upstreamReferences: number;
+  geojsonBytes: number;
+};
+
+export type ReadinessKey =
+  | 'itemsMissing'
+  | 'hsOutOfScope'
+  | 'speciesMissing'
+  | 'netMassRequired'
+  | 'quantityMissing'
+  | 'plotsMissing'
+  | 'referencesMissing'
+  | 'countryMissing'
+  | 'plotErrors'
+  | 'plotNoGeometry'
+  | 'geojsonTooLarge'
+  | 'plotNoDocuments'
+  | 'expiredDocuments';
+
+export type ReadinessIssue = { key: ReadinessKey; level: 'error' | 'warning'; params?: Record<string, string | number> };
+
+const names = (xs: { label?: string; product?: string }[]) =>
+  xs
+    .map((x) => x.label ?? x.product ?? '')
+    .slice(0, 5)
+    .join(', ');
+
+/** What still blocks marking a shipment as ready (errors) and what deserves a look (warnings). */
+export function checkReadiness(input: ReadinessInput): { ready: boolean; issues: ReadinessIssue[] } {
+  const issues: ReadinessIssue[] = [];
+  const err = (key: ReadinessKey, params?: ReadinessIssue['params']) => issues.push(params ? { key, level: 'error', params } : { key, level: 'error' });
+  const warn = (key: ReadinessKey, params?: ReadinessIssue['params']) => issues.push(params ? { key, level: 'warning', params } : { key, level: 'warning' });
+
+  if (input.items.length === 0) err('itemsMissing');
+  const outOfScope = input.items.filter((i) => !i.hsInScope);
+  if (outOfScope.length) err('hsOutOfScope', { codes: outOfScope.map((i) => i.hsCode).join(', ') });
+  const noSpecies = input.items.filter((i) => !i.scientificName);
+  if (noSpecies.length) err('speciesMissing', { products: names(noSpecies) });
+  const crossBorder = input.activity !== 'domestic';
+  const noMass = input.items.filter((i) => crossBorder && !i.netMassKg);
+  if (noMass.length) err('netMassRequired', { products: names(noMass) });
+  const noQuantity = input.items.filter((i) => !crossBorder && !i.netMassKg && !i.volumeM3 && !i.pieces);
+  if (noQuantity.length) err('quantityMissing', { products: names(noQuantity) });
+
+  if (input.mode === 'submit_dds') {
+    if (input.plots.length === 0) err('plotsMissing');
+    if (!input.countryOfProduction) err('countryMissing');
+  } else if (input.upstreamReferences === 0) {
+    err('referencesMissing');
+  }
+
+  const withErrors = input.plots.filter((p) => p.status === 'error');
+  if (withErrors.length) err('plotErrors', { plots: names(withErrors) });
+  const noGeometry = input.plots.filter((p) => !p.hasGeometry);
+  if (noGeometry.length) err('plotNoGeometry', { plots: names(noGeometry) });
+  if (input.geojsonBytes > EXPORT_MAX_BYTES) err('geojsonTooLarge');
+
+  const noDocs = input.plots.filter((p) => p.documentCount === 0);
+  if (noDocs.length) warn('plotNoDocuments', { plots: names(noDocs) });
+  const expired = input.plots.reduce((n, p) => n + p.expiredDocuments, 0);
+  if (expired) warn('expiredDocuments', { count: expired });
+
+  return { ready: !issues.some((i) => i.level === 'error'), issues };
+}
