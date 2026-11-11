@@ -46,5 +46,86 @@
       "POLYGON_HOLE_OUTSIDE": "Luknja v poligonu leži zunaj njegove zunanje meje. Popravite obris parcele.",
       "LABEL_POINTS_REMOVED": "Oznake (točke) ob poligonu smo odstranili; uporabljen je samo poligon."
     }
+  },
+  "auth": {
+    "signInTitle": "Prijava",
+    "signUpTitle": "Nov račun",
+    "email": "E-pošta",
+    "password": "Geslo",
+    "passwordHint": "Najmanj 8 znakov.",
+    "signIn": "Prijava",
+    "signUp": "Ustvari račun",
+    "noAccount": "Še nimate računa?",
+    "haveAccount": "Že imate račun?",
+    "signOut": "Odjava",
+    "errors": {
+      "email": "Vnesite veljaven e-poštni naslov.",
+      "passwordRequired": "Vnesite geslo.",
+      "passwordTooShort": "Geslo mora imeti vsaj 8 znakov.",
+      "passwordTooLong": "Geslo je predolgo (največ 72 znakov).",
+      "invalidCredentials": "E-pošta ali geslo ni pravilno.",
+      "userExists": "Račun s tem e-poštnim naslovom že obstaja. Prijavite se.",
+      "emailNotConfirmed": "E-poštni naslov še ni potrjen.",
+      "rateLimited": "Preveč poskusov. Poskusite znova čez nekaj minut.",
+      "unknown": "Prišlo je do napake. Poskusite znova."
+    }
+  },
+  "org": {
+    "onboardingTitle": "Vaše podjetje",
+    "onboardingIntro": "Vnesite podatke o podjetju. Uporabili jih bomo v izjavah in paketih za kupce.",
+    "name": "Ime podjetja",
+    "country": "Država sedeža",
+    "kind": "Vaša vloga",
+    "size": "Velikost podjetja",
+    "taxId": "Davčna številka",
+    "registrationNo": "Matična številka",
+    "eori": "Številka EORI",
+    "optional": "neobvezno",
+    "wasUnderEutr": "Podjetje je že pred 31. 12. 2024 dajalo les na trg po uredbi o lesu (EUTR)",
+    "create": "Ustvari organizacijo",
+    "kinds": {
+      "operator": "Operater (prvi da les na trg EU, npr. žaga)",
+      "exporter": "Izvoznik izven EU",
+      "importer": "Uvoznik v EU",
+      "trader": "Trgovec"
+    },
+    "sizes": {
+      "micro": "Mikro (do 10 zaposlenih)",
+      "small": "Malo (do 50 zaposlenih)",
+      "medium": "Srednje (do 250 zaposlenih)",
+      "large": "Veliko"
+    },
+    "errors": {
+      "name": "Vnesite ime podjetja.",
+      "country": "Izberite državo.",
+      "kind": "Izberite vlogo.",
+      "size": "Izberite velikost.",
+      "unknown": "Organizacije ni bilo mogoče ustvariti. Poskusite znova."
+    },
+    "countries": {
+      "SI": "Slovenija",
+      "HR": "Hrvaška",
+      "BA": "Bosna in Hercegovina",
+      "RS": "Srbija",
+      "ME": "Črna gora",
+      "MK": "Severna Makedonija",
+      "AT": "Avstrija",
+      "IT": "Italija",
+      "HU": "Madžarska",
+      "DE": "Nemčija"
+    }
+  },
+  "app": {
+    "menu": "Meni",
+    "switchOrganization": "Organizacija",
+    "dashboardTitle": "Nadzorna plošča",
+    "welcome": "Dobrodošli, {email}",
+    "deadlineTitle": "EUDR za vaše podjetje velja od {date}",
+    "deadlineDays": "Še {days} dni.",
+    "deadlinePassed": "EUDR že velja.",
+    "comingSoon": "Kmalu na voljo",
+    "plots": "Parcele",
+    "documents": "Dokumenti",
+    "shipments": "Pošiljke"
   }
 }

@@ -49,5 +49,86 @@
       "PARSE_FAILED": "Datoteku ili red nije bilo moguće pročitati.",
       "EXPORT_TOO_LARGE": "Datoteka GeoJSON je prevelika ({bytes} bajtova, najviše {max}). Podelite pošiljku ili pojednostavite poligone."
     }
+  },
+  "auth": {
+    "signInTitle": "Prijava",
+    "signUpTitle": "Novi nalog",
+    "email": "E-pošta",
+    "password": "Lozinka",
+    "passwordHint": "Najmanje 8 znakova.",
+    "signIn": "Prijava",
+    "signUp": "Napravi nalog",
+    "noAccount": "Još nemate nalog?",
+    "haveAccount": "Već imate nalog?",
+    "signOut": "Odjava",
+    "errors": {
+      "email": "Unesite ispravnu adresu e-pošte.",
+      "passwordRequired": "Unesite lozinku.",
+      "passwordTooShort": "Lozinka mora imati najmanje 8 znakova.",
+      "passwordTooLong": "Lozinka je predugačka (najviše 72 znaka).",
+      "invalidCredentials": "E-pošta ili lozinka nisu ispravni.",
+      "userExists": "Nalog sa ovom adresom e-pošte već postoji. Prijavite se.",
+      "emailNotConfirmed": "Adresa e-pošte još nije potvrđena.",
+      "rateLimited": "Previše pokušaja. Pokušajte ponovo za nekoliko minuta.",
+      "unknown": "Došlo je do greške. Pokušajte ponovo."
+    }
+  },
+  "org": {
+    "onboardingTitle": "Vaše preduzeće",
+    "onboardingIntro": "Unesite podatke o preduzeću. Koristićemo ih u izjavama i paketima za kupce.",
+    "name": "Naziv preduzeća",
+    "country": "Država sedišta",
+    "kind": "Vaša uloga",
+    "size": "Veličina preduzeća",
+    "taxId": "PIB",
+    "registrationNo": "Matični broj",
+    "eori": "EORI broj",
+    "optional": "neobavezno",
+    "wasUnderEutr": "Preduzeće je već pre 31. 12. 2024. stavljalo drvo na tržište EU prema Uredbi o drvetu (EUTR)",
+    "create": "Napravi organizaciju",
+    "kinds": {
+      "operator": "Operater (prvi stavlja drvo na tržište EU, npr. pilana)",
+      "exporter": "Izvoznik van EU",
+      "importer": "Uvoznik u EU",
+      "trader": "Trgovac"
+    },
+    "sizes": {
+      "micro": "Mikro (do 10 zaposlenih)",
+      "small": "Malo (do 50 zaposlenih)",
+      "medium": "Srednje (do 250 zaposlenih)",
+      "large": "Veliko"
+    },
+    "errors": {
+      "name": "Unesite naziv preduzeća.",
+      "country": "Izaberite državu.",
+      "kind": "Izaberite ulogu.",
+      "size": "Izaberite veličinu.",
+      "unknown": "Organizaciju nije bilo moguće napraviti. Pokušajte ponovo."
+    },
+    "countries": {
+      "SI": "Slovenija",
+      "HR": "Hrvatska",
+      "BA": "Bosna i Hercegovina",
+      "RS": "Srbija",
+      "ME": "Crna Gora",
+      "MK": "Severna Makedonija",
+      "AT": "Austrija",
+      "IT": "Italija",
+      "HU": "Mađarska",
+      "DE": "Nemačka"
+    }
+  },
+  "app": {
+    "menu": "Meni",
+    "switchOrganization": "Organizacija",
+    "dashboardTitle": "Kontrolna tabla",
+    "welcome": "Dobro došli, {email}",
+    "deadlineTitle": "EUDR se za vaše preduzeće primenjuje od {date}",
+    "deadlineDays": "Još {days} dana.",
+    "deadlinePassed": "EUDR se već primenjuje.",
+    "comingSoon": "Uskoro dostupno",
+    "plots": "Parcele",
+    "documents": "Dokumenti",
+    "shipments": "Pošiljke"
   }
 }
