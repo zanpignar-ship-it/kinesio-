@@ -98,10 +98,21 @@ export function PlotMap({ plots, draft, onAdd, onMove, onPlotClick, className }:
     // 'style.load' fires for the first style and after every setStyle (basemap switch).
     map.on('style.load', addLayers);
     map.on('load', () => setReady(true));
+    // Exposed for tests: set once the plots are drawn (without waiting for every basemap tile).
+    const onRender = () => {
+      if ((data.current.plots?.features.length ?? 0) === 0 || !map.getLayer('plots-fill')) return;
+      const shown = map.queryRenderedFeatures({ layers: ['plots-fill', 'plots-point'] }).length;
+      if (shown > 0) {
+        container.current?.setAttribute('data-plots-rendered', String(shown));
+        map.off('render', onRender);
+      }
+    };
+    map.on('render', onRender);
     // Exposed for tests and debugging: how many draft polygons are actually rendered.
     map.on('idle', () => {
       const n = map.getLayer('draft-fill') ? map.queryRenderedFeatures({ layers: ['draft-fill'] }).length : 0;
       container.current?.setAttribute('data-draft-rendered', String(n));
+
     });
     map.on('click', (e: MapMouseEvent) => {
       const hit = map.getLayer('plots-fill') ? map.queryRenderedFeatures(e.point, { layers: ['plots-fill', 'plots-point'] }) : [];
