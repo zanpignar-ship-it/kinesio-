@@ -8,19 +8,19 @@ const user = newUser();
 test('master data: customer and product', async ({ page }) => {
   await signUpWithOrganization(page, user);
   await page.goto('/sl/app/master-data/customers');
-  await page.getByLabel('Ime').fill('Holz GmbH');
+  await page.getByLabel('Ime', { exact: true }).fill('Holz GmbH');
   await page.getByLabel('Država').selectOption('AT');
   await page.getByRole('button', { name: 'Shrani' }).click();
   await expect(page.getByTestId('record-row')).toHaveCount(1);
 
   await page.goto('/sl/app/master-data/products');
-  await page.getByLabel('Ime').fill('Hlodovina smreka');
+  await page.getByLabel('Ime', { exact: true }).fill('Hlodovina smreka');
   await page.getByLabel('HS koda').selectOption('4403');
   await page.getByLabel('Drevesna vrsta').selectOption({ label: 'Picea abies (navadna smreka)' });
   await page.getByRole('button', { name: 'Shrani' }).click();
   await expect(page.getByTestId('record-row')).toHaveCount(1);
 
-  await page.getByLabel('Ime').fill('Brez vrste');
+  await page.getByLabel('Ime', { exact: true }).fill('Brez vrste');
   await page.getByLabel('HS koda').selectOption('4407');
   await page.getByRole('button', { name: 'Shrani' }).click();
   await expect(page.getByTestId('record-row')).toHaveCount(2);
