@@ -28,7 +28,8 @@ test('upload a felling permit linked to a plot', async ({ page }) => {
 
   const href = await page.getByRole('link', { name: 'Odpri' }).getAttribute('href');
   expect(href).toContain('/storage/v1/object/sign/documents/');
-  expect((await page.request.get(href!)).status()).toBe(200);
+  // Fetch from the browser (it uses the same network as a real user).
+  expect(await page.evaluate(async (url) => (await fetch(url)).status, href!)).toBe(200);
 
   await page.getByRole('link', { name: 'Gozd Rog' }).click();
   await expect(page.getByRole('link', { name: 'Dovoljenje za posek 2026' })).toBeVisible();
