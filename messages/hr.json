@@ -15,10 +15,57 @@
     }
   },
   "home": {
-    "title": "EUDR podaci za drvnu industriju",
-    "subtitle": "Jednom unesite čestice i dokumente, a za svaku pošiljku dobivate ispravan GeoJSON, podatke za izjavu o dužnoj pažnji i paket za kupca.",
+    "title": "Sljedivost drva za EUDR – od šume do izjave u TRACES",
+    "subtitle": "IZVOR je alat za pilane, uvoznike i trgovce drvom. Jednom unesete čestice i dokumente, a za svaku pošiljku dobivate ispravan GeoJSON, izjavu o dubinskoj analizi u TRACES i paket za kupca.",
     "deadlineLarge": "Velika i srednja poduzeća: EUDR se primjenjuje od 30. 12. 2026.",
-    "deadlineSmall": "Mikro i mala poduzeća: EUDR se primjenjuje od 30. 6. 2027."
+    "deadlineSmall": "Mikro i mala poduzeća: EUDR se primjenjuje od 30. 6. 2027.",
+    "cta": "Stvori račun",
+    "featuresTitle": "Što zna IZVOR",
+    "stepsTitle": "Kako radi",
+    "audiencesTitle": "Za koga",
+    "ctaTitle": "EUDR se primjenjuje od 30. 12. 2026.",
+    "ctaText": "Pripremite se na vrijeme – prvu pošiljku pripremite za nekoliko minuta.",
+    "steps": [
+      "Unesete dobavljače, čestice (s razdobljem sječe) i dokumente.",
+      "Pripremite pošiljku: proizvodi, količine i čestice – kontrolni popis pokazuje što nedostaje.",
+      "Podnesete izjavu u TRACES i kupcu pošaljete paket s brojevima DDS."
+    ],
+    "features": [
+      {
+        "h": "Čestice na satelitskoj karti",
+        "p": "Nacrtajte česticu na mobitelu ili uvezite GeoJSON, KML, Shapefile, CSV ili Excel. HTRS96/TM i drugi državni sustavi pretvaraju se automatski."
+      },
+      {
+        "h": "Automatska provjera",
+        "p": "6 decimala, poligon iznad 4 ha, samopresijecanja, položaj u državi i duplikati – pogreške vidite odmah, neke popravljamo jednim klikom."
+      },
+      {
+        "h": "Dokumenti s upozorenjima",
+        "p": "Dozvole za sječu, rješenja, otpremnice i certifikati povezani s česticama. Upozorit ćemo vas prije isteka dokumenta."
+      },
+      {
+        "h": "Podnošenje u TRACES",
+        "p": "Izjavu o dubinskoj analizi podnosite izravno u informacijski sustav EU-a; referentni i verifikacijski broj upisujemo automatski."
+      },
+      {
+        "h": "Procjena rizika",
+        "p": "Rizik zemalja proizvodnje prema provedbenoj uredbi te zapis procjene i mjera za svaku pošiljku."
+      },
+      {
+        "h": "Paket za kupca i arhiva",
+        "p": "Poveznica ili PDF s QR kodom za kupca i špeditera, ZIP arhiva za inspekciju i revizijski trag za 5 godina."
+      }
+    ],
+    "audiences": [
+      {
+        "h": "Pilane i prerađivači",
+        "p": "Kupujete drvo od vlasnika šuma i šumarija? Prikupite geolokacije i dozvole jednom i koristite ih za sve pošiljke."
+      },
+      {
+        "h": "Uvoznici i trgovci",
+        "p": "Uvozite iz Bosne i Hercegovine, Srbije ili drugih zemalja? Pripremite izjavu, procjenu rizika i dokaze na jednom mjestu."
+      }
+    ]
   },
   "geo": {
     "issues": {

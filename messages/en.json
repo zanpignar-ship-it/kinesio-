@@ -12,10 +12,57 @@
     }
   },
   "home": {
-    "title": "EUDR data for the timber industry",
-    "subtitle": "Enter your plots and documents once and get a correct GeoJSON, due diligence statement data and a buyer package for every shipment.",
+    "title": "Timber traceability for EUDR – from the forest to the statement in TRACES",
+    "subtitle": "IZVOR is a tool for sawmills, importers and timber traders. Enter plots and documents once; for every shipment you get a correct GeoJSON, the due diligence statement in TRACES and a package for your buyer.",
     "deadlineLarge": "Large and medium companies: EUDR applies from 30 Dec 2026.",
-    "deadlineSmall": "Micro and small companies: EUDR applies from 30 Jun 2027."
+    "deadlineSmall": "Micro and small companies: EUDR applies from 30 Jun 2027.",
+    "cta": "Create an account",
+    "featuresTitle": "What IZVOR does",
+    "stepsTitle": "How it works",
+    "audiencesTitle": "Who it is for",
+    "ctaTitle": "EUDR applies from 30 Dec 2026",
+    "ctaText": "Get ready in time – prepare your first shipment in minutes.",
+    "steps": [
+      "Enter suppliers, plots (with harvest period) and documents.",
+      "Prepare a shipment: products, quantities and plots – the checklist shows what is missing.",
+      "Submit the statement in TRACES and send the buyer a package with the DDS numbers."
+    ],
+    "features": [
+      {
+        "h": "Plots on a satellite map",
+        "p": "Draw a plot on your phone or import GeoJSON, KML, Shapefile, CSV or Excel. National coordinate systems are converted automatically."
+      },
+      {
+        "h": "Automatic checks",
+        "p": "6 decimals, polygons above 4 ha, self-intersections, location within the country and duplicates – you see errors at once, and some are fixed with one click."
+      },
+      {
+        "h": "Documents with reminders",
+        "p": "Felling permits, decisions, delivery notes and certificates linked to plots. We warn you before a document expires."
+      },
+      {
+        "h": "Submission to TRACES",
+        "p": "Submit the due diligence statement directly to the EU Information System; the reference and verification numbers are filled in automatically."
+      },
+      {
+        "h": "Risk assessment",
+        "p": "Country risk per the implementing regulation, and a record of the assessment and mitigation for every shipment."
+      },
+      {
+        "h": "Buyer package and archive",
+        "p": "A link or a PDF with a QR code for the buyer and forwarder, a ZIP archive for inspections and a 5-year audit trail."
+      }
+    ],
+    "audiences": [
+      {
+        "h": "Sawmills and processors",
+        "p": "Buying from forest owners and forest enterprises? Collect geolocations and permits once and reuse them for every shipment."
+      },
+      {
+        "h": "Importers and traders",
+        "p": "Importing from Bosnia and Herzegovina, Serbia or elsewhere? Keep the statement, risk assessment and evidence in one place."
+      }
+    ]
   },
   "geo": {
     "issues": {

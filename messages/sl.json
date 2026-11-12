@@ -12,10 +12,57 @@
     }
   },
   "home": {
-    "title": "Podatki za EUDR za lesno panogo",
-    "subtitle": "Enkrat vnesite parcele in dokumente, za vsako pošiljko pa dobite pravilen GeoJSON, podatke za izjavo o skrbnem pregledu in paket za kupca.",
+    "title": "Sledljivost lesa za EUDR – od gozda do izjave v TRACES",
+    "subtitle": "IZVOR je orodje za žage, uvoznike in trgovce z lesom. Enkrat vnesete parcele in dokumente, za vsako pošiljko pa dobite pravilen GeoJSON, izjavo o skrbnem pregledu v TRACES in paket za kupca.",
     "deadlineLarge": "Velika in srednja podjetja: EUDR velja od 30. 12. 2026.",
-    "deadlineSmall": "Mikro in mala podjetja: EUDR velja od 30. 6. 2027."
+    "deadlineSmall": "Mikro in mala podjetja: EUDR velja od 30. 6. 2027.",
+    "cta": "Ustvari račun",
+    "featuresTitle": "Kaj zna IZVOR",
+    "stepsTitle": "Kako deluje",
+    "audiencesTitle": "Za koga",
+    "ctaTitle": "EUDR velja od 30. 12. 2026",
+    "ctaText": "Pripravite se pravočasno – prvo pošiljko pripravite v nekaj minutah.",
+    "steps": [
+      "Vnesete dobavitelje, parcele (z obdobjem poseka) in dokumente.",
+      "Pripravite pošiljko: izdelki, količine in parcele – kontrolni seznam pokaže, kaj manjka.",
+      "Oddate izjavo v TRACES in kupcu pošljete paket s številkama DDS."
+    ],
+    "features": [
+      {
+        "h": "Parcele na satelitski karti",
+        "p": "Narišite parcelo na telefonu ali uvozite GeoJSON, KML, Shapefile, CSV ali Excel. D96/TM in drugi državni sistemi se pretvorijo samodejno."
+      },
+      {
+        "h": "Samodejno preverjanje",
+        "p": "6 decimalk, poligon nad 4 ha, samopresečišča, lega v državi in podvojene parcele – napake vidite takoj, nekatere popravimo z enim klikom."
+      },
+      {
+        "h": "Dokumenti z opozorili",
+        "p": "Dovoljenja za posek, odločbe, dobavnice in certifikati, povezani s parcelami. Opozorimo vas, preden dokument poteče."
+      },
+      {
+        "h": "Oddaja v TRACES",
+        "p": "Izjavo o skrbnem pregledu oddate neposredno v informacijski sistem EU; referenčno in verifikacijsko številko vpišemo samodejno."
+      },
+      {
+        "h": "Ocena tveganja",
+        "p": "Tveganje držav proizvodnje po izvedbeni uredbi in zapis ocene ter ukrepov za vsako pošiljko."
+      },
+      {
+        "h": "Paket za kupca in arhiv",
+        "p": "Povezava ali PDF s QR kodo za kupca in špediterja, arhiv ZIP za inšpekcijo in revizijska sled za 5 let."
+      }
+    ],
+    "audiences": [
+      {
+        "h": "Žage in predelovalci",
+        "p": "Les kupujete od lastnikov gozdov in gozdnih gospodarstev? Zberite geolokacije in dovoljenja enkrat in jih uporabljajte za vse pošiljke."
+      },
+      {
+        "h": "Uvozniki in trgovci",
+        "p": "Uvažate iz Bosne in Hercegovine, Srbije ali drugih držav? Pripravite izjavo, oceno tveganja in dokazila na enem mestu."
+      }
+    ]
   },
   "geo": {
     "issues": {

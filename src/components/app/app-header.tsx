@@ -1,4 +1,5 @@
 import { getLocale, getTranslations } from 'next-intl/server';
+import { LogoMark } from '@/components/brand/logo';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/navigation';
 import { signOut } from '@/app/[locale]/(auth)/actions';
@@ -13,7 +14,8 @@ export async function AppHeader({ current, all, email }: Props) {
   return (
     <header className="border-b">
       <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3">
-        <Link href="/app" className="text-primary font-semibold">
+        <Link href="/app" className="text-primary flex items-center gap-2 font-semibold">
+          <LogoMark className="size-6" />
           {t('common.appName')}
         </Link>
         <nav className="order-last flex w-full flex-wrap gap-x-4 text-sm sm:order-none sm:w-auto">
