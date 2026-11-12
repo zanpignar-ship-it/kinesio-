@@ -52,3 +52,10 @@ describe('simplifyToFit', () => {
     expect(simplifyToFit([circle], 10, size)).toBeNull();
   });
 });
+
+describe('repair refuses polygons with holes', () => {
+  it('leaves a bow tie with a hole for the user', () => {
+    const withHole: GeoJSON.Polygon = { type: 'Polygon', coordinates: [bowTie.coordinates[0]!, [[14.5001, 46.0001], [14.5002, 46.0001], [14.5002, 46.0002], [14.5001, 46.0001]]] };
+    expect(repairSelfIntersections(withHole).changed).toBe(false);
+  });
+});

@@ -135,9 +135,19 @@ export async function saveRiskAssessment(_prev: ShipmentFormState, formData: For
   if (!ctx || !UUID.test(id)) return { error: 'ship.errors.unknown' };
   if (assessment.length > RISK_TEXT_MAX || mitigation.length > RISK_TEXT_MAX) return { error: 'ship.errors.riskTooLong' };
   if (negligible && !assessment) return { error: 'ship.errors.riskAssessment' };
-  const { data: existing } = await ctx.supabase.from('shipments').select('status').eq('organization_id', ctx.organizationId).eq('id', id).maybeSingle();
+  const { data: existing } = await ctx.supabase
+    .from('shipments')
+    .select('status, risk_assessment, risk_mitigation, risk_negligible')
+    .eq('organization_id', ctx.organizationId)
+    .eq('id', id)
+    .maybeSingle();
   if (!existing) return { error: 'ship.errors.unknown' };
   if (existing.status === 'submitted') return { error: 'ship.locked' };
+  const unchanged =
+    (existing.risk_assessment ?? '') === assessment &&
+    (existing.risk_mitigation ?? '') === mitigation &&
+    existing.risk_negligible === (assessment ? negligible : null);
+  if (unchanged) return { saved: true };
   const { error } = await ctx.supabase
     .from('shipments')
     .update({

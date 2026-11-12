@@ -7,7 +7,7 @@ import type { PlotGeometry } from '@/lib/geo/types';
 import { geometryFromDb } from '@/lib/plots/geometry';
 import { EXPORT_MAX_BYTES } from '@/lib/eudr/rules';
 import { simplifyToFit } from '@/lib/geo/repair';
-import { countryRisk } from './risk';
+import { shipmentRisk } from './risk';
 import { createServerSupabase } from '@/lib/supabase/server';
 import { productOptions } from '@/lib/masterdata/queries';
 import { checkReadiness, type ReadinessInput } from './readiness';
@@ -138,7 +138,7 @@ export async function getShipment(organizationId: string, id: string, locale: st
     harvestTo: sp.plot?.harvest_to ?? null,
   }));
   const { data: risks } = await supabase.from('country_risk').select('country, risk');
-  const riskLevel = countryRisk(s.country_of_production, risks ?? []);
+  const riskLevel = shipmentRisk([s.country_of_production, ...s.shipment_plots.map((sp) => sp.plot?.country ?? null)], risks ?? []);
   const readinessInput: ReadinessInput = {
     mode: s.mode,
     activity: s.activity,

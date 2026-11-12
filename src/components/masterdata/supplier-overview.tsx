@@ -24,6 +24,7 @@ export async function SupplierOverview({ organizationId, supplierId }: { organiz
           {noDocs > 0 ? t('supplierPlotsNoDocs', { count: noDocs }) : null} {expired > 0 ? t('supplierExpiredDocs', { count: expired }) : null}
         </p>
       ) : null}
+      {total > rows.length ? <p className="text-muted-foreground text-xs">{t('supplierFirst', { count: rows.length })}</p> : null}
       {rows.length > 0 ? (
         <ul className="divide-y rounded-xl border text-sm">
           {rows.map((r) => (

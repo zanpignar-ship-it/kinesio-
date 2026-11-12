@@ -32,8 +32,9 @@ Migracije so v `supabase/migrations/`, šifranti v `supabase/seed/reference.sql`
 Po vsaki migraciji ponovno ustvari `src/lib/db/database.types.ts`.
 
 ## Čaka na potrditev (Supabase)
-Ti migraciji sta pripravljeni in preizkušeni lokalno (`npm run test:db`), na projekt `lestrace-dev` pa še nista uveljavljeni:
+Uveljavljene so migracije do `20261112000007` in `20261112000009_risk.sql`. Te so pripravljene in preizkušene lokalno (`npm run test:db`), na `lestrace-dev` pa še niso (zahtevajo potrditev – zaženite jih v Supabase SQL Editorju):
 - ~~`20261112000004_buyer_package.sql`~~ – uveljavljeno 12. 11. 2026.
 - `supabase/migrations/20261112000005_delete_account.sql` – izbris računa v nastavitvah. TODO: preveri, ali lahko vloga `postgres` na Supabase briše iz `auth.users`.
 - `supabase/migrations/20261112000008_integrity.sql` – popravki iz pregleda kode (shranjevanje pošiljke v eni transakciji, zaklep oddane pošiljke v bazi, preklic povezave za kupca je dokončen, potrjen e-naslov za vabila). Po uveljavitvi preklopiti akcije pošiljk in dokumentov na `save_shipment_children` / `set_document_plots`.
 - Čiščenje testnih uporabnikov e2e: `scripts/cleanup-e2e.sql`.
+- Skrivni ključ `SUPABASE_SERVICE_ROLE_KEY` v Vercelu (portal za dobavitelje, prenos dokumentov s strani za kupca).

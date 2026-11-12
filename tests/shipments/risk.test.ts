@@ -43,3 +43,24 @@ describe('readiness with risk', () => {
     expect(keys({ ...base, mode: 'forward_references', upstreamReferences: 1, risk: { level: 'standard', assessed: false, negligible: null } })).toEqual([]);
   });
 });
+
+import { shipmentRisk } from '@/lib/shipments/risk';
+
+describe('risk across all countries', () => {
+  it('takes the highest risk of the shipment and its plots', () => {
+    expect(shipmentRisk(['SI', 'SI'], listed)).toBe('low');
+    expect(shipmentRisk(['SI', 'UA'], listed)).toBe('standard');
+    expect(shipmentRisk(['UA', 'RU', null], listed)).toBe('high');
+    expect(shipmentRisk([null], listed)).toBeNull();
+  });
+  it('a recorded non-negligible risk blocks even a low-risk shipment', () => {
+    const r = checkReadiness({
+      mode: 'submit_dds', activity: 'domestic', countryOfProduction: 'SI',
+      items: [{ product: 'H', hsCode: '4403', hsInScope: true, scientificName: 'Picea abies', netMassKg: 1, volumeM3: null, pieces: null }],
+      plots: [{ label: 'A', status: 'valid', hasGeometry: true, documentCount: 1, expiredDocuments: 0 }],
+      upstreamReferences: 0, geojsonBytes: 1,
+      risk: { level: 'low', assessed: true, negligible: false },
+    });
+    expect(r.issues.map((i) => i.key)).toEqual(['riskNotNegligible']);
+  });
+});

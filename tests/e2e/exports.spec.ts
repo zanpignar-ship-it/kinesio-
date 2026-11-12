@@ -18,7 +18,7 @@ test('plots and shipments can be exported for Excel', async ({ page }) => {
   await page.getByRole('link', { name: 'Izvozi v Excel (CSV)' }).click();
   const plots = readFileSync(await (await download).path(), 'utf8');
   expect(plots.startsWith('﻿label;status;country;supplier')).toBe(true);
-  expect(plots).toContain('Gozd Šentjur;warning;SI;;2;Point;46.221234;15.401234;2026-01-05');
+  expect(plots).toContain('Gozd Šentjur;warning;SI;;2;Point;46,221234;15,401234;2026-01-05');
 
   await page.goto('/sl/app/shipments');
   download = page.waitForEvent('download');

@@ -97,8 +97,10 @@ export async function repairPlot(_prev: PlotFormState, formData: FormData): Prom
   } catch {
     return { error: 'plots.errors.unknown' };
   }
+  // Imported plots keep the precision rule (measured from the stored numbers); drawn plots skip it as before.
+  const hadPrecisionIssue = JSON.stringify(plot.validation_issues ?? []).includes('PRECISION_');
   const row = toRow(
-    prepareDrawnPlot(
+    preparePlot(
       {
         label: plot.label,
         country: plot.country,
@@ -107,6 +109,7 @@ export async function repairPlot(_prev: PlotFormState, formData: FormData): Prom
         cadastralNo: plot.cadastral_no ?? undefined,
         cadastralMunicipality: plot.cadastral_municipality ?? undefined,
         postalAddress: plot.postal_address ?? undefined,
+        decimals: hadPrecisionIssue ? undefined : null,
       },
       others,
     ),
@@ -140,7 +143,8 @@ export async function bulkUpdatePlots(_prev: BulkState, formData: FormData): Pro
   const changes = bulkChanges(parsed.data);
   if (!changes) return { error: 'plots.errors.nothingToChange' };
   const { data, error } = await ctx.supabase.from('plots').update(changes).eq('organization_id', ctx.organizationId).in('id', parsed.data.ids).select('id');
-  if (error) return { error: 'plots.errors.unknown' };
+  // 23514: a date would end up before the other end of a plot's existing harvest period.
+  if (error) return { error: error.code === '23514' ? 'plots.errors.harvestBulk' : 'plots.errors.unknown' };
   revalidatePath(`/${locale}/app/plots`);
   return { updated: data?.length ?? 0 };
 }

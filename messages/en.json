@@ -202,7 +202,8 @@
       "harvest": "The “to” date must be after the “from” date.",
       "notRepairable": "This plot cannot be repaired automatically. Fix the corners on the map.",
       "noneSelected": "Select plots first (tick boxes in the list).",
-      "nothingToChange": "Fill in at least one field."
+      "nothingToChange": "Fill in at least one field.",
+      "harvestBulk": "The date does not fit the existing harvest period of some plots (“to” before “from”). Enter both dates."
     },
     "archivedFilter": "Archived",
     "supplier": "Supplier",
@@ -370,7 +371,8 @@
     "supplierNoPlots": "No plots are assigned to this supplier yet. Choose the supplier on a plot or when importing.",
     "supplierPlotsNoDocs": "Plots without documents: {count}.",
     "supplierExpiredDocs": "Expired documents: {count}.",
-    "documentsCount": "{count, plural, one {# document} other {# documents}}"
+    "documentsCount": "{count, plural, one {# document} other {# documents}}",
+    "supplierFirst": "Showing the first {count} plots; the totals apply to them."
   },
   "ship": {
     "title": "Shipments",

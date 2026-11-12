@@ -1,4 +1,4 @@
-import { area, featureCollection, polygon as turfPolygon, simplify, unkinkPolygon } from '@turf/turf';
+import { area, featureCollection, kinks, polygon as turfPolygon, simplify, unkinkPolygon } from '@turf/turf';
 import type * as GeoJSON from 'geojson';
 
 type Poly = GeoJSON.Polygon | GeoJSON.MultiPolygon;
@@ -15,6 +15,8 @@ export function repairSelfIntersections(geometry: GeoJSON.Geometry): { geometry:
   const parts = geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.coordinates;
   const pieces: GeoJSON.Position[][][] = [];
   let changed = false;
+  // Holes would be returned as separate solid pieces (unkinkPolygon treats every ring alone): leave those to the user.
+  if (parts.some((rings) => rings.length > 1)) return { geometry, changed: false };
   for (const rings of parts) {
     let split: GeoJSON.Feature<GeoJSON.Polygon>[];
     try {
@@ -34,9 +36,13 @@ export function repairSelfIntersections(geometry: GeoJSON.Geometry): { geometry:
 const vertexCount = (g: GeoJSON.Geometry): number =>
   g.type === 'Polygon' ? g.coordinates.flat().length : g.type === 'MultiPolygon' ? g.coordinates.flat(2).length : 1;
 
+const selfIntersects = (g: GeoJSON.Geometry): boolean =>
+  (g.type === 'Polygon' || g.type === 'MultiPolygon') && kinks(g as GeoJSON.Polygon | GeoJSON.MultiPolygon).features.length > 0;
+
 /**
  * Simplify polygons until the serialized size fits `maxBytes` (EUDR GeoJSON limit). Tolerances start at
- * ~0.1 m and grow; topology is preserved. Returns null when even ~10 m is not enough.
+ * ~0.1 m and grow to ~10 m. Each plot is simplified on its own (shared borders may drift apart), and a
+ * tolerance whose result makes any outline cross itself is rejected. Returns null when nothing fits.
  */
 export function simplifyToFit(
   geometries: GeoJSON.Geometry[],
@@ -51,6 +57,7 @@ export function simplifyToFit(
         ? (simplify(featureCollection([{ type: 'Feature', properties: {}, geometry: g }]), { tolerance, highQuality: true }).features[0]!.geometry as GeoJSON.Geometry)
         : g,
     );
+    if (out.some((g, i) => selfIntersects(g) && !selfIntersects(geometries[i]!))) continue;
     if (size(out) <= maxBytes) return { geometries: out, tolerance, verticesBefore, verticesAfter: out.reduce((n, g) => n + vertexCount(g), 0) };
   }
   return null;

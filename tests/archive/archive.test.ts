@@ -29,3 +29,9 @@ describe('buildArchive', () => {
     expect(await z.file('documents.csv')!.async('string')).toContain('Dovoljenje');
   });
 });
+
+describe('toCsv for Excel', () => {
+  it('writes comma decimals and neutralises formulas', () => {
+    expect(toCsv([{ a: 2.5, b: '=HYPERLINK("x")', c: '-1', d: 'Gozd' }], ['a', 'b', 'c', 'd'])).toBe('﻿a;b;c;d\r\n2,5;"\'=HYPERLINK(""x"")";\'-1;Gozd\r\n');
+  });
+});

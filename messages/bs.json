@@ -205,7 +205,8 @@
       "harvest": "Datum „do“ mora biti nakon datuma „od“.",
       "notRepairable": "Parcelu nije moguće automatski popraviti. Popravite tačke na karti.",
       "noneSelected": "Najprije odaberite parcele (kvačice na spisku).",
-      "nothingToChange": "Popunite barem jedno polje."
+      "nothingToChange": "Popunite barem jedno polje.",
+      "harvestBulk": "Datum ne odgovara postojećem periodu sječe kod nekih parcela („do“ prije „od“). Upišite oba datuma."
     },
     "archivedFilter": "Arhivirane",
     "supplier": "Dobavljač",
@@ -373,7 +374,8 @@
     "supplierNoPlots": "Ovom dobavljaču još niste dodijelili parcele. Dobavljača birate kod parcele ili pri uvozu.",
     "supplierPlotsNoDocs": "Parcele bez dokumenata: {count}.",
     "supplierExpiredDocs": "Isteklih dokumenata: {count}.",
-    "documentsCount": "{count, plural, one {# dokument} few {# dokumenta} other {# dokumenata}}"
+    "documentsCount": "{count, plural, one {# dokument} few {# dokumenta} other {# dokumenata}}",
+    "supplierFirst": "Prikazano je prvih {count} parcela; zbirovi važe za njih."
   },
   "ship": {
     "title": "Pošiljke",

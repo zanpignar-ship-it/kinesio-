@@ -75,10 +75,15 @@ export function checkReadiness(input: ReadinessInput): { ready: boolean; issues:
   if (input.geojsonBytes > EXPORT_MAX_BYTES) err('geojsonTooLarge');
   if (input.geojsonSimplified) warn('geojsonSimplified');
 
-  if (input.mode === 'submit_dds' && input.risk && needsRiskAssessment(input.risk.level)) {
-    if (!input.risk.assessed) err('riskAssessmentMissing');
-    else if (input.risk.negligible !== true) err('riskNotNegligible');
-    if (input.risk.level === 'high') warn('highRiskCountry');
+  if (input.mode === 'submit_dds' && input.risk) {
+    if (needsRiskAssessment(input.risk.level)) {
+      if (!input.risk.assessed) err('riskAssessmentMissing');
+      else if (input.risk.negligible !== true) err('riskNotNegligible');
+      if (input.risk.level === 'high') warn('highRiskCountry');
+    } else if (input.risk.assessed && input.risk.negligible === false) {
+      // Art. 13: simplified due diligence only while the operator has no information pointing to a risk.
+      err('riskNotNegligible');
+    }
   }
 
   const noDocs = input.plots.filter((p) => p.documentCount === 0);

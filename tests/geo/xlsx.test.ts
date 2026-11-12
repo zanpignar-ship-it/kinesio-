@@ -46,3 +46,14 @@ describe('xlsx import', () => {
     expect(res.features).toHaveLength(0);
   });
 });
+
+describe('xlsx edge cases', () => {
+  it('handles prefixed tags, hex entities and phonetic hints', async () => {
+    const zip = new JSZip();
+    zip.file('xl/workbook.xml', '<x:workbook><x:sheets><x:sheet name="A" sheetId="1" r:id="rId1"/></x:sheets></x:workbook>');
+    zip.file('xl/_rels/workbook.xml.rels', '<Relationships><Relationship Id="rId1" Target="worksheets/sheet1.xml"/></Relationships>');
+    zip.file('xl/sharedStrings.xml', '<x:sst><x:si><x:t>Gozd &#x10C;</x:t><x:rPh><x:t>ignored</x:t></x:rPh></x:si></x:sst>');
+    zip.file('xl/worksheets/sheet1.xml', '<x:worksheet><x:sheetData><x:row r="1"><x:c r="A1" t="s"><x:v>0</x:v></x:c><x:c r="C1"><x:v>46.5</x:v></x:c></x:row></x:sheetData></x:worksheet>');
+    expect(await readXlsxRows(await zip.generateAsync({ type: 'uint8array' }))).toEqual([['Gozd Č', '', '46.5']]);
+  });
+});

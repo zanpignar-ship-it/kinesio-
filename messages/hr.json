@@ -205,7 +205,8 @@
       "harvest": "Datum »do« mora biti nakon datuma »od«.",
       "notRepairable": "Česticu nije moguće automatski popraviti. Popravite vrhove na karti.",
       "noneSelected": "Najprije odaberite čestice (kvačice na popisu).",
-      "nothingToChange": "Ispunite barem jedno polje."
+      "nothingToChange": "Ispunite barem jedno polje.",
+      "harvestBulk": "Datum ne odgovara postojećem razdoblju sječe kod nekih čestica (»do« prije »od«). Upišite oba datuma."
     },
     "archivedFilter": "Arhivirane",
     "supplier": "Dobavljač",
@@ -373,7 +374,8 @@
     "supplierNoPlots": "Ovom dobavljaču još niste dodijelili čestice. Dobavljača birate kod čestice ili pri uvozu.",
     "supplierPlotsNoDocs": "Čestice bez dokumenata: {count}.",
     "supplierExpiredDocs": "Isteklih dokumenata: {count}.",
-    "documentsCount": "{count, plural, one {# dokument} few {# dokumenta} other {# dokumenata}}"
+    "documentsCount": "{count, plural, one {# dokument} few {# dokumenta} other {# dokumenata}}",
+    "supplierFirst": "Prikazano je prvih {count} čestica; zbrojevi vrijede za njih."
   },
   "ship": {
     "title": "Pošiljke",
