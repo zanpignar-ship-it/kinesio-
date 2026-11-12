@@ -3,11 +3,30 @@
 import { useState } from 'react';
 
 type Item = { id: string; label: string };
-type Props = { name: string; items: Item[]; initial: string[]; legend: string; hint?: string; searchLabel: string; emptyText: string; selectedText: (n: number) => string };
+type Props = {
+  name: string;
+  items: Item[];
+  initial: string[];
+  legend: string;
+  hint?: string;
+  searchLabel: string;
+  emptyText: string;
+  selectedText: (n: number) => string;
+  /** Controlled mode (e.g. together with a map): the parent owns the selection. */
+  value?: Set<string>;
+  onChange?: (next: Set<string>) => void;
+  children?: React.ReactNode;
+};
 
 /** Searchable checkbox list; the selected ids are submitted as a comma list in `name`. */
-export function MultiPicker({ name, items, initial, legend, hint, searchLabel, emptyText, selectedText }: Props) {
-  const [selected, setSelected] = useState<Set<string>>(new Set(initial));
+export function MultiPicker({ name, items, initial, legend, hint, searchLabel, emptyText, selectedText, value, onChange, children }: Props) {
+  const [own, setOwn] = useState<Set<string>>(new Set(initial));
+  const selected = value ?? own;
+  const setSelected = (update: (s: Set<string>) => Set<string>) => {
+    const next = update(selected);
+    if (onChange) onChange(next);
+    else setOwn(next);
+  };
   const [q, setQ] = useState('');
   const shown = items.filter((p) => p.label.toLowerCase().includes(q.trim().toLowerCase())).slice(0, 300);
   const toggle = (id: string) =>
@@ -22,6 +41,7 @@ export function MultiPicker({ name, items, initial, legend, hint, searchLabel, e
       <legend className="text-sm font-medium">{legend}</legend>
       {hint ? <p className="text-muted-foreground text-xs">{hint}</p> : null}
       <input type="hidden" name={name} value={[...selected].join(',')} />
+      {children}
       {items.length === 0 ? (
         <p className="text-muted-foreground text-sm">{emptyText}</p>
       ) : (

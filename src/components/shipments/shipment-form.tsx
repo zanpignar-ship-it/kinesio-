@@ -3,6 +3,8 @@
 import { useActionState, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { MultiPicker } from '@/components/forms/multi-picker';
+import { PlotPicker } from './plot-picker';
+import type * as GeoJSON from 'geojson';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -27,7 +29,7 @@ export type ShipmentFormInitial = {
   references?: Ref[];
 };
 type Props = {
-  options: { customers: { id: string; name: string }[]; products: Opt[]; suppliers: { id: string; name: string }[]; plots: Opt[]; documents: Opt[] };
+  options: { customers: { id: string; name: string }[]; products: Opt[]; suppliers: { id: string; name: string }[]; plots: Opt[]; documents: Opt[]; plotsMap: GeoJSON.FeatureCollection };
   initial: ShipmentFormInitial;
   defaultCountry: string;
 };
@@ -137,15 +139,7 @@ export function ShipmentForm({ options, initial, defaultCountry }: Props) {
         </Button>
       </section>
 
-      <MultiPicker
-        name="plotIds"
-        items={options.plots}
-        initial={initial.plotIds ?? []}
-        legend={t('plots')}
-        searchLabel={tAll('documents.searchPlots')}
-        emptyText={tAll('documents.noPlots')}
-        selectedText={(n) => tAll('documents.selected', { count: n })}
-      />
+      <PlotPicker items={options.plots} map={options.plotsMap} initial={initial.plotIds ?? []} />
       <MultiPicker
         name="documentIds"
         items={options.documents}

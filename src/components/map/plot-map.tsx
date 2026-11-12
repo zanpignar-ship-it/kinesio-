@@ -13,7 +13,7 @@ import type { DrawState } from '@/lib/map/draw-state';
 import { cn } from '@/lib/utils';
 
 export type PlotMapProps = {
-  /** Saved plots to show (properties: id, label, validation_status). */
+  /** Saved plots to show (properties: id, label, validation_status; `selected: true` highlights a plot). */
   plots?: GeoJSON.FeatureCollection;
   /** Drawing in progress (vertices are draggable). */
   draft?: DrawState;
@@ -26,6 +26,7 @@ export type PlotMapProps = {
 // Worker files are copied to /public/maplibre by scripts/copy-maplibre-worker.mjs.
 maplibregl.setWorkerUrl('/maplibre/maplibre-gl-worker.mjs');
 
+const SELECTED_COLOR = '#2563eb';
 const EMPTY: GeoJSON.FeatureCollection = { type: 'FeatureCollection', features: [] };
 
 function draftFeatures(draft: DrawState | undefined): GeoJSON.FeatureCollection {
@@ -87,9 +88,11 @@ export function PlotMap({ plots, draft, onAdd, onMove, onPlotClick, className }:
       if (!map.getSource('plots')) {
         map.addSource('plots', { type: 'geojson', data: data.current.plots ?? EMPTY });
         const color = ['match', ['get', 'validation_status'], 'valid', STATUS_COLORS.valid, 'warning', STATUS_COLORS.warning, STATUS_COLORS.error] as unknown as string;
-        map.addLayer({ id: 'plots-fill', type: 'fill', source: 'plots', filter: ['==', ['geometry-type'], 'Polygon'], paint: { 'fill-color': color, 'fill-opacity': 0.25 } });
-        map.addLayer({ id: 'plots-line', type: 'line', source: 'plots', filter: ['==', ['geometry-type'], 'Polygon'], paint: { 'line-color': color, 'line-width': 2 } });
-        map.addLayer({ id: 'plots-point', type: 'circle', source: 'plots', filter: ['==', ['geometry-type'], 'Point'], paint: { 'circle-color': color, 'circle-radius': 7, 'circle-stroke-color': '#fff', 'circle-stroke-width': 2 } });
+        const selected = ['==', ['get', 'selected'], true];
+        const pick = <T,>(yes: T, no: T) => ['case', selected, yes, no] as unknown as T;
+        map.addLayer({ id: 'plots-fill', type: 'fill', source: 'plots', filter: ['==', ['geometry-type'], 'Polygon'], paint: { 'fill-color': color, 'fill-opacity': pick(0.5, 0.25) } });
+        map.addLayer({ id: 'plots-line', type: 'line', source: 'plots', filter: ['==', ['geometry-type'], 'Polygon'], paint: { 'line-color': pick(SELECTED_COLOR, color), 'line-width': pick(4, 2) } });
+        map.addLayer({ id: 'plots-point', type: 'circle', source: 'plots', filter: ['==', ['geometry-type'], 'Point'], paint: { 'circle-color': color, 'circle-radius': pick(9, 7), 'circle-stroke-color': pick(SELECTED_COLOR, '#fff'), 'circle-stroke-width': pick(4, 2) } });
       }
       if (!map.getSource('draft')) {
         map.addSource('draft', { type: 'geojson', data: draftFeatures(data.current.draft) });

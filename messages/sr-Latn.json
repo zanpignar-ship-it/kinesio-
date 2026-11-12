@@ -451,7 +451,10 @@
       "notReady": "Pošiljka još nije spremna.",
       "ddsReference": "Unesite referentni broj DDS.",
       "duplicateRef": "Pošiljka s ovom internom oznakom već postoji."
-    }
+    },
+    "pickOnMap": "Izaberi na mapi",
+    "hideMap": "Sakrij mapu",
+    "pickOnMapHint": "Dodirnite parcelu na mapi da je dodate ili uklonite. Izabrane su uokvirene plavo."
   },
   "share": {
     "title": "Paket za kupca",

@@ -1,4 +1,5 @@
 import 'server-only';
+import type * as GeoJSON from 'geojson';
 import type { Database } from '@/lib/db/database.types';
 import { documentExpiry } from '@/lib/documents/expiry';
 import { buildEudrGeoJson, serializeEudrGeoJson, type ExportPlot } from '@/lib/geo/export-eudr';
@@ -24,13 +25,14 @@ export async function listShipments(organizationId: string) {
 
 export async function shipmentFormOptions(organizationId: string, locale: string) {
   const supabase = await createServerSupabase();
-  const [customers, products, suppliers, plots, documents, opts] = await Promise.all([
+  const [customers, products, suppliers, plots, documents, opts, map] = await Promise.all([
     supabase.from('customers').select('id, name').eq('organization_id', organizationId).order('name'),
     supabase.from('products').select('id, name, hs_code').eq('organization_id', organizationId).order('name'),
     supabase.from('suppliers').select('id, name').eq('organization_id', organizationId).order('name'),
     supabase.from('plots').select('id, label, validation_status').eq('organization_id', organizationId).is('archived_at', null).order('label').limit(2000),
     supabase.from('documents').select('id, title').eq('organization_id', organizationId).order('title').limit(2000),
     productOptions(locale),
+    supabase.rpc('plots_map', { p_org: organizationId }),
   ]);
   return {
     customers: customers.data ?? [],
@@ -39,6 +41,7 @@ export async function shipmentFormOptions(organizationId: string, locale: string
     plots: (plots.data ?? []).map((p) => ({ id: p.id, label: p.label })),
     documents: (documents.data ?? []).map((d) => ({ id: d.id, label: d.title })),
     hsCodes: opts.hsCodes,
+    plotsMap: (map.data ?? { type: 'FeatureCollection', features: [] }) as unknown as GeoJSON.FeatureCollection,
   };
 }
 

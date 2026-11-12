@@ -448,7 +448,10 @@
       "notReady": "The shipment is not ready yet.",
       "ddsReference": "Enter the DDS reference number.",
       "duplicateRef": "A shipment with this internal reference already exists."
-    }
+    },
+    "pickOnMap": "Pick on map",
+    "hideMap": "Hide map",
+    "pickOnMapHint": "Tap a plot on the map to add or remove it. Selected plots are outlined in blue."
   },
   "share": {
     "title": "Buyer package",
