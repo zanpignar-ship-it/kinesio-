@@ -16,23 +16,23 @@ export async function AppHeader({ current, all, email }: Props) {
         <Link href="/app" className="text-primary font-semibold">
           {t('common.appName')}
         </Link>
-        <nav className="order-last flex w-full flex-wrap gap-x-4 gap-y-1 text-sm sm:order-none sm:w-auto">
-          <Link href="/app" className="underline-offset-4 hover:underline">
+        <nav className="order-last flex w-full flex-wrap gap-x-4 text-sm sm:order-none sm:w-auto">
+          <Link href="/app" className="inline-block py-1.5 underline-offset-4 hover:underline">
             {t('app.nav.dashboard')}
           </Link>
-          <Link href="/app/plots" className="underline-offset-4 hover:underline">
+          <Link href="/app/plots" className="inline-block py-1.5 underline-offset-4 hover:underline">
             {t('app.nav.plots')}
           </Link>
-          <Link href="/app/documents" className="underline-offset-4 hover:underline">
+          <Link href="/app/documents" className="inline-block py-1.5 underline-offset-4 hover:underline">
             {t('app.nav.documents')}
           </Link>
-          <Link href="/app/shipments" className="underline-offset-4 hover:underline">
+          <Link href="/app/shipments" className="inline-block py-1.5 underline-offset-4 hover:underline">
             {t('app.nav.shipments')}
           </Link>
-          <Link href="/app/master-data" className="underline-offset-4 hover:underline">
+          <Link href="/app/master-data" className="inline-block py-1.5 underline-offset-4 hover:underline">
             {t('app.nav.masterData')}
           </Link>
-          <Link href="/app/settings" className="underline-offset-4 hover:underline">
+          <Link href="/app/settings" className="inline-block py-1.5 underline-offset-4 hover:underline">
             {t('app.nav.settings')}
           </Link>
         </nav>
