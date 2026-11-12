@@ -13,7 +13,7 @@ import { ORG_COUNTRIES } from '@/lib/auth/schemas';
 import { Constants } from '@/lib/db/database.types';
 
 type Opt = { id: string; label: string };
-type Item = { productId: string; netMassKg: string; volumeM3: string; pieces: string };
+type Item = { productId: string; netMassKg: string; volumeM3: string; pieces: string; plotIds?: string[] };
 type Ref = { kind: 'dds' | 'simplified_declaration'; referenceNo: string; verificationNo: string; supplierId: string };
 export type ShipmentFormInitial = {
   id?: string;
@@ -45,6 +45,19 @@ export function ShipmentForm({ options, initial, defaultCountry }: Props) {
   const [mode, setMode] = useState(initial.mode ?? 'submit_dds');
   const [items, setItems] = useState<Item[]>(initial.items?.length ? initial.items : [{ productId: options.products[0]?.id ?? '', netMassKg: '', volumeM3: '', pieces: '' }]);
   const [refs, setRefs] = useState<Ref[]>(initial.references ?? []);
+  const [plotIds, setPlotIds] = useState<Set<string>>(new Set(initial.plotIds ?? []));
+  const plotLabel = new Map(options.plots.map((p) => [p.id, p.label]));
+  const shipmentPlots = [...plotIds].filter((id) => plotLabel.has(id));
+  const toggleItemPlot = (i: number, id: string) =>
+    setItems((xs) =>
+      xs.map((x, n) => {
+        if (n !== i) return x;
+        const current = new Set(x.plotIds?.length ? x.plotIds : shipmentPlots);
+        if (current.has(id)) current.delete(id);
+        else current.add(id);
+        return { ...x, plotIds: current.size === shipmentPlots.length ? [] : [...current] };
+      }),
+    );
   const setItem = (i: number, patch: Partial<Item>) => setItems((xs) => xs.map((x, n) => (n === i ? { ...x, ...patch } : x)));
   const setRef = (i: number, patch: Partial<Ref>) => setRefs((xs) => xs.map((x, n) => (n === i ? { ...x, ...patch } : x)));
 
@@ -132,6 +145,21 @@ export function ShipmentForm({ options, initial, defaultCountry }: Props) {
             <Button type="button" variant="ghost" onClick={() => setItems((xs) => xs.filter((_, n) => n !== i))} disabled={items.length === 1}>
               {t('remove')}
             </Button>
+            {items.length > 1 && shipmentPlots.length > 1 ? (
+              <details className="text-sm sm:col-span-5" data-testid={`item-plots-${i}`}>
+                <summary className="cursor-pointer">
+                  {it.plotIds?.length ? t('itemPlotsSome', { count: it.plotIds.length, total: shipmentPlots.length }) : t('itemPlotsAll')}
+                </summary>
+                <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
+                  {shipmentPlots.map((id) => (
+                    <label key={id} className="flex items-center gap-2">
+                      <input type="checkbox" className="size-4" checked={!it.plotIds?.length || it.plotIds.includes(id)} onChange={() => toggleItemPlot(i, id)} />
+                      {plotLabel.get(id)}
+                    </label>
+                  ))}
+                </div>
+              </details>
+            ) : null}
           </div>
         ))}
         <Button type="button" variant="outline" className="self-start" onClick={() => setItems((xs) => [...xs, { productId: options.products[0]?.id ?? '', netMassKg: '', volumeM3: '', pieces: '' }])}>
@@ -139,7 +167,7 @@ export function ShipmentForm({ options, initial, defaultCountry }: Props) {
         </Button>
       </section>
 
-      <PlotPicker items={options.plots} map={options.plotsMap} initial={initial.plotIds ?? []} />
+      <PlotPicker items={options.plots} map={options.plotsMap} initial={initial.plotIds ?? []} value={plotIds} onChange={setPlotIds} />
       <MultiPicker
         name="documentIds"
         items={options.documents}

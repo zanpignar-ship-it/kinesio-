@@ -52,6 +52,7 @@ export function ddsInputFor(data: ShipmentData, org: Membership['organization'],
       pieces: i.pieces,
       scientificName: i.scientificName,
       commonName: i.commonName,
+      plotIds: i.plotIds,
     })),
     plots: data.exportPlots,
   };

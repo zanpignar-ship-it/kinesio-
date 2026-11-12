@@ -30,6 +30,8 @@ export const itemSchema = z.object({
   netMassKg: quantity,
   volumeM3: quantity,
   pieces: z.preprocess((v) => (v === '' || v === undefined || v === null ? null : Number(v)), z.number().int('ship.errors.quantity').positive('ship.errors.quantity').nullable()),
+  /** Plots this product comes from; empty = all plots of the shipment. */
+  plotIds: z.preprocess((v) => (Array.isArray(v) ? v.filter((s) => typeof s === 'string' && UUID.test(s)) : []), z.array(z.string()).max(2000)),
 });
 
 export const referenceSchema = z.object({

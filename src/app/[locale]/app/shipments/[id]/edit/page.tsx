@@ -31,7 +31,7 @@ export default async function EditShipmentPage({ params }: { params: Promise<{ l
           mode: sh.mode,
           activity: sh.activity,
           countryOfProduction: sh.country_of_production,
-          items: data.items.map((i) => ({ productId: i.productId, netMassKg: s(i.netMassKg), volumeM3: s(i.volumeM3), pieces: s(i.pieces) })),
+          items: data.items.map((i) => ({ productId: i.productId, netMassKg: s(i.netMassKg), volumeM3: s(i.volumeM3), pieces: s(i.pieces), plotIds: i.plotIds })),
           plotIds: data.plots.map((p) => p.id),
           documentIds: data.documents.map((d) => d.id),
           references: data.references.map((r) => ({ kind: r.kind, referenceNo: r.reference_no, verificationNo: r.verification_no ?? '', supplierId: r.supplier_id ?? '' })),

@@ -497,7 +497,9 @@
     "hideMap": "Skrij karto",
     "pickOnMapHint": "Tapnite parcelo na karti, da jo dodate ali odstranite. Izbrane so obrobljene modro.",
     "exportCsv": "Izvozi v Excel (CSV)",
-    "lockedTraces": "Izjava je oddana v TRACES – pošiljke ni mogoče spreminjati, dokler je ne umaknete."
+    "lockedTraces": "Izjava je oddana v TRACES – pošiljke ni mogoče spreminjati, dokler je ne umaknete.",
+    "itemPlotsAll": "Parcele tega izdelka: vse",
+    "itemPlotsSome": "Parcele tega izdelka: {count} od {total}"
   },
   "share": {
     "title": "Paket za kupca",

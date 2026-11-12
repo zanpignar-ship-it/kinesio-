@@ -500,7 +500,9 @@
     "hideMap": "Sakrij kartu",
     "pickOnMapHint": "Dodirnite česticu na karti da je dodate ili uklonite. Odabrane su obrubljene plavo.",
     "exportCsv": "Izvezi u Excel (CSV)",
-    "lockedTraces": "Izjava je podnesena u TRACES – pošiljku nije moguće mijenjati dok je ne povučete."
+    "lockedTraces": "Izjava je podnesena u TRACES – pošiljku nije moguće mijenjati dok je ne povučete.",
+    "itemPlotsAll": "Čestice ovog proizvoda: sve",
+    "itemPlotsSome": "Čestice ovog proizvoda: {count} od {total}"
   },
   "share": {
     "title": "Paket za kupca",

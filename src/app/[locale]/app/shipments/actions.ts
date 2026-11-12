@@ -33,7 +33,11 @@ async function writeChildren(ctx: Ctx, shipmentId: string, data: ShipmentFormInp
 
   if (data.items.length) {
     const { error } = await supabase.from('shipment_items').insert(
-      data.items.map((i) => ({ organization_id: org, shipment_id: shipmentId, product_id: i.productId, net_mass_kg: i.netMassKg, volume_m3: i.volumeM3, pieces: i.pieces })),
+      data.items.map((i) => {
+        // Only plots that are part of the shipment; none left (or none chosen) means "all plots".
+        const own = i.plotIds.filter((p) => data.plotIds.includes(p));
+        return { organization_id: org, shipment_id: shipmentId, product_id: i.productId, net_mass_kg: i.netMassKg, volume_m3: i.volumeM3, pieces: i.pieces, plot_ids: own.length && own.length < data.plotIds.length ? own : null };
+      }),
     );
     if (error) return false;
   }
@@ -200,7 +204,7 @@ export async function copyShipment(_prev: ShipmentFormState, formData: FormData)
     mode: s.mode,
     activity: s.activity,
     countryOfProduction: null,
-    items: source.items.map((i) => ({ productId: i.productId, netMassKg: i.netMassKg, volumeM3: i.volumeM3, pieces: i.pieces })),
+    items: source.items.map((i) => ({ productId: i.productId, netMassKg: i.netMassKg, volumeM3: i.volumeM3, pieces: i.pieces, plotIds: i.plotIds })),
     plotIds: source.plots.map((p) => p.id),
     documentIds: source.documents.map((d) => d.id),
     references: [],

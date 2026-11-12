@@ -7,13 +7,26 @@ import { MultiPicker } from '@/components/forms/multi-picker';
 import { PlotMapClient } from '@/components/map/map-client';
 import { Button } from '@/components/ui/button';
 
-type Props = { items: { id: string; label: string }[]; map: GeoJSON.FeatureCollection; initial: string[] };
+type Props = {
+  items: { id: string; label: string }[];
+  map: GeoJSON.FeatureCollection;
+  initial: string[];
+  /** Controlled mode: the shipment form needs the selection for the products' plots. */
+  value?: Set<string>;
+  onChange?: (next: Set<string>) => void;
+};
 
 /** Plots of a shipment: tick them in the list or tap them on the map (selected plots are outlined in blue). */
-export function PlotPicker({ items, map, initial }: Props) {
+export function PlotPicker({ items, map, initial, value, onChange }: Props) {
   const t = useTranslations('ship');
   const tAll = useTranslations();
-  const [selected, setSelected] = useState<Set<string>>(new Set(initial));
+  const [own, setOwn] = useState<Set<string>>(new Set(initial));
+  const selected = value ?? own;
+  const setSelected = (update: Set<string> | ((s: Set<string>) => Set<string>)) => {
+    const next = typeof update === 'function' ? update(selected) : update;
+    if (onChange) onChange(next);
+    else setOwn(next);
+  };
   const [showMap, setShowMap] = useState(false);
   const toggle = (id: string) =>
     setSelected((s) => {

@@ -11,6 +11,8 @@ export type DdsCommodityInput = {
   pieces: number | null;
   scientificName: string | null;
   commonName: string | null;
+  /** Ids of the plots this product comes from; empty/undefined = all plots of the shipment. */
+  plotIds?: string[];
 };
 
 export type DdsInput = {
@@ -59,8 +61,9 @@ export function checkDds(input: DdsInput): DdsProblem[] {
     if (!/^[0-9]{2,10}$/.test(c.hsCode)) out.add('hsCode');
   }
   const producers = groupProducers(input.plots);
-  // 1000 producers per commodity, 10,000 per statement (every commodity carries all producers).
-  if (producers.length > 1000 || producers.length * input.commodities.length > 10_000) out.add('tooManyProducers');
+  // 1000 producers per commodity, 10,000 per statement.
+  const perCommodity = input.commodities.map((c) => groupProducers(commodityPlots(c, input.plots)).length);
+  if (perCommodity.some((n) => n > 1000) || perCommodity.reduce((a, b) => a + b, 0) > 10_000) out.add('tooManyProducers');
   if (producers.some((p) => !/^[A-Z]{2}$/.test(p.country))) out.add('producerCountry');
   if (geolocationBytes(input) > MAX_GEOLOCATION_BYTES) out.add('tooLarge');
   if (input.internalRef.length > 50) out.add('internalRef');
@@ -73,17 +76,24 @@ export function checkDds(input: DdsInput): DdsProblem[] {
 
 export const MAX_GEOLOCATION_BYTES = 25 * 1024 * 1024;
 
-/** Size of all base64 geolocation in the request (each commodity repeats the producers). */
+/** Size of all base64 geolocation in the request (each commodity carries the producers of its plots). */
 export function geolocationBytes(input: DdsInput): number {
-  const perCommodity = groupProducers(input.plots).reduce((n, g) => n + Math.ceil(Buffer.byteLength(JSON.stringify(buildEudrGeoJson(g.plots)), 'utf8') / 3) * 4, 0);
-  return perCommodity * Math.max(1, input.commodities.length);
+  const size = (plots: ExportPlot[]) => groupProducers(plots).reduce((n, g) => n + Math.ceil(Buffer.byteLength(JSON.stringify(buildEudrGeoJson(g.plots)), 'utf8') / 3) * 4, 0);
+  return input.commodities.reduce((n, c) => n + size(commodityPlots(c, input.plots)), 0);
 }
 
 const num = (n: number) => String(Math.round(n * 1e6) / 1e6);
 
-/** Body of SubmitDdsRequest (V4). Every commodity carries all producers of the shipment. */
+/** The plots a commodity comes from (its own selection, or every plot of the shipment). */
+export function commodityPlots(c: DdsCommodityInput, plots: ExportPlot[]): ExportPlot[] {
+  if (!c.plotIds?.length) return plots;
+  const own = plots.filter((p) => p.id && c.plotIds!.includes(p.id));
+  return own.length ? own : plots;
+}
+
+/** Body of SubmitDdsRequest (V4). Each commodity carries the producers of its own plots (all plots when none are chosen). */
 export function submitDdsBody(input: DdsInput): string {
-  const producers = groupProducers(input.plots).map((g, i) => {
+  const producersXml = (plots: ExportPlot[]) => groupProducers(plots).map((g, i) => {
     const geojson = Buffer.from(JSON.stringify(buildEudrGeoJson(g.plots)), 'utf8').toString('base64');
     return (
       `<dds:producers>` +
@@ -109,7 +119,7 @@ export function submitDdsBody(input: DdsInput): string {
       `</dds:descriptors>` +
       el('dds:hsHeading', c.hsCode) +
       (c.scientificName || c.commonName ? `<dds:speciesInfo>${el('dds:scientificName', c.scientificName)}${el('dds:commonName', c.commonName)}</dds:speciesInfo>` : '') +
-      producers.join('') +
+      producersXml(commodityPlots(c, input.plots)).join('') +
       `</dds:commodities>`
     );
   });

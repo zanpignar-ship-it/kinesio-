@@ -55,7 +55,7 @@ export async function getShipment(organizationId: string, id: string, locale: st
     .from('shipments')
     .select(
       `*, customer:customers (id, name, country),
-       shipment_items (id, product_id, net_mass_kg, volume_m3, pieces, product:products (name, hs_code, trade_name, species:species (scientific_name, common_name_sl, common_name_hr, common_name_sr, common_name_bs, common_name_en), hs:hs_codes (in_scope))),
+       shipment_items (id, product_id, net_mass_kg, volume_m3, pieces, plot_ids, product:products (name, hs_code, trade_name, species:species (scientific_name, common_name_sl, common_name_hr, common_name_sr, common_name_bs, common_name_en), hs:hs_codes (in_scope))),
        shipment_plots (plot_id, geom_snapshot, plot:plots (label, country, area_ha, validation_status, harvest_from, harvest_to, supplier:suppliers (name))),
        shipment_documents (document_id, document:documents (title, valid_to)),
        upstream_references (id, kind, reference_no, verification_no, supplier_id)`,
@@ -93,7 +93,7 @@ export async function getShipment(organizationId: string, id: string, locale: st
   const exportPlots: ExportPlot[] = s.shipment_plots.flatMap((sp) => {
     const g = geometryFromDb(sp.geom_snapshot);
     if (!g || !sp.plot) return [];
-    const plot: ExportPlot = { label: sp.plot.label, geometry: g as PlotGeometry, producerCountry: sp.plot.country, areaHa: sp.plot.area_ha === null ? null : Number(sp.plot.area_ha) };
+    const plot: ExportPlot = { id: sp.plot_id, label: sp.plot.label, geometry: g as PlotGeometry, producerCountry: sp.plot.country, areaHa: sp.plot.area_ha === null ? null : Number(sp.plot.area_ha) };
     if (sp.plot.supplier?.name) plot.producerName = sp.plot.supplier.name;
     return [plot];
   });
@@ -127,6 +127,7 @@ export async function getShipment(organizationId: string, id: string, locale: st
     netMassKg: i.net_mass_kg === null ? null : Number(i.net_mass_kg),
     volumeM3: i.volume_m3 === null ? null : Number(i.volume_m3),
     pieces: i.pieces,
+    plotIds: i.plot_ids ?? [],
   }));
   const plots = s.shipment_plots.map((sp) => ({
     id: sp.plot_id,

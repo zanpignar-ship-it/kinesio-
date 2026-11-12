@@ -497,7 +497,9 @@
     "hideMap": "Hide map",
     "pickOnMapHint": "Tap a plot on the map to add or remove it. Selected plots are outlined in blue.",
     "exportCsv": "Export to Excel (CSV)",
-    "lockedTraces": "The statement is in TRACES – the shipment cannot be changed unless you withdraw it."
+    "lockedTraces": "The statement is in TRACES – the shipment cannot be changed unless you withdraw it.",
+    "itemPlotsAll": "Plots of this product: all",
+    "itemPlotsSome": "Plots of this product: {count} of {total}"
   },
   "share": {
     "title": "Buyer package",

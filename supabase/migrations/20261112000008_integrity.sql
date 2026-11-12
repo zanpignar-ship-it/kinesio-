@@ -18,8 +18,9 @@ begin
   delete from public.shipment_documents where shipment_id = p_shipment;
   delete from public.upstream_references where shipment_id = p_shipment;
 
-  insert into public.shipment_items (organization_id, shipment_id, product_id, net_mass_kg, volume_m3, pieces)
-  select v_org, p_shipment, (x ->> 'productId')::uuid, (x ->> 'netMassKg')::numeric, (x ->> 'volumeM3')::numeric, (x ->> 'pieces')::integer
+  insert into public.shipment_items (organization_id, shipment_id, product_id, net_mass_kg, volume_m3, pieces, plot_ids)
+  select v_org, p_shipment, (x ->> 'productId')::uuid, (x ->> 'netMassKg')::numeric, (x ->> 'volumeM3')::numeric, (x ->> 'pieces')::integer,
+         (select nullif(array_agg(v::uuid), '{}') from jsonb_array_elements_text(coalesce(x -> 'plotIds', '[]'::jsonb)) v)
   from jsonb_array_elements(coalesce(p_items, '[]'::jsonb)) x;
 
   insert into public.shipment_plots (organization_id, shipment_id, plot_id, geom_snapshot)

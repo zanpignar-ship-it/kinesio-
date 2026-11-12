@@ -500,7 +500,9 @@
     "hideMap": "Sakrij mapu",
     "pickOnMapHint": "Dodirnite parcelu na mapi da je dodate ili uklonite. Izabrane su uokvirene plavo.",
     "exportCsv": "Izvezi u Excel (CSV)",
-    "lockedTraces": "Izjava je podneta u TRACES – pošiljku nije moguće menjati dok je ne povučete."
+    "lockedTraces": "Izjava je podneta u TRACES – pošiljku nije moguće menjati dok je ne povučete.",
+    "itemPlotsAll": "Parcele ovog proizvoda: sve",
+    "itemPlotsSome": "Parcele ovog proizvoda: {count} od {total}"
   },
   "share": {
     "title": "Paket za kupca",

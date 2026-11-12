@@ -681,6 +681,7 @@ export type Database = {
           net_mass_kg: number | null
           organization_id: string
           pieces: number | null
+          plot_ids: string[] | null
           product_id: string
           shipment_id: string
           supplementary_units: number | null
@@ -693,6 +694,7 @@ export type Database = {
           net_mass_kg?: number | null
           organization_id: string
           pieces?: number | null
+          plot_ids?: string[] | null
           product_id: string
           shipment_id: string
           supplementary_units?: number | null
@@ -705,6 +707,7 @@ export type Database = {
           net_mass_kg?: number | null
           organization_id?: string
           pieces?: number | null
+          plot_ids?: string[] | null
           product_id?: string
           shipment_id?: string
           supplementary_units?: number | null

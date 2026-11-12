@@ -4,6 +4,8 @@ import { EUDR_PROPERTY_NAMES, EXPORT_MAX_BYTES, MIN_COORD_DECIMALS } from '@/lib
 import type { Issue, PlotGeometry } from './types';
 
 export interface ExportPlot {
+  /** Plot id (not exported) – links products of a shipment to their plots. */
+  id?: string;
   label: string;
   geometry: PlotGeometry;
   producerName?: string;
