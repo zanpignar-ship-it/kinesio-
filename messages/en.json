@@ -228,7 +228,7 @@
     "title": "Import plots",
     "intro": "Choose a file with plot boundaries or points. You will see a preview and any problems before anything is saved.",
     "chooseFile": "Choose a file",
-    "formats": "GeoJSON, KML, KMZ, Shapefile (.zip) or CSV (latitude, longitude, name columns).",
+    "formats": "GeoJSON, KML, KMZ, Shapefile (.zip), CSV or Excel (.xlsx) with latitude, longitude, name columns.",
     "parsing": "Reading the file …",
     "fileIssues": "About the file",
     "crsTitle": "Which coordinate system is the file in?",

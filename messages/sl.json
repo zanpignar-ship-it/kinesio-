@@ -228,7 +228,7 @@
     "title": "Uvoz parcel",
     "intro": "Izberite datoteko z mejami ali točkami parcel. Preden kar koli shranimo, vam pokažemo predogled in napake.",
     "chooseFile": "Izberite datoteko",
-    "formats": "GeoJSON, KML, KMZ, Shapefile (.zip) ali CSV (stolpci širina, dolžina, ime).",
+    "formats": "GeoJSON, KML, KMZ, Shapefile (.zip), CSV ali Excel (.xlsx) s stolpci širina, dolžina, ime.",
     "parsing": "Berem datoteko …",
     "fileIssues": "O datoteki",
     "crsTitle": "V katerem koordinatnem sistemu je datoteka?",

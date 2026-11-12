@@ -4,6 +4,7 @@ import { parseCsv } from './csv';
 import { parseGeoJson } from './geojson';
 import { parseKml, parseKmz } from './kml';
 import { parseShapefileZip } from './shapefile';
+import { xlsxToCsv } from './xlsx';
 
 export type { ParseResult } from './common';
 
@@ -37,6 +38,12 @@ export async function parsePlotFile(fileName: string, data: Uint8Array, opts: Pa
     case 'csv':
     case 'txt':
       return parseCsv(decodeText(data), opts);
+    case 'xlsx':
+      try {
+        return parseCsv(await xlsxToCsv(data), opts);
+      } catch {
+        return failed({ extension: ext });
+      }
     default:
       return failed({ extension: ext });
   }

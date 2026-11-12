@@ -80,7 +80,7 @@ export function ImportWizard({ organizationId, defaultCountry, suppliers = [] }:
       if (!file || !parsed) return;
       // Keep the original file for inspections; the import still works if this upload fails.
       let filePath: string | null = `${organizationId}/${crypto.randomUUID()}/${file.name.replace(/[^\w.\-]+/g, '_')}`;
-      const upload = await createBrowserSupabase().storage.from('plot-imports').upload(filePath, file.data, { contentType: file.type, upsert: false });
+      const upload = await createBrowserSupabase().storage.from('plot-imports').upload(filePath, file.data, { contentType: /\.xlsx$/i.test(file.name) ? 'application/octet-stream' : file.type, upsert: false });
       if (upload.error) filePath = null;
       try {
         setResult(await importPlots({ locale, country, fileName: file.name, filePath, detectedCrs: crs ?? parsed.detectedCrs, supplierId: supplierId || null, harvestFrom: harvestFrom || null, harvestTo: harvestTo || null, rows }));
@@ -122,7 +122,7 @@ export function ImportWizard({ organizationId, defaultCountry, suppliers = [] }:
         <input
           id="file"
           type="file"
-          accept=".geojson,.json,.kml,.kmz,.zip,.csv,.txt"
+          accept=".geojson,.json,.kml,.kmz,.zip,.csv,.txt,.xlsx"
           onChange={(e) => void onFile(e.currentTarget)}
           className="file:bg-primary file:text-primary-foreground text-sm file:mr-3 file:h-11 file:rounded-md file:border-0 file:px-4"
         />

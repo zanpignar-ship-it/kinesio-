@@ -231,7 +231,7 @@
     "title": "Uvoz parcela",
     "intro": "Odaberite datoteku s granicama ili tačkama parcela. Prije spremanja prikazat ćemo pregled i greške.",
     "chooseFile": "Odaberite datoteku",
-    "formats": "GeoJSON, KML, KMZ, Shapefile (.zip) ili CSV (kolone širina, dužina, naziv).",
+    "formats": "GeoJSON, KML, KMZ, Shapefile (.zip), CSV ili Excel (.xlsx) s kolonama širina, dužina, naziv.",
     "parsing": "Čitam datoteku …",
     "fileIssues": "O datoteci",
     "crsTitle": "U kojem je koordinatnom sistemu datoteka?",
