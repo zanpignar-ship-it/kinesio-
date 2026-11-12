@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { expect, test } from '@playwright/test';
 
-type M = { auth: { signInTitle: string; signUpTitle: string; errors: { email: string } } };
+type M = { auth: { signInTitle: string; signUpTitle: string; errors: { email: string } }; home: { cta: string } };
 const msg = (l: string) => JSON.parse(readFileSync(new URL(`../../messages/${l}.json`, import.meta.url), 'utf8')) as M;
 
 test('a signed-out visitor of /sl/app is sent to the login with next', async ({ page }) => {
