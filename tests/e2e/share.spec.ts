@@ -36,13 +36,19 @@ test('an invalid buyer link shows a clear message', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Povezava ni veljavna ali je potekla.');
 });
 
-// Needs supabase/migrations/20261112000004_buyer_package.sql on the Supabase project (to be applied with the owner's confirmation).
-test.fixme('the buyer opens the link without signing in', async ({ browser }) => {
+test('the buyer opens the link without signing in', async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();
   await page.goto(new URL(shareUrl).pathname);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Žaga Čšž d.o.o.');
   await expect(page.getByTestId('share-shipment')).toHaveCount(1);
   await expect(page.getByTestId('share-dds')).toHaveText('Izjava še ni oddana.');
+  const path = new URL(shareUrl).pathname;
+  const res = await page.evaluate(async (p) => {
+    const pdf = await fetch(`${p}/pdf`);
+    const geo = await fetch(`${p}/geojson`);
+    return { pdf: pdf.status, pdfType: pdf.headers.get('content-type'), geo: geo.status, features: ((await geo.json()) as { features: unknown[] }).features.length };
+  }, path);
+  expect(res).toEqual({ pdf: 200, pdfType: 'application/pdf', geo: 200, features: 1 });
   await context.close();
 });
