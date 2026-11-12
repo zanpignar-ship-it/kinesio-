@@ -419,7 +419,24 @@
     "supplierPlotsNoDocs": "Plots without documents: {count}.",
     "supplierExpiredDocs": "Expired documents: {count}.",
     "documentsCount": "{count, plural, one {# document} other {# documents}}",
-    "supplierFirst": "Showing the first {count} plots; the totals apply to them."
+    "supplierFirst": "Showing the first {count} plots; the totals apply to them.",
+    "import": {
+      "title": "Import from Excel or CSV",
+      "hint": {
+        "customers": "First row: column names, e.g. Name, Country, Address, Email, EORI.",
+        "suppliers": "First row: column names, e.g. Name, Country, Address, Tax ID, Email, Type (forest owner or company)."
+      },
+      "file": "CSV or Excel file",
+      "found": "Valid records in the file: {count}.",
+      "rowError": "Row {row}: {message}",
+      "save": "Import records ({count})",
+      "done": "Imported: {inserted}, skipped (already present or invalid): {skipped}.",
+      "noHeader": "The file is empty.",
+      "noName": "No name column (e.g. “Name”).",
+      "unreadable": "The file could not be read.",
+      "empty": "Nothing to import.",
+      "tooMany": "You can import at most 5000 records at once."
+    }
   },
   "ship": {
     "title": "Shipments",

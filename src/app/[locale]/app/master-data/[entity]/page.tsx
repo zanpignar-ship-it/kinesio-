@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { RecordForm } from '@/components/masterdata/record-form';
 import { MasterDataTabs } from '@/components/masterdata/tabs';
+import { ImportRecords } from '@/components/masterdata/import-records';
 import { Link } from '@/i18n/navigation';
 import { getCurrentMembership, requireUser } from '@/lib/auth/session';
 import { isEntity } from '@/lib/masterdata/config';
@@ -21,6 +22,7 @@ export default async function MasterDataPage({ params }: { params: Promise<{ loc
     <div className="flex flex-col gap-6">
       <h1 className="text-2xl font-bold tracking-tight">{t('title')}</h1>
       <MasterDataTabs active={entity} />
+      {entity === 'customers' || entity === 'suppliers' ? <ImportRecords entity={entity} defaultCountry={current.organization.country} /> : null}
       <div className="grid gap-8 lg:grid-cols-2">
         <section className="flex flex-col gap-3">
           <h2 className="font-semibold">{t(entity)}</h2>

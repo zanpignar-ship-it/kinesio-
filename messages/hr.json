@@ -422,7 +422,24 @@
     "supplierPlotsNoDocs": "Čestice bez dokumenata: {count}.",
     "supplierExpiredDocs": "Isteklih dokumenata: {count}.",
     "documentsCount": "{count, plural, one {# dokument} few {# dokumenta} other {# dokumenata}}",
-    "supplierFirst": "Prikazano je prvih {count} čestica; zbrojevi vrijede za njih."
+    "supplierFirst": "Prikazano je prvih {count} čestica; zbrojevi vrijede za njih.",
+    "import": {
+      "title": "Uvezi iz Excela ili CSV-a",
+      "hint": {
+        "customers": "Prvi redak: nazivi stupaca, npr. Naziv, Država, Adresa, E-pošta, EORI.",
+        "suppliers": "Prvi redak: nazivi stupaca, npr. Ime i prezime / Naziv, Država, Adresa, OIB, E-pošta, Vrsta (vlasnik šume ili tvrtka)."
+      },
+      "file": "Datoteka CSV ili Excel",
+      "found": "Valjanih zapisa u datoteci: {count}.",
+      "rowError": "Redak {row}: {message}",
+      "save": "Uvezi zapise ({count})",
+      "done": "Uvezeno: {inserted}, preskočeno (već postoje ili nisu valjani): {skipped}.",
+      "noHeader": "Datoteka je prazna.",
+      "noName": "Nema stupca s nazivom (npr. »Ime« ili »Naziv«).",
+      "unreadable": "Datoteku nije bilo moguće pročitati.",
+      "empty": "Nema zapisa za uvoz.",
+      "tooMany": "Odjednom možete uvesti najviše 5000 zapisa."
+    }
   },
   "ship": {
     "title": "Pošiljke",

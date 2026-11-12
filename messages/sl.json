@@ -419,7 +419,24 @@
     "supplierPlotsNoDocs": "Parcele brez dokumentov: {count}.",
     "supplierExpiredDocs": "Poteklih dokumentov: {count}.",
     "documentsCount": "{count, plural, one {# dokument} two {# dokumenta} few {# dokumenti} other {# dokumentov}}",
-    "supplierFirst": "Prikazanih je prvih {count} parcel; skupni števci veljajo zanje."
+    "supplierFirst": "Prikazanih je prvih {count} parcel; skupni števci veljajo zanje.",
+    "import": {
+      "title": "Uvozi iz Excela ali CSV",
+      "hint": {
+        "customers": "Prva vrstica: imena stolpcev, npr. Naziv, Država, Naslov, E-pošta, EORI.",
+        "suppliers": "Prva vrstica: imena stolpcev, npr. Ime in priimek / Naziv, Država, Naslov, Davčna številka, E-pošta, Vrsta (lastnik gozda ali podjetje)."
+      },
+      "file": "Datoteka CSV ali Excel",
+      "found": "Veljavnih zapisov v datoteki: {count}.",
+      "rowError": "Vrstica {row}: {message}",
+      "save": "Uvozi zapise ({count})",
+      "done": "Uvoženih: {inserted}, preskočenih (že obstajajo ali niso veljavni): {skipped}.",
+      "noHeader": "Datoteka je prazna.",
+      "noName": "Ni stolpca z imenom (npr. »Ime« ali »Naziv«).",
+      "unreadable": "Datoteke ni bilo mogoče prebrati.",
+      "empty": "Ni zapisov za uvoz.",
+      "tooMany": "Naenkrat lahko uvozite največ 5000 zapisov."
+    }
   },
   "ship": {
     "title": "Pošiljke",

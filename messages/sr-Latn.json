@@ -422,7 +422,24 @@
     "supplierPlotsNoDocs": "Parcele bez dokumenata: {count}.",
     "supplierExpiredDocs": "Isteklih dokumenata: {count}.",
     "documentsCount": "{count, plural, one {# dokument} few {# dokumenta} other {# dokumenata}}",
-    "supplierFirst": "Prikazano je prvih {count} parcela; zbirovi važe za njih."
+    "supplierFirst": "Prikazano je prvih {count} parcela; zbirovi važe za njih.",
+    "import": {
+      "title": "Uvezi iz Excela ili CSV-a",
+      "hint": {
+        "customers": "Prvi red: nazivi kolona, npr. Naziv, Zemlja, Adresa, E-pošta, EORI.",
+        "suppliers": "Prvi red: nazivi kolona, npr. Ime i prezime / Naziv, Zemlja, Adresa, PIB, E-pošta, Vrsta (vlasnik šume ili preduzeće)."
+      },
+      "file": "Datoteka CSV ili Excel",
+      "found": "Važećih zapisa u datoteci: {count}.",
+      "rowError": "Red {row}: {message}",
+      "save": "Uvezi zapise ({count})",
+      "done": "Uvezeno: {inserted}, preskočeno (već postoje ili nisu važeći): {skipped}.",
+      "noHeader": "Datoteka je prazna.",
+      "noName": "Nema kolone sa nazivom (npr. „Ime“ ili „Naziv“).",
+      "unreadable": "Datoteku nije bilo moguće pročitati.",
+      "empty": "Nema zapisa za uvoz.",
+      "tooMany": "Odjednom možete uvesti najviše 5000 zapisa."
+    }
   },
   "ship": {
     "title": "Pošiljke",
