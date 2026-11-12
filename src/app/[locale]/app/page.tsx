@@ -4,6 +4,7 @@ import { getCurrentMembership, requireUser } from '@/lib/auth/session';
 import { daysUntil, eudrStartDate } from '@/lib/eudr/deadline';
 import { expiringDocuments } from '@/lib/documents/queries';
 import { plotStatusCounts } from '@/lib/plots/queries';
+import { todoItems } from '@/lib/dashboard/todo';
 import { listShipments } from '@/lib/shipments/queries';
 import { ShipmentStatusBadge } from '@/components/shipments/shipment-status-badge';
 import { Link } from '@/i18n/navigation';
@@ -18,10 +19,11 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
   const td = await getTranslations('documents');
   const tp = await getTranslations('plots');
   const ts = await getTranslations('ship');
-  const [expiring, counts, shipments] = await Promise.all([
+  const [expiring, counts, shipments, todos] = await Promise.all([
     expiringDocuments(current.organization.id),
     plotStatusCounts(current.organization.id),
     listShipments(current.organization.id),
+    todoItems(current.organization.id),
   ]);
   const recent = shipments.slice(0, 5);
   const format = await getFormatter();
@@ -38,6 +40,24 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
           <CardTitle>{t('deadlineTitle', { date: format.dateTime(new Date(`${start}T00:00:00Z`), { dateStyle: 'long', timeZone: 'UTC' }) })}</CardTitle>
           <CardDescription>{days > 0 ? t('deadlineDays', { days }) : t('deadlinePassed')}</CardDescription>
         </CardHeader>
+      </Card>
+      <Card data-testid="todo">
+        <CardHeader>
+          <CardTitle>{t('todoTitle')}</CardTitle>
+          {todos.length === 0 ? <CardDescription>{t('todoNone')}</CardDescription> : null}
+        </CardHeader>
+        {todos.length > 0 ? (
+          <ul className="flex flex-col gap-1 px-6 text-sm">
+            {todos.map((i) => (
+              <li key={i.key}>
+                <Link href={i.href} className="flex justify-between gap-3 underline-offset-4 hover:underline">
+                  <span>{t(`todo.${i.key}`)}</span>
+                  <span className="font-medium tabular-nums">{i.count}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ) : null}
       </Card>
       <Card>
         <CardHeader>

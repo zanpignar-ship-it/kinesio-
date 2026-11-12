@@ -135,7 +135,17 @@
       "masterData": "Šifranti",
       "settings": "Nastavitve"
     },
-    "recentShipments": "Zadnje pošiljke"
+    "recentShipments": "Zadnje pošiljke",
+    "todoTitle": "Za urediti",
+    "todoNone": "Vse je urejeno.",
+    "todo": {
+      "plotErrors": "Parcele z napako",
+      "expiredDocuments": "Potekli dokumenti",
+      "readyShipments": "Pošiljke, pripravljene za oddajo v TRACES",
+      "draftShipments": "Osnutki pošiljk",
+      "plotsNoHarvest": "Parcele brez datuma poseka",
+      "plotsNoSupplier": "Parcele brez dobavitelja"
+    }
   },
   "plots": {
     "title": "Parcele",

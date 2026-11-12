@@ -138,7 +138,17 @@
       "masterData": "Šifrarnici",
       "settings": "Postavke"
     },
-    "recentShipments": "Posljednje pošiljke"
+    "recentShipments": "Posljednje pošiljke",
+    "todoTitle": "Za srediti",
+    "todoNone": "Sve je sređeno.",
+    "todo": {
+      "plotErrors": "Čestice s pogreškom",
+      "expiredDocuments": "Istekli dokumenti",
+      "readyShipments": "Pošiljke spremne za podnošenje u TRACES",
+      "draftShipments": "Nacrti pošiljaka",
+      "plotsNoHarvest": "Čestice bez datuma sječe",
+      "plotsNoSupplier": "Čestice bez dobavljača"
+    }
   },
   "plots": {
     "title": "Čestice",

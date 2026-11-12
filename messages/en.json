@@ -135,7 +135,17 @@
       "masterData": "Master data",
       "settings": "Settings"
     },
-    "recentShipments": "Recent shipments"
+    "recentShipments": "Recent shipments",
+    "todoTitle": "To do",
+    "todoNone": "All done.",
+    "todo": {
+      "plotErrors": "Plots with errors",
+      "expiredDocuments": "Expired documents",
+      "readyShipments": "Shipments ready to submit in TRACES",
+      "draftShipments": "Draft shipments",
+      "plotsNoHarvest": "Plots without a harvest date",
+      "plotsNoSupplier": "Plots without a supplier"
+    }
   },
   "plots": {
     "title": "Plots",

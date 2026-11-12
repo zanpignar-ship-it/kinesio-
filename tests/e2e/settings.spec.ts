@@ -26,6 +26,8 @@ test('the owner edits the organization and downloads the archive', async ({ page
   await page.goto('/sl/app');
   await expect(page.getByTestId('plot-counts').getByRole('link', { name: /Veljavne/ })).toContainText('1');
   await expect(page.getByText('Še nimate pošiljk.')).toBeVisible();
+  await expect(page.getByTestId('todo')).toContainText('Parcele brez datuma poseka1');
+  await expect(page.getByTestId('todo')).toContainText('Parcele brez dobavitelja1');
 
   await page.goto('/sl/app/settings');
   await page.getByLabel('Ime podjetja', { exact: true }).fill('Žaga Arhiv 2');

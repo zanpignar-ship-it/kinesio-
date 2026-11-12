@@ -138,7 +138,17 @@
       "masterData": "Šifarnici",
       "settings": "Postavke"
     },
-    "recentShipments": "Posljednje pošiljke"
+    "recentShipments": "Posljednje pošiljke",
+    "todoTitle": "Za srediti",
+    "todoNone": "Sve je sređeno.",
+    "todo": {
+      "plotErrors": "Parcele s greškom",
+      "expiredDocuments": "Istekli dokumenti",
+      "readyShipments": "Pošiljke spremne za podnošenje u TRACES",
+      "draftShipments": "Nacrti pošiljki",
+      "plotsNoHarvest": "Parcele bez datuma sječe",
+      "plotsNoSupplier": "Parcele bez dobavljača"
+    }
   },
   "plots": {
     "title": "Parcele",
