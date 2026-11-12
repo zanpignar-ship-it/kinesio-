@@ -559,7 +559,8 @@
       "unknown": "Something went wrong. Please try again."
     },
     "members": "Members",
-    "auditLink": "Audit trail"
+    "auditLink": "Audit trail",
+    "tracesTitle": "Submission to TRACES (EUDR Information System)"
   },
   "legal": {
     "terms": "Terms of use",
@@ -755,7 +756,7 @@
       },
       {
         "q": "Does LesTrace submit the statement for me?",
-        "a": "Not yet. You enter the data in TRACES (EUDR Information System) and upload the downloaded GeoJSON. Direct submission is planned."
+        "a": "Yes, once you enter your TRACES web-service user in Settings. Mark the shipment as ready and click “Submit the statement to TRACES”; the reference and verification numbers are filled in automatically once the system assigns them (usually within an hour). Without it, you enter the data in TRACES manually."
       },
       {
         "q": "What does the buyer see?",
@@ -767,5 +768,72 @@
       }
     ],
     "disclaimer": "LesTrace is a data preparation tool. The user is responsible for the due diligence statement."
+  },
+  "traces": {
+    "settingsIntro": "Enter the web-service user from your TRACES profile (Edit profile → Web Services Access). Test in the Acceptance environment first. The authentication key is stored encrypted and cannot be read back.",
+    "environment": "Environment",
+    "environments": {
+      "acceptance": "Test (Acceptance)",
+      "production": "Production"
+    },
+    "username": "Username (EU Login)",
+    "authKey": "Authentication Key",
+    "authKeyKeep": "•••••• (leave empty to keep the stored key)",
+    "clientId": "WebServiceClientId",
+    "clientIdHint": "Default eudr-test for Acceptance and eudr-repository for Production. TODO: verify in your TRACES profile.",
+    "save": "Save",
+    "saved": "Saved.",
+    "test": "Test connection",
+    "testOk": "Connection works ({detail}).",
+    "testFailed": "Connection failed: {detail}",
+    "remove": "Remove TRACES credentials",
+    "panelTitle": "Submit the statement to TRACES",
+    "stateLabel": "Status in TRACES",
+    "submittedAt": "submitted {date}",
+    "checkedAt": "checked {date}",
+    "waitHint": "The reference number is usually not available right away. We check automatically at most once an hour; you can also check manually.",
+    "notConfigured": "Enter your TRACES credentials to submit directly.",
+    "toSettings": "Open settings",
+    "ownerOnly": "Only the organization owner can submit to TRACES.",
+    "confidential": "Geolocation is confidential (not passed down the supply chain).",
+    "submit": "Submit the statement to TRACES",
+    "submitTest": "Submit to test TRACES (Acceptance)",
+    "markReadyFirst": "First fix the checklist errors and mark the shipment as ready.",
+    "check": "Check status",
+    "submitted": "The statement is submitted. We will get the reference number once the system assigns it.",
+    "stillPending": "The statement is still being processed.",
+    "states": {
+      "SUBMITTED": "Submitted, waiting for the reference number",
+      "AVAILABLE": "Accepted (reference number assigned)",
+      "REJECTED": "Rejected",
+      "WITHDRAWN": "Withdrawn",
+      "CANCELLED": "Cancelled",
+      "ARCHIVED": "Archived",
+      "GROUPED": "Grouped into another statement",
+      "OBSOLETE": "Obsolete"
+    },
+    "problems": {
+      "noCommodities": "The shipment has no products.",
+      "noPlots": "The shipment has no plots with geolocation.",
+      "speciesNames": "Wood needs both the scientific and the common species name.",
+      "netMass": "Net mass is required for import and export.",
+      "quantity": "Every product needs a quantity.",
+      "tooManyProducers": "Too many producers (at most 1000 per product).",
+      "hsCode": "The HS code must have 2–10 digits."
+    },
+    "errors": {
+      "environment": "Choose an environment.",
+      "username": "Enter the username.",
+      "clientId": "Enter the WebServiceClientId.",
+      "authKey": "Enter the authentication key.",
+      "serverKey": "The server has no encryption key configured. Contact the administrator.",
+      "unknown": "Something went wrong. Please try again.",
+      "notConfigured": "TRACES credentials are not set.",
+      "mode": "Direct submission is only possible for shipments for which you submit a statement.",
+      "alreadySubmitted": "A statement for this shipment has already been submitted.",
+      "invalid": "The statement cannot be submitted:",
+      "rejected": "TRACES rejected the request.",
+      "check": "The status could not be checked. Try again later."
+    }
   }
 }

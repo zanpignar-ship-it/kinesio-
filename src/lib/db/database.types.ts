@@ -781,6 +781,12 @@ export type Database = {
           risk_assessment: string | null
           risk_mitigation: string | null
           risk_negligible: boolean | null
+          traces_checked_at: string | null
+          traces_environment: string | null
+          traces_message: string | null
+          traces_status: string | null
+          traces_submitted_at: string | null
+          traces_uuid: string | null
           id: string
           internal_ref: string
           mode: Database["public"]["Enums"]["shipment_mode"]
@@ -803,6 +809,12 @@ export type Database = {
           risk_assessment?: string | null
           risk_mitigation?: string | null
           risk_negligible?: boolean | null
+          traces_checked_at?: string | null
+          traces_environment?: string | null
+          traces_message?: string | null
+          traces_status?: string | null
+          traces_submitted_at?: string | null
+          traces_uuid?: string | null
           id?: string
           internal_ref: string
           mode: Database["public"]["Enums"]["shipment_mode"]
@@ -825,6 +837,12 @@ export type Database = {
           risk_assessment?: string | null
           risk_mitigation?: string | null
           risk_negligible?: boolean | null
+          traces_checked_at?: string | null
+          traces_environment?: string | null
+          traces_message?: string | null
+          traces_status?: string | null
+          traces_submitted_at?: string | null
+          traces_uuid?: string | null
           id?: string
           internal_ref?: string
           mode?: Database["public"]["Enums"]["shipment_mode"]
@@ -950,6 +968,36 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      traces_credentials: {
+        Row: {
+          auth_key_enc: string
+          client_id: string
+          environment: string
+          organization_id: string
+          updated_at: string
+          updated_by: string | null
+          username: string
+        }
+        Insert: {
+          auth_key_enc: string
+          client_id: string
+          environment: string
+          organization_id: string
+          updated_at?: string
+          updated_by?: string | null
+          username: string
+        }
+        Update: {
+          auth_key_enc?: string
+          client_id?: string
+          environment?: string
+          organization_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          username?: string
+        }
+        Relationships: []
       }
       upstream_references: {
         Row: {

@@ -5,6 +5,8 @@ import { ShipmentStatusBadge } from '@/components/shipments/shipment-status-badg
 import { StatusActions } from '@/components/shipments/status-actions';
 import { SharePanel } from '@/components/share/share-panel';
 import { RiskForm } from '@/components/shipments/risk-form';
+import { TracesPanel } from '@/components/traces/traces-panel';
+import { refreshShipmentTraces, tracesCheckDue, tracesSettings } from '@/lib/traces/service';
 import { createServerSupabase } from '@/lib/supabase/server';
 import { StatusBadge } from '@/components/plots/status-badge';
 import { Button } from '@/components/ui/button';
@@ -20,7 +22,13 @@ export default async function ShipmentPage({ params }: { params: Promise<{ local
   const user = await requireUser(locale, `/app/shipments/${id}`);
   const { current } = await getCurrentMembership(user.id);
   if (!current || !/^[0-9a-f-]{36}$/i.test(id)) notFound();
-  const data = await getShipment(current.organization.id, id, locale);
+  let data = await getShipment(current.organization.id, id, locale);
+  const isOwner = current.role === 'owner';
+  // A submitted statement gets its reference number some time later: ask TRACES at most once an hour.
+  const tracesSettingsValue = isOwner ? await tracesSettings(current.organization.id) : null;
+  if (data && isOwner && tracesSettingsValue && tracesCheckDue(data.shipment)) {
+    if ((await refreshShipmentTraces(current.organization.id, id)) === 'updated') data = await getShipment(current.organization.id, id, locale);
+  }
   if (!data) notFound();
   const t = await getTranslations('ship');
   const sh = data.shipment;
@@ -81,6 +89,24 @@ export default async function ShipmentPage({ params }: { params: Promise<{ local
           </ul>
         )}
       </section>
+
+      {sh.mode === 'submit_dds' ? (
+        <TracesPanel
+          shipmentId={sh.id}
+          isOwner={isOwner}
+          configured={tracesSettingsValue ? { environment: tracesSettingsValue.environment } : null}
+          status={data.status}
+          ready={data.readiness.ready}
+          traces={{
+            uuid: sh.traces_uuid,
+            status: sh.traces_status,
+            message: sh.traces_message,
+            environment: sh.traces_environment,
+            submittedAt: sh.traces_submitted_at,
+            checkedAt: sh.traces_checked_at,
+          }}
+        />
+      ) : null}
 
       {sh.mode === 'submit_dds' ? (
         <RiskForm

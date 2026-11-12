@@ -38,3 +38,12 @@ Uveljavljene so migracije do `20261112000007` in `20261112000009_risk.sql`. Te s
 - `supabase/migrations/20261112000008_integrity.sql` – popravki iz pregleda kode (shranjevanje pošiljke v eni transakciji, zaklep oddane pošiljke v bazi, preklic povezave za kupca je dokončen, potrjen e-naslov za vabila). Po uveljavitvi preklopiti akcije pošiljk in dokumentov na `save_shipment_children` / `set_document_plots`.
 - Čiščenje testnih uporabnikov e2e: `scripts/cleanup-e2e.sql`.
 - Skrivni ključ `SUPABASE_SERVICE_ROLE_KEY` v Vercelu (portal za dobavitelje, prenos dokumentov s strani za kupca).
+
+## TRACES (neposredna oddaja izjave)
+Kaj mora narediti uporabnik (enkrat):
+1. Račun EU Login in registracija podjetja kot »Operator« v EUDR Information System (TRACES), z EORI številko pri uvozu/izvozu.
+2. V testnem okolju (https://acceptance.eudr.webcloud.ec.europa.eu) v profilu: Edit profile → Web Services Access → Active; prepiše uporabniško ime in Authentication Key.
+3. V LesTrace: Nastavitve → Oddaja v TRACES → okolje »Testno«, uporabniško ime, ključ → Shrani → Preizkusi povezavo.
+4. Ko testna oddaja deluje, isto ponovi za produkcijo (https://eudr.webcloud.ec.europa.eu).
+
+Šifrirni ključ `LESTRACE_ENCRYPTION_KEY` je nastavljen v Vercelu (vsa okolja) in v `.env.local`. Živi test: `LIVE_TRACES=1 NODE_USE_ENV_PROXY=1 npx vitest run tests/traces/live.test.ts` (z `TRACES_USERNAME`, `TRACES_AUTH_KEY` preveri prave podatke).

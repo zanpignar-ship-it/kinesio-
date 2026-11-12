@@ -56,7 +56,7 @@ export async function getShipment(organizationId: string, id: string, locale: st
     .select(
       `*, customer:customers (id, name, country),
        shipment_items (id, product_id, net_mass_kg, volume_m3, pieces, product:products (name, hs_code, trade_name, species:species (scientific_name, common_name_sl, common_name_hr, common_name_sr, common_name_bs, common_name_en), hs:hs_codes (in_scope))),
-       shipment_plots (plot_id, geom_snapshot, plot:plots (label, country, validation_status, harvest_from, harvest_to, supplier:suppliers (name))),
+       shipment_plots (plot_id, geom_snapshot, plot:plots (label, country, area_ha, validation_status, harvest_from, harvest_to, supplier:suppliers (name))),
        shipment_documents (document_id, document:documents (title, valid_to)),
        upstream_references (id, kind, reference_no, verification_no, supplier_id)`,
     )
@@ -93,10 +93,11 @@ export async function getShipment(organizationId: string, id: string, locale: st
   const exportPlots: ExportPlot[] = s.shipment_plots.flatMap((sp) => {
     const g = geometryFromDb(sp.geom_snapshot);
     if (!g || !sp.plot) return [];
-    const plot: ExportPlot = { label: sp.plot.label, geometry: g as PlotGeometry, producerCountry: sp.plot.country };
+    const plot: ExportPlot = { label: sp.plot.label, geometry: g as PlotGeometry, producerCountry: sp.plot.country, areaHa: sp.plot.area_ha === null ? null : Number(sp.plot.area_ha) };
     if (sp.plot.supplier?.name) plot.producerName = sp.plot.supplier.name;
     return [plot];
   });
+  let finalPlots = exportPlots;
   let geojson = serializeEudrGeoJson(buildEudrGeoJson(exportPlots));
   // Over the EUDR size limit: simplify the polygons (topology kept) until the file fits.
   let simplified: { tolerance: number; verticesBefore: number; verticesAfter: number } | null = null;
@@ -105,7 +106,8 @@ export async function getShipment(organizationId: string, id: string, locale: st
       serializeEudrGeoJson(buildEudrGeoJson(exportPlots.map((p, i) => ({ ...p, geometry: gs[i] as PlotGeometry })))).bytes;
     const fit = simplifyToFit(exportPlots.map((p) => p.geometry), EXPORT_MAX_BYTES, size);
     if (fit && fit.tolerance > 0) {
-      geojson = serializeEudrGeoJson(buildEudrGeoJson(exportPlots.map((p, i) => ({ ...p, geometry: fit.geometries[i] as PlotGeometry }))));
+      finalPlots = exportPlots.map((p, i) => ({ ...p, geometry: fit.geometries[i] as PlotGeometry }));
+      geojson = serializeEudrGeoJson(buildEudrGeoJson(finalPlots));
       simplified = { tolerance: fit.tolerance, verticesBefore: fit.verticesBefore, verticesAfter: fit.verticesAfter };
     }
   }
@@ -159,6 +161,7 @@ export async function getShipment(organizationId: string, id: string, locale: st
     references: s.upstream_references,
     readiness: checkReadiness(readinessInput),
     geojson,
+    exportPlots: finalPlots,
     riskLevel,
   };
 }

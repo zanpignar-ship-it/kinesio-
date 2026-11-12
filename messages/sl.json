@@ -559,7 +559,8 @@
       "unknown": "Prišlo je do napake. Poskusite znova."
     },
     "members": "Člani",
-    "auditLink": "Revizijska sled"
+    "auditLink": "Revizijska sled",
+    "tracesTitle": "Oddaja v TRACES (EUDR Information System)"
   },
   "legal": {
     "terms": "Pogoji uporabe",
@@ -755,7 +756,7 @@
       },
       {
         "q": "Ali LesTrace izjavo odda namesto mene?",
-        "a": "Še ne. Podatke prepišete v TRACES (EUDR Information System) in naložite preneseni GeoJSON. Neposredna oddaja je v načrtu."
+        "a": "Da, če v Nastavitvah vnesete uporabnika spletnih storitev TRACES. Pošiljko označite kot pripravljeno in kliknite »Oddaj izjavo v TRACES«; referenčno in verifikacijsko številko vpišemo samodejno, ko ju sistem dodeli (običajno v eni uri). Brez tega podatke prepišete v TRACES ročno."
       },
       {
         "q": "Kaj vidi kupec?",
@@ -767,5 +768,72 @@
       }
     ],
     "disclaimer": "LesTrace je orodje za pripravo podatkov. Za izjavo o skrbnem pregledu je odgovoren uporabnik."
+  },
+  "traces": {
+    "settingsIntro": "Vnesite uporabnika spletnih storitev iz svojega profila v sistemu TRACES (Edit profile → Web Services Access). Najprej preizkusite v testnem okolju (Acceptance). Avtentikacijski ključ se shrani šifrirano in ga ni mogoče prebrati nazaj.",
+    "environment": "Okolje",
+    "environments": {
+      "acceptance": "Testno (Acceptance)",
+      "production": "Produkcija"
+    },
+    "username": "Uporabniško ime (EU Login)",
+    "authKey": "Avtentikacijski ključ (Authentication Key)",
+    "authKeyKeep": "•••••• (pustite prazno, da ostane shranjeni)",
+    "clientId": "WebServiceClientId",
+    "clientIdHint": "Privzeto eudr-test za testno in eudr-repository za produkcijsko okolje. TODO: preveri v svojem profilu TRACES.",
+    "save": "Shrani",
+    "saved": "Shranjeno.",
+    "test": "Preizkusi povezavo",
+    "testOk": "Povezava deluje ({detail}).",
+    "testFailed": "Povezava ne deluje: {detail}",
+    "remove": "Odstrani podatke za TRACES",
+    "panelTitle": "Oddaja izjave v TRACES",
+    "stateLabel": "Stanje v TRACES",
+    "submittedAt": "oddano {date}",
+    "checkedAt": "preverjeno {date}",
+    "waitHint": "Referenčna številka običajno ni na voljo takoj. Stanje preverimo samodejno največ enkrat na uro; lahko ga preverite tudi ročno.",
+    "notConfigured": "Za neposredno oddajo vnesite podatke za TRACES.",
+    "toSettings": "Odpri nastavitve",
+    "ownerOnly": "Izjavo v TRACES lahko odda samo lastnik organizacije.",
+    "confidential": "Geolokacija je zaupna (ne deli je naprej po dobavni verigi).",
+    "submit": "Oddaj izjavo v TRACES",
+    "submitTest": "Oddaj v testni TRACES (Acceptance)",
+    "markReadyFirst": "Najprej odpravite napake na kontrolnem seznamu in označite pošiljko kot pripravljeno.",
+    "check": "Preveri stanje",
+    "submitted": "Izjava je oddana. Referenčno številko bomo dobili, ko jo sistem dodeli.",
+    "stillPending": "Izjava je še v obdelavi.",
+    "states": {
+      "SUBMITTED": "Oddano, čaka na referenčno številko",
+      "AVAILABLE": "Sprejeto (referenčna številka dodeljena)",
+      "REJECTED": "Zavrnjeno",
+      "WITHDRAWN": "Umaknjeno",
+      "CANCELLED": "Preklicano",
+      "ARCHIVED": "Arhivirano",
+      "GROUPED": "Združeno v drugo izjavo",
+      "OBSOLETE": "Zastarelo"
+    },
+    "problems": {
+      "noCommodities": "Pošiljka nima izdelkov.",
+      "noPlots": "Pošiljka nima parcel z geolokacijo.",
+      "speciesNames": "Pri lesu sta obvezna znanstveno in običajno ime vrste.",
+      "netMass": "Pri uvozu in izvozu je obvezna neto masa.",
+      "quantity": "Vsak izdelek potrebuje količino.",
+      "tooManyProducers": "Preveč proizvajalcev (največ 1000 na izdelek).",
+      "hsCode": "HS koda mora imeti 2–10 števk."
+    },
+    "errors": {
+      "environment": "Izberite okolje.",
+      "username": "Vnesite uporabniško ime.",
+      "clientId": "Vnesite WebServiceClientId.",
+      "authKey": "Vnesite avtentikacijski ključ.",
+      "serverKey": "Strežnik nima nastavljenega šifrirnega ključa. Obrnite se na skrbnika.",
+      "unknown": "Prišlo je do napake. Poskusite znova.",
+      "notConfigured": "Podatki za TRACES niso vneseni.",
+      "mode": "Neposredna oddaja je mogoča samo za pošiljke, za katere oddajate izjavo.",
+      "alreadySubmitted": "Izjava za to pošiljko je že oddana.",
+      "invalid": "Izjave ni mogoče oddati:",
+      "rejected": "TRACES je zavrnil zahtevo.",
+      "check": "Stanja ni bilo mogoče preveriti. Poskusite pozneje."
+    }
   }
 }

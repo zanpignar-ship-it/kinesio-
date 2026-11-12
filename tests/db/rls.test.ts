@@ -179,3 +179,21 @@ describe('integrity', () => {
     });
   });
 });
+
+describe('traces_credentials', () => {
+  it('only owners can see and change TRACES credentials', async () => {
+    await asUser(ids.alice, async (c) => {
+      await c.query("insert into traces_credentials (organization_id, environment, username, client_id, auth_key_enc) values ($1, 'acceptance', 'u', 'eudr-test', 'enc')", [ids.orgA]);
+      expect((await c.query('select count(*)::int n from traces_credentials')).rows[0].n).toBe(1);
+    });
+    await pool.query("insert into traces_credentials (organization_id, environment, username, client_id, auth_key_enc) values ($1, 'acceptance', 'u', 'eudr-test', 'enc') on conflict do nothing", [ids.orgA]);
+    await asUser(ids.carol, async (c) => {
+      expect((await c.query('select count(*)::int n from traces_credentials')).rows[0].n).toBe(0);
+      await expectSqlError(c, "insert into traces_credentials (organization_id, environment, username, client_id, auth_key_enc) values ($1, 'acceptance', 'x', 'y', 'z')", [ids.orgB], '42501');
+    });
+    await asUser(ids.bob, async (c) => {
+      expect((await c.query('select count(*)::int n from traces_credentials')).rows[0].n).toBe(0);
+    });
+    await pool.query('delete from traces_credentials');
+  });
+});

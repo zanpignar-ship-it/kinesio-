@@ -2,6 +2,8 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { OrganizationForm } from '@/components/app/organization-form';
 import { MembersPanel } from '@/components/members/members-panel';
 import { DeleteAccount } from '@/components/settings/delete-account';
+import { TracesSettings } from '@/components/traces/traces-settings';
+import { DEFAULT_CLIENT_ID, tracesSettings } from '@/lib/traces/service';
 import { buttonVariants } from '@/components/ui/button';
 import { Link } from '@/i18n/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -17,6 +19,7 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
   const t = await getTranslations('settings');
   const o = current.organization;
   const isOwner = current.role === 'owner';
+  const traces = isOwner ? await tracesSettings(o.id) : null;
   const initial: Record<string, string> = {
     name: o.name,
     country: o.country,
@@ -63,6 +66,16 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
           </div>
         </CardContent>
       </Card>
+      {isOwner ? (
+        <Card>
+          <CardHeader>
+            <CardTitle>{t('tracesTitle')}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <TracesSettings settings={traces} defaults={DEFAULT_CLIENT_ID} />
+          </CardContent>
+        </Card>
+      ) : null}
       {user.email ? (
         <Card>
           <CardHeader>
