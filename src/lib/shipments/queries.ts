@@ -63,11 +63,24 @@ export async function getShipment(organizationId: string, id: string, locale: st
   if (!s) return null;
 
   const plotIds = s.shipment_plots.map((p) => p.plot_id);
-  const { data: links } = plotIds.length
-    ? await supabase.from('plot_documents').select('plot_id, document:documents (valid_to)').eq('organization_id', organizationId).in('plot_id', plotIds)
-    : { data: [] as { plot_id: string; document: { valid_to: string | null } | null }[] };
+  // Small id batches (URL length) and paging (1000-row limit), so large shipments are counted completely.
+  const links: { plot_id: string; document: { valid_to: string | null } | null }[] = [];
+  for (let i = 0; i < plotIds.length; i += 150) {
+    for (let from = 0; ; from += 1000) {
+      const { data } = await supabase
+        .from('plot_documents')
+        .select('plot_id, document_id, document:documents (valid_to)')
+        .eq('organization_id', organizationId)
+        .in('plot_id', plotIds.slice(i, i + 150))
+        .order('plot_id')
+        .order('document_id')
+        .range(from, from + 999);
+      links.push(...(data ?? []));
+      if (!data || data.length < 1000) break;
+    }
+  }
   const docsByPlot = new Map<string, { count: number; expired: number }>();
-  for (const l of links ?? []) {
+  for (const l of links) {
     const e = docsByPlot.get(l.plot_id) ?? { count: 0, expired: 0 };
     e.count += 1;
     if (l.document && documentExpiry(l.document.valid_to) === 'expired') e.expired += 1;

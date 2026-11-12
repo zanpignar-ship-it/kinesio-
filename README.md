@@ -35,4 +35,5 @@ Po vsaki migraciji ponovno ustvari `src/lib/db/database.types.ts`.
 Ti migraciji sta pripravljeni in preizkušeni lokalno (`npm run test:db`), na projekt `lestrace-dev` pa še nista uveljavljeni:
 - ~~`20261112000004_buyer_package.sql`~~ – uveljavljeno 12. 11. 2026.
 - `supabase/migrations/20261112000005_delete_account.sql` – izbris računa v nastavitvah. TODO: preveri, ali lahko vloga `postgres` na Supabase briše iz `auth.users`.
+- `supabase/migrations/20261112000007_integrity.sql` – popravki iz pregleda kode (shranjevanje pošiljke v eni transakciji, zaklep oddane pošiljke v bazi, preklic povezave za kupca je dokončen, potrjen e-naslov za vabila). Po uveljavitvi preklopiti akcije pošiljk in dokumentov na `save_shipment_children` / `set_document_plots`.
 - Čiščenje testnih uporabnikov e2e: `scripts/cleanup-e2e.sql`.

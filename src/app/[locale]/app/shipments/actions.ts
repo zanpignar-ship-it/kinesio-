@@ -106,6 +106,7 @@ export async function setShipmentStatus(_prev: ShipmentFormState, formData: Form
     if (!current.readiness.ready) return { error: 'ship.errors.notReady' };
     update = { status: 'ready' };
   } else if (next === 'submitted') {
+    if (current.shipment.status !== 'ready' || !current.readiness.ready) return { error: 'ship.errors.notReady' };
     const parsed = submitSchema.safeParse(Object.fromEntries(formData));
     if (!parsed.success) return { error: parsed.error.issues[0]?.message ?? 'ship.errors.ddsReference' };
     update = { status: 'submitted', dds_reference_no: parsed.data.ddsReference, dds_verification_no: parsed.data.ddsVerification, submitted_at: new Date().toISOString() };

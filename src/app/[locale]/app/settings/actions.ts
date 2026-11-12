@@ -60,8 +60,12 @@ export async function deleteAccount(_prev: DeleteAccountState, formData: FormDat
   // Stored files of organizations that disappear with the account (the DB function cannot reach Storage).
   for (const orgId of plan.solo) {
     for (const [bucket, table] of [['documents', 'documents'], ['plot-imports', 'plot_imports']] as const) {
-      const { data } = await supabase.from(table).select('file_path').eq('organization_id', orgId);
-      const paths = (data ?? []).map((r) => r.file_path);
+      const paths: string[] = [];
+      for (let from = 0; ; from += 1000) {
+        const { data } = await supabase.from(table).select('id, file_path').eq('organization_id', orgId).order('id').range(from, from + 999);
+        paths.push(...(data ?? []).map((r) => r.file_path).filter(Boolean));
+        if (!data || data.length < 1000) break;
+      }
       for (let i = 0; i < paths.length; i += 100) await supabase.storage.from(bucket).remove(paths.slice(i, i + 100));
     }
   }

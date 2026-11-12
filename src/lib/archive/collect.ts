@@ -8,6 +8,13 @@ const TABLES = [
   'shipments', 'shipment_items', 'shipment_plots', 'shipment_documents', 'upstream_references', 'audit_log',
 ] as const;
 const PAGE = 1000;
+/** A stable, unique order per table – rows of one bulk insert share created_at, so it alone would let pages overlap. */
+const ORDER: Record<string, string[]> = {
+  audit_log: ['id'],
+  plot_documents: ['plot_id', 'document_id'],
+  shipment_plots: ['shipment_id', 'plot_id'],
+  shipment_documents: ['shipment_id', 'document_id'],
+};
 
 type Supabase = Awaited<ReturnType<typeof createServerSupabase>>;
 
@@ -15,11 +22,9 @@ async function allRows(supabase: Supabase, table: string, organizationId: string
   const rows: Record<string, unknown>[] = [];
   for (let from = 0; ; from += PAGE) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data, error } = await (supabase.from(table as any) as any)
-      .select('*')
-      .eq('organization_id', organizationId)
-      .order(table === 'audit_log' ? 'id' : 'created_at', { ascending: true })
-      .range(from, from + PAGE - 1);
+    let query = (supabase.from(table as any) as any).select('*').eq('organization_id', organizationId);
+    for (const column of ORDER[table] ?? ['id']) query = query.order(column, { ascending: true });
+    const { data, error } = await query.range(from, from + PAGE - 1);
     if (error) throw error;
     rows.push(...((data ?? []) as Record<string, unknown>[]));
     if (!data || data.length < PAGE) return rows;

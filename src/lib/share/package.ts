@@ -16,7 +16,7 @@ export type BuyerPackage = {
     dds_verification_no: string | null;
     customer: string | null;
     items: { product: string; hs_code: string; trade_name: string | null; scientific_name: string | null; net_mass_kg: number | null; volume_m3: number | null; pieces: number | null }[];
-    plots: { label: string; country: string; area_ha: number | null; geometry: GeoJSON.Geometry }[];
+    plots: { label: string; country: string; area_ha: number | null; supplier?: string | null; geometry: GeoJSON.Geometry }[];
     documents: { title: string; type: string; valid_from: string | null; valid_to: string | null }[];
   }[];
 };

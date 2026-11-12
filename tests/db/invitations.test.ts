@@ -57,3 +57,13 @@ describe('invitations', () => {
     });
   });
 });
+
+describe('invitation e-mail must be confirmed', () => {
+  it('an unconfirmed address cannot accept', async () => {
+    await pool.query('update auth.users set email_confirmed_at = null where id = $1', [ids.bob]);
+    await asUser(ids.bob, async (c) => {
+      expect((await c.query('select public.invitation_info($1) i', ['invite-bob'])).rows[0].i.email_matches).toBe(false);
+      await expectSqlError(c, 'select public.accept_invitation($1)', ['invite-bob'], 'P0001');
+    });
+  });
+});

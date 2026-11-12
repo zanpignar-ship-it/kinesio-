@@ -31,11 +31,14 @@ export async function createDocument(_prev: DocumentFormState, formData: FormDat
   if (!form.success) return { error: form.error.issues[0]?.message };
   const documentId = str(formData, 'documentId');
   const filePath = str(formData, 'filePath');
-  const mime = str(formData, 'mime');
-  const size = Number(str(formData, 'size'));
   if (!UUID.test(documentId) || !filePath.startsWith(`${ctx.organizationId}/${documentId}/`) || filePath.includes('..')) {
     return { error: 'documents.errors.upload' };
   }
+  // Size and type come from the stored object, not from the browser.
+  const { data: stored, error: infoError } = await ctx.supabase.storage.from('documents').info(filePath);
+  if (infoError || !stored) return { error: 'documents.errors.upload' };
+  const mime = (stored.contentType ?? '').split(';')[0]!.trim();
+  const size = Number(stored.size);
   if (!(DOCUMENT_MIME as readonly string[]).includes(mime) || !Number.isFinite(size) || size <= 0 || size > DOCUMENT_MAX_BYTES) {
     return { error: 'documents.errors.file' };
   }
