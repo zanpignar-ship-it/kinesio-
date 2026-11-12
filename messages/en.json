@@ -189,7 +189,9 @@
       "notFound": "The plot was not found.",
       "supplier": "Choose a supplier from the list.",
       "harvest": "The “to” date must be after the “from” date.",
-      "notRepairable": "This plot cannot be repaired automatically. Fix the corners on the map."
+      "notRepairable": "This plot cannot be repaired automatically. Fix the corners on the map.",
+      "noneSelected": "Select plots first (tick boxes in the list).",
+      "nothingToChange": "Fill in at least one field."
     },
     "archivedFilter": "Archived",
     "supplier": "Supplier",
@@ -201,7 +203,13 @@
     "harvestTo": "To",
     "exportCsv": "Export to Excel (CSV)",
     "repair": "Repair automatically",
-    "repairHint": "The plot outline crosses itself. The automatic repair splits it into valid parts at the crossings. Then check the shape on the map."
+    "repairHint": "The plot outline crosses itself. The automatic repair splits it into valid parts at the crossings. Then check the shape on the map.",
+    "bulkTitle": "Selected plots",
+    "bulkKeep": "– keep as is –",
+    "bulkApply": "Apply to selected",
+    "bulkArchive": "Archive selected",
+    "bulkDone": "Plots updated: {count}.",
+    "select": "Select {label}"
   },
   "map": {
     "satellite": "Satellite",

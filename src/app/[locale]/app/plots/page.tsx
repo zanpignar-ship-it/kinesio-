@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import type * as GeoJSON from 'geojson';
 import { PlotsOverviewMap } from '@/components/map/plots-overview-map';
 import { StatusBadge } from '@/components/plots/status-badge';
+import { BulkBar } from '@/components/plots/bulk-bar';
 import { createServerSupabase } from '@/lib/supabase/server';
 import { Link } from '@/i18n/navigation';
 import { getCurrentMembership, requireUser } from '@/lib/auth/session';
@@ -116,6 +117,9 @@ export default async function PlotsPage({ params, searchParams }: Props) {
         <ul className="divide-y rounded-xl border">
           {rows.map((p) => (
             <li key={p.id} data-testid="plot-row" className="flex flex-wrap items-center gap-x-4 gap-y-1 px-4 py-3">
+              {filters.archived ? null : (
+                <input type="checkbox" name="ids" value={p.id} form="bulk-form" className="size-5" aria-label={t('select', { label: p.label })} />
+              )}
               <Link href={`/app/plots/${p.id}`} className="min-w-0 flex-1 truncate font-medium underline-offset-4 hover:underline">
                 {p.label}
               </Link>
@@ -128,6 +132,8 @@ export default async function PlotsPage({ params, searchParams }: Props) {
           ))}
         </ul>
       )}
+
+      {rows.length > 0 && !filters.archived ? <BulkBar suppliers={suppliers} /> : null}
 
       {pages > 1 ? (
         <div className="flex items-center justify-between text-sm">

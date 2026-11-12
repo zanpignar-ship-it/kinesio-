@@ -192,7 +192,9 @@
       "notFound": "Parcela nije pronađena.",
       "supplier": "Odaberite dobavljača sa spiska.",
       "harvest": "Datum „do“ mora biti nakon datuma „od“.",
-      "notRepairable": "Parcelu nije moguće automatski popraviti. Popravite tačke na karti."
+      "notRepairable": "Parcelu nije moguće automatski popraviti. Popravite tačke na karti.",
+      "noneSelected": "Najprije odaberite parcele (kvačice na spisku).",
+      "nothingToChange": "Popunite barem jedno polje."
     },
     "archivedFilter": "Arhivirane",
     "supplier": "Dobavljač",
@@ -204,7 +206,13 @@
     "harvestTo": "Do",
     "exportCsv": "Izvezi u Excel (CSV)",
     "repair": "Popravi automatski",
-    "repairHint": "Granica parcele siječe samu sebe. Automatska popravka je dijeli na ispravne dijelove na mjestima presjeka. Zatim provjerite oblik na karti."
+    "repairHint": "Granica parcele siječe samu sebe. Automatska popravka je dijeli na ispravne dijelove na mjestima presjeka. Zatim provjerite oblik na karti.",
+    "bulkTitle": "Odabrane parcele",
+    "bulkKeep": "– ne mijenjaj –",
+    "bulkApply": "Primijeni na odabrane",
+    "bulkArchive": "Arhiviraj odabrane",
+    "bulkDone": "Ažurirano parcela: {count}.",
+    "select": "Odaberi {label}"
   },
   "map": {
     "satellite": "Satelit",

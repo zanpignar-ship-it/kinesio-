@@ -10,6 +10,7 @@ import { geometrySchema, importPayloadSchema, plotFormSchema } from '@/lib/plots
 import { prepareDrawnPlot, preparePlot, type PreparedPlot } from '@/lib/plots/service';
 import { geometryFromDb } from '@/lib/plots/geometry';
 import { repairSelfIntersections } from '@/lib/geo/repair';
+import { bulkChanges, bulkSchema } from '@/lib/plots/bulk';
 
 export type PlotFormState = { error?: string; values?: Record<string, string> };
 
@@ -119,6 +120,29 @@ export async function repairPlot(_prev: PlotFormState, formData: FormData): Prom
   revalidatePath(`/${locale}/app/plots`);
   redirect({ href: `/app/plots/${id}`, locale });
   return {};
+}
+
+export type BulkState = { error?: string; updated?: number };
+
+/** Set supplier / harvest dates on, or archive, the plots ticked in the list. */
+export async function bulkUpdatePlots(_prev: BulkState, formData: FormData): Promise<BulkState> {
+  const locale = String(formData.get('locale') ?? 'sl');
+  const ctx = await getPlotContext();
+  if (!ctx) return { error: 'plots.errors.unknown' };
+  const parsed = bulkSchema.safeParse({
+    ids: formData.getAll('ids').map(String),
+    action: formData.get('action'),
+    supplier: String(formData.get('supplier') ?? ''),
+    harvestFrom: String(formData.get('harvestFrom') ?? ''),
+    harvestTo: String(formData.get('harvestTo') ?? ''),
+  });
+  if (!parsed.success) return { error: parsed.error.issues[0]?.message ?? 'plots.errors.unknown' };
+  const changes = bulkChanges(parsed.data);
+  if (!changes) return { error: 'plots.errors.nothingToChange' };
+  const { data, error } = await ctx.supabase.from('plots').update(changes).eq('organization_id', ctx.organizationId).in('id', parsed.data.ids).select('id');
+  if (error) return { error: 'plots.errors.unknown' };
+  revalidatePath(`/${locale}/app/plots`);
+  return { updated: data?.length ?? 0 };
 }
 
 export async function archivePlot(_prev: PlotFormState, formData: FormData): Promise<PlotFormState> {

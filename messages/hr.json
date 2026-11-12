@@ -192,7 +192,9 @@
       "notFound": "Čestica nije pronađena.",
       "supplier": "Odaberite dobavljača s popisa.",
       "harvest": "Datum »do« mora biti nakon datuma »od«.",
-      "notRepairable": "Česticu nije moguće automatski popraviti. Popravite vrhove na karti."
+      "notRepairable": "Česticu nije moguće automatski popraviti. Popravite vrhove na karti.",
+      "noneSelected": "Najprije odaberite čestice (kvačice na popisu).",
+      "nothingToChange": "Ispunite barem jedno polje."
     },
     "archivedFilter": "Arhivirane",
     "supplier": "Dobavljač",
@@ -204,7 +206,13 @@
     "harvestTo": "Do",
     "exportCsv": "Izvezi u Excel (CSV)",
     "repair": "Popravi automatski",
-    "repairHint": "Granica čestice siječe samu sebe. Automatski popravak dijeli je na ispravne dijelove na mjestima presjeka. Zatim provjerite oblik na karti."
+    "repairHint": "Granica čestice siječe samu sebe. Automatski popravak dijeli je na ispravne dijelove na mjestima presjeka. Zatim provjerite oblik na karti.",
+    "bulkTitle": "Odabrane čestice",
+    "bulkKeep": "– ne mijenjaj –",
+    "bulkApply": "Primijeni na odabrane",
+    "bulkArchive": "Arhiviraj odabrane",
+    "bulkDone": "Ažurirano čestica: {count}.",
+    "select": "Odaberi {label}"
   },
   "map": {
     "satellite": "Satelit",
