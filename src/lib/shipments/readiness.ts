@@ -1,5 +1,6 @@
 import { EXPORT_MAX_BYTES } from '@/lib/eudr/rules';
 import type { PlotStatus } from '@/lib/geo/types';
+import { needsRiskAssessment, type RiskLevel } from './risk';
 
 export type ReadinessInput = {
   mode: 'submit_dds' | 'forward_references';
@@ -11,6 +12,8 @@ export type ReadinessInput = {
   geojsonBytes: number;
   /** Polygons were simplified to fit the size limit (the export differs slightly from the stored outlines). */
   geojsonSimplified?: boolean;
+  /** Risk of the country of production and the recorded assessment (EUDR art. 10, 11, 13). */
+  risk?: { level: RiskLevel | null; assessed: boolean; negligible: boolean | null };
 };
 
 export type ReadinessKey =
@@ -28,7 +31,10 @@ export type ReadinessKey =
   | 'plotNoDocuments'
   | 'expiredDocuments'
   | 'plotNoHarvestDate'
-  | 'geojsonSimplified';
+  | 'geojsonSimplified'
+  | 'riskAssessmentMissing'
+  | 'riskNotNegligible'
+  | 'highRiskCountry';
 
 export type ReadinessIssue = { key: ReadinessKey; level: 'error' | 'warning'; params?: Record<string, string | number> };
 
@@ -68,6 +74,12 @@ export function checkReadiness(input: ReadinessInput): { ready: boolean; issues:
   if (noGeometry.length) err('plotNoGeometry', { plots: names(noGeometry) });
   if (input.geojsonBytes > EXPORT_MAX_BYTES) err('geojsonTooLarge');
   if (input.geojsonSimplified) warn('geojsonSimplified');
+
+  if (input.mode === 'submit_dds' && input.risk && needsRiskAssessment(input.risk.level)) {
+    if (!input.risk.assessed) err('riskAssessmentMissing');
+    else if (input.risk.negligible !== true) err('riskNotNegligible');
+    if (input.risk.level === 'high') warn('highRiskCountry');
+  }
 
   const noDocs = input.plots.filter((p) => p.documentCount === 0);
   if (noDocs.length) warn('plotNoDocuments', { plots: names(noDocs) });

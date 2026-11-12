@@ -429,7 +429,10 @@
       "plotNoDocuments": "Parcele brez dokumentov: {plots}.",
       "expiredDocuments": "Potekli dokumenti: {count}.",
       "plotNoHarvestDate": "Parcele brez datuma poseka: {plots}.",
-      "geojsonSimplified": "Poligoni so bili za izvoz poenostavljeni, da datoteka ne presega 25 MB. Preverite, ali so oblike še pravilne."
+      "geojsonSimplified": "Poligoni so bili za izvoz poenostavljeni, da datoteka ne presega 25 MB. Preverite, ali so oblike še pravilne.",
+      "riskAssessmentMissing": "Za državo s standardnim ali visokim tveganjem vpišite oceno tveganja.",
+      "riskNotNegligible": "Tveganje ni ugotovljeno kot zanemarljivo – izjave ni mogoče oddati.",
+      "highRiskCountry": "Država proizvodnje ima visoko tveganje: potreben je okrepljen pregled."
     },
     "dds": {
       "activity": "Dejavnost",
@@ -459,7 +462,9 @@
       "referenceNo": "Vnesite referenčno številko.",
       "notReady": "Pošiljka še ni pripravljena.",
       "ddsReference": "Vnesite referenčno številko DDS.",
-      "duplicateRef": "Pošiljka s to interno oznako že obstaja."
+      "duplicateRef": "Pošiljka s to interno oznako že obstaja.",
+      "riskAssessment": "Pri ugotovitvi »zanemarljivo« vpišite tudi oceno tveganja.",
+      "riskTooLong": "Besedilo je predolgo (največ 5000 znakov)."
     },
     "pickOnMap": "Izberi na karti",
     "hideMap": "Skrij karto",
@@ -615,5 +620,23 @@
       "otherEmail": "Povabilo je namenjeno drugemu e-naslovu.",
       "unknown": "Prišlo je do napake. Poskusite znova."
     }
+  },
+  "risk": {
+    "title": "Ocena tveganja",
+    "levels": {
+      "low": "{country}: nizko tveganje",
+      "standard": "{country}: standardno tveganje",
+      "high": "{country}: visoko tveganje"
+    },
+    "lowHint": "Država z nizkim tveganjem: velja poenostavljen skrbni pregled (13. člen). Ocena tveganja ni obvezna, razen če veste za tveganje.",
+    "assessHint": "Za države s standardnim ali visokim tveganjem morate pred oddajo izjave oceniti tveganje (10. člen) in ga po potrebi zmanjšati (11. člen).",
+    "noCountry": "Najprej izberite državo proizvodnje.",
+    "assessment": "Ocena tveganja (merila iz 10. člena, ugotovitve)",
+    "assessmentPlaceholder": "npr. preverjena dovoljenja za posek, lastništvo, ni krčenja po 31. 12. 2020 (satelitski posnetki) …",
+    "mitigation": "Ukrepi za zmanjšanje tveganja (neobvezno)",
+    "mitigationPlaceholder": "npr. dodatni dokumenti, neodvisna presoja, obisk na terenu …",
+    "negligible": "Ugotavljam, da je tveganje zanemarljivo.",
+    "save": "Shrani oceno tveganja",
+    "saved": "Ocena tveganja je shranjena."
   }
 }

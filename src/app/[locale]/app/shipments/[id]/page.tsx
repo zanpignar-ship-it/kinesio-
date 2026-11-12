@@ -4,6 +4,7 @@ import { CopyButton } from '@/components/shipments/copy-button';
 import { ShipmentStatusBadge } from '@/components/shipments/shipment-status-badge';
 import { StatusActions } from '@/components/shipments/status-actions';
 import { SharePanel } from '@/components/share/share-panel';
+import { RiskForm } from '@/components/shipments/risk-form';
 import { createServerSupabase } from '@/lib/supabase/server';
 import { StatusBadge } from '@/components/plots/status-badge';
 import { Button } from '@/components/ui/button';
@@ -80,6 +81,18 @@ export default async function ShipmentPage({ params }: { params: Promise<{ local
           </ul>
         )}
       </section>
+
+      {sh.mode === 'submit_dds' ? (
+        <RiskForm
+          shipmentId={sh.id}
+          level={data.riskLevel}
+          country={sh.country_of_production}
+          assessment={sh.risk_assessment}
+          mitigation={sh.risk_mitigation}
+          negligible={sh.risk_negligible}
+          locked={data.status === 'submitted'}
+        />
+      ) : null}
 
       {sh.mode === 'submit_dds' ? (
         <Button asChild className="self-start">

@@ -777,6 +777,10 @@ export type Database = {
           customer_id: string | null
           dds_reference_no: string | null
           dds_verification_no: string | null
+          risk_assessed_at: string | null
+          risk_assessment: string | null
+          risk_mitigation: string | null
+          risk_negligible: boolean | null
           id: string
           internal_ref: string
           mode: Database["public"]["Enums"]["shipment_mode"]
@@ -795,6 +799,10 @@ export type Database = {
           customer_id?: string | null
           dds_reference_no?: string | null
           dds_verification_no?: string | null
+          risk_assessed_at?: string | null
+          risk_assessment?: string | null
+          risk_mitigation?: string | null
+          risk_negligible?: boolean | null
           id?: string
           internal_ref: string
           mode: Database["public"]["Enums"]["shipment_mode"]
@@ -813,6 +821,10 @@ export type Database = {
           customer_id?: string | null
           dds_reference_no?: string | null
           dds_verification_no?: string | null
+          risk_assessed_at?: string | null
+          risk_assessment?: string | null
+          risk_mitigation?: string | null
+          risk_negligible?: boolean | null
           id?: string
           internal_ref?: string
           mode?: Database["public"]["Enums"]["shipment_mode"]

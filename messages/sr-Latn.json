@@ -432,7 +432,10 @@
       "plotNoDocuments": "Parcele bez dokumenata: {plots}.",
       "expiredDocuments": "Istekli dokumenti: {count}.",
       "plotNoHarvestDate": "Parcele bez datuma seče: {plots}.",
-      "geojsonSimplified": "Poligoni su za izvoz pojednostavljeni da datoteka ne bi prešla 25 MB. Proverite da li su oblici i dalje ispravni."
+      "geojsonSimplified": "Poligoni su za izvoz pojednostavljeni da datoteka ne bi prešla 25 MB. Proverite da li su oblici i dalje ispravni.",
+      "riskAssessmentMissing": "Za zemlju standardnog ili visokog rizika upišite procenu rizika.",
+      "riskNotNegligible": "Rizik nije utvrđen kao zanemarljiv – izjavu nije moguće podneti.",
+      "highRiskCountry": "Zemlja proizvodnje ima visok rizik: potrebna je pojačana provera."
     },
     "dds": {
       "activity": "Delatnost",
@@ -462,7 +465,9 @@
       "referenceNo": "Unesite referentni broj.",
       "notReady": "Pošiljka još nije spremna.",
       "ddsReference": "Unesite referentni broj DDS.",
-      "duplicateRef": "Pošiljka s ovom internom oznakom već postoji."
+      "duplicateRef": "Pošiljka s ovom internom oznakom već postoji.",
+      "riskAssessment": "Uz zaključak „zanemarljiv“ upišite i procenu rizika.",
+      "riskTooLong": "Tekst je predugačak (najviše 5000 znakova)."
     },
     "pickOnMap": "Izaberi na mapi",
     "hideMap": "Sakrij mapu",
@@ -618,5 +623,23 @@
       "otherEmail": "Pozivnica je namenjena drugoj e-adresi.",
       "unknown": "Došlo je do greške. Pokušajte ponovo."
     }
+  },
+  "risk": {
+    "title": "Procena rizika",
+    "levels": {
+      "low": "{country}: nizak rizik",
+      "standard": "{country}: standardni rizik",
+      "high": "{country}: visok rizik"
+    },
+    "lowHint": "Zemlja niskog rizika: primenjuje se pojednostavljena dubinska analiza (član 13). Procena rizika nije obavezna, osim ako znate za rizik.",
+    "assessHint": "Za zemlje standardnog ili visokog rizika pre podnošenja izjave morate proceniti rizik (član 10) i po potrebi ga smanjiti (član 11).",
+    "noCountry": "Najpre izaberite zemlju proizvodnje.",
+    "assessment": "Procena rizika (kriterijumi iz člana 10, nalazi)",
+    "assessmentPlaceholder": "npr. proverene dozvole za seču, vlasništvo, nema krčenja posle 31. 12. 2020. (satelitski snimci) …",
+    "mitigation": "Mere smanjenja rizika (neobavezno)",
+    "mitigationPlaceholder": "npr. dodatni dokumenti, nezavisna procena, poseta na terenu …",
+    "negligible": "Utvrđujem da je rizik zanemarljiv.",
+    "save": "Sačuvaj procenu rizika",
+    "saved": "Procena rizika je sačuvana."
   }
 }

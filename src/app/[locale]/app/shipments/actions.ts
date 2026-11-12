@@ -7,7 +7,7 @@ import { nextCopyRef } from '@/lib/shipments/next-ref';
 import { getShipment } from '@/lib/shipments/queries';
 import { shipmentFormSchema, submitSchema, type ShipmentFormInput } from '@/lib/shipments/schemas';
 
-export type ShipmentFormState = { error?: string };
+export type ShipmentFormState = { error?: string; saved?: boolean };
 type Ctx = NonNullable<Awaited<ReturnType<typeof getPlotContext>>>;
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -120,6 +120,38 @@ export async function setShipmentStatus(_prev: ShipmentFormState, formData: Form
   revalidatePath(`/${locale}/app/shipments/${id}`);
   redirect({ href: `/app/shipments/${id}`, locale });
   return {};
+}
+
+const RISK_TEXT_MAX = 5000;
+
+/** Record the risk assessment (art. 10) and mitigation (art. 11). Editing makes a ready shipment a draft again. */
+export async function saveRiskAssessment(_prev: ShipmentFormState, formData: FormData): Promise<ShipmentFormState> {
+  const locale = str(formData, 'locale') || 'sl';
+  const id = str(formData, 'id');
+  const assessment = str(formData, 'riskAssessment').trim();
+  const mitigation = str(formData, 'riskMitigation').trim();
+  const negligible = formData.get('riskNegligible') === 'on';
+  const ctx = await getPlotContext();
+  if (!ctx || !UUID.test(id)) return { error: 'ship.errors.unknown' };
+  if (assessment.length > RISK_TEXT_MAX || mitigation.length > RISK_TEXT_MAX) return { error: 'ship.errors.riskTooLong' };
+  if (negligible && !assessment) return { error: 'ship.errors.riskAssessment' };
+  const { data: existing } = await ctx.supabase.from('shipments').select('status').eq('organization_id', ctx.organizationId).eq('id', id).maybeSingle();
+  if (!existing) return { error: 'ship.errors.unknown' };
+  if (existing.status === 'submitted') return { error: 'ship.locked' };
+  const { error } = await ctx.supabase
+    .from('shipments')
+    .update({
+      risk_assessment: assessment || null,
+      risk_mitigation: mitigation || null,
+      risk_negligible: assessment ? negligible : null,
+      risk_assessed_at: assessment ? new Date().toISOString() : null,
+      ...(existing.status === 'ready' ? { status: 'draft' as const } : {}),
+    })
+    .eq('organization_id', ctx.organizationId)
+    .eq('id', id);
+  if (error) return { error: 'ship.errors.unknown' };
+  revalidatePath(`/${locale}/app/shipments/${id}`);
+  return { saved: true };
 }
 
 /** New draft shipment with the same customer, products, plots and documents (fresh plot snapshots). */

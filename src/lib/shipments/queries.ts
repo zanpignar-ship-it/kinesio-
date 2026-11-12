@@ -7,6 +7,7 @@ import type { PlotGeometry } from '@/lib/geo/types';
 import { geometryFromDb } from '@/lib/plots/geometry';
 import { EXPORT_MAX_BYTES } from '@/lib/eudr/rules';
 import { simplifyToFit } from '@/lib/geo/repair';
+import { countryRisk } from './risk';
 import { createServerSupabase } from '@/lib/supabase/server';
 import { productOptions } from '@/lib/masterdata/queries';
 import { checkReadiness, type ReadinessInput } from './readiness';
@@ -136,6 +137,8 @@ export async function getShipment(organizationId: string, id: string, locale: st
     harvestFrom: sp.plot?.harvest_from ?? null,
     harvestTo: sp.plot?.harvest_to ?? null,
   }));
+  const { data: risks } = await supabase.from('country_risk').select('country, risk');
+  const riskLevel = countryRisk(s.country_of_production, risks ?? []);
   const readinessInput: ReadinessInput = {
     mode: s.mode,
     activity: s.activity,
@@ -145,6 +148,7 @@ export async function getShipment(organizationId: string, id: string, locale: st
     upstreamReferences: s.upstream_references.length,
     geojsonBytes: geojson.bytes,
     geojsonSimplified: simplified !== null,
+    risk: { level: riskLevel, assessed: Boolean(s.risk_assessment?.trim()), negligible: s.risk_negligible },
   };
   return {
     shipment: s,
@@ -155,5 +159,6 @@ export async function getShipment(organizationId: string, id: string, locale: st
     references: s.upstream_references,
     readiness: checkReadiness(readinessInput),
     geojson,
+    riskLevel,
   };
 }

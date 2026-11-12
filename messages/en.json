@@ -429,7 +429,10 @@
       "plotNoDocuments": "Plots without documents: {plots}.",
       "expiredDocuments": "Expired documents: {count}.",
       "plotNoHarvestDate": "Plots without a harvest date: {plots}.",
-      "geojsonSimplified": "Polygons were simplified for the export so the file stays under 25 MB. Check that the shapes are still right."
+      "geojsonSimplified": "Polygons were simplified for the export so the file stays under 25 MB. Check that the shapes are still right.",
+      "riskAssessmentMissing": "Enter a risk assessment for a standard- or high-risk country.",
+      "riskNotNegligible": "The risk is not concluded to be negligible – the statement cannot be submitted.",
+      "highRiskCountry": "The country of production is high risk: enhanced scrutiny is required."
     },
     "dds": {
       "activity": "Activity",
@@ -459,7 +462,9 @@
       "referenceNo": "Enter a reference number.",
       "notReady": "The shipment is not ready yet.",
       "ddsReference": "Enter the DDS reference number.",
-      "duplicateRef": "A shipment with this internal reference already exists."
+      "duplicateRef": "A shipment with this internal reference already exists.",
+      "riskAssessment": "Enter the risk assessment together with the “negligible” conclusion.",
+      "riskTooLong": "The text is too long (at most 5000 characters)."
     },
     "pickOnMap": "Pick on map",
     "hideMap": "Hide map",
@@ -615,5 +620,23 @@
       "otherEmail": "The invitation is for another email address.",
       "unknown": "Something went wrong. Please try again."
     }
+  },
+  "risk": {
+    "title": "Risk assessment",
+    "levels": {
+      "low": "{country}: low risk",
+      "standard": "{country}: standard risk",
+      "high": "{country}: high risk"
+    },
+    "lowHint": "Low-risk country: simplified due diligence applies (Article 13). A risk assessment is not required unless you are aware of a risk.",
+    "assessHint": "For standard- or high-risk countries you must assess the risk (Article 10) and, where needed, mitigate it (Article 11) before submitting the statement.",
+    "noCountry": "Choose the country of production first.",
+    "assessment": "Risk assessment (Article 10 criteria, findings)",
+    "assessmentPlaceholder": "e.g. felling permits and ownership checked, no deforestation after 31 Dec 2020 (satellite imagery) …",
+    "mitigation": "Risk mitigation measures (optional)",
+    "mitigationPlaceholder": "e.g. additional documents, independent audit, field visit …",
+    "negligible": "I conclude that the risk is negligible.",
+    "save": "Save risk assessment",
+    "saved": "The risk assessment is saved."
   }
 }
