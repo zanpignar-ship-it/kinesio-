@@ -69,10 +69,23 @@ describe('SubmitDdsRequest', () => {
     expect(fc.features[1]!.properties.Area).toBe(1.5);
   });
 
-  it('confidential geolocation leaves the GeoJSON out; non-EU operators get no country of activity', () => {
+  it('confidential geolocation is still sent (only flagged); non-EU operators get no country of activity', () => {
     const body = submitDdsBody({ ...input, geoLocationConfidential: true, countryOfActivity: 'BA', activity: 'IMPORT' });
-    expect(body).not.toContain('geometryGeojson');
+    expect(body).toContain('geometryGeojson');
+    expect(pick(body, 'geoLocationConfidential')).toBe('true');
     expect(body).not.toContain('countryOfActivity');
+  });
+
+  it('checks producers, size, references, activity and point areas', () => {
+    expect(checkDds({ ...input, plots: [{ ...input.plots[0]!, producerCountry: '' }] })).toContain('producerCountry');
+    expect(checkDds({ ...input, internalRef: 'x'.repeat(51) })).toContain('internalRef');
+    expect(checkDds({ ...input, countryOfActivity: 'BA', activity: 'EXPORT' })).toContain('importOnly');
+    expect(checkDds({ ...input, plots: [{ ...input.plots[1]!, areaHa: 5 }] })).toContain('pointArea');
+    expect(checkDds({ ...input, plots: [{ ...input.plots[1]!, areaHa: null }] })).toContain('pointArea');
+  });
+
+  it('strips characters XML does not allow', () => {
+    expect(submitDdsBody({ ...input, internalRef: 'A\u0001B' })).toContain('<dds:internalReferenceNumber>AB</dds:internalReferenceNumber>');
   });
 
   it('checks the rules the Information System enforces', () => {
@@ -105,14 +118,20 @@ describe('status from TRACES', () => {
   it('stores the numbers once the statement is available, and marks rejections', async () => {
     const { shipmentUpdateFromOverview, tracesCheckDue } = await import('@/lib/traces/service');
     const base = { uuid: 'u', internalReferenceNumber: 'S-1', referenceNumberInfo: null, rejectionReason: null, communication: null };
-    expect(shipmentUpdateFromOverview({ ...base, status: 'AVAILABLE', referenceNumber: '26SI7XTVCZAQ2S', verificationNumber: 'SFFCB4Y3' }, 'ready')).toMatchObject({
+    expect(shipmentUpdateFromOverview({ ...base, status: 'AVAILABLE', referenceNumber: '26SI7XTVCZAQ2S', verificationNumber: 'SFFCB4Y3' }, 'ready', 'production')).toMatchObject({
       status: 'submitted', dds_reference_no: '26SI7XTVCZAQ2S', dds_verification_no: 'SFFCB4Y3', traces_status: 'AVAILABLE',
     });
-    expect(shipmentUpdateFromOverview({ ...base, status: 'SUBMITTED', referenceNumber: null, verificationNumber: null, referenceNumberInfo: 'Under system analysis' }, 'ready')).toMatchObject({
+    expect(shipmentUpdateFromOverview({ ...base, status: 'SUBMITTED', referenceNumber: null, verificationNumber: null, referenceNumberInfo: 'Under system analysis' }, 'ready', 'production')).toMatchObject({
       traces_status: 'SUBMITTED', traces_message: 'Under system analysis',
     });
-    expect(shipmentUpdateFromOverview({ ...base, status: 'SUBMITTED', referenceNumber: null, verificationNumber: null }, 'ready').status).toBeUndefined();
-    expect(shipmentUpdateFromOverview({ ...base, status: 'REJECTED', referenceNumber: null, verificationNumber: null, rejectionReason: 'Invalid geometry' }, 'ready')).toMatchObject({ status: 'rejected', traces_message: 'Invalid geometry' });
+    expect(shipmentUpdateFromOverview({ ...base, status: 'SUBMITTED', referenceNumber: null, verificationNumber: null }, 'ready', 'production').status).toBeUndefined();
+    expect(shipmentUpdateFromOverview({ ...base, status: 'REJECTED', referenceNumber: null, verificationNumber: null, rejectionReason: 'Invalid geometry' }, 'ready', 'production')).toMatchObject({ status: 'rejected', traces_message: 'Invalid geometry' });
+
+    // acceptance numbers never become the shipment's DDS numbers
+    const test = shipmentUpdateFromOverview({ ...base, status: 'AVAILABLE', referenceNumber: '26SI7XTVCZAQ2S', verificationNumber: 'SFFCB4Y3' }, 'ready', 'acceptance');
+    expect(test.status).toBeUndefined();
+    expect(test.dds_reference_no).toBeUndefined();
+    expect(test.traces_message).toBe('26SI7XTVCZAQ2S / SFFCB4Y3');
 
     const now = Date.parse('2026-11-12T12:00:00Z');
     expect(tracesCheckDue({ traces_status: 'SUBMITTED', traces_checked_at: '2026-11-12T11:30:00Z' }, now)).toBe(false);

@@ -5,6 +5,7 @@ import { redirect } from '@/i18n/navigation';
 import { getPlotContext } from '@/lib/plots/context';
 import { nextCopyRef } from '@/lib/shipments/next-ref';
 import { getShipment } from '@/lib/shipments/queries';
+import { TRACES_LOCKED } from '@/lib/traces/service';
 import { shipmentFormSchema, submitSchema, type ShipmentFormInput } from '@/lib/shipments/schemas';
 
 export type ShipmentFormState = { error?: string; saved?: boolean };
@@ -76,9 +77,10 @@ export async function saveShipment(_prev: ShipmentFormState, formData: FormData)
   let shipmentId = id;
   if (id) {
     if (!UUID.test(id)) return { error: 'ship.errors.unknown' };
-    const { data: existing } = await ctx.supabase.from('shipments').select('status').eq('organization_id', ctx.organizationId).eq('id', id).maybeSingle();
+    const { data: existing } = await ctx.supabase.from('shipments').select('status, traces_status').eq('organization_id', ctx.organizationId).eq('id', id).maybeSingle();
     if (!existing) return { error: 'ship.errors.unknown' };
     if (existing.status === 'submitted') return { error: 'ship.locked' };
+    if (existing.traces_status && TRACES_LOCKED.has(existing.traces_status)) return { error: 'ship.lockedTraces' };
     // Editing a shipment makes it a draft again until the checklist is confirmed.
     const { error } = await ctx.supabase.from('shipments').update({ ...columns, status: 'draft' }).eq('organization_id', ctx.organizationId).eq('id', id);
     if (error) return { error: 'ship.errors.unknown' };
@@ -101,6 +103,8 @@ export async function setShipmentStatus(_prev: ShipmentFormState, formData: Form
   if (!ctx || !UUID.test(id)) return { error: 'ship.errors.unknown' };
   const current = await getShipment(ctx.organizationId, id, locale);
   if (!current) return { error: 'ship.errors.unknown' };
+  // While TRACES holds (or is receiving) a statement, the status follows TRACES, not manual changes.
+  if (current.shipment.traces_status && TRACES_LOCKED.has(current.shipment.traces_status) && current.shipment.traces_environment === 'production') return { error: 'ship.lockedTraces' };
   let update: { status: 'ready' | 'submitted' | 'rejected'; dds_reference_no?: string; dds_verification_no?: string | null; submitted_at?: string };
   if (next === 'ready') {
     if (!current.readiness.ready) return { error: 'ship.errors.notReady' };
@@ -137,12 +141,13 @@ export async function saveRiskAssessment(_prev: ShipmentFormState, formData: For
   if (negligible && !assessment) return { error: 'ship.errors.riskAssessment' };
   const { data: existing } = await ctx.supabase
     .from('shipments')
-    .select('status, risk_assessment, risk_mitigation, risk_negligible')
+    .select('status, traces_status, risk_assessment, risk_mitigation, risk_negligible')
     .eq('organization_id', ctx.organizationId)
     .eq('id', id)
     .maybeSingle();
   if (!existing) return { error: 'ship.errors.unknown' };
   if (existing.status === 'submitted') return { error: 'ship.locked' };
+  if (existing.traces_status && TRACES_LOCKED.has(existing.traces_status)) return { error: 'ship.lockedTraces' };
   const unchanged =
     (existing.risk_assessment ?? '') === assessment &&
     (existing.risk_mitigation ?? '') === mitigation &&

@@ -68,15 +68,25 @@ export type TracesShipmentUpdate = {
   submitted_at?: string;
 };
 
-export function shipmentUpdateFromOverview(o: DdsOverview, currentStatus: string): TracesShipmentUpdate {
+/**
+ * Columns to store after asking TRACES. Only production statements change the shipment itself: numbers from the
+ * acceptance (test) environment are shown in the TRACES panel but never become the shipment's DDS numbers.
+ */
+export function shipmentUpdateFromOverview(o: DdsOverview, currentStatus: string, environment: string): TracesShipmentUpdate {
   const now = new Date().toISOString();
-  const base: TracesShipmentUpdate = { traces_status: o.status, traces_checked_at: now, traces_message: o.rejectionReason ?? o.communication ?? o.referenceNumberInfo };
-  if (o.status === 'AVAILABLE' && o.referenceNumber && currentStatus !== 'submitted') {
+  const numbers = o.referenceNumber ? `${o.referenceNumber}${o.verificationNumber ? ` / ${o.verificationNumber}` : ''}` : null;
+  const info = o.rejectionReason ?? o.communication ?? o.referenceNumberInfo;
+  const base: TracesShipmentUpdate = { traces_status: o.status, traces_checked_at: now, traces_message: [numbers, info].filter(Boolean).join(' · ') || null };
+  if (environment !== 'production') return base;
+  if (o.status === 'AVAILABLE' && o.referenceNumber && currentStatus === 'ready') {
     return { ...base, status: 'submitted', dds_reference_no: o.referenceNumber, dds_verification_no: o.verificationNumber, submitted_at: now };
   }
-  if (o.status === 'REJECTED' && currentStatus !== 'submitted') return { ...base, status: 'rejected' };
+  if ((o.status === 'REJECTED' || o.status === 'WITHDRAWN' || o.status === 'CANCELLED') && currentStatus !== 'rejected') return { ...base, status: 'rejected' };
   return base;
 }
+
+/** TRACES states in which the shipment's content must not change (it is, or is about to be, a filed statement). */
+export const TRACES_LOCKED = new Set(['SENDING', 'SUBMITTED', 'AVAILABLE', 'GROUPED']);
 
 /** A pending statement whose last check is older than the recommended interval. */
 export function tracesCheckDue(s: { traces_status: string | null; traces_checked_at: string | null }, now: number = Date.now()): boolean {
@@ -91,12 +101,16 @@ export async function refreshShipmentTraces(organizationId: string, shipmentId: 
   const access = await tracesCredentials(organizationId);
   if (!access || access.environment !== s.traces_environment) return 'unavailable';
   const r = await getDds(access.environment, access.creds, s.traces_uuid);
-  if (!r.ok) {
-    await supabase.from('shipments').update({ traces_checked_at: new Date().toISOString(), traces_message: r.fault.message || r.fault.code }).eq('organization_id', organizationId).eq('id', shipmentId);
+  const checked = { traces_checked_at: new Date().toISOString() };
+  if (!r.ok || !r.value) {
+    // Remember the attempt in every case, so page views do not ask TRACES again before the interval.
+    await supabase.from('shipments').update(r.ok ? checked : { ...checked, traces_message: (r.fault.message || r.fault.code).slice(0, 2000) }).eq('organization_id', organizationId).eq('id', shipmentId);
+    return r.ok ? 'pending' : 'error';
+  }
+  const { error } = await supabase.from('shipments').update(shipmentUpdateFromOverview(r.value, s.status, s.traces_environment)).eq('organization_id', organizationId).eq('id', shipmentId);
+  if (error) {
+    await supabase.from('shipments').update(checked).eq('organization_id', organizationId).eq('id', shipmentId);
     return 'error';
   }
-  if (!r.value) return 'pending';
-  const { error } = await supabase.from('shipments').update(shipmentUpdateFromOverview(r.value, s.status)).eq('organization_id', organizationId).eq('id', shipmentId);
-  if (error) return 'error';
   return r.value.status === 'SUBMITTED' ? 'pending' : 'updated';
 }

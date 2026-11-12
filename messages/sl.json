@@ -496,7 +496,8 @@
     "pickOnMap": "Izberi na karti",
     "hideMap": "Skrij karto",
     "pickOnMapHint": "Tapnite parcelo na karti, da jo dodate ali odstranite. Izbrane so obrobljene modro.",
-    "exportCsv": "Izvozi v Excel (CSV)"
+    "exportCsv": "Izvozi v Excel (CSV)",
+    "lockedTraces": "Izjava je oddana v TRACES – pošiljke ni mogoče spreminjati, dokler je ne umaknete."
   },
   "share": {
     "title": "Paket za kupca",
@@ -810,7 +811,9 @@
       "CANCELLED": "Preklicano",
       "ARCHIVED": "Arhivirano",
       "GROUPED": "Združeno v drugo izjavo",
-      "OBSOLETE": "Zastarelo"
+      "OBSOLETE": "Zastarelo",
+      "SENDING": "V pošiljanju",
+      "FAILED": "Oddaja ni uspela"
     },
     "problems": {
       "noCommodities": "Pošiljka nima izdelkov.",
@@ -819,7 +822,12 @@
       "netMass": "Pri uvozu in izvozu je obvezna neto masa.",
       "quantity": "Vsak izdelek potrebuje količino.",
       "tooManyProducers": "Preveč proizvajalcev (največ 1000 na izdelek).",
-      "hsCode": "HS koda mora imeti 2–10 števk."
+      "hsCode": "HS koda mora imeti 2–10 števk.",
+      "producerCountry": "Parcela nima veljavne države.",
+      "tooLarge": "Geolokacija je prevelika (več kot 25 MB v izjavi).",
+      "internalRef": "Interna oznaka je daljša od 50 znakov.",
+      "importOnly": "Podjetje izven EU lahko odda samo izjavo za uvoz.",
+      "pointArea": "Parcela kot točka potrebuje površino med 0,0001 in 4 ha."
     },
     "errors": {
       "environment": "Izberite okolje.",
@@ -833,7 +841,14 @@
       "alreadySubmitted": "Izjava za to pošiljko je že oddana.",
       "invalid": "Izjave ni mogoče oddati:",
       "rejected": "TRACES je zavrnil zahtevo.",
-      "check": "Stanja ni bilo mogoče preveriti. Poskusite pozneje."
-    }
+      "check": "Stanja ni bilo mogoče preveriti. Poskusite pozneje.",
+      "storeFailed": "Izjava je oddana, a stanja ni bilo mogoče shraniti. UUID:",
+      "unknownOutcome": "Odgovor sistema TRACES ni prišel. Pošiljka je zaklenjena, dokler izjave ne preverite v TRACES.",
+      "withdrawFailed": "Umika ni bilo mogoče izvesti.",
+      "envKey": "Ob zamenjavi okolja vnesite ključ za novo okolje."
+    },
+    "sendingHint": "Izjava se pošilja ali pa odgovor sistema TRACES ni prišel. Preverite jo v TRACES; ponovna oddaja je zaklenjena, da ne nastaneta dve izjavi.",
+    "withdraw": "Umakni izjavo v TRACES",
+    "withdrawConfirm": "Izjava bo v TRACES umaknjena (možno v 72 urah po dodelitvi številke). Nadaljujem?"
   }
 }

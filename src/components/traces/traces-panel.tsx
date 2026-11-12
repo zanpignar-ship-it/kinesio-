@@ -4,7 +4,7 @@ import { useActionState } from 'react';
 import { useFormatter, useLocale, useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/navigation';
-import { checkTracesStatus, submitToTraces } from '@/app/[locale]/app/shipments/traces-actions';
+import { checkTracesStatus, submitToTraces, withdrawFromTraces } from '@/app/[locale]/app/shipments/traces-actions';
 
 type Props = {
   shipmentId: string;
@@ -23,8 +23,12 @@ export function TracesPanel({ shipmentId, isOwner, configured, status, ready, tr
   const format = useFormatter();
   const [submitState, submit, submitting] = useActionState(submitToTraces, {});
   const [checkState, check, checking] = useActionState(checkTracesStatus, {});
+  const [withdrawState, withdraw, withdrawing] = useActionState(withdrawFromTraces, {});
   const pending = traces.status === 'SUBMITTED';
-  const error = submitState.error ?? checkState.error;
+  const sending = traces.status === 'SENDING';
+  const canWithdraw = traces.status === 'SUBMITTED' || traces.status === 'AVAILABLE';
+  const error = submitState.error ?? checkState.error ?? withdrawState.error;
+  const detail = submitState.detail ?? withdrawState.detail;
   return (
     <section className="flex flex-col gap-3 rounded-xl border p-4" data-testid="traces-panel">
       <h2 className="font-semibold">{t('panelTitle')}</h2>
@@ -61,6 +65,8 @@ export function TracesPanel({ shipmentId, isOwner, configured, status, ready, tr
         </p>
       ) : !isOwner ? (
         <p className="text-muted-foreground text-sm">{t('ownerOnly')}</p>
+      ) : sending ? (
+        <p className="text-sm">{t('sendingHint')}</p>
       ) : pending ? (
         <form action={check}>
           <input type="hidden" name="id" value={shipmentId} />
@@ -69,7 +75,7 @@ export function TracesPanel({ shipmentId, isOwner, configured, status, ready, tr
             {t('check')}
           </Button>
         </form>
-      ) : status === 'ready' && ready && traces.status !== 'AVAILABLE' ? (
+      ) : status === 'ready' && ready && !canWithdraw ? (
         <form action={submit} className="flex flex-col gap-3">
           <input type="hidden" name="id" value={shipmentId} />
           <input type="hidden" name="locale" value={locale} />
@@ -85,6 +91,20 @@ export function TracesPanel({ shipmentId, isOwner, configured, status, ready, tr
         <p className="text-muted-foreground text-sm">{t('markReadyFirst')}</p>
       ) : null}
 
+      {isOwner && configured && canWithdraw ? (
+        <form
+          action={withdraw}
+          onSubmit={(e) => {
+            if (!window.confirm(t('withdrawConfirm'))) e.preventDefault();
+          }}
+        >
+          <input type="hidden" name="id" value={shipmentId} />
+          <input type="hidden" name="locale" value={locale} />
+          <Button type="submit" variant="ghost" size="sm" className="text-destructive" disabled={withdrawing}>
+            {t('withdraw')}
+          </Button>
+        </form>
+      ) : null}
       {submitState.result === 'submitted' ? (
         <p role="status" className="text-sm text-green-700 dark:text-green-400">
           {t('submitted')}
@@ -98,7 +118,7 @@ export function TracesPanel({ shipmentId, isOwner, configured, status, ready, tr
       {error ? (
         <div role="alert" className="text-destructive text-sm">
           {tAll(error)}
-          {submitState.detail ? <span className="block text-xs">{submitState.detail}</span> : null}
+          {detail ? <span className="block text-xs">{detail}</span> : null}
           {submitState.problems?.length ? (
             <ul className="list-disc pl-5 text-xs">
               {submitState.problems.map((p) => (

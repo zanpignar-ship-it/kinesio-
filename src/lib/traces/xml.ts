@@ -1,6 +1,8 @@
 /** Escape text for XML element content and attribute values. */
 export function esc(value: string | number): string {
-  return String(value).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' })[c]!);
+  // Characters XML 1.0 does not allow are dropped (they would make the whole request invalid).
+  // eslint-disable-next-line no-control-regex
+  return String(value).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\uFFFE\uFFFF]/g, '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' })[c]!);
 }
 
 /** `<tag>escaped</tag>`, or '' when the value is null/undefined/'' (optional elements are simply left out). */

@@ -1,5 +1,5 @@
 import 'server-only';
-import { echoBody, getDdsBody, submitDdsBody, withdrawDdsBody, type DdsInput } from './dds';
+import { echoBody, getDdsBody, getDdsByInternalReferenceBody, submitDdsBody, withdrawDdsBody, type DdsInput } from './dds';
 import { parseFault, parseOverview, type DdsOverview, type TracesFault } from './parse';
 import { envelope, type TracesCredentials } from './wsse';
 import { pick } from './xml';
@@ -50,12 +50,25 @@ export async function submitDds(env: TracesEnvironment, creds: TracesCredentials
   return { ok: true, value: uuid };
 }
 
+const httpFault = (status: number): TracesFault => ({ code: `HTTP_${status}`, message: `HTTP ${status}` });
+
 export async function getDds(env: TracesEnvironment, creds: TracesCredentials, uuid: string): Promise<TracesResult<DdsOverview | null>> {
   const r = await call(env, DDS_PATH, creds, getDdsBody([uuid]));
   if (!r) return { ok: false, fault: unreachable };
   const fault = parseFault(r.xml);
   if (fault) return { ok: false, fault };
+  if (r.status >= 400 || !/Envelope/.test(r.xml)) return { ok: false, fault: httpFault(r.status) };
   return { ok: true, value: parseOverview(r.xml).find((o) => o.uuid === uuid) ?? null };
+}
+
+/** Statements with this internal reference – used to find out whether a submission whose answer was lost arrived. */
+export async function getDdsByInternalReference(env: TracesEnvironment, creds: TracesCredentials, internalRef: string): Promise<TracesResult<DdsOverview[]>> {
+  const r = await call(env, DDS_PATH, creds, getDdsByInternalReferenceBody(internalRef));
+  if (!r) return { ok: false, fault: unreachable };
+  const fault = parseFault(r.xml);
+  if (fault) return fault.code === 'NotFoundException' || /NOT_?FOUND/i.test(fault.code + fault.message) ? { ok: true, value: [] } : { ok: false, fault };
+  if (r.status >= 400 || !/Envelope/.test(r.xml)) return { ok: false, fault: httpFault(r.status) };
+  return { ok: true, value: parseOverview(r.xml) };
 }
 
 export async function withdrawDds(env: TracesEnvironment, creds: TracesCredentials, uuid: string): Promise<TracesResult<string>> {
@@ -63,5 +76,6 @@ export async function withdrawDds(env: TracesEnvironment, creds: TracesCredentia
   if (!r) return { ok: false, fault: unreachable };
   const fault = parseFault(r.xml);
   if (fault) return { ok: false, fault };
+  if (r.status >= 400 || !/Envelope/.test(r.xml)) return { ok: false, fault: httpFault(r.status) };
   return { ok: true, value: pick(r.xml, 'status') ?? '' };
 }

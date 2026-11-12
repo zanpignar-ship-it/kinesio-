@@ -6,7 +6,10 @@ import { StatusActions } from '@/components/shipments/status-actions';
 import { SharePanel } from '@/components/share/share-panel';
 import { RiskForm } from '@/components/shipments/risk-form';
 import { TracesPanel } from '@/components/traces/traces-panel';
-import { refreshShipmentTraces, tracesCheckDue, tracesSettings } from '@/lib/traces/service';
+import { refreshShipmentTraces, TRACES_LOCKED, tracesCheckDue, tracesSettings } from '@/lib/traces/service';
+
+// Submitting to TRACES can take up to a minute (plus a lookup when the answer is lost).
+export const maxDuration = 180;
 import { createServerSupabase } from '@/lib/supabase/server';
 import { StatusBadge } from '@/components/plots/status-badge';
 import { Button } from '@/components/ui/button';
@@ -61,7 +64,7 @@ export default async function ShipmentPage({ params }: { params: Promise<{ local
         <h1 className="text-2xl font-bold tracking-tight">{sh.internal_ref}</h1>
         <ShipmentStatusBadge status={data.status} />
         {sh.dds_reference_no ? <span className="text-muted-foreground text-sm">DDS {sh.dds_reference_no}</span> : null}
-        {data.status !== 'submitted' ? (
+        {data.status !== 'submitted' && !(sh.traces_status && TRACES_LOCKED.has(sh.traces_status)) ? (
           <Button asChild variant="outline" size="sm" className="ml-auto">
             <Link href={`/app/shipments/${sh.id}/edit`}>{t('edit')}</Link>
           </Button>

@@ -111,3 +111,14 @@ describe('buyer links', () => {
     });
   });
 });
+
+describe('TRACES bookkeeping on submitted shipments', () => {
+  it('traces_* columns may still change on a submitted shipment, its content may not', async () => {
+    await pool.query("update shipments set status = 'ready' where id = $1", [ship]);
+    await pool.query("update shipments set status = 'submitted', dds_reference_no = '26SI1' where id = $1", [ship]);
+    await asUser(ids.alice, async (c) => {
+      await c.query("update shipments set traces_status = 'AVAILABLE', traces_checked_at = now(), traces_message = 'ok' where id = $1", [ship]);
+      await expectSqlError(c, "update shipments set traces_uuid = '071874bd-8c62-4cac-8eb6-b2fbe003410c' where id = $1", [ship], 'P0001');
+    });
+  });
+});

@@ -24,9 +24,9 @@ export type DdsInput = {
   plots: ExportPlot[];
 };
 
-export type DdsProblem = 'noCommodities' | 'noPlots' | 'speciesNames' | 'netMass' | 'quantity' | 'tooManyProducers' | 'hsCode';
+export type DdsProblem = 'noCommodities' | 'noPlots' | 'speciesNames' | 'netMass' | 'quantity' | 'tooManyProducers' | 'hsCode' | 'producerCountry' | 'tooLarge' | 'internalRef' | 'importOnly' | 'pointArea';
 
-const EU = new Set(['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE']);
+const EU = new Set(['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'XI']);
 export const isEuCountry = (c: string | null | undefined): boolean => Boolean(c && EU.has(c.toUpperCase()));
 
 /** Supplementary unit codes (CN): MTQ = m³, NAR = number of items. TODO: preveri dovoljene kode v XSD. */
@@ -58,8 +58,25 @@ export function checkDds(input: DdsInput): DdsProblem[] {
     if (!c.netMassKg && !c.volumeM3 && !c.pieces) out.add('quantity');
     if (!/^[0-9]{2,10}$/.test(c.hsCode)) out.add('hsCode');
   }
-  if (groupProducers(input.plots).length > 1000) out.add('tooManyProducers');
+  const producers = groupProducers(input.plots);
+  // 1000 producers per commodity, 10,000 per statement (every commodity carries all producers).
+  if (producers.length > 1000 || producers.length * input.commodities.length > 10_000) out.add('tooManyProducers');
+  if (producers.some((p) => !/^[A-Z]{2}$/.test(p.country))) out.add('producerCountry');
+  if (geolocationBytes(input) > MAX_GEOLOCATION_BYTES) out.add('tooLarge');
+  if (input.internalRef.length > 50) out.add('internalRef');
+  if (!isEuCountry(input.countryOfActivity) && input.activity !== 'IMPORT') out.add('importOnly');
+  // Points need an area between 0.0001 and 4 ha (wood is never cattle).
+  if (input.plots.some((p) => (p.geometry.type === 'Point' || p.geometry.type === 'MultiPoint') && (p.areaHa == null || p.areaHa < 0.0001 || p.areaHa > 4))) out.add('pointArea');
+  for (const c of input.commodities) if ((c.volumeM3 != null && c.volumeM3 < 0) || (c.pieces != null && c.pieces < 0) || (c.netMassKg != null && c.netMassKg < 0)) out.add('quantity');
   return [...out];
+}
+
+export const MAX_GEOLOCATION_BYTES = 25 * 1024 * 1024;
+
+/** Size of all base64 geolocation in the request (each commodity repeats the producers). */
+export function geolocationBytes(input: DdsInput): number {
+  const perCommodity = groupProducers(input.plots).reduce((n, g) => n + Math.ceil(Buffer.byteLength(JSON.stringify(buildEudrGeoJson(g.plots)), 'utf8') / 3) * 4, 0);
+  return perCommodity * Math.max(1, input.commodities.length);
 }
 
 const num = (n: number) => String(Math.round(n * 1e6) / 1e6);
@@ -73,7 +90,8 @@ export function submitDdsBody(input: DdsInput): string {
       el('dds:position', i + 1) +
       el('dds:country', g.country) +
       el('dds:name', g.name?.slice(0, 500)) +
-      (input.geoLocationConfidential ? '' : `<dds:geometryGeojson>${geojson}</dds:geometryGeojson>`) +
+      // Always sent: geoLocationConfidential only stops disclosure down the supply chain.
+      `<dds:geometryGeojson>${geojson}</dds:geometryGeojson>` +
       `</dds:producers>`
     );
   });
@@ -109,6 +127,7 @@ export function submitDdsBody(input: DdsInput): string {
   );
 }
 
+ export const getDdsByInternalReferenceBody = (ref: string) => `<dds:GetDdsByInternalReferenceRequest>${el('dds:internalReference', ref)}</dds:GetDdsByInternalReferenceRequest>`;
 export const getDdsBody = (uuids: string[]) => `<dds:GetDdsRequest>${uuids.map((u) => el('dds:uuidList', u)).join('')}</dds:GetDdsRequest>`;
 export const withdrawDdsBody = (uuid: string) => `<dds:WithdrawDdsRequest>${el('dds:uuid', uuid)}</dds:WithdrawDdsRequest>`;
 export const echoBody = (query: string) => `<echo:EudrEchoRequest>${el('echo:query', query)}</echo:EudrEchoRequest>`;

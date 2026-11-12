@@ -69,7 +69,8 @@ language plpgsql set search_path = '' as $$
 begin
   if old.status = 'submitted' then
     if new.status not in ('submitted', 'rejected')
-       or (to_jsonb(new) - array['status', 'updated_at']) is distinct from (to_jsonb(old) - array['status', 'updated_at']) then
+       or (to_jsonb(new) - array['status', 'updated_at', 'traces_status', 'traces_message', 'traces_checked_at'])
+          is distinct from (to_jsonb(old) - array['status', 'updated_at', 'traces_status', 'traces_message', 'traces_checked_at']) then
       raise exception 'A submitted shipment is read-only' using errcode = 'P0001', hint = 'LT_SHIPMENT_LOCKED';
     end if;
   elsif new.status = 'submitted' then

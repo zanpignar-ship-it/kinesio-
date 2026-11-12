@@ -19,7 +19,8 @@ export function parseFault(xml: string): TracesFault | null {
   const faultstring = pick(xml, 'faultstring') ?? 'Fault';
   const message = pick(xml, 'errorMessage') ?? pick(xml, 'message') ?? pick(xml, 'reason') ?? pick(xml, 'faultstring') ?? '';
   const id = pick(xml, 'id') ?? pick(xml, 'code') ?? pick(xml, 'errorCode');
-  return { code: id ?? faultstring, message };
+  const named = /NotFoundException/.test(xml) ? 'NotFoundException' : /PermissionDeniedException/.test(xml) ? 'PermissionDeniedException' : null;
+  return { code: id ?? named ?? faultstring, message };
 }
 
 export function parseOverview(xml: string): DdsOverview[] {

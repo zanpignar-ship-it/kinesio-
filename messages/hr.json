@@ -499,7 +499,8 @@
     "pickOnMap": "Odaberi na karti",
     "hideMap": "Sakrij kartu",
     "pickOnMapHint": "Dodirnite česticu na karti da je dodate ili uklonite. Odabrane su obrubljene plavo.",
-    "exportCsv": "Izvezi u Excel (CSV)"
+    "exportCsv": "Izvezi u Excel (CSV)",
+    "lockedTraces": "Izjava je podnesena u TRACES – pošiljku nije moguće mijenjati dok je ne povučete."
   },
   "share": {
     "title": "Paket za kupca",
@@ -813,7 +814,9 @@
       "CANCELLED": "Otkazano",
       "ARCHIVED": "Arhivirano",
       "GROUPED": "Grupirano u drugu izjavu",
-      "OBSOLETE": "Zastarjelo"
+      "OBSOLETE": "Zastarjelo",
+      "SENDING": "Šalje se",
+      "FAILED": "Podnošenje nije uspjelo"
     },
     "problems": {
       "noCommodities": "Pošiljka nema proizvoda.",
@@ -822,7 +825,12 @@
       "netMass": "Pri uvozu i izvozu obvezna je neto masa.",
       "quantity": "Svaki proizvod treba količinu.",
       "tooManyProducers": "Previše proizvođača (najviše 1000 po proizvodu).",
-      "hsCode": "HS oznaka mora imati 2–10 znamenki."
+      "hsCode": "HS oznaka mora imati 2–10 znamenki.",
+      "producerCountry": "Čestica nema valjanu državu.",
+      "tooLarge": "Geolokacija je prevelika (više od 25 MB u izjavi).",
+      "internalRef": "Interna oznaka dulja je od 50 znakova.",
+      "importOnly": "Tvrtka izvan EU-a može podnijeti samo izjavu za uvoz.",
+      "pointArea": "Čestica kao točka treba površinu između 0,0001 i 4 ha."
     },
     "errors": {
       "environment": "Odaberite okruženje.",
@@ -836,7 +844,14 @@
       "alreadySubmitted": "Izjava za ovu pošiljku već je podnesena.",
       "invalid": "Izjavu nije moguće podnijeti:",
       "rejected": "TRACES je odbio zahtjev.",
-      "check": "Stanje nije bilo moguće provjeriti. Pokušajte kasnije."
-    }
+      "check": "Stanje nije bilo moguće provjeriti. Pokušajte kasnije.",
+      "storeFailed": "Izjava je podnesena, ali stanje nije bilo moguće spremiti. UUID:",
+      "unknownOutcome": "Odgovor sustava TRACES nije stigao. Pošiljka je zaključana dok izjavu ne provjerite u TRACES.",
+      "withdrawFailed": "Povlačenje nije bilo moguće.",
+      "envKey": "Pri promjeni okruženja unesite ključ za novo okruženje."
+    },
+    "sendingHint": "Izjava se šalje ili odgovor sustava TRACES nije stigao. Provjerite je u TRACES; ponovno podnošenje je zaključano kako ne bi nastale dvije izjave.",
+    "withdraw": "Povuci izjavu u TRACES",
+    "withdrawConfirm": "Izjava će biti povučena u TRACES (moguće 72 sata nakon dodjele broja). Nastaviti?"
   }
 }

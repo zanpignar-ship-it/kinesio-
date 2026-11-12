@@ -496,7 +496,8 @@
     "pickOnMap": "Pick on map",
     "hideMap": "Hide map",
     "pickOnMapHint": "Tap a plot on the map to add or remove it. Selected plots are outlined in blue.",
-    "exportCsv": "Export to Excel (CSV)"
+    "exportCsv": "Export to Excel (CSV)",
+    "lockedTraces": "The statement is in TRACES – the shipment cannot be changed unless you withdraw it."
   },
   "share": {
     "title": "Buyer package",
@@ -810,7 +811,9 @@
       "CANCELLED": "Cancelled",
       "ARCHIVED": "Archived",
       "GROUPED": "Grouped into another statement",
-      "OBSOLETE": "Obsolete"
+      "OBSOLETE": "Obsolete",
+      "SENDING": "Sending",
+      "FAILED": "Submission failed"
     },
     "problems": {
       "noCommodities": "The shipment has no products.",
@@ -819,7 +822,12 @@
       "netMass": "Net mass is required for import and export.",
       "quantity": "Every product needs a quantity.",
       "tooManyProducers": "Too many producers (at most 1000 per product).",
-      "hsCode": "The HS code must have 2–10 digits."
+      "hsCode": "The HS code must have 2–10 digits.",
+      "producerCountry": "A plot has no valid country.",
+      "tooLarge": "The geolocation is too large (over 25 MB in the statement).",
+      "internalRef": "The internal reference is longer than 50 characters.",
+      "importOnly": "A company outside the EU can only submit import statements.",
+      "pointArea": "A plot entered as a point needs an area between 0.0001 and 4 ha."
     },
     "errors": {
       "environment": "Choose an environment.",
@@ -833,7 +841,14 @@
       "alreadySubmitted": "A statement for this shipment has already been submitted.",
       "invalid": "The statement cannot be submitted:",
       "rejected": "TRACES rejected the request.",
-      "check": "The status could not be checked. Try again later."
-    }
+      "check": "The status could not be checked. Try again later.",
+      "storeFailed": "The statement was submitted, but its state could not be saved. UUID:",
+      "unknownOutcome": "No answer from TRACES. The shipment stays locked until you check the statement in TRACES.",
+      "withdrawFailed": "The withdrawal failed.",
+      "envKey": "When switching the environment, enter the key for the new environment."
+    },
+    "sendingHint": "The statement is being sent, or the answer from TRACES did not arrive. Check it in TRACES; submitting again is blocked so that no second statement is created.",
+    "withdraw": "Withdraw the statement in TRACES",
+    "withdrawConfirm": "The statement will be withdrawn in TRACES (possible within 72 hours of the number being assigned). Continue?"
   }
 }

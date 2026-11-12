@@ -34,8 +34,10 @@ export async function saveTracesCredentials(_prev: TracesFormState, formData: Fo
   if (!parsed.success) return { error: parsed.error.issues[0]?.message };
   const v = parsed.data;
   const supabase = await createServerSupabase();
-  const { data: existing } = await supabase.from('traces_credentials').select('organization_id').eq('organization_id', orgId).maybeSingle();
+  const { data: existing } = await supabase.from('traces_credentials').select('organization_id, environment').eq('organization_id', orgId).maybeSingle();
   if (!existing && !v.authKey) return { error: 'traces.errors.authKey' };
+  // Keys differ per environment: switching needs the key of the new environment.
+  if (existing && existing.environment !== v.environment && !v.authKey) return { error: 'traces.errors.envKey' };
   let encrypted: string | undefined;
   try {
     encrypted = v.authKey ? encryptSecret(v.authKey) : undefined;
@@ -62,7 +64,7 @@ export async function testTracesConnection(): Promise<TracesFormState> {
     return r.ok ? { ok: true, detail: r.value } : { ok: false, detail: r.fault.message || r.fault.code };
   }
   const r = await getDds('production', access.creds, randomUUID());
-  if (r.ok || /notfound/i.test(r.fault.code + r.fault.message)) return { ok: true, detail: 'OK' };
+  if (r.ok || r.fault.code === 'NotFoundException' || /NOT_?FOUND/i.test(r.fault.code + ' ' + r.fault.message)) return { ok: true, detail: 'OK' };
   return { ok: false, detail: r.fault.message || r.fault.code };
 }
 
