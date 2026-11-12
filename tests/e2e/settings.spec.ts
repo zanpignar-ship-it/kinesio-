@@ -23,6 +23,10 @@ test('the owner edits the organization and downloads the archive', async ({ page
     geom: { type: 'Point', crs, coordinates: [14.5, 46.05] } as unknown as string,
   });
 
+  await page.goto('/sl/app');
+  await expect(page.getByTestId('plot-counts').getByRole('link', { name: /Veljavne/ })).toContainText('1');
+  await expect(page.getByText('Še nimate pošiljk.')).toBeVisible();
+
   await page.goto('/sl/app/settings');
   await page.getByLabel('Ime podjetja', { exact: true }).fill('Žaga Arhiv 2');
   await page.getByRole('button', { name: 'Shrani spremembe' }).click();

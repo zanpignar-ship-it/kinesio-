@@ -22,6 +22,17 @@ export function parseFilters(sp: Record<string, string | string[] | undefined>):
   };
 }
 
+/** Number of active (not archived) plots per validation status. */
+export async function plotStatusCounts(organizationId: string): Promise<Record<PlotStatus, number>> {
+  const supabase = await createServerSupabase();
+  const results = await Promise.all(
+    STATUSES.map((s) =>
+      supabase.from('plots').select('id', { count: 'exact', head: true }).eq('organization_id', organizationId).is('archived_at', null).eq('validation_status', s),
+    ),
+  );
+  return Object.fromEntries(STATUSES.map((s, i) => [s, results[i]?.count ?? 0])) as Record<PlotStatus, number>;
+}
+
 /** One page of plots (no geometry) plus counts per status – fast for thousands of plots. */
 export async function listPlots(organizationId: string, f: PlotListFilters) {
   const supabase = await createServerSupabase();
@@ -34,13 +45,9 @@ export async function listPlots(organizationId: string, f: PlotListFilters) {
   if (f.country) query = query.eq('country', f.country);
   if (f.q) query = query.ilike('label', `%${f.q.replace(/[%_\\]/g, (c) => `\\${c}`)}%`);
   const from = (f.page - 1) * PAGE_SIZE;
-  const counts = STATUSES.map((s) =>
-    supabase.from('plots').select('id', { count: 'exact', head: true }).eq('organization_id', organizationId).is('archived_at', null).eq('validation_status', s),
-  );
   const archivedCount = supabase.from('plots').select('id', { count: 'exact', head: true }).eq('organization_id', organizationId).not('archived_at', 'is', null);
-  const [list, archived, ...countResults] = await Promise.all([query.order('label').range(from, from + PAGE_SIZE - 1), archivedCount, ...counts]);
+  const [list, archived, byStatus] = await Promise.all([query.order('label').range(from, from + PAGE_SIZE - 1), archivedCount, plotStatusCounts(organizationId)]);
   if (list.error) throw list.error;
-  const byStatus = Object.fromEntries(STATUSES.map((s, i) => [s, countResults[i]?.count ?? 0])) as Record<PlotStatus, number>;
   return { rows: (list.data ?? []) as PlotListRow[], total: list.count ?? 0, byStatus, archivedCount: archived.count ?? 0 };
 }
 

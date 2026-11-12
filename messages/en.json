@@ -134,7 +134,8 @@
       "shipments": "Shipments",
       "masterData": "Master data",
       "settings": "Settings"
-    }
+    },
+    "recentShipments": "Recent shipments"
   },
   "plots": {
     "title": "Plots",

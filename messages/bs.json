@@ -137,7 +137,8 @@
       "shipments": "Pošiljke",
       "masterData": "Šifarnici",
       "settings": "Postavke"
-    }
+    },
+    "recentShipments": "Posljednje pošiljke"
   },
   "plots": {
     "title": "Parcele",

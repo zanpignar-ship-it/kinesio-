@@ -137,7 +137,8 @@
       "shipments": "Pošiljke",
       "masterData": "Šifrarnici",
       "settings": "Postavke"
-    }
+    },
+    "recentShipments": "Posljednje pošiljke"
   },
   "plots": {
     "title": "Čestice",
