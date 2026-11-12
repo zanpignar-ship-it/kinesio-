@@ -58,6 +58,7 @@ export type Database = {
           expires_at: string
           id: string
           include_documents: boolean
+          show_suppliers: boolean
           last_viewed_at: string | null
           organization_id: string
           revoked_at: string | null
@@ -71,6 +72,7 @@ export type Database = {
           expires_at: string
           id?: string
           include_documents?: boolean
+          show_suppliers?: boolean
           last_viewed_at?: string | null
           organization_id: string
           revoked_at?: string | null
@@ -84,6 +86,7 @@ export type Database = {
           expires_at?: string
           id?: string
           include_documents?: boolean
+          show_suppliers?: boolean
           last_viewed_at?: string | null
           organization_id?: string
           revoked_at?: string | null
@@ -496,6 +499,8 @@ export type Database = {
           area_source: string | null
           cadastral_municipality: string | null
           cadastral_no: string | null
+          harvest_from: string | null
+          harvest_to: string | null
           country: string
           created_at: string
           created_by: string | null
@@ -516,6 +521,8 @@ export type Database = {
           area_source?: string | null
           cadastral_municipality?: string | null
           cadastral_no?: string | null
+          harvest_from?: string | null
+          harvest_to?: string | null
           country: string
           created_at?: string
           created_by?: string | null
@@ -536,6 +543,8 @@ export type Database = {
           area_source?: string | null
           cadastral_municipality?: string | null
           cadastral_no?: string | null
+          harvest_from?: string | null
+          harvest_to?: string | null
           country?: string
           created_at?: string
           created_by?: string | null

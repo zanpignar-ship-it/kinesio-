@@ -33,6 +33,8 @@ export function ImportWizard({ organizationId, defaultCountry, suppliers = [] }:
   const [crsAsked, setCrsAsked] = useState(false);
   const [country, setCountry] = useState(defaultCountry);
   const [supplierId, setSupplierId] = useState('');
+  const [harvestFrom, setHarvestFrom] = useState('');
+  const [harvestTo, setHarvestTo] = useState('');
   const [includeErrors, setIncludeErrors] = useState(false);
   const [parsing, setParsing] = useState(false);
   const [result, setResult] = useState<ImportResult | null>(null);
@@ -81,7 +83,7 @@ export function ImportWizard({ organizationId, defaultCountry, suppliers = [] }:
       const upload = await createBrowserSupabase().storage.from('plot-imports').upload(filePath, file.data, { contentType: file.type, upsert: false });
       if (upload.error) filePath = null;
       try {
-        setResult(await importPlots({ locale, country, fileName: file.name, filePath, detectedCrs: crs ?? parsed.detectedCrs, supplierId: supplierId || null, rows }));
+        setResult(await importPlots({ locale, country, fileName: file.name, filePath, detectedCrs: crs ?? parsed.detectedCrs, supplierId: supplierId || null, harvestFrom: harvestFrom || null, harvestTo: harvestTo || null, rows }));
       } catch {
         setResult({ error: 'plots.errors.unknown' });
       }
@@ -173,6 +175,19 @@ export function ImportWizard({ organizationId, defaultCountry, suppliers = [] }:
               </select>
             </div>
           ) : null}
+          <fieldset className="flex flex-col gap-2">
+            <legend className="text-sm font-medium">{tAll('plots.harvest')}</legend>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="flex flex-col gap-1">
+                <Label htmlFor="harvestFrom" className="text-xs">{tAll('plots.harvestFrom')}</Label>
+                <input id="harvestFrom" type="date" className={selectClass} value={harvestFrom} onChange={(e) => setHarvestFrom(e.target.value)} />
+              </div>
+              <div className="flex flex-col gap-1">
+                <Label htmlFor="harvestTo" className="text-xs">{tAll('plots.harvestTo')}</Label>
+                <input id="harvestTo" type="date" className={selectClass} value={harvestTo} onChange={(e) => setHarvestTo(e.target.value)} />
+              </div>
+            </div>
+          </fieldset>
           {preview.items.length === 0 ? (
             <p>{t('empty')}</p>
           ) : (

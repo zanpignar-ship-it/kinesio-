@@ -22,6 +22,8 @@ type Initial = {
   cadastralNo?: string | null;
   cadastralMunicipality?: string | null;
   supplierId?: string | null;
+  harvestFrom?: string | null;
+  harvestTo?: string | null;
   draw: DrawState | null;
   multiPart?: boolean;
   geometry?: GeoJSON.Geometry | null;
@@ -118,6 +120,20 @@ export function DrawPlot({ initial, others, suppliers = [] }: { initial: Initial
             </select>
           </div>
         ) : null}
+        <fieldset className="flex flex-col gap-2">
+          <legend className="text-sm font-medium">{tp('harvest')}</legend>
+          <p className="text-muted-foreground text-xs">{tp('harvestHint')}</p>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="flex flex-col gap-1">
+              <Label htmlFor="harvestFrom" className="text-xs">{tp('harvestFrom')}</Label>
+              <Input id="harvestFrom" name="harvestFrom" type="date" defaultValue={v.harvestFrom ?? initial.harvestFrom ?? ''} />
+            </div>
+            <div className="flex flex-col gap-1">
+              <Label htmlFor="harvestTo" className="text-xs">{tp('harvestTo')}</Label>
+              <Input id="harvestTo" name="harvestTo" type="date" defaultValue={v.harvestTo ?? initial.harvestTo ?? ''} />
+            </div>
+          </div>
+        </fieldset>
         <div className="flex flex-col gap-2">
           <Label htmlFor="cadastralNo">{tp('cadastral')}</Label>
           <Input id="cadastralNo" name="cadastralNo" defaultValue={v.cadastralNo ?? initial.cadastralNo ?? ''} />

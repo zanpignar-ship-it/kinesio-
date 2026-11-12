@@ -166,7 +166,8 @@ begin
         'plots', coalesce((
           select jsonb_agg(jsonb_build_object(
             'label', pl.label, 'country', pl.country, 'area_ha', pl.area_ha,
-            'supplier', (select su.name from public.suppliers su where su.id = pl.supplier_id),
+            'supplier', case when v_share.show_suppliers then (select su.name from public.suppliers su where su.id = pl.supplier_id) end,
+            'harvest_from', pl.harvest_from, 'harvest_to', pl.harvest_to,
             'geometry', extensions.st_asgeojson(sp2.geom_snapshot, 6)::jsonb) order by pl.label)
           from public.shipment_plots sp2 join public.plots pl on pl.id = sp2.plot_id
           where sp2.shipment_id = s.id and sp2.geom_snapshot is not null), '[]'::jsonb),

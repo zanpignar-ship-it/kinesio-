@@ -187,12 +187,17 @@
       "inUse": "The plot is used in a shipment and cannot be deleted. You can archive it.",
       "tooMany": "You can import at most 2,000 plots at once.",
       "notFound": "The plot was not found.",
-      "supplier": "Choose a supplier from the list."
+      "supplier": "Choose a supplier from the list.",
+      "harvest": "The “to” date must be after the “from” date."
     },
     "archivedFilter": "Archived",
     "supplier": "Supplier",
     "noSupplier": "– no supplier –",
-    "allSuppliers": "All suppliers"
+    "allSuppliers": "All suppliers",
+    "harvest": "Harvest period",
+    "harvestHint": "When the timber was felled (EUDR requires the date or time range of production). Optional, but recommended.",
+    "harvestFrom": "From",
+    "harvestTo": "To"
   },
   "map": {
     "satellite": "Satellite",
@@ -418,7 +423,8 @@
       "plotNoGeometry": "Plots without geolocation: {plots}.",
       "geojsonTooLarge": "The GeoJSON is larger than 25 MB. Split the shipment.",
       "plotNoDocuments": "Plots without documents: {plots}.",
-      "expiredDocuments": "Expired documents: {count}."
+      "expiredDocuments": "Expired documents: {count}.",
+      "plotNoHarvestDate": "Plots without a harvest date: {plots}."
     },
     "dds": {
       "activity": "Activity",
@@ -437,7 +443,8 @@
       "countryOfProduction": "Country of production",
       "geolocation": "Geolocation (plots in the GeoJSON)",
       "references": "References of earlier statements",
-      "item": "Product {n}"
+      "item": "Product {n}",
+      "productionPeriod": "Production period (harvest)"
     },
     "errors": {
       "internalRef": "Enter an internal reference.",
@@ -491,7 +498,8 @@
     "quantity": "Quantity",
     "errors": {
       "unknown": "The link could not be created."
-    }
+    },
+    "showSuppliers": "Show supplier names (hidden by default – supply-chain confidentiality)"
   },
   "settings": {
     "title": "Settings",

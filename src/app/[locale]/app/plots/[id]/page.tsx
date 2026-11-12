@@ -37,6 +37,15 @@ export default async function PlotPage({ params }: Props) {
   const facts: [string, string | null][] = [
     [t('country'), plot.country],
     [t('supplier'), plot.supplier?.name ?? null],
+    [
+      t('harvest'),
+      plot.harvest_from || plot.harvest_to
+        ? [plot.harvest_from, plot.harvest_to]
+            .filter((d): d is string => Boolean(d))
+            .map((d) => format.dateTime(new Date(`${d}T00:00:00Z`), { dateStyle: 'medium', timeZone: 'UTC' }))
+            .join(' – ')
+        : null,
+    ],
     [t('area'), plot.area_ha === null ? null : t('hectares', { value: format.number(Number(plot.area_ha), { maximumFractionDigits: 4 }) })],
     [t('cadastral'), plot.cadastral_no],
     [t('cadastralMunicipality'), plot.cadastral_municipality],

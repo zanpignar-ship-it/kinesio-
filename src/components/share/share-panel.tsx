@@ -39,6 +39,10 @@ export function SharePanel({ shipmentId, shares }: { shipmentId: string; shares:
           <input type="checkbox" name="includeDocuments" defaultChecked className="size-5" />
           {t('includeDocuments')}
         </label>
+        <label className="flex h-10 items-center gap-2 text-sm">
+          <input type="checkbox" name="showSuppliers" className="size-5" />
+          {t('showSuppliers')}
+        </label>
         <Button type="submit" disabled={pending}>
           {t('createLink')}
         </Button>

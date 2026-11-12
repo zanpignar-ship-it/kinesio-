@@ -6,7 +6,7 @@ export type ReadinessInput = {
   activity: 'domestic' | 'import' | 'export';
   countryOfProduction: string | null;
   items: { product: string; hsCode: string; hsInScope: boolean; scientificName: string | null; netMassKg: number | null; volumeM3: number | null; pieces: number | null }[];
-  plots: { label: string; status: PlotStatus; hasGeometry: boolean; documentCount: number; expiredDocuments: number }[];
+  plots: { label: string; status: PlotStatus; hasGeometry: boolean; documentCount: number; expiredDocuments: number; hasHarvestDate?: boolean }[];
   upstreamReferences: number;
   geojsonBytes: number;
 };
@@ -24,7 +24,8 @@ export type ReadinessKey =
   | 'plotNoGeometry'
   | 'geojsonTooLarge'
   | 'plotNoDocuments'
-  | 'expiredDocuments';
+  | 'expiredDocuments'
+  | 'plotNoHarvestDate';
 
 export type ReadinessIssue = { key: ReadinessKey; level: 'error' | 'warning'; params?: Record<string, string | number> };
 
@@ -68,6 +69,9 @@ export function checkReadiness(input: ReadinessInput): { ready: boolean; issues:
   if (noDocs.length) warn('plotNoDocuments', { plots: names(noDocs) });
   const expired = input.plots.reduce((n, p) => n + p.expiredDocuments, 0);
   if (expired) warn('expiredDocuments', { count: expired });
+  // EUDR art. 9(1)(d): date or time range of production. TODO: preveri, ali je polje obvezno v obrazcu DDS.
+  const noHarvest = input.plots.filter((p) => p.hasHarvestDate === false);
+  if (noHarvest.length) warn('plotNoHarvestDate', { plots: names(noHarvest) });
 
   return { ready: !issues.some((i) => i.level === 'error'), issues };
 }

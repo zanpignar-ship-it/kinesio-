@@ -31,7 +31,7 @@ test('shipment: checklist, GeoJSON, DDS data, submission and copy', async ({ pag
   const ring = [[14.861234, 45.641234], [14.862514, 45.641234], [14.862514, 45.642134], [14.861234, 45.642134], [14.861234, 45.641234]];
   const plot = await client
     .from('plots')
-    .insert({ organization_id: organizationId, label: 'Gozd A', country: 'SI', validation_status: 'valid', validation_issues: [], area_ha: 1, area_source: 'computed', geom: { type: 'Polygon', crs, coordinates: [ring] } as unknown as string })
+    .insert({ organization_id: organizationId, label: 'Gozd A', country: 'SI', validation_status: 'valid', validation_issues: [], area_ha: 1, area_source: 'computed', harvest_from: '2026-01-10', harvest_to: '2026-02-20', geom: { type: 'Polygon', crs, coordinates: [ring] } as unknown as string })
     .select('id')
     .single();
   expect(plot.error).toBeNull();
@@ -58,6 +58,7 @@ test('shipment: checklist, GeoJSON, DDS data, submission and copy', async ({ pag
   await expect(page.getByTestId('dds-hsCode')).toHaveText('4403');
   await expect(page.getByTestId('dds-scientificName')).toHaveText('Picea abies');
   await expect(page.getByTestId('dds-netMassKg')).toHaveText('24000');
+  await expect(page.getByTestId('dds-productionPeriod')).toHaveText('2026-01-10 – 2026-02-20');
 
   const download = page.waitForEvent('download');
   await page.getByRole('link', { name: 'Prenesi GeoJSON' }).click();

@@ -53,7 +53,7 @@ export async function getShipment(organizationId: string, id: string, locale: st
     .select(
       `*, customer:customers (id, name, country),
        shipment_items (id, product_id, net_mass_kg, volume_m3, pieces, product:products (name, hs_code, trade_name, species:species (scientific_name, common_name_sl, common_name_hr, common_name_sr, common_name_bs, common_name_en), hs:hs_codes (in_scope))),
-       shipment_plots (plot_id, geom_snapshot, plot:plots (label, country, validation_status, supplier:suppliers (name))),
+       shipment_plots (plot_id, geom_snapshot, plot:plots (label, country, validation_status, harvest_from, harvest_to, supplier:suppliers (name))),
        shipment_documents (document_id, document:documents (title, valid_to)),
        upstream_references (id, kind, reference_no, verification_no, supplier_id)`,
     )
@@ -119,6 +119,9 @@ export async function getShipment(organizationId: string, id: string, locale: st
     hasGeometry: Boolean(sp.geom_snapshot),
     documentCount: docsByPlot.get(sp.plot_id)?.count ?? 0,
     expiredDocuments: docsByPlot.get(sp.plot_id)?.expired ?? 0,
+    hasHarvestDate: Boolean(sp.plot?.harvest_from || sp.plot?.harvest_to),
+    harvestFrom: sp.plot?.harvest_from ?? null,
+    harvestTo: sp.plot?.harvest_to ?? null,
   }));
   const readinessInput: ReadinessInput = {
     mode: s.mode,

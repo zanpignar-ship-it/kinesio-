@@ -190,12 +190,17 @@
       "inUse": "Čestica se koristi u pošiljci i ne može se izbrisati. Možete je arhivirati.",
       "tooMany": "Odjednom možete uvesti najviše 2.000 čestica.",
       "notFound": "Čestica nije pronađena.",
-      "supplier": "Odaberite dobavljača s popisa."
+      "supplier": "Odaberite dobavljača s popisa.",
+      "harvest": "Datum »do« mora biti nakon datuma »od«."
     },
     "archivedFilter": "Arhivirane",
     "supplier": "Dobavljač",
     "noSupplier": "– bez dobavljača –",
-    "allSuppliers": "Svi dobavljači"
+    "allSuppliers": "Svi dobavljači",
+    "harvest": "Razdoblje sječe",
+    "harvestHint": "Kada je drvo posječeno (EUDR zahtijeva datum ili razdoblje proizvodnje). Neobavezno, ali preporučeno.",
+    "harvestFrom": "Od",
+    "harvestTo": "Do"
   },
   "map": {
     "satellite": "Satelit",
@@ -421,7 +426,8 @@
       "plotNoGeometry": "Čestice bez geolokacije: {plots}.",
       "geojsonTooLarge": "Datoteka GeoJSON veća je od 25 MB. Podijelite pošiljku.",
       "plotNoDocuments": "Čestice bez dokumenata: {plots}.",
-      "expiredDocuments": "Istekli dokumenti: {count}."
+      "expiredDocuments": "Istekli dokumenti: {count}.",
+      "plotNoHarvestDate": "Čestice bez datuma sječe: {plots}."
     },
     "dds": {
       "activity": "Djelatnost",
@@ -440,7 +446,8 @@
       "countryOfProduction": "Država proizvodnje",
       "geolocation": "Geolokacija (broj čestica u GeoJSON-u)",
       "references": "Reference prethodnih izjava",
-      "item": "Proizvod {n}"
+      "item": "Proizvod {n}",
+      "productionPeriod": "Razdoblje proizvodnje (sječa)"
     },
     "errors": {
       "internalRef": "Unesite internu oznaku.",
@@ -494,7 +501,8 @@
     "quantity": "Količina",
     "errors": {
       "unknown": "Poveznicu nije bilo moguće izraditi."
-    }
+    },
+    "showSuppliers": "Prikaži imena dobavljača (zadano skriveno – povjerljivost opskrbnog lanca)"
   },
   "settings": {
     "title": "Postavke",

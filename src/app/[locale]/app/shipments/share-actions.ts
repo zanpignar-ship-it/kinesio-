@@ -24,6 +24,7 @@ export async function createShare(_prev: ShareState, formData: FormData): Promis
     expires_at: new Date(Date.now() + days * 86_400_000).toISOString(),
     shipment_ids: [shipmentId],
     include_documents: formData.get('includeDocuments') === 'on',
+    show_suppliers: formData.get('showSuppliers') === 'on',
   });
   if (error) return { error: 'share.errors.unknown' };
   revalidatePath(`/${locale}/app/shipments/${shipmentId}`);

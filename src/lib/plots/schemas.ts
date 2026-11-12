@@ -20,15 +20,25 @@ const optionalUuid = z.preprocess(
   z.string().uuid('plots.errors.supplier').optional(),
 );
 
+const optionalDate = z.preprocess(
+  (v) => (v === '' || v === null ? undefined : v),
+  z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'plots.errors.harvest').optional(),
+);
+
+/** Harvest (felling) period – EUDR art. 9(1)(d) "date or time range of production". */
+const withHarvestOrder = <T extends { harvestFrom?: string; harvestTo?: string }>(v: T) => !v.harvestFrom || !v.harvestTo || v.harvestTo >= v.harvestFrom;
+
 export const plotFormSchema = z.object({
   supplierId: optionalUuid,
+  harvestFrom: optionalDate,
+  harvestTo: optionalDate,
   label: z.string().trim().min(1, 'plots.errors.label').max(120, 'plots.errors.label'),
   country: z.enum(ORG_COUNTRIES, { message: 'plots.errors.country' }),
   declaredAreaHa: optionalHectares,
   cadastralNo: optionalText(60),
   cadastralMunicipality: optionalText(120),
   postalAddress: optionalText(300),
-});
+}).refine(withHarvestOrder, { message: 'plots.errors.harvest', path: ['harvestTo'] });
 export type PlotFormInput = z.infer<typeof plotFormSchema>;
 
 const position = z.array(z.number().finite()).min(2).max(3);
@@ -63,6 +73,8 @@ export const importPayloadSchema = z.object({
     .nullable(),
   detectedCrs: z.string().max(40),
   supplierId: optionalUuid,
+  harvestFrom: optionalDate,
+  harvestTo: optionalDate,
   rows: z.array(importRowSchema).min(1).max(MAX_IMPORT_ROWS),
-});
+}).refine(withHarvestOrder, { message: 'plots.errors.harvest', path: ['harvestTo'] });
 export type ImportPayloadInput = z.input<typeof importPayloadSchema>;

@@ -30,6 +30,8 @@ export default async function EditPlotPage({ params }: { params: Promise<{ local
           cadastralNo: plot.cadastral_no,
           cadastralMunicipality: plot.cadastral_municipality,
           supplierId: plot.supplier_id,
+          harvestFrom: plot.harvest_from,
+          harvestTo: plot.harvest_to,
           draw,
           multiPart: Boolean(geometry) && !draw,
           geometry,

@@ -9,7 +9,7 @@ import { StatusBadge } from '@/components/plots/status-badge';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/navigation';
 import { getCurrentMembership, requireUser } from '@/lib/auth/session';
-import { ddsSummary } from '@/lib/shipments/dds-summary';
+import { ddsSummary, productionPeriod } from '@/lib/shipments/dds-summary';
 import { getShipment } from '@/lib/shipments/queries';
 import { cn } from '@/lib/utils';
 
@@ -30,6 +30,7 @@ export default async function ShipmentPage({ params }: { params: Promise<{ local
     internalRef: sh.internal_ref,
     countryOfProduction: sh.country_of_production,
     plotCount: data.plots.filter((p) => p.hasGeometry).length,
+    productionPeriod: productionPeriod(data.plots),
     items: data.items.map((i) => ({ hsCode: i.hsCode, description: i.product, tradeName: i.tradeName, scientificName: i.scientificName, commonName: i.commonName, netMassKg: i.netMassKg, volumeM3: i.volumeM3, pieces: i.pieces })),
     references: data.references.map((r) => ({ kind: r.kind, referenceNo: r.reference_no, verificationNo: r.verification_no })),
   });

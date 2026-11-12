@@ -19,9 +19,12 @@ test('a plot gets a supplier, which shows on the plot and filters the list', asy
 
   await page.goto(`/sl/app/plots/${plot.id}/edit`);
   await page.getByLabel('Dobavitelj').selectOption({ label: 'Janez Novak' });
+  await page.getByLabel('Od', { exact: true }).fill('2026-01-10');
+  await page.getByLabel('Do', { exact: true }).fill('2026-02-20');
   await page.getByRole('button', { name: 'Shrani parcelo' }).click();
   await page.waitForURL(`**/sl/app/plots/${plot.id}`);
   await expect(page.getByText('Janez Novak')).toBeVisible();
+  await expect(page.getByText('10. jan. 2026 – 20. feb. 2026')).toBeVisible();
 
   await page.goto(`/sl/app/plots?supplier=${supplier.data!.id}`);
   await expect(page.getByTestId('plot-row')).toHaveCount(1);
