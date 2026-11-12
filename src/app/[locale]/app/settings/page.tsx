@@ -3,6 +3,7 @@ import { OrganizationForm } from '@/components/app/organization-form';
 import { MembersPanel } from '@/components/members/members-panel';
 import { DeleteAccount } from '@/components/settings/delete-account';
 import { buttonVariants } from '@/components/ui/button';
+import { Link } from '@/i18n/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { getCurrentMembership, requireUser } from '@/lib/auth/session';
 import { updateOrganization } from './actions';
@@ -52,9 +53,14 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
           <CardDescription>{t('archiveIntro')}</CardDescription>
         </CardHeader>
         <CardContent>
-          <a href={`/${locale}/app/archive`} className={buttonVariants({ variant: 'outline' })} download>
-            {t('archiveDownload')}
-          </a>
+          <div className="flex flex-wrap gap-2">
+            <a href={`/${locale}/app/archive`} className={buttonVariants({ variant: 'outline' })} download>
+              {t('archiveDownload')}
+            </a>
+            <Link href="/app/settings/audit" className={buttonVariants({ variant: 'ghost' })}>
+              {t('auditLink')}
+            </Link>
+          </div>
         </CardContent>
       </Card>
       {user.email ? (

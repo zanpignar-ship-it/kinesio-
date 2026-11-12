@@ -41,6 +41,15 @@ test('the owner edits the organization and downloads the archive', async ({ page
   expect(fc.features.map((f) => f.properties.label)).toEqual(['Arhivska parcela']);
   expect(fc.features[0]!.geometry.type).toBe('Point');
   expect(zip.file('audit_log.csv')).not.toBeNull();
+
+  await page.getByRole('link', { name: 'Revizijska sled' }).click();
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Revizijska sled');
+  const list = page.getByTestId('audit-list');
+  await expect(list).toContainText('Dodano · Parcela');
+  await expect(list).toContainText('Arhivska parcela');
+  await expect(list).toContainText('Spremenjeno · Organizacija');
+  await expect(list).toContainText('polja: name');
+  await expect(list).toContainText(user.email);
 });
 
 test('account deletion asks for the email address', async ({ page }) => {

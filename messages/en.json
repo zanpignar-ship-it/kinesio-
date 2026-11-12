@@ -545,7 +545,8 @@
       "transferOwnership": "First transfer ownership or remove the other members in these organizations:",
       "unknown": "Something went wrong. Please try again."
     },
-    "members": "Members"
+    "members": "Members",
+    "auditLink": "Audit trail"
   },
   "legal": {
     "terms": "Terms of use",
@@ -652,5 +653,42 @@
     "negligible": "I conclude that the risk is negligible.",
     "save": "Save risk assessment",
     "saved": "The risk assessment is saved."
+  },
+  "audit": {
+    "title": "Audit trail",
+    "intro": "Every change is recorded automatically and cannot be edited or deleted. It is kept for at least 5 years.",
+    "back": "Settings",
+    "filter": "Filter",
+    "all": "All",
+    "empty": "No entries.",
+    "actions": {
+      "INSERT": "Added",
+      "UPDATE": "Changed",
+      "DELETE": "Deleted"
+    },
+    "fields": "fields: {fields}",
+    "system": "system",
+    "formerMember": "former member",
+    "newer": "Newer",
+    "older": "Older",
+    "pageOf": "Page {page} of {pages}",
+    "tables": {
+      "plots": "Plot",
+      "documents": "Document",
+      "plot_documents": "Plot–document link",
+      "shipments": "Shipment",
+      "shipment_items": "Shipment item",
+      "shipment_plots": "Shipment plot",
+      "shipment_documents": "Shipment document",
+      "upstream_references": "Supplier reference",
+      "buyer_shares": "Buyer link",
+      "suppliers": "Supplier",
+      "customers": "Customer",
+      "products": "Product",
+      "memberships": "Member",
+      "invitations": "Invitation",
+      "organizations": "Organization",
+      "plot_imports": "Plot import"
+    }
   }
 }

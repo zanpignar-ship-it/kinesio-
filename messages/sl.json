@@ -545,7 +545,8 @@
       "transferOwnership": "Najprej prenesite lastništvo ali odstranite druge člane v organizacijah:",
       "unknown": "Prišlo je do napake. Poskusite znova."
     },
-    "members": "Člani"
+    "members": "Člani",
+    "auditLink": "Revizijska sled"
   },
   "legal": {
     "terms": "Pogoji uporabe",
@@ -652,5 +653,42 @@
     "negligible": "Ugotavljam, da je tveganje zanemarljivo.",
     "save": "Shrani oceno tveganja",
     "saved": "Ocena tveganja je shranjena."
+  },
+  "audit": {
+    "title": "Revizijska sled",
+    "intro": "Vsaka sprememba podatkov je zabeležena samodejno in je ni mogoče spremeniti ali izbrisati. Hrani se vsaj 5 let.",
+    "back": "Nastavitve",
+    "filter": "Filter",
+    "all": "Vse",
+    "empty": "Ni zapisov.",
+    "actions": {
+      "INSERT": "Dodano",
+      "UPDATE": "Spremenjeno",
+      "DELETE": "Izbrisano"
+    },
+    "fields": "polja: {fields}",
+    "system": "sistem",
+    "formerMember": "nekdanji član",
+    "newer": "Novejši",
+    "older": "Starejši",
+    "pageOf": "Stran {page} od {pages}",
+    "tables": {
+      "plots": "Parcela",
+      "documents": "Dokument",
+      "plot_documents": "Povezava parcela–dokument",
+      "shipments": "Pošiljka",
+      "shipment_items": "Izdelek v pošiljki",
+      "shipment_plots": "Parcela v pošiljki",
+      "shipment_documents": "Dokument v pošiljki",
+      "upstream_references": "Referenca dobavitelja",
+      "buyer_shares": "Povezava za kupca",
+      "suppliers": "Dobavitelj",
+      "customers": "Kupec",
+      "products": "Izdelek",
+      "memberships": "Član",
+      "invitations": "Povabilo",
+      "organizations": "Organizacija",
+      "plot_imports": "Uvoz parcel"
+    }
   }
 }

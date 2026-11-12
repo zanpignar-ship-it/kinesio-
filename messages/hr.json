@@ -548,7 +548,8 @@
       "transferOwnership": "Najprije prenesite vlasništvo ili uklonite ostale članove u organizacijama:",
       "unknown": "Došlo je do pogreške. Pokušajte ponovno."
     },
-    "members": "Članovi"
+    "members": "Članovi",
+    "auditLink": "Revizijski trag"
   },
   "legal": {
     "terms": "Uvjeti korištenja",
@@ -655,5 +656,42 @@
     "negligible": "Utvrđujem da je rizik zanemariv.",
     "save": "Spremi procjenu rizika",
     "saved": "Procjena rizika je spremljena."
+  },
+  "audit": {
+    "title": "Revizijski trag",
+    "intro": "Svaka promjena podataka bilježi se automatski i ne može se mijenjati ni brisati. Čuva se najmanje 5 godina.",
+    "back": "Postavke",
+    "filter": "Filtar",
+    "all": "Sve",
+    "empty": "Nema zapisa.",
+    "actions": {
+      "INSERT": "Dodano",
+      "UPDATE": "Promijenjeno",
+      "DELETE": "Izbrisano"
+    },
+    "fields": "polja: {fields}",
+    "system": "sustav",
+    "formerMember": "bivši član",
+    "newer": "Novije",
+    "older": "Starije",
+    "pageOf": "Stranica {page} od {pages}",
+    "tables": {
+      "plots": "Čestica",
+      "documents": "Dokument",
+      "plot_documents": "Veza čestica–dokument",
+      "shipments": "Pošiljka",
+      "shipment_items": "Proizvod u pošiljci",
+      "shipment_plots": "Čestica u pošiljci",
+      "shipment_documents": "Dokument u pošiljci",
+      "upstream_references": "Referenca dobavljača",
+      "buyer_shares": "Poveznica za kupca",
+      "suppliers": "Dobavljač",
+      "customers": "Kupac",
+      "products": "Proizvod",
+      "memberships": "Član",
+      "invitations": "Pozivnica",
+      "organizations": "Organizacija",
+      "plot_imports": "Uvoz čestica"
+    }
   }
 }
