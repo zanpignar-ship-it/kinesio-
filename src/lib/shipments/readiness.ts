@@ -9,6 +9,8 @@ export type ReadinessInput = {
   plots: { label: string; status: PlotStatus; hasGeometry: boolean; documentCount: number; expiredDocuments: number; hasHarvestDate?: boolean }[];
   upstreamReferences: number;
   geojsonBytes: number;
+  /** Polygons were simplified to fit the size limit (the export differs slightly from the stored outlines). */
+  geojsonSimplified?: boolean;
 };
 
 export type ReadinessKey =
@@ -25,7 +27,8 @@ export type ReadinessKey =
   | 'geojsonTooLarge'
   | 'plotNoDocuments'
   | 'expiredDocuments'
-  | 'plotNoHarvestDate';
+  | 'plotNoHarvestDate'
+  | 'geojsonSimplified';
 
 export type ReadinessIssue = { key: ReadinessKey; level: 'error' | 'warning'; params?: Record<string, string | number> };
 
@@ -64,6 +67,7 @@ export function checkReadiness(input: ReadinessInput): { ready: boolean; issues:
   const noGeometry = input.plots.filter((p) => !p.hasGeometry);
   if (noGeometry.length) err('plotNoGeometry', { plots: names(noGeometry) });
   if (input.geojsonBytes > EXPORT_MAX_BYTES) err('geojsonTooLarge');
+  if (input.geojsonSimplified) warn('geojsonSimplified');
 
   const noDocs = input.plots.filter((p) => p.documentCount === 0);
   if (noDocs.length) warn('plotNoDocuments', { plots: names(noDocs) });

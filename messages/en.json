@@ -188,7 +188,8 @@
       "tooMany": "You can import at most 2,000 plots at once.",
       "notFound": "The plot was not found.",
       "supplier": "Choose a supplier from the list.",
-      "harvest": "The “to” date must be after the “from” date."
+      "harvest": "The “to” date must be after the “from” date.",
+      "notRepairable": "This plot cannot be repaired automatically. Fix the corners on the map."
     },
     "archivedFilter": "Archived",
     "supplier": "Supplier",
@@ -198,7 +199,9 @@
     "harvestHint": "When the timber was felled (EUDR requires the date or time range of production). Optional, but recommended.",
     "harvestFrom": "From",
     "harvestTo": "To",
-    "exportCsv": "Export to Excel (CSV)"
+    "exportCsv": "Export to Excel (CSV)",
+    "repair": "Repair automatically",
+    "repairHint": "The plot outline crosses itself. The automatic repair splits it into valid parts at the crossings. Then check the shape on the map."
   },
   "map": {
     "satellite": "Satellite",
@@ -425,7 +428,8 @@
       "geojsonTooLarge": "The GeoJSON is larger than 25 MB. Split the shipment.",
       "plotNoDocuments": "Plots without documents: {plots}.",
       "expiredDocuments": "Expired documents: {count}.",
-      "plotNoHarvestDate": "Plots without a harvest date: {plots}."
+      "plotNoHarvestDate": "Plots without a harvest date: {plots}.",
+      "geojsonSimplified": "Polygons were simplified for the export so the file stays under 25 MB. Check that the shapes are still right."
     },
     "dds": {
       "activity": "Activity",

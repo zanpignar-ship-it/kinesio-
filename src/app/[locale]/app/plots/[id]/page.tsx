@@ -5,6 +5,7 @@ import { PlotMapClient } from '@/components/map/map-client';
 import { IssueList } from '@/components/plots/issue-list';
 import { geometryFromDb } from '@/lib/plots/geometry';
 import { PlotActions } from '@/components/plots/plot-actions';
+import { RepairButton } from '@/components/plots/repair-button';
 import { StatusBadge } from '@/components/plots/status-badge';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/navigation';
@@ -79,6 +80,7 @@ export default async function PlotPage({ params }: Props) {
       <section className="flex flex-col gap-3">
         <h2 className="font-semibold">{t('issues')}</h2>
         <IssueList issues={issues} />
+        {issues.some((i) => i.code === 'POLYGON_SELF_INTERSECTION') ? <RepairButton id={plot.id} /> : null}
       </section>
       <section className="flex flex-col gap-3">
         <div className="flex flex-wrap items-center justify-between gap-2">

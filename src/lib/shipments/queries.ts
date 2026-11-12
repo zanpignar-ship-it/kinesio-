@@ -5,6 +5,8 @@ import { documentExpiry } from '@/lib/documents/expiry';
 import { buildEudrGeoJson, serializeEudrGeoJson, type ExportPlot } from '@/lib/geo/export-eudr';
 import type { PlotGeometry } from '@/lib/geo/types';
 import { geometryFromDb } from '@/lib/plots/geometry';
+import { EXPORT_MAX_BYTES } from '@/lib/eudr/rules';
+import { simplifyToFit } from '@/lib/geo/repair';
 import { createServerSupabase } from '@/lib/supabase/server';
 import { productOptions } from '@/lib/masterdata/queries';
 import { checkReadiness, type ReadinessInput } from './readiness';
@@ -94,7 +96,18 @@ export async function getShipment(organizationId: string, id: string, locale: st
     if (sp.plot.supplier?.name) plot.producerName = sp.plot.supplier.name;
     return [plot];
   });
-  const geojson = serializeEudrGeoJson(buildEudrGeoJson(exportPlots));
+  let geojson = serializeEudrGeoJson(buildEudrGeoJson(exportPlots));
+  // Over the EUDR size limit: simplify the polygons (topology kept) until the file fits.
+  let simplified: { tolerance: number; verticesBefore: number; verticesAfter: number } | null = null;
+  if (geojson.bytes > EXPORT_MAX_BYTES) {
+    const size = (gs: GeoJSON.Geometry[]) =>
+      serializeEudrGeoJson(buildEudrGeoJson(exportPlots.map((p, i) => ({ ...p, geometry: gs[i] as PlotGeometry })))).bytes;
+    const fit = simplifyToFit(exportPlots.map((p) => p.geometry), EXPORT_MAX_BYTES, size);
+    if (fit && fit.tolerance > 0) {
+      geojson = serializeEudrGeoJson(buildEudrGeoJson(exportPlots.map((p, i) => ({ ...p, geometry: fit.geometries[i] as PlotGeometry }))));
+      simplified = { tolerance: fit.tolerance, verticesBefore: fit.verticesBefore, verticesAfter: fit.verticesAfter };
+    }
+  }
 
   const common = (sp: { common_name_sl: string; common_name_hr: string; common_name_sr: string; common_name_bs: string; common_name_en: string } | null) =>
     !sp ? null : locale === 'sl' ? sp.common_name_sl : locale === 'hr' ? sp.common_name_hr : locale === 'sr-Latn' ? sp.common_name_sr : locale === 'bs' ? sp.common_name_bs : sp.common_name_en;
@@ -131,6 +144,7 @@ export async function getShipment(organizationId: string, id: string, locale: st
     plots,
     upstreamReferences: s.upstream_references.length,
     geojsonBytes: geojson.bytes,
+    geojsonSimplified: simplified !== null,
   };
   return {
     shipment: s,

@@ -8,6 +8,8 @@ import type { PlotGeometry } from '@/lib/geo/types';
 import { getPlotContext, nearbyPlots } from '@/lib/plots/context';
 import { geometrySchema, importPayloadSchema, plotFormSchema } from '@/lib/plots/schemas';
 import { prepareDrawnPlot, preparePlot, type PreparedPlot } from '@/lib/plots/service';
+import { geometryFromDb } from '@/lib/plots/geometry';
+import { repairSelfIntersections } from '@/lib/geo/repair';
 
 export type PlotFormState = { error?: string; values?: Record<string, string> };
 
@@ -75,6 +77,48 @@ export async function createPlot(_prev: PlotFormState, formData: FormData): Prom
 export async function updatePlot(_prev: PlotFormState, formData: FormData): Promise<PlotFormState> {
   const id = formData.get('id');
   return savePlot(formData, typeof id === 'string' ? id : null);
+}
+
+/** Split a self-intersecting outline into simple polygons and validate again (the user checks the map afterwards). */
+export async function repairPlot(_prev: PlotFormState, formData: FormData): Promise<PlotFormState> {
+  const { id, locale = 'sl' } = readForm(formData);
+  const ctx = await getPlotContext();
+  if (!ctx || !id) return { error: 'plots.errors.unknown' };
+  const { supabase, organizationId } = ctx;
+  const { data: plot } = await supabase.from('plots').select('*').eq('organization_id', organizationId).eq('id', id).maybeSingle();
+  const geometry = geometryFromDb(plot?.geom);
+  if (!plot || !geometry) return { error: 'plots.errors.unknown' };
+  const { geometry: repaired, changed } = repairSelfIntersections(geometry);
+  if (!changed) return { error: 'plots.errors.notRepairable' };
+  let others: { id: string; geometry: PlotGeometry }[] = [];
+  try {
+    others = await nearbyPlots(supabase, organizationId, [repaired as PlotGeometry], id);
+  } catch {
+    return { error: 'plots.errors.unknown' };
+  }
+  const row = toRow(
+    prepareDrawnPlot(
+      {
+        label: plot.label,
+        country: plot.country,
+        geometry: repaired,
+        declaredAreaHa: plot.area_source === 'declared' && plot.area_ha !== null ? Number(plot.area_ha) : undefined,
+        cadastralNo: plot.cadastral_no ?? undefined,
+        cadastralMunicipality: plot.cadastral_municipality ?? undefined,
+        postalAddress: plot.postal_address ?? undefined,
+      },
+      others,
+    ),
+  );
+  const { error } = await supabase
+    .from('plots')
+    .update({ geom: row.geom, area_ha: row.area_ha, area_source: row.area_source, validation_status: row.validation_status, validation_issues: row.validation_issues })
+    .eq('organization_id', organizationId)
+    .eq('id', id);
+  if (error) return { error: 'plots.errors.unknown' };
+  revalidatePath(`/${locale}/app/plots`);
+  redirect({ href: `/app/plots/${id}`, locale });
+  return {};
 }
 
 export async function archivePlot(_prev: PlotFormState, formData: FormData): Promise<PlotFormState> {

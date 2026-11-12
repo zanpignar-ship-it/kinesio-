@@ -188,7 +188,8 @@
       "tooMany": "Naenkrat lahko uvozite največ 2.000 parcel.",
       "notFound": "Parcele ni mogoče najti.",
       "supplier": "Izberite dobavitelja s seznama.",
-      "harvest": "Datum »do« mora biti za datumom »od«."
+      "harvest": "Datum »do« mora biti za datumom »od«.",
+      "notRepairable": "Parcele ni mogoče popraviti samodejno. Popravite oglišča na karti."
     },
     "archivedFilter": "Arhivirane",
     "supplier": "Dobavitelj",
@@ -198,7 +199,9 @@
     "harvestHint": "Kdaj je bil les posekan (EUDR zahteva datum ali obdobje proizvodnje). Neobvezno, a priporočeno.",
     "harvestFrom": "Od",
     "harvestTo": "Do",
-    "exportCsv": "Izvozi v Excel (CSV)"
+    "exportCsv": "Izvozi v Excel (CSV)",
+    "repair": "Popravi samodejno",
+    "repairHint": "Meja parcele seka samo sebe. Samodejni popravek jo razdeli na pravilne dele na mestih presečišč. Nato preverite obliko na karti."
   },
   "map": {
     "satellite": "Satelit",
@@ -425,7 +428,8 @@
       "geojsonTooLarge": "Datoteka GeoJSON je večja od 25 MB. Razdelite pošiljko.",
       "plotNoDocuments": "Parcele brez dokumentov: {plots}.",
       "expiredDocuments": "Potekli dokumenti: {count}.",
-      "plotNoHarvestDate": "Parcele brez datuma poseka: {plots}."
+      "plotNoHarvestDate": "Parcele brez datuma poseka: {plots}.",
+      "geojsonSimplified": "Poligoni so bili za izvoz poenostavljeni, da datoteka ne presega 25 MB. Preverite, ali so oblike še pravilne."
     },
     "dds": {
       "activity": "Dejavnost",
