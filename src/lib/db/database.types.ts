@@ -988,6 +988,12 @@ export type Database = {
     Functions: {
       buyer_package: { Args: { p_token: string }; Returns: Json }
       delete_my_account: { Args: { p_dry_run?: boolean }; Returns: Json }
+      accept_invitation: { Args: { p_token: string }; Returns: string }
+      invitation_info: { Args: { p_token: string }; Returns: Json }
+      organization_members: {
+        Args: { p_org: string }
+        Returns: { user_id: string; email: string; role: Database['public']['Enums']['member_role']; joined_at: string }[]
+      }
       plots_in_bbox: {
         Args: {
           p_exclude?: string

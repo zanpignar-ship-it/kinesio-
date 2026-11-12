@@ -503,7 +503,8 @@
       "notAvailable": "Izbris računa še ni na voljo. Poskusite znova pozneje.",
       "transferOwnership": "Najprej prenesite lastništvo ali odstranite druge člane v organizacijah:",
       "unknown": "Prišlo je do napake. Poskusite znova."
-    }
+    },
+    "members": "Člani"
   },
   "legal": {
     "terms": "Pogoji uporabe",
@@ -554,5 +555,43 @@
         "p": "Dostop, popravek, prenos (arhiv ZIP) in izbris (izbris računa v nastavitvah). Pritožbo lahko vložite pri nadzornem organu (v Sloveniji Informacijski pooblaščenec)."
       }
     ]
+  },
+  "members": {
+    "email": "E-pošta",
+    "role": "Vloga",
+    "roles": {
+      "owner": "Lastnik",
+      "member": "Član"
+    },
+    "invite": "Ustvari povabilo",
+    "inviteTitle": "Povabi sodelavca",
+    "inviteHint": "Ustvarite povezavo in jo pošljite sodelavcu (e-pošta, SMS, WhatsApp). Povezava velja 7 dni in deluje samo za vpisani e-naslov.",
+    "linkCreated": "Povezava za {email} je ustvarjena. Kopirajte jo zdaj – prikazana je samo enkrat.",
+    "copy": "Kopiraj povezavo",
+    "copied": "Kopirano",
+    "pending": "Odprta povabila",
+    "expires": "velja do {date}",
+    "revoke": "Prekliči",
+    "you": "vi",
+    "makeOwner": "Naredi lastnika",
+    "makeMember": "Naredi člana",
+    "remove": "Odstrani",
+    "invitedTitle": "Povabilo v LesTrace",
+    "signInFirst": "Za sprejem povabila se prijavite ali ustvarite račun z e-naslovom, na katerega je bilo povabilo poslano.",
+    "createAccount": "Ustvari račun",
+    "signIn": "Prijava",
+    "invalidTitle": "Povabilo ni veljavno",
+    "invalidHint": "Povezava je potekla, je bila preklicana ali že uporabljena. Prosite za novo.",
+    "joinTitle": "Pridružite se organizaciji {organization}",
+    "joinIntro": "Povabljeni ste kot: {role}.",
+    "wrongEmail": "Povabilo je namenjeno naslovu {email}, prijavljeni pa ste kot {current}. Odjavite se in prijavite s pravim naslovom.",
+    "accept": "Sprejmi povabilo",
+    "errors": {
+      "email": "Vnesite veljaven e-poštni naslov.",
+      "role": "Izberite vlogo.",
+      "invalid": "Povabilo ni veljavno ali je poteklo.",
+      "otherEmail": "Povabilo je namenjeno drugemu e-naslovu.",
+      "unknown": "Prišlo je do napake. Poskusite znova."
+    }
   }
 }

@@ -1,5 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { OrganizationForm } from '@/components/app/organization-form';
+import { MembersPanel } from '@/components/members/members-panel';
 import { DeleteAccount } from '@/components/settings/delete-account';
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -35,6 +36,14 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
         </CardHeader>
         <CardContent>
           <OrganizationForm submit={updateOrganization} initial={initial} submitLabel={t('save')} disabled={!isOwner} />
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader>
+          <CardTitle>{t('members')}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <MembersPanel organizationId={o.id} currentUserId={user.id} isOwner={isOwner} />
         </CardContent>
       </Card>
       <Card>

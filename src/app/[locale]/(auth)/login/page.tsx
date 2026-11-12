@@ -10,7 +10,8 @@ type Props = { params: Promise<{ locale: string }>; searchParams: Promise<{ next
 export default async function LoginPage({ params, searchParams }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const next = safeNext((await searchParams).next);
+  const raw = (await searchParams).next;
+  const next = safeNext(raw);
   if (await getSessionUser()) redirect({ href: next, locale });
   const t = await getTranslations('auth');
   return (
@@ -19,7 +20,7 @@ export default async function LoginPage({ params, searchParams }: Props) {
       <AuthForm mode="signIn" action={signIn} next={next} />
       <p className="text-muted-foreground text-sm">
         {t('noAccount')}{' '}
-        <Link href="/signup" className="text-primary font-medium underline-offset-4 hover:underline">
+        <Link href={raw ? { pathname: '/signup', query: { next } } : '/signup'} className="text-primary font-medium underline-offset-4 hover:underline">
           {t('signUpTitle')}
         </Link>
       </p>

@@ -506,7 +506,8 @@
       "notAvailable": "Brisanje računa još nije dostupno. Pokušajte ponovo kasnije.",
       "transferOwnership": "Najprije prenesite vlasništvo ili uklonite ostale članove u organizacijama:",
       "unknown": "Došlo je do greške. Pokušajte ponovo."
-    }
+    },
+    "members": "Članovi"
   },
   "legal": {
     "terms": "Uslovi korištenja",
@@ -557,5 +558,43 @@
         "p": "Pristup, ispravka, prenosivost (ZIP arhiva) i brisanje (brisanje računa u postavkama). Prigovor možete podnijeti nadzornom organu (u BiH Agencija za zaštitu ličnih podataka)."
       }
     ]
+  },
+  "members": {
+    "email": "E-pošta",
+    "role": "Uloga",
+    "roles": {
+      "owner": "Vlasnik",
+      "member": "Član"
+    },
+    "invite": "Napravi pozivnicu",
+    "inviteTitle": "Pozovi saradnika",
+    "inviteHint": "Napravite link i pošaljite ga saradniku (e-pošta, SMS, WhatsApp). Link važi 7 dana i radi samo za upisanu e-adresu.",
+    "linkCreated": "Link za {email} je napravljen. Kopirajte ga sada – prikazuje se samo jednom.",
+    "copy": "Kopiraj link",
+    "copied": "Kopirano",
+    "pending": "Otvorene pozivnice",
+    "expires": "važi do {date}",
+    "revoke": "Opozovi",
+    "you": "vi",
+    "makeOwner": "Postavi za vlasnika",
+    "makeMember": "Postavi za člana",
+    "remove": "Ukloni",
+    "invitedTitle": "Pozivnica u LesTrace",
+    "signInFirst": "Da prihvatite pozivnicu, prijavite se ili napravite račun s e-adresom na koju je pozivnica poslana.",
+    "createAccount": "Napravi račun",
+    "signIn": "Prijava",
+    "invalidTitle": "Pozivnica nije važeća",
+    "invalidHint": "Link je istekao, opozvan je ili je već iskorišten. Zatražite novi.",
+    "joinTitle": "Pridružite se organizaciji {organization}",
+    "joinIntro": "Pozvani ste kao: {role}.",
+    "wrongEmail": "Pozivnica je namijenjena adresi {email}, a prijavljeni ste kao {current}. Odjavite se i prijavite s ispravnom adresom.",
+    "accept": "Prihvati pozivnicu",
+    "errors": {
+      "email": "Upišite važeću e-adresu.",
+      "role": "Odaberite ulogu.",
+      "invalid": "Pozivnica nije važeća ili je istekla.",
+      "otherEmail": "Pozivnica je namijenjena drugoj e-adresi.",
+      "unknown": "Došlo je do greške. Pokušajte ponovo."
+    }
   }
 }

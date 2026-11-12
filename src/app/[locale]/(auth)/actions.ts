@@ -53,7 +53,8 @@ export async function signUp(_prev: FormState, formData: FormData): Promise<Form
   if (error) return { error: authErrorKey(error), fields: { email: parsed.data.email } };
   // With "Confirm email" switched off (development) Supabase returns a session right away.
   if (!data.session) return { error: 'auth.errors.emailNotConfirmed', fields: { email: parsed.data.email } };
-  redirect({ href: '/onboarding', locale });
+  const next = str(formData, 'next');
+  redirect({ href: next ? safeNext(next, '/onboarding') : '/onboarding', locale });
   return {};
 }
 

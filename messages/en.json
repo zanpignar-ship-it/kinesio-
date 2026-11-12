@@ -503,7 +503,8 @@
       "notAvailable": "Account deletion is not available yet. Please try again later.",
       "transferOwnership": "First transfer ownership or remove the other members in these organizations:",
       "unknown": "Something went wrong. Please try again."
-    }
+    },
+    "members": "Members"
   },
   "legal": {
     "terms": "Terms of use",
@@ -554,5 +555,43 @@
         "p": "Access, rectification, portability (ZIP archive) and erasure (delete account in settings). You can complain to your data protection authority."
       }
     ]
+  },
+  "members": {
+    "email": "Email",
+    "role": "Role",
+    "roles": {
+      "owner": "Owner",
+      "member": "Member"
+    },
+    "invite": "Create invitation",
+    "inviteTitle": "Invite a colleague",
+    "inviteHint": "Create a link and send it to your colleague (email, SMS, WhatsApp). The link is valid for 7 days and works only for the email address entered.",
+    "linkCreated": "The link for {email} is ready. Copy it now – it is shown only once.",
+    "copy": "Copy link",
+    "copied": "Copied",
+    "pending": "Open invitations",
+    "expires": "valid until {date}",
+    "revoke": "Revoke",
+    "you": "you",
+    "makeOwner": "Make owner",
+    "makeMember": "Make member",
+    "remove": "Remove",
+    "invitedTitle": "Invitation to LesTrace",
+    "signInFirst": "To accept the invitation, sign in or create an account with the email address the invitation was sent to.",
+    "createAccount": "Create account",
+    "signIn": "Sign in",
+    "invalidTitle": "Invitation is not valid",
+    "invalidHint": "The link has expired, was revoked or has already been used. Ask for a new one.",
+    "joinTitle": "Join {organization}",
+    "joinIntro": "You are invited as: {role}.",
+    "wrongEmail": "This invitation is for {email}, but you are signed in as {current}. Sign out and sign in with the right address.",
+    "accept": "Accept invitation",
+    "errors": {
+      "email": "Enter a valid email address.",
+      "role": "Choose a role.",
+      "invalid": "The invitation is not valid or has expired.",
+      "otherEmail": "The invitation is for another email address.",
+      "unknown": "Something went wrong. Please try again."
+    }
   }
 }

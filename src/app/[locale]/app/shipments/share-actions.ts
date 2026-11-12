@@ -1,7 +1,7 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { headers } from 'next/headers';
+import { requestOrigin } from '@/lib/http/origin';
 import { getPlotContext } from '@/lib/plots/context';
 import { createShareToken } from '@/lib/share/token';
 
@@ -14,12 +14,9 @@ export async function createShare(_prev: ShareState, formData: FormData): Promis
   const shipmentId = String(formData.get('shipmentId') ?? '');
   const locale = String(formData.get('locale') ?? 'sl');
   const days = Number(formData.get('days'));
-  const h = await headers();
-  const host = h.get('x-forwarded-host') ?? h.get('host') ?? '';
-  const proto = h.get('x-forwarded-proto') ?? (host.startsWith('localhost') ? 'http' : 'https');
-  const origin = `${proto}://${host}`;
+  const origin = await requestOrigin();
   const ctx = await getPlotContext();
-  if (!ctx || !UUID.test(shipmentId) || !ALLOWED_DAYS.includes(days) || !/^https?:\/\/[^/]+$/.test(origin)) return { error: 'share.errors.unknown' };
+  if (!ctx || !origin || !UUID.test(shipmentId) || !ALLOWED_DAYS.includes(days)) return { error: 'share.errors.unknown' };
   const { token, hashHex } = createShareToken();
   const { error } = await ctx.supabase.from('buyer_shares').insert({
     organization_id: ctx.organizationId,
