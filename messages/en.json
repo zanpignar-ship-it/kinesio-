@@ -197,7 +197,8 @@
     "harvest": "Harvest period",
     "harvestHint": "When the timber was felled (EUDR requires the date or time range of production). Optional, but recommended.",
     "harvestFrom": "From",
-    "harvestTo": "To"
+    "harvestTo": "To",
+    "exportCsv": "Export to Excel (CSV)"
   },
   "map": {
     "satellite": "Satellite",
@@ -458,7 +459,8 @@
     },
     "pickOnMap": "Pick on map",
     "hideMap": "Hide map",
-    "pickOnMapHint": "Tap a plot on the map to add or remove it. Selected plots are outlined in blue."
+    "pickOnMapHint": "Tap a plot on the map to add or remove it. Selected plots are outlined in blue.",
+    "exportCsv": "Export to Excel (CSV)"
   },
   "share": {
     "title": "Buyer package",

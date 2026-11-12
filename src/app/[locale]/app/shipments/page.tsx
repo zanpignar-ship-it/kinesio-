@@ -18,9 +18,18 @@ export default async function ShipmentsPage({ params }: { params: Promise<{ loca
     <div className="flex flex-col gap-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-bold tracking-tight">{t('title')}</h1>
-        <Button asChild>
-          <Link href="/app/shipments/new">{t('new')}</Link>
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          {rows.length > 0 ? (
+            <Button asChild variant="ghost">
+              <a href={`/${locale}/app/shipments/export`} download>
+                {t('exportCsv')}
+              </a>
+            </Button>
+          ) : null}
+          <Button asChild>
+            <Link href="/app/shipments/new">{t('new')}</Link>
+          </Button>
+        </div>
       </div>
       {rows.length === 0 ? (
         <div className="rounded-xl border border-dashed p-8 text-center">

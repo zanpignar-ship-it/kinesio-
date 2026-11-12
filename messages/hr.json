@@ -200,7 +200,8 @@
     "harvest": "Razdoblje sječe",
     "harvestHint": "Kada je drvo posječeno (EUDR zahtijeva datum ili razdoblje proizvodnje). Neobavezno, ali preporučeno.",
     "harvestFrom": "Od",
-    "harvestTo": "Do"
+    "harvestTo": "Do",
+    "exportCsv": "Izvezi u Excel (CSV)"
   },
   "map": {
     "satellite": "Satelit",
@@ -461,7 +462,8 @@
     },
     "pickOnMap": "Odaberi na karti",
     "hideMap": "Sakrij kartu",
-    "pickOnMapHint": "Dodirnite česticu na karti da je dodate ili uklonite. Odabrane su obrubljene plavo."
+    "pickOnMapHint": "Dodirnite česticu na karti da je dodate ili uklonite. Odabrane su obrubljene plavo.",
+    "exportCsv": "Izvezi u Excel (CSV)"
   },
   "share": {
     "title": "Paket za kupca",

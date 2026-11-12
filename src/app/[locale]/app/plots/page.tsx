@@ -47,7 +47,12 @@ export default async function PlotsPage({ params, searchParams }: Props) {
     <div className="flex flex-col gap-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-bold tracking-tight">{t('title')}</h1>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
+          <Button asChild variant="ghost">
+            <a href={`/${locale}/app/plots/export`} download>
+              {t('exportCsv')}
+            </a>
+          </Button>
           <Button asChild variant="outline">
             <Link href="/app/plots/import">{t('import')}</Link>
           </Button>

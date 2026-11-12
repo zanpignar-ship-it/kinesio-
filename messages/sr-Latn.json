@@ -200,7 +200,8 @@
     "harvest": "Period seče",
     "harvestHint": "Kada je drvo posečeno (EUDR zahteva datum ili period proizvodnje). Neobavezno, ali preporučeno.",
     "harvestFrom": "Od",
-    "harvestTo": "Do"
+    "harvestTo": "Do",
+    "exportCsv": "Izvezi u Excel (CSV)"
   },
   "map": {
     "satellite": "Satelit",
@@ -461,7 +462,8 @@
     },
     "pickOnMap": "Izaberi na mapi",
     "hideMap": "Sakrij mapu",
-    "pickOnMapHint": "Dodirnite parcelu na mapi da je dodate ili uklonite. Izabrane su uokvirene plavo."
+    "pickOnMapHint": "Dodirnite parcelu na mapi da je dodate ili uklonite. Izabrane su uokvirene plavo.",
+    "exportCsv": "Izvezi u Excel (CSV)"
   },
   "share": {
     "title": "Paket za kupca",
