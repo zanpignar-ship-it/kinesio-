@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { Document, Font, Page, Path, Circle, StyleSheet, Svg, Text, View, renderToBuffer } from '@react-pdf/renderer';
 import type { BuyerPackage } from '@/lib/share/package';
+import { ddsQrText, qrPath } from '@/lib/share/qr';
 import { plotsToSvg } from '@/lib/share/svg-map';
 
 // DejaVu Sans covers č, ć, đ, š, ž (the built-in PDF fonts do not).
@@ -61,10 +62,13 @@ function PackageDocument({ pkg, labels }: { pkg: BuyerPackage; labels: PdfLabels
 
             <Text style={s.h2}>{labels.ddsReference}</Text>
             {sh.dds_reference_no ? (
-              <Text>
-                {sh.dds_reference_no}
-                {sh.dds_verification_no ? ` · ${labels.verification}: ${sh.dds_verification_no}` : ''}
-              </Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+                <Text style={{ flex: 1 }}>
+                  {sh.dds_reference_no}
+                  {sh.dds_verification_no ? ` · ${labels.verification}: ${sh.dds_verification_no}` : ''}
+                </Text>
+                <DdsQr text={ddsQrText(sh.dds_reference_no, sh.dds_verification_no)} />
+              </View>
             ) : (
               <Text style={s.muted}>{labels.notSubmitted}</Text>
             )}
@@ -134,6 +138,17 @@ function PackageDocument({ pkg, labels }: { pkg: BuyerPackage; labels: PdfLabels
         );
       })}
     </Document>
+  );
+}
+
+/** QR code with the DDS numbers for the forwarder (vector, 72 pt with a quiet zone). */
+function DdsQr({ text }: { text: string }) {
+  const { size, d } = qrPath(text);
+  const quiet = 2;
+  return (
+    <Svg width={72} height={72} viewBox={`${-quiet} ${-quiet} ${size + 2 * quiet} ${size + 2 * quiet}`}>
+      <Path d={d} fill="#000" />
+    </Svg>
   );
 }
 
