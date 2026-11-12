@@ -35,6 +35,9 @@ export async function AppHeader({ current, all, email }: Props) {
           <Link href="/app/settings" className="inline-block py-1.5 underline-offset-4 hover:underline">
             {t('app.nav.settings')}
           </Link>
+          <Link href="/app/help" className="inline-block py-1.5 underline-offset-4 hover:underline">
+            {t('app.nav.help')}
+          </Link>
         </nav>
         {all.length > 1 ? (
           <form action={switchOrganization} className="flex items-center gap-2">

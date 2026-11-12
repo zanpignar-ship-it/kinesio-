@@ -41,7 +41,7 @@ test('a plot can be archived and disappears from the list', async ({ page }) => 
   await signIn(page, user);
   await page.goto('/sl/app/plots');
   await page.getByRole('link', { name: 'Gozd B' }).click();
-  await page.getByRole('button', { name: 'Arhiviraj' }).click();
+  await page.getByRole('button', { name: 'Arhiviraj', exact: true }).click();
   await expect(page).toHaveURL(/\/sl\/app\/plots$/);
   await expect(page.getByTestId('plot-row')).toHaveCount(2);
 

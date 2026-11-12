@@ -133,7 +133,8 @@
       "documents": "Documents",
       "shipments": "Shipments",
       "masterData": "Master data",
-      "settings": "Settings"
+      "settings": "Settings",
+      "help": "Help"
     },
     "recentShipments": "Recent shipments",
     "todoTitle": "To do",
@@ -700,5 +701,69 @@
       "organizations": "Organization",
       "plot_imports": "Plot import"
     }
+  },
+  "help": {
+    "title": "Getting started",
+    "intro": "Five steps from a plot to the due diligence statement and the buyer package.",
+    "steps": [
+      {
+        "h": "Add suppliers and products",
+        "p": "Enter suppliers (forest owners, companies), customers and products with HS code and tree species in Master data.",
+        "href": "/app/master-data",
+        "link": "Master data"
+      },
+      {
+        "h": "Enter plots",
+        "p": "Draw a plot on the satellite map or import a file (GeoJSON, KML, Shapefile, CSV, Excel). Plots over 4 ha must be polygons. Set the supplier and harvest period.",
+        "href": "/app/plots",
+        "link": "Plots"
+      },
+      {
+        "h": "Upload documents",
+        "p": "Link felling permits, decisions, delivery notes and certificates to plots. The app warns you when a document expires.",
+        "href": "/app/documents",
+        "link": "Documents"
+      },
+      {
+        "h": "Prepare a shipment",
+        "p": "Choose the customer, products with quantities and plots (also on the map). The checklist shows what is missing; for standard- or high-risk countries record a risk assessment.",
+        "href": "/app/shipments/new",
+        "link": "New shipment"
+      },
+      {
+        "h": "Submit the statement and send the buyer package",
+        "p": "Download the GeoJSON, enter the data in TRACES, record the reference and verification numbers and send the buyer a link or the PDF with a QR code.",
+        "href": "/app/shipments",
+        "link": "Shipments"
+      }
+    ],
+    "faqTitle": "Frequent questions",
+    "faq": [
+      {
+        "q": "Point or polygon?",
+        "a": "A point (with the area) is enough for plots up to 4 ha. Plots over 4 ha must be entered as a polygon (outline)."
+      },
+      {
+        "q": "How many decimals do coordinates need?",
+        "a": "At least 6 decimal places in WGS-84 (e.g. 46.051234). The export always writes 6 decimals."
+      },
+      {
+        "q": "My file uses a national coordinate system.",
+        "a": "If the file states its coordinate system (e.g. the .prj of a Shapefile), plots are converted to WGS-84 automatically (D96/TM, D48/GK, HTRS96/TM, MGI Balkans 6/7, UTM 33N/34N). For Slovenian files without it you choose D96/TM or D48/GK."
+      },
+      {
+        "q": "Does LesTrace submit the statement for me?",
+        "a": "Not yet. You enter the data in TRACES (EUDR Information System) and upload the downloaded GeoJSON. Direct submission is planned."
+      },
+      {
+        "q": "What does the buyer see?",
+        "a": "Only the chosen shipment: your company, products, plot map, DDS numbers and optionally the list of documents. Supplier names are hidden by default."
+      },
+      {
+        "q": "How long must I keep the data?",
+        "a": "At least 5 years. In Settings you can download the full archive (ZIP) for inspections at any time; the audit trail records every change."
+      }
+    ],
+    "disclaimer": "LesTrace is a data preparation tool. The user is responsible for the due diligence statement."
   }
 }

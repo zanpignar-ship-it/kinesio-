@@ -136,7 +136,8 @@
       "documents": "Dokumenti",
       "shipments": "Pošiljke",
       "masterData": "Šifarnici",
-      "settings": "Postavke"
+      "settings": "Postavke",
+      "help": "Pomoć"
     },
     "recentShipments": "Posljednje pošiljke",
     "todoTitle": "Za srediti",
@@ -703,5 +704,69 @@
       "organizations": "Organizacija",
       "plot_imports": "Uvoz parcela"
     }
+  },
+  "help": {
+    "title": "Kako početi",
+    "intro": "Pet koraka od parcele do izjave o dubinskoj analizi i paketa za kupca.",
+    "steps": [
+      {
+        "h": "Dodajte dobavljače i proizvode",
+        "p": "U šifarnike unesite dobavljače (vlasnike šuma, preduzeća), kupce i proizvode s HS oznakom i vrstom drveta.",
+        "href": "/app/master-data",
+        "link": "Šifarnici"
+      },
+      {
+        "h": "Unesite parcele",
+        "p": "Parcelu nacrtajte na satelitskoj karti ili uvezite datoteku (GeoJSON, KML, Shapefile, CSV, Excel). Parcele veće od 4 ha moraju biti poligon. Odredite dobavljača i period sječe.",
+        "href": "/app/plots",
+        "link": "Parcele"
+      },
+      {
+        "h": "Učitajte dokumente",
+        "p": "Dozvole za sječu, rješenja, otpremnice i certifikate povežite s parcelama. Aplikacija upozorava kada dokument istekne.",
+        "href": "/app/documents",
+        "link": "Dokumenti"
+      },
+      {
+        "h": "Pripremite pošiljku",
+        "p": "Odaberite kupca, proizvode s količinama i parcele (i na karti). Kontrolna lista pokazuje šta nedostaje; za zemlje standardnog ili visokog rizika upišite procjenu rizika.",
+        "href": "/app/shipments/new",
+        "link": "Nova pošiljka"
+      },
+      {
+        "h": "Podnesite izjavu i pošaljite paket kupcu",
+        "p": "Preuzmite GeoJSON, podatke prepišite u TRACES, upišite referentni i verifikacijski broj i kupcu pošaljite link ili PDF s QR kodom.",
+        "href": "/app/shipments",
+        "link": "Pošiljke"
+      }
+    ],
+    "faqTitle": "Česta pitanja",
+    "faq": [
+      {
+        "q": "Tačka ili poligon?",
+        "a": "Za parcele do 4 ha dovoljna je tačka (s površinom). Parcele veće od 4 ha moraju biti unesene kao poligon (obris)."
+      },
+      {
+        "q": "Koliko decimala trebaju koordinate?",
+        "a": "Najmanje 6 decimalnih mjesta u WGS-84 (npr. 43.856123). Izvoz uvijek zapisuje 6 decimala."
+      },
+      {
+        "q": "Moja datoteka je u državnom koordinatnom sistemu.",
+        "a": "Ako datoteka sadrži podatak o koordinatnom sistemu (npr. .prj kod Shapefilea), parcele se automatski pretvaraju u WGS-84 (MGI Balkans 6/7, UTM 33N/34N, HTRS96/TM, D96/TM)."
+      },
+      {
+        "q": "Da li LesTrace podnosi izjavu umjesto mene?",
+        "a": "Još ne. Podatke prepišete u TRACES (EUDR Information System) i učitate preuzeti GeoJSON. Direktno podnošenje je u planu."
+      },
+      {
+        "q": "Šta vidi kupac?",
+        "a": "Samo odabranu pošiljku: preduzeće, proizvode, kartu parcela, brojeve DDS i po želji spisak dokumenata. Imena dobavljača su zadano skrivena."
+      },
+      {
+        "q": "Koliko dugo moram čuvati podatke?",
+        "a": "Najmanje 5 godina. U postavkama u svakom trenutku preuzimate cijelu arhivu (ZIP) za inspekciju; revizijski trag bilježi sve promjene."
+      }
+    ],
+    "disclaimer": "LesTrace je alat za pripremu podataka. Za izjavu o dubinskoj analizi odgovoran je korisnik."
   }
 }
