@@ -345,7 +345,13 @@
       "tooLong": "Besedilo je predolgo.",
       "unknown": "Shranjevanje ni uspelo. Poskusite znova.",
       "inUse": "Zapis je uporabljen v pošiljki ali parceli in ga ni mogoče izbrisati."
-    }
+    },
+    "supplierPlots": "Parcele dobavitelja ({count})",
+    "showAllPlots": "Pokaži na seznamu parcel",
+    "supplierNoPlots": "Temu dobavitelju še niste dodelili parcel. Dobavitelja izberete pri parceli ali pri uvozu.",
+    "supplierPlotsNoDocs": "Parcele brez dokumentov: {count}.",
+    "supplierExpiredDocs": "Poteklih dokumentov: {count}.",
+    "documentsCount": "{count, plural, one {# dokument} two {# dokumenta} few {# dokumenti} other {# dokumentov}}"
   },
   "ship": {
     "title": "Pošiljke",

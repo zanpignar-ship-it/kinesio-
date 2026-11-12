@@ -348,7 +348,13 @@
       "tooLong": "Tekst je predug.",
       "unknown": "Spremanje nije uspjelo. Pokušajte ponovno.",
       "inUse": "Zapis se koristi u pošiljci ili čestici i ne može se izbrisati."
-    }
+    },
+    "supplierPlots": "Čestice dobavljača ({count})",
+    "showAllPlots": "Prikaži na popisu čestica",
+    "supplierNoPlots": "Ovom dobavljaču još niste dodijelili čestice. Dobavljača birate kod čestice ili pri uvozu.",
+    "supplierPlotsNoDocs": "Čestice bez dokumenata: {count}.",
+    "supplierExpiredDocs": "Isteklih dokumenata: {count}.",
+    "documentsCount": "{count, plural, one {# dokument} few {# dokumenta} other {# dokumenata}}"
   },
   "ship": {
     "title": "Pošiljke",

@@ -348,7 +348,13 @@
       "tooLong": "Tekst je predug.",
       "unknown": "Spremanje nije uspjelo. Pokušajte ponovo.",
       "inUse": "Zapis se koristi u pošiljci ili parceli i ne može se obrisati."
-    }
+    },
+    "supplierPlots": "Parcele dobavljača ({count})",
+    "showAllPlots": "Prikaži na spisku parcela",
+    "supplierNoPlots": "Ovom dobavljaču još niste dodijelili parcele. Dobavljača birate kod parcele ili pri uvozu.",
+    "supplierPlotsNoDocs": "Parcele bez dokumenata: {count}.",
+    "supplierExpiredDocs": "Isteklih dokumenata: {count}.",
+    "documentsCount": "{count, plural, one {# dokument} few {# dokumenta} other {# dokumenata}}"
   },
   "ship": {
     "title": "Pošiljke",

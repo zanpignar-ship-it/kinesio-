@@ -29,4 +29,10 @@ test('a plot gets a supplier, which shows on the plot and filters the list', asy
   await page.goto(`/sl/app/plots?supplier=${supplier.data!.id}`);
   await expect(page.getByTestId('plot-row')).toHaveCount(1);
   await expect(page.getByTestId('plot-row')).toContainText('Novakov gozd');
+
+  await page.goto(`/sl/app/master-data/suppliers/${supplier.data!.id}`);
+  const overview = page.getByTestId('supplier-overview');
+  await expect(overview.getByRole('heading')).toHaveText('Parcele dobavitelja (1)');
+  await expect(overview).toContainText('Novakov gozd');
+  await expect(overview).toContainText('Parcele brez dokumentov: 1.');
 });

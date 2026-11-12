@@ -345,7 +345,13 @@
       "tooLong": "The text is too long.",
       "unknown": "Saving failed. Please try again.",
       "inUse": "The record is used in a shipment or plot and cannot be deleted."
-    }
+    },
+    "supplierPlots": "Supplier plots ({count})",
+    "showAllPlots": "Show in the plot list",
+    "supplierNoPlots": "No plots are assigned to this supplier yet. Choose the supplier on a plot or when importing.",
+    "supplierPlotsNoDocs": "Plots without documents: {count}.",
+    "supplierExpiredDocs": "Expired documents: {count}.",
+    "documentsCount": "{count, plural, one {# document} other {# documents}}"
   },
   "ship": {
     "title": "Shipments",
