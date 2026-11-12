@@ -16,7 +16,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'home' });
-  return { title: `LesTrace – ${t('title')}`, description: t('subtitle') };
+  return { title: `IZVOR – ${t('title')}`, description: t('subtitle') };
 }
 
 export default async function LocaleLayout({ children, params }: Props) {

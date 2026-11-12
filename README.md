@@ -1,4 +1,4 @@
-# LesTrace
+# IZVOR (prej delovno ime LesTrace)
 
 Orodje za pripravo podatkov za EUDR (Uredba (EU) 2023/1115) za lesno panogo.
 
@@ -43,7 +43,7 @@ Uveljavljene so migracije do `20261112000007` in `20261112000009_risk.sql`. Te s
 Kaj mora narediti uporabnik (enkrat):
 1. Račun EU Login in registracija podjetja kot »Operator« v EUDR Information System (TRACES), z EORI številko pri uvozu/izvozu.
 2. V testnem okolju (https://acceptance.eudr.webcloud.ec.europa.eu) v profilu: Edit profile → Web Services Access → Active; prepiše uporabniško ime in Authentication Key.
-3. V LesTrace: Nastavitve → Oddaja v TRACES → okolje »Testno«, uporabniško ime, ključ → Shrani → Preizkusi povezavo.
+3. V IZVORU: Nastavitve → Oddaja v TRACES → okolje »Testno«, uporabniško ime, ključ → Shrani → Preizkusi povezavo.
 4. Ko testna oddaja deluje, isto ponovi za produkcijo (https://eudr.webcloud.ec.europa.eu).
 
 Šifrirni ključ `LESTRACE_ENCRYPTION_KEY` je nastavljen v Vercelu (vsa okolja) in v `.env.local`. Živi test: `LIVE_TRACES=1 NODE_USE_ENV_PROXY=1 npx vitest run tests/traces/live.test.ts` (z `TRACES_USERNAME`, `TRACES_AUTH_KEY` preveri prave podatke).

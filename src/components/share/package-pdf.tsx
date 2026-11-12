@@ -39,7 +39,7 @@ const qty = (i: BuyerPackage['shipments'][number]['items'][number]) =>
 function PackageDocument({ pkg, labels }: { pkg: BuyerPackage; labels: PdfLabels }) {
   const o = pkg.organization;
   return (
-    <Document title={`${labels.title} – ${o.name}`} author="LesTrace">
+    <Document title={`${labels.title} – ${o.name}`} author="IZVOR">
       {pkg.shipments.map((sh) => {
         const svg = plotsToSvg(sh.plots.map((p) => p.geometry), 520, 220);
         return (

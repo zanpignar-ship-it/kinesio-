@@ -44,6 +44,7 @@ test('shipment: checklist, GeoJSON, DDS data, submission and copy', async ({ pag
 
   await signIn(page, user);
   await page.goto('/sl/app/shipments/new');
+  await page.waitForLoadState('networkidle');
   await page.getByLabel('Interna oznaka').fill('S-1');
   await page.getByLabel('Kupec').selectOption({ label: 'Holz GmbH' });
   await page.getByLabel('Dejavnost').selectOption('export');
@@ -89,6 +90,7 @@ test('shipment: checklist, GeoJSON, DDS data, submission and copy', async ({ pag
 test('the checklist blocks a product without species', async ({ page }) => {
   await signIn(page, user);
   await page.goto('/sl/app/shipments/new');
+  await page.waitForLoadState('networkidle');
   await page.getByLabel('Interna oznaka').fill('S-2');
   await page.getByLabel('Izdelek').selectOption({ label: 'Brez vrste (4407)' });
   await page.getByLabel('Neto masa (kg)').fill('1000');

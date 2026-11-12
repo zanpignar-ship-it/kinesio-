@@ -34,7 +34,7 @@ const unreachable: TracesFault = { code: 'NETWORK', message: 'The EUDR Informati
 
 /** testEcho – checks credentials and connectivity (acceptance only, per the documentation). */
 export async function testEcho(env: TracesEnvironment, creds: TracesCredentials): Promise<TracesResult<string>> {
-  const r = await call(env, ECHO_PATH, creds, echoBody('LesTrace'));
+  const r = await call(env, ECHO_PATH, creds, echoBody('IZVOR'));
   if (!r) return { ok: false, fault: unreachable };
   const fault = parseFault(r.xml);
   if (fault || r.status >= 400) return { ok: false, fault: fault ?? { code: `HTTP_${r.status}`, message: '' } };

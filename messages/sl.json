@@ -1,7 +1,7 @@
 {
   "common": {
-    "appName": "LesTrace",
-    "disclaimer": "LesTrace je orodje za pripravo podatkov. Odgovornost za izjavo o skrbnem pregledu nosi uporabnik.",
+    "appName": "IZVOR",
+    "disclaimer": "IZVOR je orodje za pripravo podatkov. Odgovornost za izjavo o skrbnem pregledu nosi uporabnik.",
     "language": "Jezik",
     "localeNames": {
       "sl": "Slovenščina",
@@ -526,7 +526,7 @@
     "revoked": "Preklicana",
     "unavailable": "Povezava ni veljavna ali je potekla.",
     "unavailableHint": "Za novo povezavo prosite dobavitelja.",
-    "generatedBy": "Pripravljeno z LesTrace",
+    "generatedBy": "Pripravljeno z IZVOROM",
     "validTo": "Velja do",
     "noDocuments": "Ni dokumentov.",
     "date": "Datum",
@@ -571,11 +571,11 @@
     "termsSections": [
       {
         "h": "Namen",
-        "p": "LesTrace je orodje, ki pomaga zbirati in urejati podatke za skrbni pregled po Uredbi (EU) 2023/1115 (EUDR). Orodje ne oddaja izjav o skrbnem pregledu v informacijski sistem EU."
+        "p": "IZVOR je orodje, ki pomaga zbirati in urejati podatke za skrbni pregled po Uredbi (EU) 2023/1115 (EUDR). Na zahtevo uporabnika lahko izjavo o skrbnem pregledu odda v informacijski sistem EU prek uradnega vmesnika (TRACES); vsebino izjave potrdi in zanjo odgovarja uporabnik."
       },
       {
         "h": "Odgovornost uporabnika",
-        "p": "Za pravilnost podatkov, oceno tveganja in izjavo o skrbnem pregledu je odgovoren uporabnik (subjekt ali trgovec). Rezultati preverjanj v LesTrace so pomoč in ne pravni nasvet."
+        "p": "Za pravilnost podatkov, oceno tveganja in izjavo o skrbnem pregledu je odgovoren uporabnik (subjekt ali trgovec). Rezultati preverjanj v IZVORU so pomoč in ne pravni nasvet."
       },
       {
         "h": "Podatki in hramba",
@@ -633,7 +633,7 @@
     "makeOwner": "Naredi lastnika",
     "makeMember": "Naredi člana",
     "remove": "Odstrani",
-    "invitedTitle": "Povabilo v LesTrace",
+    "invitedTitle": "Povabilo v IZVOR",
     "signInFirst": "Za sprejem povabila se prijavite ali ustvarite račun z e-naslovom, na katerega je bilo povabilo poslano.",
     "createAccount": "Ustvari račun",
     "signIn": "Prijava",
@@ -756,7 +756,7 @@
         "a": "Če datoteka vsebuje podatek o koordinatnem sistemu (npr. .prj pri Shapefile), se parcele samodejno pretvorijo v WGS-84 (D96/TM, D48/GK, HTRS96/TM, MGI Balkans 6/7, UTM 33N/34N). Pri slovenskih datotekah brez tega podatka izberete D96/TM ali D48/GK."
       },
       {
-        "q": "Ali LesTrace izjavo odda namesto mene?",
+        "q": "Ali IZVOR izjavo odda namesto mene?",
         "a": "Da, če v Nastavitvah vnesete uporabnika spletnih storitev TRACES. Pošiljko označite kot pripravljeno in kliknite »Oddaj izjavo v TRACES«; referenčno in verifikacijsko številko vpišemo samodejno, ko ju sistem dodeli (običajno v eni uri). Brez tega podatke prepišete v TRACES ročno."
       },
       {
@@ -768,7 +768,7 @@
         "a": "Vsaj 5 let. V nastavitvah kadarkoli prenesete celoten arhiv (ZIP) za inšpekcijo; revizijska sled beleži vse spremembe."
       }
     ],
-    "disclaimer": "LesTrace je orodje za pripravo podatkov. Za izjavo o skrbnem pregledu je odgovoren uporabnik."
+    "disclaimer": "IZVOR je orodje za pripravo podatkov. Za izjavo o skrbnem pregledu je odgovoren uporabnik."
   },
   "traces": {
     "settingsIntro": "Vnesite uporabnika spletnih storitev iz svojega profila v sistemu TRACES (Edit profile → Web Services Access). Najprej preizkusite v testnem okolju (Acceptance). Avtentikacijski ključ se shrani šifrirano in ga ni mogoče prebrati nazaj.",

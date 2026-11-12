@@ -3,8 +3,8 @@
     "machineTranslated": true
   },
   "common": {
-    "appName": "LesTrace",
-    "disclaimer": "LesTrace je alat za pripremu podataka. Odgovornost za izjavu o dužnoj pažnji snosi korisnik.",
+    "appName": "IZVOR",
+    "disclaimer": "IZVOR je alat za pripremu podataka. Odgovornost za izjavu o dužnoj pažnji snosi korisnik.",
     "language": "Jezik",
     "localeNames": {
       "sl": "Slovenščina",
@@ -529,7 +529,7 @@
     "revoked": "Opozvan",
     "unavailable": "Link nije važeći ili je istekao.",
     "unavailableHint": "Za novi link obratite se dobavljaču.",
-    "generatedBy": "Pripremljeno s LesTrace",
+    "generatedBy": "Pripremljeno u IZVORU",
     "validTo": "Važi do",
     "noDocuments": "Nema dokumenata.",
     "date": "Datum",
@@ -574,11 +574,11 @@
     "termsSections": [
       {
         "h": "Svrha",
-        "p": "LesTrace je alat koji pomaže prikupiti i urediti podatke za dubinsku analizu prema Uredbi (EU) 2023/1115 (EUDR). Alat ne podnosi izjave o dubinskoj analizi u informacioni sistem EU."
+        "p": "IZVOR je alat koji pomaže prikupiti i urediti podatke za dubinsku analizu prema Uredbi (EU) 2023/1115 (EUDR). Na zahtjev korisnika može podnijeti izjavu o dubinskoj analizi u informacioni sistem EU putem zvaničnog interfejsa (TRACES); sadržaj izjave potvrđuje i za njega odgovara korisnik."
       },
       {
         "h": "Odgovornost korisnika",
-        "p": "Za tačnost podataka, procjenu rizika i izjavu o dubinskoj analizi odgovoran je korisnik (subjekt ili trgovac). Rezultati provjera u LesTraceu su pomoć, a ne pravni savjet."
+        "p": "Za tačnost podataka, procjenu rizika i izjavu o dubinskoj analizi odgovoran je korisnik (subjekt ili trgovac). Rezultati provjera u IZVORU su pomoć, a ne pravni savjet."
       },
       {
         "h": "Podaci i čuvanje",
@@ -636,7 +636,7 @@
     "makeOwner": "Postavi za vlasnika",
     "makeMember": "Postavi za člana",
     "remove": "Ukloni",
-    "invitedTitle": "Pozivnica u LesTrace",
+    "invitedTitle": "Pozivnica u IZVOR",
     "signInFirst": "Da prihvatite pozivnicu, prijavite se ili napravite račun s e-adresom na koju je pozivnica poslana.",
     "createAccount": "Napravi račun",
     "signIn": "Prijava",
@@ -759,7 +759,7 @@
         "a": "Ako datoteka sadrži podatak o koordinatnom sistemu (npr. .prj kod Shapefilea), parcele se automatski pretvaraju u WGS-84 (MGI Balkans 6/7, UTM 33N/34N, HTRS96/TM, D96/TM)."
       },
       {
-        "q": "Da li LesTrace podnosi izjavu umjesto mene?",
+        "q": "Da li IZVOR podnosi izjavu umjesto mene?",
         "a": "Da, ako u Postavkama unesete korisnika web usluga TRACES. Pošiljku označite kao spremnu i kliknite „Podnesi izjavu u TRACES“; referentni i verifikacijski broj upisujemo automatski kada ih sistem dodijeli (obično u roku od sat vremena). Bez toga podatke ručno prepisujete u TRACES."
       },
       {
@@ -771,7 +771,7 @@
         "a": "Najmanje 5 godina. U postavkama u svakom trenutku preuzimate cijelu arhivu (ZIP) za inspekciju; revizijski trag bilježi sve promjene."
       }
     ],
-    "disclaimer": "LesTrace je alat za pripremu podataka. Za izjavu o dubinskoj analizi odgovoran je korisnik."
+    "disclaimer": "IZVOR je alat za pripremu podataka. Za izjavu o dubinskoj analizi odgovoran je korisnik."
   },
   "traces": {
     "settingsIntro": "Unesite korisnika web usluga iz svog profila u sistemu TRACES (Edit profile → Web Services Access). Najprije isprobajte u testnom okruženju (Acceptance). Ključ za autentifikaciju čuva se šifrirano i ne može se ponovo pročitati.",

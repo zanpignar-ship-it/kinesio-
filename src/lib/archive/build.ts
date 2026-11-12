@@ -23,7 +23,7 @@ export async function buildArchive(input: ArchiveInput): Promise<Uint8Array> {
   zip.file(
     'README.txt',
     [
-      `LesTrace – ${input.organizationName}`,
+      `IZVOR – ${input.organizationName}`,
       `Generated: ${input.generatedAt}`,
       '',
       'plots.geojson  all plots (WGS-84)',

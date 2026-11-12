@@ -1,7 +1,7 @@
 {
   "common": {
-    "appName": "LesTrace",
-    "disclaimer": "LesTrace is a data preparation tool. The user is responsible for the due diligence statement.",
+    "appName": "IZVOR",
+    "disclaimer": "IZVOR is a data preparation tool. The user is responsible for the due diligence statement.",
     "language": "Language",
     "localeNames": {
       "sl": "Slovenščina",
@@ -526,7 +526,7 @@
     "revoked": "Revoked",
     "unavailable": "The link is not valid or has expired.",
     "unavailableHint": "Ask the supplier for a new link.",
-    "generatedBy": "Prepared with LesTrace",
+    "generatedBy": "Prepared with IZVOR",
     "validTo": "Valid until",
     "noDocuments": "No documents.",
     "date": "Date",
@@ -571,11 +571,11 @@
     "termsSections": [
       {
         "h": "Purpose",
-        "p": "LesTrace is a tool that helps collect and organise data for due diligence under Regulation (EU) 2023/1115 (EUDR). It does not submit due diligence statements to the EU Information System."
+        "p": "IZVOR is a tool that helps collect and organise data for due diligence under Regulation (EU) 2023/1115 (EUDR). At the user's request it can submit the due diligence statement to the EU Information System through the official interface (TRACES); the user confirms the statement and is responsible for its content."
       },
       {
         "h": "Your responsibility",
-        "p": "The user (operator or trader) is responsible for the accuracy of the data, the risk assessment and the due diligence statement. Checks in LesTrace are an aid, not legal advice."
+        "p": "The user (operator or trader) is responsible for the accuracy of the data, the risk assessment and the due diligence statement. Checks in IZVOR are an aid, not legal advice."
       },
       {
         "h": "Data and retention",
@@ -633,7 +633,7 @@
     "makeOwner": "Make owner",
     "makeMember": "Make member",
     "remove": "Remove",
-    "invitedTitle": "Invitation to LesTrace",
+    "invitedTitle": "Invitation to IZVOR",
     "signInFirst": "To accept the invitation, sign in or create an account with the email address the invitation was sent to.",
     "createAccount": "Create account",
     "signIn": "Sign in",
@@ -756,7 +756,7 @@
         "a": "If the file states its coordinate system (e.g. the .prj of a Shapefile), plots are converted to WGS-84 automatically (D96/TM, D48/GK, HTRS96/TM, MGI Balkans 6/7, UTM 33N/34N). For Slovenian files without it you choose D96/TM or D48/GK."
       },
       {
-        "q": "Does LesTrace submit the statement for me?",
+        "q": "Does IZVOR submit the statement for me?",
         "a": "Yes, once you enter your TRACES web-service user in Settings. Mark the shipment as ready and click “Submit the statement to TRACES”; the reference and verification numbers are filled in automatically once the system assigns them (usually within an hour). Without it, you enter the data in TRACES manually."
       },
       {
@@ -768,7 +768,7 @@
         "a": "At least 5 years. In Settings you can download the full archive (ZIP) for inspections at any time; the audit trail records every change."
       }
     ],
-    "disclaimer": "LesTrace is a data preparation tool. The user is responsible for the due diligence statement."
+    "disclaimer": "IZVOR is a data preparation tool. The user is responsible for the due diligence statement."
   },
   "traces": {
     "settingsIntro": "Enter the web-service user from your TRACES profile (Edit profile → Web Services Access). Test in the Acceptance environment first. The authentication key is stored encrypted and cannot be read back.",

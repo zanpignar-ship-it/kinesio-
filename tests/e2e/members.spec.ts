@@ -34,7 +34,7 @@ test('someone with another e-mail cannot join', async ({ browser }) => {
 test('the colleague signs up from the link and joins as a member', async ({ browser }) => {
   const page = await (await browser.newContext()).newPage();
   await page.goto(new URL(inviteUrl).pathname);
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Povabilo v LesTrace');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Povabilo v IZVOR');
   await page.getByRole('link', { name: 'Ustvari račun' }).click();
   await page.getByLabel('E-pošta').fill(colleague.email);
   await page.getByLabel('Geslo').fill(colleague.password);
