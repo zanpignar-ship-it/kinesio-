@@ -15,7 +15,13 @@ const optionalHectares = z.preprocess(
   z.number({ message: 'plots.errors.area' }).min(0, 'plots.errors.area').max(100_000, 'plots.errors.area').optional(),
 );
 
+const optionalUuid = z.preprocess(
+  (v) => (v === '' || v === null ? undefined : v),
+  z.string().uuid('plots.errors.supplier').optional(),
+);
+
 export const plotFormSchema = z.object({
+  supplierId: optionalUuid,
   label: z.string().trim().min(1, 'plots.errors.label').max(120, 'plots.errors.label'),
   country: z.enum(ORG_COUNTRIES, { message: 'plots.errors.country' }),
   declaredAreaHa: optionalHectares,
@@ -56,6 +62,7 @@ export const importPayloadSchema = z.object({
     .regex(new RegExp(`^${uuidPart}/${uuidPart}/[\\w.\\-]{1,200}$`, 'i'))
     .nullable(),
   detectedCrs: z.string().max(40),
+  supplierId: optionalUuid,
   rows: z.array(importRowSchema).min(1).max(MAX_IMPORT_ROWS),
 });
 export type ImportPayloadInput = z.input<typeof importPayloadSchema>;

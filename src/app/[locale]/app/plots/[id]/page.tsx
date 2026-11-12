@@ -36,6 +36,7 @@ export default async function PlotPage({ params }: Props) {
   const issues = (Array.isArray(plot.validation_issues) ? plot.validation_issues : []) as unknown as Issue[];
   const facts: [string, string | null][] = [
     [t('country'), plot.country],
+    [t('supplier'), plot.supplier?.name ?? null],
     [t('area'), plot.area_ha === null ? null : t('hectares', { value: format.number(Number(plot.area_ha), { maximumFractionDigits: 4 }) })],
     [t('cadastral'), plot.cadastral_no],
     [t('cadastralMunicipality'), plot.cadastral_municipality],

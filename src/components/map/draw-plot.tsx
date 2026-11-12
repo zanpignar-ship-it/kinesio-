@@ -21,6 +21,7 @@ type Initial = {
   declaredAreaHa?: number | null;
   cadastralNo?: string | null;
   cadastralMunicipality?: string | null;
+  supplierId?: string | null;
   draw: DrawState | null;
   multiPart?: boolean;
   geometry?: GeoJSON.Geometry | null;
@@ -28,7 +29,7 @@ type Initial = {
 
 const selectClass = 'border-input h-10 w-full rounded-md border bg-transparent px-3 text-base shadow-xs md:text-sm';
 
-export function DrawPlot({ initial, others }: { initial: Initial; others?: GeoJSON.FeatureCollection }) {
+export function DrawPlot({ initial, others, suppliers = [] }: { initial: Initial; others?: GeoJSON.FeatureCollection; suppliers?: { id: string; name: string }[] }) {
   const t = useTranslations('draw');
   const tp = useTranslations('plots');
   const to = useTranslations('org');
@@ -102,6 +103,19 @@ export function DrawPlot({ initial, others }: { initial: Initial; others?: GeoJS
             <Label htmlFor="declaredAreaHa">{t('declaredArea')}</Label>
             <Input id="declaredAreaHa" name="declaredAreaHa" inputMode="decimal" value={declared} onChange={(e) => setDeclared(e.target.value)} />
             <p className="text-muted-foreground text-xs">{t('declaredAreaHint')}</p>
+          </div>
+        ) : null}
+        {suppliers.length > 0 ? (
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="supplierId">{tp('supplier')}</Label>
+            <select id="supplierId" name="supplierId" className={selectClass} defaultValue={v.supplierId ?? initial.supplierId ?? ''}>
+              <option value="">{tp('noSupplier')}</option>
+              {suppliers.map((s) => (
+                <option key={s.id} value={s.id}>
+                  {s.name}
+                </option>
+              ))}
+            </select>
           </div>
         ) : null}
         <div className="flex flex-col gap-2">

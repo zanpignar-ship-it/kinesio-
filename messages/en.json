@@ -186,9 +186,13 @@
       "unknown": "Saving failed. Please try again.",
       "inUse": "The plot is used in a shipment and cannot be deleted. You can archive it.",
       "tooMany": "You can import at most 2,000 plots at once.",
-      "notFound": "The plot was not found."
+      "notFound": "The plot was not found.",
+      "supplier": "Choose a supplier from the list."
     },
-    "archivedFilter": "Archived"
+    "archivedFilter": "Archived",
+    "supplier": "Supplier",
+    "noSupplier": "– no supplier –",
+    "allSuppliers": "All suppliers"
   },
   "map": {
     "satellite": "Satellite",

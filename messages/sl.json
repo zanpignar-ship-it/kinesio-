@@ -186,9 +186,13 @@
       "unknown": "Shranjevanje ni uspelo. Poskusite znova.",
       "inUse": "Parcela je uporabljena v pošiljki in je ni mogoče izbrisati. Lahko jo arhivirate.",
       "tooMany": "Naenkrat lahko uvozite največ 2.000 parcel.",
-      "notFound": "Parcele ni mogoče najti."
+      "notFound": "Parcele ni mogoče najti.",
+      "supplier": "Izberite dobavitelja s seznama."
     },
-    "archivedFilter": "Arhivirane"
+    "archivedFilter": "Arhivirane",
+    "supplier": "Dobavitelj",
+    "noSupplier": "– brez dobavitelja –",
+    "allSuppliers": "Vsi dobavitelji"
   },
   "map": {
     "satellite": "Satelit",

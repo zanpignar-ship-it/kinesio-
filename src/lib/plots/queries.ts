@@ -6,7 +6,7 @@ import { createServerSupabase } from '@/lib/supabase/server';
 export const PAGE_SIZE = 50;
 const STATUSES: PlotStatus[] = ['valid', 'warning', 'error'];
 
-export type PlotListFilters = { status?: PlotStatus; q?: string; country?: string; archived: boolean; page: number };
+export type PlotListFilters = { status?: PlotStatus; q?: string; country?: string; supplier?: string; archived: boolean; page: number };
 export type PlotListRow = Pick<Database['public']['Tables']['plots']['Row'], 'id' | 'label' | 'country' | 'area_ha' | 'validation_status' | 'updated_at'>;
 
 export function parseFilters(sp: Record<string, string | string[] | undefined>): PlotListFilters {
@@ -17,9 +17,17 @@ export function parseFilters(sp: Record<string, string | string[] | undefined>):
     status: STATUSES.includes(status as PlotStatus) ? (status as PlotStatus) : undefined,
     q: one('q')?.trim().slice(0, 100) || undefined,
     country: /^[A-Z]{2}$/.test(one('country') ?? '') ? one('country') : undefined,
+    supplier: /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(one('supplier') ?? '') ? one('supplier') : undefined,
     archived: one('archived') === '1',
     page: Number.isFinite(page) && page > 0 ? page : 1,
   };
+}
+
+/** Suppliers of the organization for pickers and filters. */
+export async function supplierOptions(organizationId: string): Promise<{ id: string; name: string }[]> {
+  const supabase = await createServerSupabase();
+  const { data } = await supabase.from('suppliers').select('id, name').eq('organization_id', organizationId).order('name');
+  return data ?? [];
 }
 
 /** Number of active (not archived) plots per validation status. */
@@ -43,6 +51,7 @@ export async function listPlots(organizationId: string, f: PlotListFilters) {
   query = f.archived ? query.not('archived_at', 'is', null) : query.is('archived_at', null);
   if (f.status) query = query.eq('validation_status', f.status);
   if (f.country) query = query.eq('country', f.country);
+  if (f.supplier) query = query.eq('supplier_id', f.supplier);
   if (f.q) query = query.ilike('label', `%${f.q.replace(/[%_\\]/g, (c) => `\\${c}`)}%`);
   const from = (f.page - 1) * PAGE_SIZE;
   const archivedCount = supabase.from('plots').select('id', { count: 'exact', head: true }).eq('organization_id', organizationId).not('archived_at', 'is', null);
@@ -53,6 +62,6 @@ export async function listPlots(organizationId: string, f: PlotListFilters) {
 
 export async function getPlot(organizationId: string, id: string) {
   const supabase = await createServerSupabase();
-  const { data } = await supabase.from('plots').select('*').eq('organization_id', organizationId).eq('id', id).maybeSingle();
+  const { data } = await supabase.from('plots').select('*, supplier:suppliers (name)').eq('organization_id', organizationId).eq('id', id).maybeSingle();
   return data;
 }

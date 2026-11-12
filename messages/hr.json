@@ -189,9 +189,13 @@
       "unknown": "Spremanje nije uspjelo. Pokušajte ponovno.",
       "inUse": "Čestica se koristi u pošiljci i ne može se izbrisati. Možete je arhivirati.",
       "tooMany": "Odjednom možete uvesti najviše 2.000 čestica.",
-      "notFound": "Čestica nije pronađena."
+      "notFound": "Čestica nije pronađena.",
+      "supplier": "Odaberite dobavljača s popisa."
     },
-    "archivedFilter": "Arhivirane"
+    "archivedFilter": "Arhivirane",
+    "supplier": "Dobavljač",
+    "noSupplier": "– bez dobavljača –",
+    "allSuppliers": "Svi dobavljači"
   },
   "map": {
     "satellite": "Satelit",

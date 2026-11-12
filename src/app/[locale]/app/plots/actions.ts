@@ -46,7 +46,7 @@ async function savePlot(formData: FormData, plotId: string | null): Promise<Plot
   } catch {
     return { error: 'plots.errors.unknown', values };
   }
-  const row = toRow(prepareDrawnPlot({ ...form.data, geometry }, others));
+  const row = { ...toRow(prepareDrawnPlot({ ...form.data, geometry }, others)), supplier_id: form.data.supplierId ?? null };
 
   if (plotId) {
     // The edit form has no address field: keep a stored address instead of clearing it.
@@ -111,6 +111,7 @@ export type ImportPayload = {
   fileName: string;
   filePath: string | null;
   detectedCrs: string;
+  supplierId?: string | null;
   rows: { label: unknown; geometry: unknown; declaredAreaHa?: unknown; decimals: unknown }[];
 };
 export type ImportResult = { error?: string; inserted?: number; counts?: { valid: number; warning: number; error: number } };
@@ -164,7 +165,7 @@ async function importPlotsUnsafe(input: ImportPayload): Promise<ImportResult> {
     );
     counts[prepared.validation_status] += 1;
     if (prepared.geom) seen.push({ id: label, geometry: prepared.geom });
-    return { ...toRow(prepared), organization_id: organizationId, source_import_id: imp.id };
+    return { ...toRow(prepared), organization_id: organizationId, source_import_id: imp.id, supplier_id: payload.supplierId ?? null };
   });
   const { error } = await supabase.from('plots').insert(rows);
   if (error) {

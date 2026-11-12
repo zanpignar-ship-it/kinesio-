@@ -16,12 +16,12 @@ import type { SupportedCrs } from '@/lib/geo/reproject';
 import { previewImport, selectImportRows } from '@/lib/plots/import-selection';
 import { createBrowserSupabase } from '@/lib/supabase/browser';
 
-type Props = { organizationId: string; defaultCountry: string };
+type Props = { organizationId: string; defaultCountry: string; suppliers?: { id: string; name: string }[] };
 
 const PREVIEW_ROWS = 100;
 const selectClass = 'border-input h-10 w-full max-w-xs rounded-md border bg-transparent px-3 text-base shadow-xs md:text-sm';
 
-export function ImportWizard({ organizationId, defaultCountry }: Props) {
+export function ImportWizard({ organizationId, defaultCountry, suppliers = [] }: Props) {
   const t = useTranslations('imp');
   const to = useTranslations('org');
   const tAll = useTranslations();
@@ -32,6 +32,7 @@ export function ImportWizard({ organizationId, defaultCountry }: Props) {
   // The file had no coordinate system: keep the choice visible (and changeable) after the user picks one.
   const [crsAsked, setCrsAsked] = useState(false);
   const [country, setCountry] = useState(defaultCountry);
+  const [supplierId, setSupplierId] = useState('');
   const [includeErrors, setIncludeErrors] = useState(false);
   const [parsing, setParsing] = useState(false);
   const [result, setResult] = useState<ImportResult | null>(null);
@@ -80,7 +81,7 @@ export function ImportWizard({ organizationId, defaultCountry }: Props) {
       const upload = await createBrowserSupabase().storage.from('plot-imports').upload(filePath, file.data, { contentType: file.type, upsert: false });
       if (upload.error) filePath = null;
       try {
-        setResult(await importPlots({ locale, country, fileName: file.name, filePath, detectedCrs: crs ?? parsed.detectedCrs, rows }));
+        setResult(await importPlots({ locale, country, fileName: file.name, filePath, detectedCrs: crs ?? parsed.detectedCrs, supplierId: supplierId || null, rows }));
       } catch {
         setResult({ error: 'plots.errors.unknown' });
       }
@@ -159,6 +160,19 @@ export function ImportWizard({ organizationId, defaultCountry }: Props) {
               ))}
             </select>
           </div>
+          {suppliers.length > 0 ? (
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="supplier">{tAll('plots.supplier')}</Label>
+              <select id="supplier" className={selectClass} value={supplierId} onChange={(e) => setSupplierId(e.target.value)}>
+                <option value="">{tAll('plots.noSupplier')}</option>
+                {suppliers.map((s) => (
+                  <option key={s.id} value={s.id}>
+                    {s.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ) : null}
           {preview.items.length === 0 ? (
             <p>{t('empty')}</p>
           ) : (

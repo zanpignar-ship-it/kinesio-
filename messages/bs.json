@@ -189,9 +189,13 @@
       "unknown": "Spremanje nije uspjelo. Pokušajte ponovo.",
       "inUse": "Parcela se koristi u pošiljci i ne može se izbrisati. Možete je arhivirati.",
       "tooMany": "Odjednom možete uvesti najviše 2.000 parcela.",
-      "notFound": "Parcela nije pronađena."
+      "notFound": "Parcela nije pronađena.",
+      "supplier": "Odaberite dobavljača sa spiska."
     },
-    "archivedFilter": "Arhivirane"
+    "archivedFilter": "Arhivirane",
+    "supplier": "Dobavljač",
+    "noSupplier": "– bez dobavljača –",
+    "allSuppliers": "Svi dobavljači"
   },
   "map": {
     "satellite": "Satelit",

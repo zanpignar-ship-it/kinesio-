@@ -2,6 +2,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { DrawPlot } from '@/components/map/draw-plot';
 import { getCurrentMembership, requireUser } from '@/lib/auth/session';
 import { createServerSupabase } from '@/lib/supabase/server';
+import { supplierOptions } from '@/lib/plots/queries';
 import type * as GeoJSON from 'geojson';
 
 export default async function NewPlotPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -11,12 +12,15 @@ export default async function NewPlotPage({ params }: { params: Promise<{ locale
   const { current } = await getCurrentMembership(user.id);
   if (!current) return null;
   const supabase = await createServerSupabase();
-  const { data: others } = await supabase.rpc('plots_map', { p_org: current.organization.id });
+  const [{ data: others }, suppliers] = await Promise.all([
+    supabase.rpc('plots_map', { p_org: current.organization.id }),
+    supplierOptions(current.organization.id),
+  ]);
   const t = await getTranslations('draw');
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-2xl font-bold tracking-tight">{t('newTitle')}</h1>
-      <DrawPlot initial={{ country: current.organization.country, draw: null }} others={(others ?? undefined) as unknown as GeoJSON.FeatureCollection | undefined} />
+      <DrawPlot initial={{ country: current.organization.country, draw: null }} others={(others ?? undefined) as unknown as GeoJSON.FeatureCollection | undefined} suppliers={suppliers} />
     </div>
   );
 }

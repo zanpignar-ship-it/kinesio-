@@ -7,7 +7,7 @@ import { createServerSupabase } from '@/lib/supabase/server';
 import { Link } from '@/i18n/navigation';
 import { getCurrentMembership, requireUser } from '@/lib/auth/session';
 import type { PlotStatus } from '@/lib/geo/types';
-import { PAGE_SIZE, listPlots, parseFilters } from '@/lib/plots/queries';
+import { PAGE_SIZE, listPlots, parseFilters, supplierOptions } from '@/lib/plots/queries';
 import { cn } from '@/lib/utils';
 
 type Props = { params: Promise<{ locale: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> };
@@ -20,9 +20,10 @@ export default async function PlotsPage({ params, searchParams }: Props) {
   if (!current) return null;
   const filters = parseFilters(await searchParams);
   const supabase = await createServerSupabase();
-  const [{ rows, total, byStatus, archivedCount }, map] = await Promise.all([
+  const [{ rows, total, byStatus, archivedCount }, map, suppliers] = await Promise.all([
     listPlots(current.organization.id, filters),
     supabase.rpc('plots_map', { p_org: current.organization.id }),
+    supplierOptions(current.organization.id),
   ]);
   const mapData = (map.data ?? { type: 'FeatureCollection', features: [] }) as unknown as GeoJSON.FeatureCollection;
   const t = await getTranslations('plots');
@@ -36,6 +37,7 @@ export default async function PlotsPage({ params, searchParams }: Props) {
     if (status) query.status = status;
     if (filters.q) query.q = filters.q;
     if (filters.country) query.country = filters.country;
+    if (filters.supplier) query.supplier = filters.supplier;
     const page = overrides.page ?? 1;
     if (page > 1) query.page = String(page);
     return { pathname: '/app/plots', query };
@@ -73,13 +75,28 @@ export default async function PlotsPage({ params, searchParams }: Props) {
 
       {mapData.features.length > 0 ? <PlotsOverviewMap plots={mapData} className="h-[45vh] min-h-72" /> : null}
 
-      <form className="flex gap-2" action="" method="get">
+      <form className="flex flex-wrap gap-2" action="" method="get">
         {filters.status ? <input type="hidden" name="status" value={filters.status} /> : null}
         {filters.archived ? <input type="hidden" name="archived" value="1" /> : null}
         <label htmlFor="q" className="sr-only">
           {t('search')}
         </label>
         <input id="q" name="q" defaultValue={filters.q} placeholder={t('search')} className="border-input h-10 w-full max-w-sm rounded-md border bg-transparent px-3 text-base md:text-sm" />
+        {suppliers.length > 0 ? (
+          <>
+            <label htmlFor="supplier" className="sr-only">
+              {t('supplier')}
+            </label>
+            <select id="supplier" name="supplier" defaultValue={filters.supplier ?? ''} className="border-input h-10 max-w-56 rounded-md border bg-transparent px-3 text-sm">
+              <option value="">{t('allSuppliers')}</option>
+              {suppliers.map((s) => (
+                <option key={s.id} value={s.id}>
+                  {s.name}
+                </option>
+              ))}
+            </select>
+          </>
+        ) : null}
         <Button type="submit" variant="outline">
           {t('searchButton')}
         </Button>
