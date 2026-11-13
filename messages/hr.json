@@ -651,7 +651,9 @@
     "auditLink": "Revizijski trag",
     "tracesTitle": "Podnošenje u TRACES (EUDR Information System)",
     "accountTitle": "Račun",
-    "changePassword": "Promijeni lozinku"
+    "changePassword": "Promijeni lozinku",
+    "sampleTitle": "Primjer podataka",
+    "sampleDelete": "Izbriši primjer podataka"
   },
   "legal": {
     "terms": "Uvjeti korištenja",

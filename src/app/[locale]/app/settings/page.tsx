@@ -4,6 +4,9 @@ import { MembersPanel } from '@/components/members/members-panel';
 import { DeleteAccount } from '@/components/settings/delete-account';
 import { TracesSettings } from '@/components/traces/traces-settings';
 import { DEFAULT_CLIENT_ID, tracesSettings } from '@/lib/traces/service';
+import { SAMPLE } from '@/lib/demo/sample';
+import { createServerSupabase } from '@/lib/supabase/server';
+import { deleteSampleData } from '../actions';
 import { buttonVariants } from '@/components/ui/button';
 import { Link } from '@/i18n/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -20,6 +23,8 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
   const o = current.organization;
   const isOwner = current.role === 'owner';
   const traces = isOwner ? await tracesSettings(o.id) : null;
+  const supabase = await createServerSupabase();
+  const { count: sampleCount } = await supabase.from('shipments').select('id', { count: 'exact', head: true }).eq('organization_id', o.id).eq('internal_ref', SAMPLE.shipment.internalRef);
   const initial: Record<string, string> = {
     name: o.name,
     country: o.country,
@@ -74,6 +79,21 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
           </CardHeader>
           <CardContent>
             <TracesSettings settings={traces} defaults={DEFAULT_CLIENT_ID} />
+          </CardContent>
+        </Card>
+      ) : null}
+      {sampleCount ? (
+        <Card>
+          <CardHeader>
+            <CardTitle>{t('sampleTitle')}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form action={deleteSampleData}>
+              <input type="hidden" name="locale" value={locale} />
+              <button type="submit" className={buttonVariants({ variant: 'outline' })}>
+                {t('sampleDelete')}
+              </button>
+            </form>
           </CardContent>
         </Card>
       ) : null}

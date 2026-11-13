@@ -11,4 +11,9 @@ test('a new organization loads sample data with one click', async ({ page }) => 
   await expect(page.getByTestId('plot-row')).toHaveCount(2);
   await page.goto('/sl/app');
   await expect(page.getByTestId('sample')).toHaveCount(0);
+
+  await page.goto('/sl/app/settings');
+  await page.getByRole('button', { name: 'Izbriši primer podatkov' }).click();
+  await page.waitForURL('**/sl/app');
+  await expect(page.getByTestId('sample')).toBeVisible();
 });

@@ -70,3 +70,18 @@ export async function loadSampleData(formData: FormData): Promise<void> {
   revalidatePath(`/${locale}/app`, 'layout');
   redirect({ href: shipment ? `/app/shipments/${shipment.id}` : '/app', locale });
 }
+
+/** Remove the sample (only records created by loadSampleData, recognised by their "Primer:" names and PRIMER-1). */
+export async function deleteSampleData(formData: FormData): Promise<void> {
+  const locale = String(formData.get('locale') ?? 'sl');
+  const ctx = await getPlotContext();
+  if (!ctx) return;
+  const { supabase, organizationId: org } = ctx;
+  await supabase.from('shipments').delete().eq('organization_id', org).eq('internal_ref', SAMPLE.shipment.internalRef).neq('status', 'submitted');
+  await supabase.from('plots').delete().eq('organization_id', org).in('label', SAMPLE.plots.map((p) => p.label));
+  await supabase.from('products').delete().eq('organization_id', org).eq('name', SAMPLE.product.name);
+  await supabase.from('customers').delete().eq('organization_id', org).eq('name', SAMPLE.customer.name);
+  await supabase.from('suppliers').delete().eq('organization_id', org).eq('name', SAMPLE.supplier.name);
+  revalidatePath(`/${locale}/app`, 'layout');
+  redirect({ href: '/app', locale });
+}

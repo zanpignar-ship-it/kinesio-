@@ -648,7 +648,9 @@
     "auditLink": "Audit trail",
     "tracesTitle": "Submission to TRACES (EUDR Information System)",
     "accountTitle": "Account",
-    "changePassword": "Change password"
+    "changePassword": "Change password",
+    "sampleTitle": "Sample data",
+    "sampleDelete": "Delete sample data"
   },
   "legal": {
     "terms": "Terms of use",
