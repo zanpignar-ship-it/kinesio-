@@ -7,6 +7,8 @@ Orodje za pripravo podatkov za EUDR (Uredba (EU) 2023/1115) za lesno panogo.
 - Predogled (Vercel, ekipa ZAPI, projekt `lestrace`): https://lestrace-54iah775x-zapi1.vercel.app/sl
 - Baza: Supabase projekt `lestrace-dev` (eu-central-1)
 
+Pred zagonom v produkcijo: glej [docs/launch-checklist.md](docs/launch-checklist.md).
+
 ## Razvoj
 
 ```bash
