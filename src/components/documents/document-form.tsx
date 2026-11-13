@@ -14,7 +14,7 @@ import { PlotPicker } from './plot-picker';
 type Initial = { id?: string; title?: string; type?: string; validFrom?: string | null; validTo?: string | null; plotIds?: string[] };
 type Props = { organizationId: string; plots: { id: string; label: string }[]; initial?: Initial };
 
-const selectClass = 'border-input h-10 w-full rounded-md border bg-transparent px-3 text-base shadow-xs md:text-sm';
+const selectClass = 'border-input h-10 w-full rounded-md border bg-card px-3 text-base shadow-xs md:text-sm';
 
 export function DocumentForm({ organizationId, plots, initial = {} }: Props) {
   const t = useTranslations('documents');

@@ -12,9 +12,9 @@ export default async function AppLayout({ children, params }: { children: ReactN
   const { current, all } = await getCurrentMembership(user.id);
   if (!current) redirect({ href: homeFor({ signedIn: true, orgCount: 0 }), locale });
   return (
-    <>
+    <div className="app-shell app-surface lg:pl-64">
       {current ? <AppHeader current={current} all={all} email={user.email} /> : null}
-      <div className="mx-auto w-full max-w-5xl px-4 py-6">{children}</div>
-    </>
+      <main className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6 lg:px-10 lg:py-10">{children}</main>
+    </div>
   );
 }

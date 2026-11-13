@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { bulkUpdatePlots } from '@/app/[locale]/app/plots/actions';
 
-const field = 'border-input h-10 w-full rounded-md border bg-transparent px-3 text-sm';
+const field = 'border-input h-10 w-full rounded-md border bg-card px-3 text-sm';
 
 /** Applies to the plots whose checkboxes (form="bulk-form") are ticked in the list. */
 export function BulkBar({ suppliers }: { suppliers: { id: string; name: string }[] }) {

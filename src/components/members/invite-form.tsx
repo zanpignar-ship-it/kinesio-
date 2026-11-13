@@ -23,7 +23,7 @@ export function InviteForm() {
         </div>
         <div className="flex flex-col gap-2">
           <Label htmlFor="invite-role">{t('role')}</Label>
-          <select id="invite-role" name="role" defaultValue="member" className="border-input h-10 rounded-md border bg-transparent px-3 text-sm">
+          <select id="invite-role" name="role" defaultValue="member" className="border-input h-10 rounded-md border bg-card px-3 text-sm">
             <option value="member">{t('roles.member')}</option>
             <option value="owner">{t('roles.owner')}</option>
           </select>

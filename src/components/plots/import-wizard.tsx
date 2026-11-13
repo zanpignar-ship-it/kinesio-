@@ -19,7 +19,7 @@ import { createBrowserSupabase } from '@/lib/supabase/browser';
 type Props = { organizationId: string; defaultCountry: string; suppliers?: { id: string; name: string }[] };
 
 const PREVIEW_ROWS = 100;
-const selectClass = 'border-input h-10 w-full max-w-xs rounded-md border bg-transparent px-3 text-base shadow-xs md:text-sm';
+const selectClass = 'border-input h-10 w-full max-w-xs rounded-md border bg-card px-3 text-base shadow-xs md:text-sm';
 
 export function ImportWizard({ organizationId, defaultCountry, suppliers = [] }: Props) {
   const t = useTranslations('imp');

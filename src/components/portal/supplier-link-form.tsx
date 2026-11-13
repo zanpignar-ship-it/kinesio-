@@ -18,7 +18,7 @@ export function SupplierLinkForm({ supplierId }: { supplierId: string }) {
         <input type="hidden" name="supplierId" value={supplierId} />
         <label className="flex flex-col gap-1 text-sm">
           {t('validFor')}
-          <select name="days" defaultValue="90" className="border-input h-10 rounded-md border bg-transparent px-3 text-sm">
+          <select name="days" defaultValue="90" className="border-input h-10 rounded-md border bg-card px-3 text-sm">
             {[30, 90, 365].map((d) => (
               <option key={d} value={d}>
                 {t('days', { days: d })}

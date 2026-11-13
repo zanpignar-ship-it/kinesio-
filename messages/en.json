@@ -62,7 +62,19 @@
         "h": "Importers and traders",
         "p": "Importing from Bosnia and Herzegovina, Serbia or elsewhere? Keep the statement, risk assessment and evidence in one place."
       }
-    ]
+    ],
+    "badge": "Built for EUDR 2023/1115 and amendment 2025/2650",
+    "preview": {
+      "title": "Shipment PO-2026-014",
+      "items": [
+        "Plots with geolocation",
+        "Harvest period",
+        "Felling permit",
+        "Risk assessment",
+        "Submission to TRACES"
+      ],
+      "ready": "Ready to submit"
+    }
   },
   "geo": {
     "issues": {
@@ -126,7 +138,15 @@
     "backToLogin": "Back to sign in",
     "updateTitle": "New password",
     "newPassword": "New password",
-    "savePassword": "Save password"
+    "savePassword": "Save password",
+    "panel": {
+      "title": "From forest to TRACES statement – no spreadsheets, no guesswork.",
+      "points": [
+        "Plots, documents and suppliers in one place",
+        "Automatic geolocation checks before you submit",
+        "Buyer package and inspection archive in one click"
+      ]
+    }
   },
   "org": {
     "onboardingTitle": "Your company",
@@ -194,7 +214,8 @@
       "shipments": "Shipments",
       "masterData": "Master data",
       "settings": "Settings",
-      "help": "Help"
+      "help": "Help",
+      "label": "Main menu"
     },
     "recentShipments": "Recent shipments",
     "todoTitle": "To do",
@@ -210,7 +231,13 @@
     },
     "sampleTitle": "Start with a sample",
     "sampleText": "You have no data yet. Load a sample (supplier, two plots, product, customer and a draft shipment) to try IZVOR. You can delete it later.",
-    "sampleButton": "Load sample data"
+    "sampleButton": "Load sample data",
+    "quick": {
+      "plot": "New plot",
+      "shipment": "New shipment"
+    },
+    "daysLeft": "days to go",
+    "viewAll": "All shipments"
   },
   "plots": {
     "title": "Plots",

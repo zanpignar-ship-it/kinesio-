@@ -24,7 +24,7 @@ const BADGE: Record<RiskLevel, string> = {
   high: 'bg-red-100 text-red-900 dark:bg-red-950 dark:text-red-200',
 };
 
-const textareaClass = 'border-input min-h-24 w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs md:text-sm';
+const textareaClass = 'border-input min-h-24 w-full rounded-md border bg-card px-3 py-2 text-base shadow-xs md:text-sm';
 
 /** Country risk of the shipment and the recorded risk assessment (EUDR art. 10, 11, 13). */
 export function RiskForm({ shipmentId, level, country, assessment, mitigation, negligible, locked }: Props) {

@@ -9,7 +9,7 @@ import { deleteTracesCredentials, saveTracesCredentials, testTracesConnection, t
 
 type Props = { settings: { environment: 'acceptance' | 'production'; username: string; clientId: string } | null; defaults: { acceptance: string; production: string } };
 
-const field = 'border-input h-10 w-full rounded-md border bg-transparent px-3 text-base md:text-sm';
+const field = 'border-input h-10 w-full rounded-md border bg-card px-3 text-base md:text-sm';
 
 /** TRACES web-service user of the organization (owners only). The key is write-only. */
 export function TracesSettings({ settings, defaults }: Props) {

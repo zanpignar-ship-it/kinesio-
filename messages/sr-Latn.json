@@ -65,7 +65,19 @@
         "h": "Izvoznici u EU",
         "p": "Izvozite drvo u EU? Pripremite geolokacije, dokaze i paket za kupca u EU na jednom mestu."
       }
-    ]
+    ],
+    "badge": "U skladu sa EUDR 2023/1115 i izmenom 2025/2650",
+    "preview": {
+      "title": "Pošiljka PO-2026-014",
+      "items": [
+        "Parcele sa geolokacijom",
+        "Period seče",
+        "Dozvola za seču",
+        "Procena rizika",
+        "Podnošenje u TRACES"
+      ],
+      "ready": "Spremno za podnošenje"
+    }
   },
   "geo": {
     "issues": {
@@ -129,7 +141,15 @@
     "backToLogin": "Nazad na prijavu",
     "updateTitle": "Nova lozinka",
     "newPassword": "Nova lozinka",
-    "savePassword": "Sačuvaj lozinku"
+    "savePassword": "Sačuvaj lozinku",
+    "panel": {
+      "title": "Od šume do izjave u TRACES – bez Excela i nagađanja.",
+      "points": [
+        "Parcele, dokumenti i dobavljači na jednom mestu",
+        "Automatska provera geolokacija pre podnošenja",
+        "Paket za kupca i arhiva za inspekciju jednim klikom"
+      ]
+    }
   },
   "org": {
     "onboardingTitle": "Vaše preduzeće",
@@ -197,7 +217,8 @@
       "shipments": "Pošiljke",
       "masterData": "Šifarnici",
       "settings": "Podešavanja",
-      "help": "Pomoć"
+      "help": "Pomoć",
+      "label": "Glavni meni"
     },
     "recentShipments": "Poslednje pošiljke",
     "todoTitle": "Za sređivanje",
@@ -213,7 +234,13 @@
     },
     "sampleTitle": "Počnite sa primerom",
     "sampleText": "Još nemate podataka. Učitajte primer (dobavljač, dve parcele, proizvod, kupac i nacrt pošiljke) da isprobate IZVOR. Primer kasnije možete obrisati.",
-    "sampleButton": "Učitaj primer podataka"
+    "sampleButton": "Učitaj primer podataka",
+    "quick": {
+      "plot": "Nova parcela",
+      "shipment": "Nova pošiljka"
+    },
+    "daysLeft": "dana do roka",
+    "viewAll": "Sve pošiljke"
   },
   "plots": {
     "title": "Parcele",

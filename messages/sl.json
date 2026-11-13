@@ -62,7 +62,19 @@
         "h": "Uvozniki in trgovci",
         "p": "Uvažate iz Bosne in Hercegovine, Srbije ali drugih držav? Pripravite izjavo, oceno tveganja in dokazila na enem mestu."
       }
-    ]
+    ],
+    "badge": "Skladno z EUDR 2023/1115 in novelo 2025/2650",
+    "preview": {
+      "title": "Pošiljka PO-2026-014",
+      "items": [
+        "Parcele z geolokacijo",
+        "Obdobje poseka",
+        "Dovoljenje za posek",
+        "Ocena tveganja",
+        "Oddaja v TRACES"
+      ],
+      "ready": "Pripravljeno za oddajo"
+    }
   },
   "geo": {
     "issues": {
@@ -126,7 +138,15 @@
     "backToLogin": "Nazaj na prijavo",
     "updateTitle": "Novo geslo",
     "newPassword": "Novo geslo",
-    "savePassword": "Shrani geslo"
+    "savePassword": "Shrani geslo",
+    "panel": {
+      "title": "Od gozda do izjave v TRACES – brez Excela in ugibanja.",
+      "points": [
+        "Parcele, dokumenti in dobavitelji na enem mestu",
+        "Samodejno preverjanje geolokacij pred oddajo",
+        "Paket za kupca in arhiv za inšpekcijo z enim klikom"
+      ]
+    }
   },
   "org": {
     "onboardingTitle": "Vaše podjetje",
@@ -194,7 +214,8 @@
       "shipments": "Pošiljke",
       "masterData": "Šifranti",
       "settings": "Nastavitve",
-      "help": "Pomoč"
+      "help": "Pomoč",
+      "label": "Glavni meni"
     },
     "recentShipments": "Zadnje pošiljke",
     "todoTitle": "Za urediti",
@@ -210,7 +231,13 @@
     },
     "sampleTitle": "Začnite s primerom",
     "sampleText": "Še nimate podatkov. Naložite primer (dobavitelj, dve parceli, izdelek, kupec in osnutek pošiljke), da preizkusite IZVOR. Primer lahko kasneje izbrišete.",
-    "sampleButton": "Naloži primer podatkov"
+    "sampleButton": "Naloži primer podatkov",
+    "quick": {
+      "plot": "Nova parcela",
+      "shipment": "Nova pošiljka"
+    },
+    "daysLeft": "dni do roka",
+    "viewAll": "Vse pošiljke"
   },
   "plots": {
     "title": "Parcele",

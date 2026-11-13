@@ -29,7 +29,7 @@ type Initial = {
   geometry?: GeoJSON.Geometry | null;
 };
 
-const selectClass = 'border-input h-10 w-full rounded-md border bg-transparent px-3 text-base shadow-xs md:text-sm';
+const selectClass = 'border-input h-10 w-full rounded-md border bg-card px-3 text-base shadow-xs md:text-sm';
 
 export function DrawPlot({ initial, others, suppliers = [] }: { initial: Initial; others?: GeoJSON.FeatureCollection; suppliers?: { id: string; name: string }[] }) {
   const t = useTranslations('draw');

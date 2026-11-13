@@ -2,46 +2,56 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* IZVOR design tokens: forest green on warm paper, calm and legible. */
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.147 0.004 49.25);
+  --radius: 0.75rem;
+  --background: oklch(0.985 0.004 95);
+  --foreground: oklch(0.2 0.02 160);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.147 0.004 49.25);
-  --primary: oklch(0.42 0.09 150);
-  --primary-foreground: oklch(0.985 0.001 106.423);
-  --secondary: oklch(0.97 0.001 106.424);
-  --secondary-foreground: oklch(0.216 0.006 56.043);
-  --muted: oklch(0.97 0.001 106.424);
-  --muted-foreground: oklch(0.553 0.013 58.071);
-  --accent: oklch(0.97 0.001 106.424);
-  --accent-foreground: oklch(0.216 0.006 56.043);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.923 0.003 48.717);
-  --input: oklch(0.923 0.003 48.717);
-  --ring: oklch(0.709 0.01 56.259);
+  --card-foreground: oklch(0.2 0.02 160);
+  --primary: oklch(0.44 0.1 156);
+  --primary-foreground: oklch(0.985 0.01 150);
+  --secondary: oklch(0.955 0.012 150);
+  --secondary-foreground: oklch(0.3 0.06 156);
+  --muted: oklch(0.962 0.006 95);
+  --muted-foreground: oklch(0.5 0.015 160);
+  --accent: oklch(0.95 0.025 150);
+  --accent-foreground: oklch(0.3 0.07 156);
+  --destructive: oklch(0.56 0.2 27);
+  --border: oklch(0.91 0.008 95);
+  --input: oklch(0.88 0.01 95);
+  --ring: oklch(0.6 0.1 156);
+  --sidebar: oklch(0.27 0.05 160);
+  --sidebar-foreground: oklch(0.93 0.02 150);
+  --sidebar-muted: oklch(0.75 0.03 150);
+  --sidebar-active: oklch(0.36 0.07 158);
 }
 
 .dark {
-  --background: oklch(0.147 0.004 49.25);
-  --foreground: oklch(0.985 0.001 106.423);
-  --card: oklch(0.216 0.006 56.043);
-  --card-foreground: oklch(0.985 0.001 106.423);
-  --primary: oklch(0.72 0.12 150);
-  --primary-foreground: oklch(0.147 0.004 49.25);
-  --secondary: oklch(0.268 0.007 34.298);
-  --secondary-foreground: oklch(0.985 0.001 106.423);
-  --muted: oklch(0.268 0.007 34.298);
-  --muted-foreground: oklch(0.709 0.01 56.259);
-  --accent: oklch(0.268 0.007 34.298);
-  --accent-foreground: oklch(0.985 0.001 106.423);
-  --destructive: oklch(0.704 0.191 22.216);
+  --background: oklch(0.17 0.012 160);
+  --foreground: oklch(0.96 0.01 150);
+  --card: oklch(0.21 0.015 160);
+  --card-foreground: oklch(0.96 0.01 150);
+  --primary: oklch(0.74 0.13 156);
+  --primary-foreground: oklch(0.18 0.03 160);
+  --secondary: oklch(0.27 0.02 160);
+  --secondary-foreground: oklch(0.96 0.01 150);
+  --muted: oklch(0.25 0.015 160);
+  --muted-foreground: oklch(0.72 0.02 150);
+  --accent: oklch(0.29 0.03 158);
+  --accent-foreground: oklch(0.96 0.01 150);
+  --destructive: oklch(0.7 0.19 22);
   --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.553 0.013 58.071);
+  --input: oklch(1 0 0 / 16%);
+  --ring: oklch(0.6 0.1 156);
+  --sidebar: oklch(0.14 0.012 160);
+  --sidebar-foreground: oklch(0.93 0.02 150);
+  --sidebar-muted: oklch(0.7 0.03 150);
+  --sidebar-active: oklch(0.26 0.04 158);
 }
 
 @theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -62,13 +72,74 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-muted: var(--sidebar-muted);
+  --color-sidebar-active: var(--sidebar-active);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "cv11", "ss01";
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  ::selection {
+    @apply bg-primary/20;
+  }
+  input[type="checkbox"],
+  input[type="radio"] {
+    accent-color: var(--primary);
+    width: 1rem;
+    height: 1rem;
+  }
+  /* Native selects and textareas share the input look everywhere. */
+  select,
+  textarea {
+    @apply bg-card rounded-md shadow-xs transition-[color,box-shadow];
+  }
+  select:focus-visible,
+  textarea:focus-visible {
+    @apply border-ring ring-ring/40 ring-[3px] outline-none;
+  }
+  textarea {
+    @apply border-input border px-3 py-2 text-base md:text-sm;
+  }
+}
+
+@layer components {
+  /* Inside the app every bordered panel reads as a card on the paper background. */
+  .app-surface .rounded-xl.border:not(.border-dashed),
+  .app-surface .rounded-lg.border:not(.border-dashed) {
+    @apply bg-card shadow-[0_1px_2px_oklch(0.2_0.02_160/0.04),0_1px_3px_oklch(0.2_0.02_160/0.06)];
+  }
+  .app-surface .border-dashed {
+    @apply bg-card/60;
+  }
+  .app-surface ul.divide-y > li {
+    @apply transition-colors;
+  }
+  .app-surface ul.divide-y > li:has(> a:first-child):hover {
+    @apply bg-muted/60;
+  }
+  .app-surface h1 {
+    @apply text-2xl font-semibold tracking-tight sm:text-[1.75rem];
+  }
+}
+
+@media (min-width: 64rem) {
+  body:has(.app-shell) .site-footer {
+    padding-left: 16rem;
   }
 }

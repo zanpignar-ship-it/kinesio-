@@ -11,7 +11,7 @@ import { createBrowserSupabase } from '@/lib/supabase/browser';
 
 type Props = { token: string; organizationId: string; linkId: string; plots: { id: string; label: string }[] };
 
-const field = 'border-input h-10 w-full rounded-md border bg-transparent px-3 text-base md:text-sm';
+const field = 'border-input h-10 w-full rounded-md border bg-card px-3 text-base md:text-sm';
 
 /** Upload a permit or certificate: the file goes to the link's own folder, then the database records it. */
 export function PortalDocumentForm({ token, organizationId, linkId, plots }: Props) {

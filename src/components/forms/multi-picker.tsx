@@ -53,7 +53,7 @@ export function MultiPicker({ name, items, initial, legend, hint, searchLabel, e
               placeholder={searchLabel}
               value={q}
               onChange={(e) => setQ(e.target.value)}
-              className="border-input h-10 rounded-md border bg-transparent px-3 text-base md:text-sm"
+              className="border-input h-10 rounded-md border bg-card px-3 text-base md:text-sm"
             />
           ) : null}
           <ul className="max-h-64 divide-y overflow-y-auto rounded-md border">

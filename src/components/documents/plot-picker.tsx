@@ -33,7 +33,7 @@ export function PlotPicker({ plots, initial }: { plots: Plot[]; initial: string[
             placeholder={t('searchPlots')}
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            className="border-input h-10 rounded-md border bg-transparent px-3 text-base md:text-sm"
+            className="border-input h-10 rounded-md border bg-card px-3 text-base md:text-sm"
           />
           <ul className="max-h-64 divide-y overflow-y-auto rounded-md border">
             {shown.map((p) => (

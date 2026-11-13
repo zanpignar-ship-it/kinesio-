@@ -42,6 +42,6 @@ test('the home page links to sign-up and login', async ({ page }) => {
   await page.getByRole('link', { name: msg('sl').home.cta }).first().click();
   await expect(page).toHaveURL(/\/sl\/signup$/);
   await page.goto('/sl');
-  await page.getByRole('link', { name: msg('sl').auth.signInTitle }).click();
+  await page.getByRole('link', { name: msg('sl').auth.signInTitle }).first().click();
   await expect(page).toHaveURL(/\/sl\/login$/);
 });

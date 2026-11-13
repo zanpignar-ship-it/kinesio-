@@ -1,4 +1,5 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
+import { Inter } from 'next/font/google';
 import type { ReactNode } from 'react';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
@@ -6,6 +7,10 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { SiteFooter } from '@/components/site-footer';
 import { routing } from '@/i18n/routing';
 import '../globals.css';
+
+const inter = Inter({ subsets: ['latin', 'latin-ext'], variable: '--font-inter', display: 'swap' });
+
+export const viewport: Viewport = { themeColor: '#1f3d2e' };
 
 type Props = { children: ReactNode; params: Promise<{ locale: string }> };
 
@@ -24,7 +29,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
   return (
-    <html lang={locale}>
+    <html lang={locale} className={inter.variable}>
       <body className="flex min-h-dvh flex-col">
         <NextIntlClientProvider>
           <div className="flex-1">{children}</div>

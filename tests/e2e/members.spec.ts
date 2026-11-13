@@ -41,7 +41,7 @@ test('the colleague signs up from the link and joins as a member', async ({ brow
   await page.getByRole('button', { name: 'Ustvari račun' }).click();
   await page.getByRole('button', { name: 'Sprejmi povabilo' }).click();
   await page.waitForURL('**/sl/app');
-  await expect(page.getByText('Žaga Vabila', { exact: true })).toBeVisible();
+  await expect(page.getByRole('main').getByText('Žaga Vabila', { exact: true })).toBeVisible();
 
   await page.goto('/sl/app/settings');
   await expect(page.getByText('Podatke lahko spreminja samo lastnik organizacije.')).toBeVisible();

@@ -11,7 +11,7 @@ import { FIELDS, type Entity } from '@/lib/masterdata/config';
 import type { Options } from '@/lib/masterdata/queries';
 import { COUNTRIES } from '@/lib/masterdata/schemas';
 
-const selectClass = 'border-input h-10 w-full rounded-md border bg-transparent px-3 text-base shadow-xs md:text-sm';
+const selectClass = 'border-input h-10 w-full rounded-md border bg-card px-3 text-base shadow-xs md:text-sm';
 
 type Props = { entity: Entity; id?: string; values?: Record<string, string>; options?: Options; defaultCountry: string };
 

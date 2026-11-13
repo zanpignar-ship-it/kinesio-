@@ -99,13 +99,13 @@ export default async function PlotsPage({ params, searchParams }: Props) {
         <label htmlFor="q" className="sr-only">
           {t('search')}
         </label>
-        <input id="q" name="q" defaultValue={filters.q} placeholder={t('search')} className="border-input h-10 w-full max-w-sm rounded-md border bg-transparent px-3 text-base md:text-sm" />
+        <input id="q" name="q" defaultValue={filters.q} placeholder={t('search')} className="border-input h-10 w-full max-w-sm rounded-md border bg-card px-3 text-base md:text-sm" />
         {suppliers.length > 0 ? (
           <>
             <label htmlFor="supplier" className="sr-only">
               {t('supplier')}
             </label>
-            <select id="supplier" name="supplier" defaultValue={filters.supplier ?? ''} className="border-input h-10 max-w-56 rounded-md border bg-transparent px-3 text-sm">
+            <select id="supplier" name="supplier" defaultValue={filters.supplier ?? ''} className="border-input h-10 max-w-56 rounded-md border bg-card px-3 text-sm">
               <option value="">{t('allSuppliers')}</option>
               {suppliers.map((s) => (
                 <option key={s.id} value={s.id}>

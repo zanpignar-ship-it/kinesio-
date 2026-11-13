@@ -34,7 +34,7 @@ type Props = {
   defaultCountry: string;
 };
 
-const selectClass = 'border-input h-10 w-full rounded-md border bg-transparent px-3 text-base shadow-xs md:text-sm';
+const selectClass = 'border-input h-10 w-full rounded-md border bg-card px-3 text-base shadow-xs md:text-sm';
 
 export function ShipmentForm({ options, initial, defaultCountry }: Props) {
   const t = useTranslations('ship');

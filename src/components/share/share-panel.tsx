@@ -27,7 +27,7 @@ export function SharePanel({ shipmentId, shares }: { shipmentId: string; shares:
         <input type="hidden" name="locale" value={locale} />
         <div className="flex flex-col gap-1">
           <Label htmlFor="days">{t('expiresIn')}</Label>
-          <select id="days" name="days" defaultValue="30" className="border-input h-10 rounded-md border bg-transparent px-3 text-base md:text-sm">
+          <select id="days" name="days" defaultValue="30" className="border-input h-10 rounded-md border bg-card px-3 text-base md:text-sm">
             {[7, 30, 90, 365].map((d) => (
               <option key={d} value={d}>
                 {t('daysOption', { days: d })}

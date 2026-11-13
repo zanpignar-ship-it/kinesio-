@@ -10,7 +10,7 @@ import { ORG_COUNTRIES } from '@/lib/auth/schemas';
 import { Constants } from '@/lib/db/database.types';
 
 const selectClass =
-  'border-input h-10 w-full rounded-md border bg-transparent px-3 text-base shadow-xs outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] md:text-sm';
+  'border-input h-10 w-full rounded-md border bg-card px-3 text-base shadow-xs outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] md:text-sm';
 
 type Props = {
   /** Server action; defaults to creating a new organization. */
