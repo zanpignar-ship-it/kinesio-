@@ -5,6 +5,8 @@ import { daysUntil, eudrStartDate } from '@/lib/eudr/deadline';
 import { expiringDocuments } from '@/lib/documents/queries';
 import { plotStatusCounts } from '@/lib/plots/queries';
 import { todoItems } from '@/lib/dashboard/todo';
+import { Button } from '@/components/ui/button';
+import { loadSampleData } from './actions';
 import { listShipments } from '@/lib/shipments/queries';
 import { ShipmentStatusBadge } from '@/components/shipments/shipment-status-badge';
 import { Link } from '@/i18n/navigation';
@@ -41,6 +43,20 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
           <CardDescription>{days > 0 ? t('deadlineDays', { days }) : t('deadlinePassed')}</CardDescription>
         </CardHeader>
       </Card>
+      {counts.valid + counts.warning + counts.error === 0 && shipments.length === 0 ? (
+        <Card data-testid="sample">
+          <CardHeader>
+            <CardTitle>{t('sampleTitle')}</CardTitle>
+            <CardDescription>{t('sampleText')}</CardDescription>
+          </CardHeader>
+          <form action={loadSampleData} className="px-6">
+            <input type="hidden" name="locale" value={locale} />
+            <Button type="submit" variant="outline">
+              {t('sampleButton')}
+            </Button>
+          </form>
+        </Card>
+      ) : null}
       <Card data-testid="todo">
         <CardHeader>
           <CardTitle>{t('todoTitle')}</CardTitle>

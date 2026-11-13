@@ -209,7 +209,10 @@
       "plotsNoHarvest": "Čestice bez datuma sječe",
       "plotsNoSupplier": "Čestice bez dobavljača",
       "supplierPlots": "Čestice dobavljača za provjeru"
-    }
+    },
+    "sampleTitle": "Započnite s primjerom",
+    "sampleText": "Još nemate podataka. Učitajte primjer (dobavljač, dvije čestice, proizvod, kupac i nacrt pošiljke) da isprobate IZVOR. Primjer kasnije možete izbrisati.",
+    "sampleButton": "Učitaj primjer podataka"
   },
   "plots": {
     "title": "Čestice",

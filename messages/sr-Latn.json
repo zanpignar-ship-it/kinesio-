@@ -209,7 +209,10 @@
       "plotsNoHarvest": "Parcele bez datuma seče",
       "plotsNoSupplier": "Parcele bez dobavljača",
       "supplierPlots": "Parcele dobavljača za proveru"
-    }
+    },
+    "sampleTitle": "Počnite sa primerom",
+    "sampleText": "Još nemate podataka. Učitajte primer (dobavljač, dve parcele, proizvod, kupac i nacrt pošiljke) da isprobate IZVOR. Primer kasnije možete obrisati.",
+    "sampleButton": "Učitaj primer podataka"
   },
   "plots": {
     "title": "Parcele",

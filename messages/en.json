@@ -206,7 +206,10 @@
       "plotsNoHarvest": "Plots without a harvest date",
       "plotsNoSupplier": "Plots without a supplier",
       "supplierPlots": "Supplier plots to review"
-    }
+    },
+    "sampleTitle": "Start with a sample",
+    "sampleText": "You have no data yet. Load a sample (supplier, two plots, product, customer and a draft shipment) to try IZVOR. You can delete it later.",
+    "sampleButton": "Load sample data"
   },
   "plots": {
     "title": "Plots",

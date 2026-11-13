@@ -206,7 +206,10 @@
       "plotsNoHarvest": "Parcele brez datuma poseka",
       "plotsNoSupplier": "Parcele brez dobavitelja",
       "supplierPlots": "Parcele dobaviteljev za preverjanje"
-    }
+    },
+    "sampleTitle": "Začnite s primerom",
+    "sampleText": "Še nimate podatkov. Naložite primer (dobavitelj, dve parceli, izdelek, kupec in osnutek pošiljke), da preizkusite IZVOR. Primer lahko kasneje izbrišete.",
+    "sampleButton": "Naloži primer podatkov"
   },
   "plots": {
     "title": "Parcele",
