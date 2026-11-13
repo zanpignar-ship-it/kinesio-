@@ -150,7 +150,7 @@ describe('producers per commodity', () => {
     const c = { description: 'X', hsCode: '4403', netMassKg: 1, volumeM3: null, pieces: null, scientificName: 'Picea abies', commonName: 'smreka' };
     expect(commodityPlots({ ...c, plotIds: ['b'] }, plots).map((p) => p.label)).toEqual(['B']);
     expect(commodityPlots({ ...c, plotIds: [] }, plots)).toHaveLength(2);
-    expect(commodityPlots({ ...c, plotIds: ['zz'] }, plots)).toHaveLength(2);
+    expect(commodityPlots({ ...c, plotIds: ['zz'] }, plots)).toHaveLength(0);
     const xml = body({ internalRef: 'S', activity: 'DOMESTIC', countryOfActivity: 'SI', geoLocationConfidential: false, plots, commodities: [{ ...c, plotIds: ['a'] }, { ...c, plotIds: ['b'] }] });
     const commodities = xml.split('<dds:commodities>').slice(1);
     expect(commodities[0]).toContain('<dds:country>SI</dds:country>');

@@ -38,6 +38,7 @@ export async function plotsAwaitingReview(organizationId: string): Promise<numbe
     .select('id', { count: 'exact', head: true })
     .eq('organization_id', organizationId)
     .not('submitted_via_link', 'is', null)
+    .is('archived_at', null)
     .contains('validation_issues', JSON.stringify([{ code: 'SUPPLIER_SUBMITTED' }]));
   return count ?? 0;
 }

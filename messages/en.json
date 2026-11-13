@@ -901,7 +901,8 @@
       "tooLarge": "The geolocation is too large (over 25 MB in the statement).",
       "internalRef": "The internal reference is longer than 50 characters.",
       "importOnly": "A company outside the EU can only submit import statements.",
-      "pointArea": "A plot entered as a point needs an area between 0.0001 and 4 ha."
+      "pointArea": "A plot entered as a point needs an area between 0.0001 and 4 ha.",
+      "itemPlots": "A product has chosen plots that are no longer in the shipment. Fix the product's plot selection."
     },
     "errors": {
       "environment": "Choose an environment.",

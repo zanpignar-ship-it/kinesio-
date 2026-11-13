@@ -16,16 +16,20 @@ export async function SupplierLinks({ organizationId, supplierId }: { organizati
     .eq('organization_id', organizationId)
     .eq('supplier_id', supplierId)
     .order('created_at', { ascending: false })
-    .limit(20);
+    .limit(500);
+  // Every active link (so each can be revoked) and the latest inactive ones for context.
+  const now = new Date();
+  const active = (links ?? []).filter((l) => !l.revoked_at && new Date(l.expires_at) > now);
+  const shown = [...active, ...(links ?? []).filter((l) => !active.includes(l)).slice(0, 10)];
   const date = (d: string) => format.dateTime(new Date(d), { dateStyle: 'medium' });
   return (
     <section className="flex flex-col gap-3 rounded-xl border p-4" data-testid="supplier-links">
       <h2 className="text-lg font-semibold">{t('ownerTitle')}</h2>
       <p className="text-muted-foreground text-sm">{t('ownerIntro')}</p>
       <SupplierLinkForm supplierId={supplierId} />
-      {links?.length ? (
+      {shown.length ? (
         <ul className="divide-y text-sm">
-          {links.map((l) => {
+          {shown.map((l) => {
             const active = !l.revoked_at && new Date(l.expires_at) > new Date();
             return (
               <li key={l.id} className="flex flex-wrap items-center gap-3 py-2">

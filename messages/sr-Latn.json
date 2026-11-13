@@ -904,7 +904,8 @@
       "tooLarge": "Geolokacija je prevelika (više od 25 MB u izjavi).",
       "internalRef": "Interna oznaka je duža od 50 znakova.",
       "importOnly": "Preduzeće van EU može podneti samo izjavu za uvoz.",
-      "pointArea": "Parcela kao tačka treba površinu između 0,0001 i 4 ha."
+      "pointArea": "Parcela kao tačka treba površinu između 0,0001 i 4 ha.",
+      "itemPlots": "Proizvod ima izabrane parcele koje više nisu u pošiljci. Ispravite izbor parcela kod proizvoda."
     },
     "errors": {
       "environment": "Izaberite okruženje.",

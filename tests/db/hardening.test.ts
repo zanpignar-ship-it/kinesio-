@@ -32,7 +32,7 @@ describe('2: organization_id is immutable', () => {
   it('a member of A and B cannot move a document from A to B', async () => {
     await asUser(ids.carol, async (c) => {
       const { rows } = await c.query<{ id: string }>(
-        "insert into documents (organization_id, type, title, file_path, mime, size_bytes) values ($1, 'other', 'X', 'x', 'application/pdf', 1) returning id",
+        "insert into documents (organization_id, type, title, file_path, mime, size_bytes) values ($1::uuid, 'other', 'X', $1::text || '/d/x.pdf', 'application/pdf', 1) returning id",
         [ids.orgA],
       );
       await expectSqlError(c, 'update documents set organization_id = $2 where id = $1', [rows[0]!.id, ids.orgB], 'P0001');

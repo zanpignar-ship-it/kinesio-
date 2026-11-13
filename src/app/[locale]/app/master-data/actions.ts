@@ -63,7 +63,8 @@ export async function importRecords(entity: string, records: Record<string, stri
   // Existing records (paged past the 1000-row API limit).
   const existing = new Set<string>();
   for (let from = 0; ; from += 1000) {
-    const { data } = await ctx.supabase.from(entity).select('id, name, country').eq('organization_id', ctx.organizationId).order('id').range(from, from + 999);
+    const { data, error: readError } = await ctx.supabase.from(entity).select('id, name, country').eq('organization_id', ctx.organizationId).order('id').range(from, from + 999);
+    if (readError) return { error: 'md.errors.unknown' };
     for (const d of data ?? []) existing.add(recordKey({ name: d.name, country: d.country }));
     if (!data || data.length < 1000) break;
   }

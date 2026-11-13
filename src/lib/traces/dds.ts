@@ -26,7 +26,7 @@ export type DdsInput = {
   plots: ExportPlot[];
 };
 
-export type DdsProblem = 'noCommodities' | 'noPlots' | 'speciesNames' | 'netMass' | 'quantity' | 'tooManyProducers' | 'hsCode' | 'producerCountry' | 'tooLarge' | 'internalRef' | 'importOnly' | 'pointArea';
+export type DdsProblem = 'noCommodities' | 'noPlots' | 'speciesNames' | 'netMass' | 'quantity' | 'tooManyProducers' | 'hsCode' | 'producerCountry' | 'tooLarge' | 'internalRef' | 'importOnly' | 'pointArea' | 'itemPlots';
 
 const EU = new Set(['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'XI']);
 export const isEuCountry = (c: string | null | undefined): boolean => Boolean(c && EU.has(c.toUpperCase()));
@@ -61,6 +61,7 @@ export function checkDds(input: DdsInput): DdsProblem[] {
     if (!/^[0-9]{2,10}$/.test(c.hsCode)) out.add('hsCode');
   }
   const producers = groupProducers(input.plots);
+  if (input.plots.length && input.commodities.some((c) => commodityPlots(c, input.plots).length === 0)) out.add('itemPlots');
   // 1000 producers per commodity, 10,000 per statement.
   const perCommodity = input.commodities.map((c) => groupProducers(commodityPlots(c, input.plots)).length);
   if (perCommodity.some((n) => n > 1000) || perCommodity.reduce((a, b) => a + b, 0) > 10_000) out.add('tooManyProducers');
@@ -87,8 +88,8 @@ const num = (n: number) => String(Math.round(n * 1e6) / 1e6);
 /** The plots a commodity comes from (its own selection, or every plot of the shipment). */
 export function commodityPlots(c: DdsCommodityInput, plots: ExportPlot[]): ExportPlot[] {
   if (!c.plotIds?.length) return plots;
-  const own = plots.filter((p) => p.id && c.plotIds!.includes(p.id));
-  return own.length ? own : plots;
+  // A product whose chosen plots are no longer in the shipment has no producers (checkDds reports it).
+  return plots.filter((p) => p.id && c.plotIds!.includes(p.id));
 }
 
 /** Body of SubmitDdsRequest (V4). Each commodity carries the producers of its own plots (all plots when none are chosen). */

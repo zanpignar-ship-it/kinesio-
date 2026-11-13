@@ -160,7 +160,10 @@ export async function validateSubmittedPlots(formData: FormData): Promise<void> 
     .select('*')
     .eq('organization_id', organizationId)
     .not('submitted_via_link', 'is', null)
+    .is('archived_at', null)
     .contains('validation_issues', JSON.stringify([{ code: 'SUPPLIER_SUBMITTED' }]))
+    .order('created_at')
+    .order('id')
     .limit(500);
   for (const plot of plots ?? []) {
     const geometry = geometryFromDb(plot.geom);

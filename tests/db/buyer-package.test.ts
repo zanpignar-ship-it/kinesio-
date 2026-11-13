@@ -72,6 +72,14 @@ describe('buyer document access', () => {
       expect((await c.query("select count(*)::int n from storage.objects where bucket_id = 'documents' and name = $1", [doc.file_path])).rows[0].n).toBe(1);
       expect((await c.query('select public.buyer_document_access($1, $2) a', ['valid-token', docB])).rows[0].a).toBeNull();
       expect((await c.query('select public.buyer_document_access($1, $2) a', ['expired-token', doc.id])).rows[0].a).toBeNull();
+      // repeated requests keep one grant per file
+      await c.query('select public.buyer_document_access($1, $2) a', ['valid-token', doc.id]);
+      await c.query('reset role');
+      expect((await c.query('select count(*)::int n from private.buyer_file_grants')).rows[0].n).toBe(1);
+      // revoking the share ends the grant at once
+      await c.query('update buyer_shares set revoked_at = now() where organization_id = $1 and revoked_at is null', [ids.orgA]);
+      await c.query('set role anon');
+      expect((await c.query("select count(*)::int n from storage.objects where bucket_id = 'documents' and name = $1", [doc.file_path])).rows[0].n).toBe(0);
     });
   });
 });

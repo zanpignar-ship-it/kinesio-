@@ -82,3 +82,17 @@ describe('supplier portal', () => {
     await asUser(ids.bob, async (c) => expect((await c.query('select count(*)::int n from supplier_links')).rows[0].n).toBe(0));
   });
 });
+
+describe('portal hardening', () => {
+  it('a document cannot point at another organization\'s file', async () => {
+    await asUser(ids.bob, async (c) => {
+      await expectSqlError(c, "insert into documents (organization_id, type, title, file_path, mime, size_bytes) values ($1, 'other', 'X', $2, 'application/pdf', 1)", [ids.orgB, `${ids.orgA}/doc/x.pdf`], '23514');
+    });
+  });
+  it('links cannot be retargeted or made to last longer than a year', async () => {
+    await asUser(ids.alice, async (c) => {
+      await expectSqlError(c, "update supplier_links set token_hash = extensions.digest('other', 'sha256') where id = $1", [linkId], 'P0001');
+      await expectSqlError(c, "insert into supplier_links (organization_id, supplier_id, token_hash, expires_at) values ($1, $2, extensions.digest('t2', 'sha256'), now() + interval '5 years')", [ids.orgA, supplierA], '23514');
+    });
+  });
+});
