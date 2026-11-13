@@ -1103,6 +1103,7 @@ export type Database = {
       buyer_package: { Args: { p_token: string }; Returns: Json }
       delete_my_account: { Args: { p_dry_run?: boolean }; Returns: Json }
       supplier_portal_info: { Args: { p_token: string }; Returns: Json }
+      buyer_document_access: { Args: { p_token: string; p_document_id: string }; Returns: Json }
       supplier_portal_add_plot: {
         Args: { p_token: string; p_label: string; p_geometry: Json; p_area_ha?: number | null; p_harvest_from?: string | null; p_harvest_to?: string | null }
         Returns: string

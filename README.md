@@ -4,7 +4,7 @@ Orodje za pripravo podatkov za EUDR (Uredba (EU) 2023/1115) za lesno panogo.
 
 - Specifikacija: [docs/superpowers/specs/2026-11-11-lestrace-design.md](docs/superpowers/specs/2026-11-11-lestrace-design.md)
 - Načrti: [docs/superpowers/plans/](docs/superpowers/plans/)
-- Predogled (Vercel, ekipa ZAPI, projekt `lestrace`): https://lestrace-f5vqqsjiw-zapi1.vercel.app/sl
+- Predogled (Vercel, ekipa ZAPI, projekt `lestrace`): https://lestrace-1jzescx18-zapi1.vercel.app/sl
 - Baza: Supabase projekt `lestrace-dev` (eu-central-1)
 
 ## Razvoj
@@ -37,7 +37,7 @@ Uveljavljene so migracije do `20261112000007` in `20261112000009_risk.sql`. Te s
 - `supabase/migrations/20261112000005_delete_account.sql` – izbris računa v nastavitvah. TODO: preveri, ali lahko vloga `postgres` na Supabase briše iz `auth.users`.
 - `supabase/migrations/20261112000008_integrity.sql` – popravki iz pregleda kode (shranjevanje pošiljke v eni transakciji, zaklep oddane pošiljke v bazi, preklic povezave za kupca je dokončen, potrjen e-naslov za vabila). Po uveljavitvi preklopiti akcije pošiljk in dokumentov na `save_shipment_children` / `set_document_plots`.
 - Čiščenje testnih uporabnikov e2e: `scripts/cleanup-e2e.sql`.
-- Skrivni ključ `SUPABASE_SERVICE_ROLE_KEY` v Vercelu (portal za dobavitelje, prenos dokumentov s strani za kupca).
+- ~~Skrivni ključ `SUPABASE_SERVICE_ROLE_KEY`~~ – ni več potreben (portal za dobavitelje in prenos dokumentov za kupca delujeta prek funkcij v bazi).
 
 ## TRACES (neposredna oddaja izjave)
 Kaj mora narediti uporabnik (enkrat):

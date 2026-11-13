@@ -104,7 +104,13 @@ export default async function SharePage({ params }: Props) {
                   <ul className="list-inside list-disc text-sm">
                     {sh.documents.map((d, n) => (
                       <li key={n}>
-                        {d.title}
+                        {d.id ? (
+                          <a href={`/${locale}/share/${token}/document/${d.id}`} className="underline underline-offset-4" target="_blank" rel="noreferrer">
+                            {d.title}
+                          </a>
+                        ) : (
+                          d.title
+                        )}
                         {d.valid_to ? ` (${t('validTo')} ${d.valid_to})` : ''}
                       </li>
                     ))}

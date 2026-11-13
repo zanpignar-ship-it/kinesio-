@@ -174,7 +174,7 @@ begin
           from public.shipment_plots sp2 join public.plots pl on pl.id = sp2.plot_id
           where sp2.shipment_id = s.id and sp2.geom_snapshot is not null), '[]'::jsonb),
         'documents', case when v_share.include_documents then coalesce((
-          select jsonb_agg(jsonb_build_object('title', d.title, 'type', d.type, 'valid_from', d.valid_from, 'valid_to', d.valid_to) order by d.title)
+          select jsonb_agg(jsonb_build_object('id', d.id, 'title', d.title, 'type', d.type, 'valid_from', d.valid_from, 'valid_to', d.valid_to) order by d.title)
           from public.shipment_documents sd join public.documents d on d.id = sd.document_id
           where sd.shipment_id = s.id), '[]'::jsonb) else '[]'::jsonb end
       ) order by s.internal_ref)

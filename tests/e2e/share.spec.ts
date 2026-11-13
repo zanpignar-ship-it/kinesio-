@@ -17,6 +17,13 @@ test('the owner downloads the buyer PDF and creates a buyer link', async ({ page
     .single();
   const ship = await client.from('shipments').insert({ organization_id: organizationId, internal_ref: 'B-1', mode: 'submit_dds', activity: 'export', country_of_production: 'SI' }).select('id').single();
   await client.from('shipment_plots').insert({ organization_id: organizationId, shipment_id: ship.data!.id, plot_id: plot.data!.id, geom_snapshot: { type: 'Polygon', crs, coordinates: [ring] } as unknown as string });
+  // a permit attached to the shipment (file in storage) – the buyer downloads it later
+  const docId = crypto.randomUUID();
+  const filePath = `${organizationId}/${docId}/dovoljenje.pdf`;
+  const up = await client.storage.from('documents').upload(filePath, new Blob(['%PDF-1.4 dovoljenje'], { type: 'application/pdf' }), { contentType: 'application/pdf' });
+  expect(up.error).toBeNull();
+  await client.from('documents').insert({ id: docId, organization_id: organizationId, type: 'felling_permit', title: 'Dovoljenje za posek', file_path: filePath, mime: 'application/pdf', size_bytes: 19 });
+  await client.from('shipment_documents').insert({ organization_id: organizationId, shipment_id: ship.data!.id, document_id: docId });
 
   await page.goto(`/sl/app/shipments/${ship.data!.id}`);
   const download = page.waitForEvent('download');
@@ -50,5 +57,16 @@ test('the buyer opens the link without signing in', async ({ browser }) => {
     return { pdf: pdf.status, pdfType: pdf.headers.get('content-type'), geo: geo.status, features: ((await geo.json()) as { features: unknown[] }).features.length };
   }, path);
   expect(res).toEqual({ pdf: 200, pdfType: 'application/pdf', geo: 200, features: 1 });
+
+  const docLink = page.getByRole('link', { name: 'Dovoljenje za posek' });
+  const href = (await docLink.getAttribute('href'))!;
+  const doc = await page.evaluate(async (h) => {
+    const r = await fetch(h);
+    return { status: r.status, text: await r.text() };
+  }, href);
+  expect(doc).toEqual({ status: 200, text: '%PDF-1.4 dovoljenje' });
+  // a made-up document id gives nothing
+  const missing = await page.evaluate(async (h) => (await fetch(h.replace(/document\/[^/]+$/, 'document/00000000-0000-4000-a000-000000000000'), { redirect: 'manual' })).status, href);
+  expect(missing).toBe(404);
   await context.close();
 });

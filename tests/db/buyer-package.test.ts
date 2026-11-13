@@ -59,3 +59,19 @@ describe('buyer_package', () => {
     });
   });
 });
+
+describe('buyer document access', () => {
+  it('grants one shared document for a valid token, nothing otherwise', async () => {
+    const doc = (await pool.query<{ id: string; file_path: string }>('select id, file_path from documents where organization_id = $1', [ids.orgA])).rows[0]!;
+    const docB = (await pool.query<{ id: string }>('select id from documents where organization_id = $1', [ids.orgB])).rows[0]!.id;
+    await pool.query("insert into storage.objects (bucket_id, name) values ('documents', $1) on conflict do nothing", [doc.file_path]);
+    await asUser(null, async (c) => {
+      expect((await c.query("select count(*)::int n from storage.objects where bucket_id = 'documents'")).rows[0].n).toBe(0);
+      const { rows } = await c.query('select public.buyer_document_access($1, $2) a', ['valid-token', doc.id]);
+      expect(rows[0].a.path).toBe(doc.file_path);
+      expect((await c.query("select count(*)::int n from storage.objects where bucket_id = 'documents' and name = $1", [doc.file_path])).rows[0].n).toBe(1);
+      expect((await c.query('select public.buyer_document_access($1, $2) a', ['valid-token', docB])).rows[0].a).toBeNull();
+      expect((await c.query('select public.buyer_document_access($1, $2) a', ['expired-token', doc.id])).rows[0].a).toBeNull();
+    });
+  });
+});
