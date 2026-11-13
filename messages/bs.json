@@ -968,5 +968,17 @@
       "area": "Za tačku upišite površinu u hektarima.",
       "title": "Upišite naziv dokumenta."
     }
+  },
+  "errorPage": {
+    "title": "Došlo je do greške",
+    "text": "Pri obradi zahtjeva nešto je pošlo naopako. Vaši podaci su sigurni. Pokušajte ponovo ili se vratite na kontrolnu ploču.",
+    "code": "Kod greške: {code}",
+    "retry": "Pokušaj ponovo",
+    "home": "Na kontrolnu ploču"
+  },
+  "notFound": {
+    "title": "Stranica nije pronađena",
+    "text": "Link je pogrešan ili stranica više ne postoji.",
+    "home": "Na početnu stranicu"
   }
 }

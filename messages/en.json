@@ -965,5 +965,17 @@
       "area": "For a point, enter the area in hectares.",
       "title": "Enter the document title."
     }
+  },
+  "errorPage": {
+    "title": "Something went wrong",
+    "text": "Something went wrong while handling the request. Your data is safe. Try again or go back to the dashboard.",
+    "code": "Error code: {code}",
+    "retry": "Try again",
+    "home": "To the dashboard"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "The link is wrong or the page no longer exists.",
+    "home": "To the home page"
   }
 }

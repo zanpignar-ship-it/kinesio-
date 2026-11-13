@@ -965,5 +965,17 @@
       "area": "Pri točki vpišite površino v hektarjih.",
       "title": "Vpišite naziv dokumenta."
     }
+  },
+  "errorPage": {
+    "title": "Prišlo je do napake",
+    "text": "Pri obdelavi zahteve je šlo nekaj narobe. Vaši podatki so varni. Poskusite znova ali se vrnite na nadzorno ploščo.",
+    "code": "Koda napake: {code}",
+    "retry": "Poskusi znova",
+    "home": "Na nadzorno ploščo"
+  },
+  "notFound": {
+    "title": "Strani ni mogoče najti",
+    "text": "Povezava je napačna ali pa stran ne obstaja več.",
+    "home": "Na začetno stran"
   }
 }
