@@ -609,7 +609,19 @@
     "exportCsv": "Export to Excel (CSV)",
     "lockedTraces": "The statement is in TRACES – the shipment cannot be changed unless you withdraw it.",
     "itemPlotsAll": "Plots of this product: all",
-    "itemPlotsSome": "Plots of this product: {count} of {total}"
+    "itemPlotsSome": "Plots of this product: {count} of {total}",
+    "summary": "Summary",
+    "steps": {
+      "check": "Check the data",
+      "checkHint": "The checklist shows what is still missing.",
+      "risk": "Risk assessment",
+      "riskHint": "Record the assessment and measures; low risk needs only simplified due diligence.",
+      "submit": "Submit the statement",
+      "submitHint": "Submit to TRACES, or copy the data there and enter the DDS numbers.",
+      "referenceHint": "Enter the reference numbers of the statement you rely on.",
+      "buyer": "Buyer package",
+      "buyerHint": "Send the buyer a link or PDF with the DDS numbers."
+    }
   },
   "share": {
     "title": "Buyer package",

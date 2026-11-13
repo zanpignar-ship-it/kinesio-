@@ -612,7 +612,19 @@
     "exportCsv": "Izvezi u Excel (CSV)",
     "lockedTraces": "Izjava je podnesena u TRACES – pošiljku nije moguće mijenjati dok je ne povučete.",
     "itemPlotsAll": "Čestice ovog proizvoda: sve",
-    "itemPlotsSome": "Čestice ovog proizvoda: {count} od {total}"
+    "itemPlotsSome": "Čestice ovog proizvoda: {count} od {total}",
+    "summary": "Sažetak",
+    "steps": {
+      "check": "Provjerite podatke",
+      "checkHint": "Kontrolni popis pokazuje što još nedostaje.",
+      "risk": "Procjena rizika",
+      "riskHint": "Zapišite procjenu i mjere; kod niskog rizika dovoljna je pojednostavljena provjera.",
+      "submit": "Podnošenje izjave",
+      "submitHint": "Podnesite izjavu u TRACES ili prepišite podatke i upišite brojeve DDS.",
+      "referenceHint": "Upišite referentne brojeve izjave na koju se pozivate.",
+      "buyer": "Paket za kupca",
+      "buyerHint": "Pošaljite kupcu poveznicu ili PDF s brojevima DDS."
+    }
   },
   "share": {
     "title": "Paket za kupca",
