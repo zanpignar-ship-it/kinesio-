@@ -14,6 +14,10 @@ const str = (fd: FormData, k: string) => {
 };
 
 async function linkPlots(supabase: NonNullable<Awaited<ReturnType<typeof getPlotContext>>>['supabase'], organizationId: string, documentId: string, plotIds: string[]) {
+  // Atomic when the database has set_document_plots (migration 20261112000008_integrity); otherwise step by step.
+  const rpc = await supabase.rpc('set_document_plots', { p_document: documentId, p_plot_ids: plotIds });
+  if (!rpc.error) return null;
+  if (rpc.error.code !== 'PGRST202') return rpc.error;
   await supabase.from('plot_documents').delete().eq('organization_id', organizationId).eq('document_id', documentId);
   if (plotIds.length === 0) return null;
   const { error } = await supabase

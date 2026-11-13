@@ -23,6 +23,17 @@ const str = (fd: FormData, k: string) => {
  */
 async function writeChildren(ctx: Ctx, shipmentId: string, data: ShipmentFormInput): Promise<boolean> {
   const { supabase, organizationId: org } = ctx;
+  // One transaction in the database (migration 20261112000008_integrity); the step-by-step path below is used
+  // only while that function does not exist yet (PGRST202 = function not found).
+  const rpc = await supabase.rpc('save_shipment_children', {
+    p_shipment: shipmentId,
+    p_items: data.items.map((i) => ({ productId: i.productId, netMassKg: i.netMassKg, volumeM3: i.volumeM3, pieces: i.pieces, plotIds: i.plotIds.filter((p) => data.plotIds.includes(p)) })) as never,
+    p_plot_ids: data.plotIds,
+    p_document_ids: data.documentIds,
+    p_references: data.references.map((r) => ({ kind: r.kind, referenceNo: r.referenceNo, verificationNo: r.verificationNo, supplierId: r.supplierId })) as never,
+  });
+  if (!rpc.error) return true;
+  if (rpc.error.code !== 'PGRST202') return false;
   const del = await Promise.all([
     supabase.from('shipment_items').delete().eq('organization_id', org).eq('shipment_id', shipmentId),
     supabase.from('shipment_plots').delete().eq('organization_id', org).eq('shipment_id', shipmentId),
