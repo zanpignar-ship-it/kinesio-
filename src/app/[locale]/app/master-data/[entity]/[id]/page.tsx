@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { RecordForm } from '@/components/masterdata/record-form';
 import { SupplierOverview } from '@/components/masterdata/supplier-overview';
+import { SupplierLinks } from '@/components/portal/supplier-links';
 import { Link } from '@/i18n/navigation';
 import { getCurrentMembership, requireUser } from '@/lib/auth/session';
 import { isEntity, toFormValues } from '@/lib/masterdata/config';
@@ -24,6 +25,7 @@ export default async function RecordPage({ params }: { params: Promise<{ locale:
       </Link>
       <h1 className="text-2xl font-bold tracking-tight">{String(row.name)}</h1>
       <RecordForm entity={entity} id={id} values={toFormValues(entity, row)} options={options} defaultCountry={current.organization.country} />
+      {entity === 'suppliers' ? <SupplierLinks organizationId={current.organization.id} supplierId={id} /> : null}
       {entity === 'suppliers' ? <SupplierOverview organizationId={current.organization.id} supplierId={id} /> : null}
     </div>
   );

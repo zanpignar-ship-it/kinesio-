@@ -149,6 +149,51 @@ export async function bulkUpdatePlots(_prev: BulkState, formData: FormData): Pro
   return { updated: data?.length ?? 0 };
 }
 
+/** Validate plots added by suppliers through the portal (they arrive marked SUPPLIER_SUBMITTED). */
+export async function validateSubmittedPlots(formData: FormData): Promise<void> {
+  const locale = String(formData.get('locale') ?? 'sl');
+  const ctx = await getPlotContext();
+  if (!ctx) return;
+  const { supabase, organizationId } = ctx;
+  const { data: plots } = await supabase
+    .from('plots')
+    .select('*')
+    .eq('organization_id', organizationId)
+    .not('submitted_via_link', 'is', null)
+    .contains('validation_issues', JSON.stringify([{ code: 'SUPPLIER_SUBMITTED' }]))
+    .limit(500);
+  for (const plot of plots ?? []) {
+    const geometry = geometryFromDb(plot.geom);
+    let others: { id: string; geometry: PlotGeometry }[] = [];
+    try {
+      others = geometry ? await nearbyPlots(supabase, organizationId, [geometry as PlotGeometry], plot.id) : [];
+    } catch {
+      continue;
+    }
+    // Points keep the area the supplier declared; precision is measured from the stored numbers.
+    const row = toRow(
+      preparePlot(
+        {
+          label: plot.label,
+          country: plot.country,
+          geometry,
+          declaredAreaHa: plot.area_source === 'declared' && plot.area_ha !== null ? Number(plot.area_ha) : undefined,
+          cadastralNo: plot.cadastral_no ?? undefined,
+          cadastralMunicipality: plot.cadastral_municipality ?? undefined,
+          postalAddress: plot.postal_address ?? undefined,
+        },
+        others,
+      ),
+    );
+    await supabase
+      .from('plots')
+      .update({ geom: row.geom, area_ha: row.area_ha, area_source: row.area_source, validation_status: row.validation_status, validation_issues: row.validation_issues })
+      .eq('organization_id', organizationId)
+      .eq('id', plot.id);
+  }
+  revalidatePath(`/${locale}/app/plots`);
+}
+
 export async function archivePlot(_prev: PlotFormState, formData: FormData): Promise<PlotFormState> {
   const { id, locale = 'sl', restore } = readForm(formData);
   const ctx = await getPlotContext();

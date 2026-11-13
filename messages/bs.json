@@ -93,7 +93,8 @@
       "CRS_GUESSED": "Datoteka nema podatak o koordinatnom sistemu. Pretpostavljamo {crs} (slovenski D96/TM), ali može biti i {alternatives} (stari D48/GK, razlika ~600 m). Potvrdite ispravan sistem.",
       "CRS_UNKNOWN": "Koordinatni sistem datoteke nije poznat. Izvezite datoteku u WGS-84 (EPSG:4326).",
       "PARSE_FAILED": "Datoteku ili red nije bilo moguće pročitati.",
-      "EXPORT_TOO_LARGE": "Datoteka GeoJSON je prevelika ({bytes} bajtova, najviše {max}). Podijelite pošiljku ili pojednostavite poligone."
+      "EXPORT_TOO_LARGE": "Datoteka GeoJSON je prevelika ({bytes} bajtova, najviše {max}). Podijelite pošiljku ili pojednostavite poligone.",
+      "SUPPLIER_SUBMITTED": "Parcelu je unio dobavljač preko portala – još nije provjerena."
     }
   },
   "auth": {
@@ -195,7 +196,8 @@
       "readyShipments": "Pošiljke spremne za podnošenje u TRACES",
       "draftShipments": "Nacrti pošiljki",
       "plotsNoHarvest": "Parcele bez datuma sječe",
-      "plotsNoSupplier": "Parcele bez dobavljača"
+      "plotsNoSupplier": "Parcele bez dobavljača",
+      "supplierPlots": "Parcele dobavljača za provjeru"
     }
   },
   "plots": {
@@ -271,7 +273,9 @@
     "bulkApply": "Primijeni na odabrane",
     "bulkArchive": "Arhiviraj odabrane",
     "bulkDone": "Ažurirano parcela: {count}.",
-    "select": "Odaberi {label}"
+    "select": "Odaberi {label}",
+    "awaitingReview": "Parcele dobavljača koje čekaju provjeru: {count}.",
+    "validateNow": "Provjeri sada"
   },
   "map": {
     "satellite": "Satelit",
@@ -919,5 +923,45 @@
     "sendingHint": "Izjava se šalje ili odgovor sistema TRACES nije stigao. Provjerite je u TRACES; ponovno podnošenje je zaključano da ne bi nastale dvije izjave.",
     "withdraw": "Povuci izjavu u TRACES",
     "withdrawConfirm": "Izjava će biti povučena u TRACES (moguće 72 sata nakon dodjele broja). Nastaviti?"
+  },
+  "portal": {
+    "ownerTitle": "Link za dobavljača",
+    "ownerIntro": "Dobavljač preko linka bez prijave dodaje svoje parcele (na karti) i učitava dozvole. Vidi samo svoje podatke. Njegove parcele provjerite prije upotrebe u pošiljci.",
+    "validFor": "Važenje",
+    "days": "{days} dana",
+    "createLink": "Napravi link",
+    "linkCreated": "Link je napravljen. Pošaljite ga dobavljaču (e-pošta, SMS, WhatsApp) – prikazuje se samo jednom.",
+    "copy": "Kopiraj link",
+    "copied": "Kopirano",
+    "activeUntil": "Važi do {date}",
+    "revoked": "Opozvan",
+    "expired": "Istekao",
+    "lastUsed": "posljednja upotreba {date}",
+    "neverUsed": "još nije otvoren",
+    "revoke": "Opozovi",
+    "invalidTitle": "Link nije važeći ili je istekao",
+    "invalidHint": "Za novi link zamolite kupca drveta.",
+    "title": "Podaci o porijeklu drveta za {organization}",
+    "intro": "{supplier}, ovdje dodajte parcele s kojih dolazi drvo i učitajte dozvole za sječu. Podaci idu samo ovom kupcu.",
+    "validUntil": "Link važi do {date}.",
+    "yourPlots": "Vaše parcele ({count})",
+    "noPlots": "Još nema parcela.",
+    "addPlotTitle": "Dodaj parcelu",
+    "plotName": "Naziv parcele (npr. katastarski broj ili naziv šume)",
+    "addPlot": "Sačuvaj parcelu",
+    "plotSaved": "Parcela je sačuvana. Kupac će je provjeriti.",
+    "documentsTitle": "Dozvole i dokumenti",
+    "documentPlots": "Za koje parcele važi dokument",
+    "upload": "Učitaj dokument",
+    "documentSaved": "Dokument je učitan.",
+    "privacy": "Podaci koje unesete čuvaju se na serverima u EU i vidljivi su samo preduzeću {organization} u svrhu sljedivosti prema uredbi EUDR.",
+    "errors": {
+      "unknown": "Došlo je do greške. Pokušajte ponovo.",
+      "invalid": "Link više nije važeći.",
+      "geometry": "Na karti označite parcelu (tačku ili obris).",
+      "label": "Upišite naziv parcele.",
+      "area": "Za tačku upišite površinu u hektarima.",
+      "title": "Upišite naziv dokumenta."
+    }
   }
 }

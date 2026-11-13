@@ -181,6 +181,7 @@ export type Database = {
           mime: string
           organization_id: string
           size_bytes: number
+          submitted_via_link: string | null
           title: string
           type: Database["public"]["Enums"]["document_type"]
           updated_at: string
@@ -195,6 +196,7 @@ export type Database = {
           mime: string
           organization_id: string
           size_bytes: number
+          submitted_via_link?: string | null
           title: string
           type: Database["public"]["Enums"]["document_type"]
           updated_at?: string
@@ -209,6 +211,7 @@ export type Database = {
           mime?: string
           organization_id?: string
           size_bytes?: number
+          submitted_via_link?: string | null
           title?: string
           type?: Database["public"]["Enums"]["document_type"]
           updated_at?: string
@@ -501,6 +504,7 @@ export type Database = {
           cadastral_no: string | null
           harvest_from: string | null
           harvest_to: string | null
+          submitted_via_link: string | null
           country: string
           created_at: string
           created_by: string | null
@@ -523,6 +527,7 @@ export type Database = {
           cadastral_no?: string | null
           harvest_from?: string | null
           harvest_to?: string | null
+          submitted_via_link?: string | null
           country: string
           created_at?: string
           created_by?: string | null
@@ -545,6 +550,7 @@ export type Database = {
           cadastral_no?: string | null
           harvest_from?: string | null
           harvest_to?: string | null
+          submitted_via_link?: string | null
           country?: string
           created_at?: string
           created_by?: string | null
@@ -972,6 +978,42 @@ export type Database = {
           },
         ]
       }
+      supplier_links: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          expires_at: string
+          id: string
+          last_used_at: string | null
+          organization_id: string
+          revoked_at: string | null
+          supplier_id: string
+          token_hash: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          expires_at: string
+          id?: string
+          last_used_at?: string | null
+          organization_id: string
+          revoked_at?: string | null
+          supplier_id: string
+          token_hash: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          expires_at?: string
+          id?: string
+          last_used_at?: string | null
+          organization_id?: string
+          revoked_at?: string | null
+          supplier_id?: string
+          token_hash?: string
+        }
+        Relationships: []
+      }
       traces_credentials: {
         Row: {
           auth_key_enc: string
@@ -1060,6 +1102,25 @@ export type Database = {
     Functions: {
       buyer_package: { Args: { p_token: string }; Returns: Json }
       delete_my_account: { Args: { p_dry_run?: boolean }; Returns: Json }
+      supplier_portal_info: { Args: { p_token: string }; Returns: Json }
+      supplier_portal_add_plot: {
+        Args: { p_token: string; p_label: string; p_geometry: Json; p_area_ha?: number | null; p_harvest_from?: string | null; p_harvest_to?: string | null }
+        Returns: string
+      }
+      supplier_portal_add_document: {
+        Args: {
+          p_token: string
+          p_title: string
+          p_type: Database['public']['Enums']['document_type']
+          p_valid_from?: string | null
+          p_valid_to?: string | null
+          p_file_path: string
+          p_mime: string
+          p_size: number
+          p_plot_ids: string[]
+        }
+        Returns: string
+      }
       accept_invitation: { Args: { p_token: string }; Returns: string }
       invitation_info: { Args: { p_token: string }; Returns: Json }
       organization_members: {

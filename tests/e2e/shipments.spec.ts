@@ -19,6 +19,7 @@ test('master data: customer and product', async ({ page }) => {
   await page.getByLabel('Drevesna vrsta').selectOption({ label: 'Picea abies (navadna smreka)' });
   await page.getByRole('button', { name: 'Shrani' }).click();
   await expect(page.getByTestId('record-row')).toHaveCount(1);
+  await page.waitForLoadState('networkidle');
 
   await page.getByLabel('Ime', { exact: true }).fill('Brez vrste');
   await page.getByLabel('HS koda').selectOption('4407');

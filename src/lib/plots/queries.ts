@@ -30,6 +30,18 @@ export async function supplierOptions(organizationId: string): Promise<{ id: str
   return data ?? [];
 }
 
+/** Plots added by suppliers through the portal that the app has not validated yet. */
+export async function plotsAwaitingReview(organizationId: string): Promise<number> {
+  const supabase = await createServerSupabase();
+  const { count } = await supabase
+    .from('plots')
+    .select('id', { count: 'exact', head: true })
+    .eq('organization_id', organizationId)
+    .not('submitted_via_link', 'is', null)
+    .contains('validation_issues', JSON.stringify([{ code: 'SUPPLIER_SUBMITTED' }]));
+  return count ?? 0;
+}
+
 /** Number of active (not archived) plots per validation status. */
 export async function plotStatusCounts(organizationId: string): Promise<Record<PlotStatus, number>> {
   const supabase = await createServerSupabase();

@@ -90,7 +90,8 @@
       "PARSE_FAILED": "Datoteke ali vrstice ni bilo mogoče prebrati.",
       "EXPORT_TOO_LARGE": "Datoteka GeoJSON je prevelika ({bytes} bajtov, največ {max}). Razdelite pošiljko ali poenostavite poligone.",
       "POLYGON_HOLE_OUTSIDE": "Luknja v poligonu leži zunaj njegove zunanje meje. Popravite obris parcele.",
-      "LABEL_POINTS_REMOVED": "Oznake (točke) ob poligonu smo odstranili; uporabljen je samo poligon."
+      "LABEL_POINTS_REMOVED": "Oznake (točke) ob poligonu smo odstranili; uporabljen je samo poligon.",
+      "SUPPLIER_SUBMITTED": "Parcelo je vnesel dobavitelj prek portala – še ni preverjena."
     }
   },
   "auth": {
@@ -192,7 +193,8 @@
       "readyShipments": "Pošiljke, pripravljene za oddajo v TRACES",
       "draftShipments": "Osnutki pošiljk",
       "plotsNoHarvest": "Parcele brez datuma poseka",
-      "plotsNoSupplier": "Parcele brez dobavitelja"
+      "plotsNoSupplier": "Parcele brez dobavitelja",
+      "supplierPlots": "Parcele dobaviteljev za preverjanje"
     }
   },
   "plots": {
@@ -268,7 +270,9 @@
     "bulkApply": "Uporabi za izbrane",
     "bulkArchive": "Arhiviraj izbrane",
     "bulkDone": "Posodobljenih parcel: {count}.",
-    "select": "Izberi {label}"
+    "select": "Izberi {label}",
+    "awaitingReview": "Parcel od dobaviteljev, ki čakajo na preverjanje: {count}.",
+    "validateNow": "Preveri zdaj"
   },
   "map": {
     "satellite": "Satelit",
@@ -916,5 +920,45 @@
     "sendingHint": "Izjava se pošilja ali pa odgovor sistema TRACES ni prišel. Preverite jo v TRACES; ponovna oddaja je zaklenjena, da ne nastaneta dve izjavi.",
     "withdraw": "Umakni izjavo v TRACES",
     "withdrawConfirm": "Izjava bo v TRACES umaknjena (možno v 72 urah po dodelitvi številke). Nadaljujem?"
+  },
+  "portal": {
+    "ownerTitle": "Povezava za dobavitelja",
+    "ownerIntro": "Dobavitelj prek povezave brez prijave doda svoje parcele (na karti) in naloži dovoljenja. Vidi samo svoje podatke. Njegove parcele preverite pred uporabo v pošiljki.",
+    "validFor": "Veljavnost",
+    "days": "{days} dni",
+    "createLink": "Ustvari povezavo",
+    "linkCreated": "Povezava je ustvarjena. Pošljite jo dobavitelju (e-pošta, SMS, WhatsApp) – prikazana je samo enkrat.",
+    "copy": "Kopiraj povezavo",
+    "copied": "Kopirano",
+    "activeUntil": "Velja do {date}",
+    "revoked": "Preklicana",
+    "expired": "Potekla",
+    "lastUsed": "zadnja uporaba {date}",
+    "neverUsed": "še ni bila odprta",
+    "revoke": "Prekliči",
+    "invalidTitle": "Povezava ni veljavna ali je potekla",
+    "invalidHint": "Za novo povezavo prosite kupca lesa.",
+    "title": "Podatki o poreklu lesa za {organization}",
+    "intro": "{supplier}, tukaj dodajte parcele, s katerih prihaja les, in naložite dovoljenja za posek. Podatki gredo samo do tega kupca.",
+    "validUntil": "Povezava velja do {date}.",
+    "yourPlots": "Vaše parcele ({count})",
+    "noPlots": "Še ni parcel.",
+    "addPlotTitle": "Dodaj parcelo",
+    "plotName": "Ime parcele (npr. katastrska številka ali ime gozda)",
+    "addPlot": "Shrani parcelo",
+    "plotSaved": "Parcela je shranjena. Kupec jo bo preveril.",
+    "documentsTitle": "Dovoljenja in dokumenti",
+    "documentPlots": "Za katere parcele velja dokument",
+    "upload": "Naloži dokument",
+    "documentSaved": "Dokument je naložen.",
+    "privacy": "Podatki, ki jih vnesete, so shranjeni na strežnikih v EU in vidni samo podjetju {organization} za namen sledljivosti po uredbi EUDR.",
+    "errors": {
+      "unknown": "Prišlo je do napake. Poskusite znova.",
+      "invalid": "Povezava ni več veljavna.",
+      "geometry": "Na karti označite parcelo (točko ali obris).",
+      "label": "Vpišite ime parcele.",
+      "area": "Pri točki vpišite površino v hektarjih.",
+      "title": "Vpišite naziv dokumenta."
+    }
   }
 }

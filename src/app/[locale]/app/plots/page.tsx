@@ -8,7 +8,8 @@ import { createServerSupabase } from '@/lib/supabase/server';
 import { Link } from '@/i18n/navigation';
 import { getCurrentMembership, requireUser } from '@/lib/auth/session';
 import type { PlotStatus } from '@/lib/geo/types';
-import { PAGE_SIZE, listPlots, parseFilters, supplierOptions } from '@/lib/plots/queries';
+import { PAGE_SIZE, listPlots, parseFilters, plotsAwaitingReview, supplierOptions } from '@/lib/plots/queries';
+import { validateSubmittedPlots } from './actions';
 import { cn } from '@/lib/utils';
 
 type Props = { params: Promise<{ locale: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> };
@@ -21,10 +22,11 @@ export default async function PlotsPage({ params, searchParams }: Props) {
   if (!current) return null;
   const filters = parseFilters(await searchParams);
   const supabase = await createServerSupabase();
-  const [{ rows, total, byStatus, archivedCount }, map, suppliers] = await Promise.all([
+  const [{ rows, total, byStatus, archivedCount }, map, suppliers, awaiting] = await Promise.all([
     listPlots(current.organization.id, filters),
     supabase.rpc('plots_map', { p_org: current.organization.id }),
     supplierOptions(current.organization.id),
+    plotsAwaitingReview(current.organization.id),
   ]);
   const mapData = (map.data ?? { type: 'FeatureCollection', features: [] }) as unknown as GeoJSON.FeatureCollection;
   const t = await getTranslations('plots');
@@ -62,6 +64,16 @@ export default async function PlotsPage({ params, searchParams }: Props) {
           </Button>
         </div>
       </div>
+
+      {awaiting > 0 ? (
+        <form action={validateSubmittedPlots} className="flex flex-wrap items-center gap-3 rounded-xl border border-amber-300 bg-amber-50 p-3 text-sm dark:border-amber-700 dark:bg-amber-950/40" data-testid="awaiting-review">
+          <input type="hidden" name="locale" value={locale} />
+          <span className="flex-1">{t('awaitingReview', { count: awaiting })}</span>
+          <Button type="submit" size="sm">
+            {t('validateNow')}
+          </Button>
+        </form>
+      ) : null}
 
       <nav className="flex flex-wrap gap-2" aria-label={t('issues')}>
         <Link href={href({ status: undefined, archived: false })} className={cn('rounded-full border px-3 py-1.5 text-sm', !filters.status && !filters.archived && 'bg-foreground text-background')}>

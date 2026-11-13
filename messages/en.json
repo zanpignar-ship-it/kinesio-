@@ -90,7 +90,8 @@
       "CRS_GUESSED": "The file does not state its coordinate system. We assume {crs} (Slovenian D96/TM), but it could also be {alternatives} (old D48/GK, ~600 m apart). Please confirm the right system.",
       "CRS_UNKNOWN": "The file's coordinate system is unknown. Export the file in WGS-84 (EPSG:4326) or D96/TM (EPSG:3794).",
       "PARSE_FAILED": "The file or row could not be read.",
-      "EXPORT_TOO_LARGE": "The GeoJSON file is too large ({bytes} bytes, max {max}). Split the shipment or simplify the polygons."
+      "EXPORT_TOO_LARGE": "The GeoJSON file is too large ({bytes} bytes, max {max}). Split the shipment or simplify the polygons.",
+      "SUPPLIER_SUBMITTED": "Added by the supplier through the portal – not reviewed yet."
     }
   },
   "auth": {
@@ -192,7 +193,8 @@
       "readyShipments": "Shipments ready to submit in TRACES",
       "draftShipments": "Draft shipments",
       "plotsNoHarvest": "Plots without a harvest date",
-      "plotsNoSupplier": "Plots without a supplier"
+      "plotsNoSupplier": "Plots without a supplier",
+      "supplierPlots": "Supplier plots to review"
     }
   },
   "plots": {
@@ -268,7 +270,9 @@
     "bulkApply": "Apply to selected",
     "bulkArchive": "Archive selected",
     "bulkDone": "Plots updated: {count}.",
-    "select": "Select {label}"
+    "select": "Select {label}",
+    "awaitingReview": "Plots from suppliers waiting for review: {count}.",
+    "validateNow": "Review now"
   },
   "map": {
     "satellite": "Satellite",
@@ -916,5 +920,45 @@
     "sendingHint": "The statement is being sent, or the answer from TRACES did not arrive. Check it in TRACES; submitting again is blocked so that no second statement is created.",
     "withdraw": "Withdraw the statement in TRACES",
     "withdrawConfirm": "The statement will be withdrawn in TRACES (possible within 72 hours of the number being assigned). Continue?"
+  },
+  "portal": {
+    "ownerTitle": "Supplier link",
+    "ownerIntro": "Through the link, the supplier adds their plots (on the map) and uploads permits without an account. They only see their own data. Review their plots before using them in a shipment.",
+    "validFor": "Valid for",
+    "days": "{days} days",
+    "createLink": "Create link",
+    "linkCreated": "The link is ready. Send it to the supplier (email, SMS, WhatsApp) – it is shown only once.",
+    "copy": "Copy link",
+    "copied": "Copied",
+    "activeUntil": "Valid until {date}",
+    "revoked": "Revoked",
+    "expired": "Expired",
+    "lastUsed": "last used {date}",
+    "neverUsed": "not opened yet",
+    "revoke": "Revoke",
+    "invalidTitle": "The link is not valid or has expired",
+    "invalidHint": "Ask the timber buyer for a new link.",
+    "title": "Timber origin data for {organization}",
+    "intro": "{supplier}, add the plots your timber comes from and upload the felling permits here. The data goes only to this buyer.",
+    "validUntil": "The link is valid until {date}.",
+    "yourPlots": "Your plots ({count})",
+    "noPlots": "No plots yet.",
+    "addPlotTitle": "Add a plot",
+    "plotName": "Plot name (e.g. cadastral number or forest name)",
+    "addPlot": "Save plot",
+    "plotSaved": "The plot is saved. The buyer will review it.",
+    "documentsTitle": "Permits and documents",
+    "documentPlots": "Which plots the document applies to",
+    "upload": "Upload document",
+    "documentSaved": "The document is uploaded.",
+    "privacy": "The data you enter is stored on servers in the EU and visible only to {organization} for traceability under the EUDR.",
+    "errors": {
+      "unknown": "Something went wrong. Please try again.",
+      "invalid": "The link is no longer valid.",
+      "geometry": "Mark the plot on the map (a point or an outline).",
+      "label": "Enter the plot name.",
+      "area": "For a point, enter the area in hectares.",
+      "title": "Enter the document title."
+    }
   }
 }
