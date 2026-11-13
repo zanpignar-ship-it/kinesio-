@@ -4,7 +4,7 @@ Orodje za pripravo podatkov za EUDR (Uredba (EU) 2023/1115) za lesno panogo.
 
 - Specifikacija: [docs/superpowers/specs/2026-11-11-lestrace-design.md](docs/superpowers/specs/2026-11-11-lestrace-design.md)
 - Načrti: [docs/superpowers/plans/](docs/superpowers/plans/)
-- Predogled (Vercel, ekipa ZAPI, projekt `lestrace`): https://lestrace-dq265uobm-zapi1.vercel.app/sl
+- Predogled (Vercel, ekipa ZAPI, projekt `lestrace`): https://lestrace-m8amgkfqx-zapi1.vercel.app/sl
 - Baza: Supabase projekt `lestrace-dev` (eu-central-1)
 
 Pred zagonom v produkcijo: glej [docs/launch-checklist.md](docs/launch-checklist.md).
