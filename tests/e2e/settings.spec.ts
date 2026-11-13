@@ -61,3 +61,18 @@ test('account deletion asks for the email address', async ({ page }) => {
   await page.getByRole('button', { name: 'Trajno izbriši račun' }).click();
   await expect(page.getByText('Vpisani e-naslov se ne ujema.')).toBeVisible();
 });
+
+test('a user can delete their account with the organization', async ({ page, browser }) => {
+  const victim = newUser();
+  await signUpWithOrganization(page, victim, 'Žaga za izbris');
+  await page.goto('/sl/app/settings');
+  await page.getByLabel(/Za potrditev vpišite/).fill(victim.email);
+  await page.getByRole('button', { name: 'Trajno izbriši račun' }).click();
+  await page.waitForURL(/\/sl(\?deleted=1)?$/);
+  const fresh = await (await browser.newContext()).newPage();
+  await fresh.goto('/sl/login');
+  await fresh.getByLabel('E-pošta').fill(victim.email);
+  await fresh.getByLabel('Geslo').fill(victim.password);
+  await fresh.getByRole('button', { name: 'Prijava' }).click();
+  await expect(fresh.getByText('E-pošta ali geslo ni pravilno.')).toBeVisible();
+});

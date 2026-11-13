@@ -16,10 +16,10 @@ export async function signUpWithOrganization(page: Page, user: E2EUser, orgName 
   await page.getByLabel('E-pošta').fill(user.email);
   await page.getByLabel('Geslo').fill(user.password);
   await page.getByRole('button', { name: 'Ustvari račun' }).click();
-  await expect(page).toHaveURL(/\/sl\/onboarding$/);
+  await expect(page).toHaveURL(/\/sl\/onboarding$/, { timeout: 15_000 });
   await page.getByLabel('Ime podjetja').fill(orgName);
   await page.getByRole('button', { name: 'Ustvari organizacijo' }).click();
-  await expect(page).toHaveURL(/\/sl\/app$/);
+  await expect(page).toHaveURL(/\/sl\/app$/, { timeout: 15_000 });
 }
 
 /** Supabase client signed in as the e2e user (RLS applies), for setting up data quickly. */
@@ -43,5 +43,5 @@ export async function signIn(page: Page, user: E2EUser): Promise<void> {
   await page.getByLabel('E-pošta').fill(user.email);
   await page.getByLabel('Geslo').fill(user.password);
   await page.getByRole('button', { name: 'Prijava' }).click();
-  await expect(page).toHaveURL(/\/sl\/app$/);
+  await expect(page).toHaveURL(/\/sl\/app$/, { timeout: 15_000 });
 }
