@@ -830,6 +830,10 @@
         "a": "Da, če v Nastavitvah vnesete uporabnika spletnih storitev TRACES. Pošiljko označite kot pripravljeno in kliknite »Oddaj izjavo v TRACES«; referenčno in verifikacijsko številko vpišemo samodejno, ko ju sistem dodeli (običajno v eni uri). Brez tega podatke prepišete v TRACES ročno."
       },
       {
+        "q": "Kako dobavitelj sam vnese svoje parcele?",
+        "a": "V Šifranti → Dobavitelji odprite dobavitelja in ustvarite povezavo. Dobavitelj jo odpre na telefonu brez prijave, označi parcele na karti in naloži dovoljenja. Vi jih nato preverite z gumbom »Preveri zdaj« na strani Parcele."
+      },
+      {
         "q": "Kaj vidi kupec?",
         "a": "Samo izbrano pošiljko: podjetje, izdelke, karto parcel, številki DDS in po želji seznam dokumentov. Imena dobaviteljev so privzeto skrita."
       },

@@ -830,6 +830,10 @@
         "a": "Yes, once you enter your TRACES web-service user in Settings. Mark the shipment as ready and click “Submit the statement to TRACES”; the reference and verification numbers are filled in automatically once the system assigns them (usually within an hour). Without it, you enter the data in TRACES manually."
       },
       {
+        "q": "How does a supplier enter their own plots?",
+        "a": "In Master data → Suppliers, open the supplier and create a link. The supplier opens it on a phone without an account, marks plots on the map and uploads permits. You then review them with “Review now” on the Plots page."
+      },
+      {
         "q": "What does the buyer see?",
         "a": "Only the chosen shipment: your company, products, plot map, DDS numbers and optionally the list of documents. Supplier names are hidden by default."
       },

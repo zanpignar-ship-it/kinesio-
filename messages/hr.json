@@ -833,6 +833,10 @@
         "a": "Da, ako u Postavkama unesete korisnika web usluga TRACES. Pošiljku označite kao spremnu i kliknite »Podnesi izjavu u TRACES«; referentni i verifikacijski broj upisujemo automatski kada ih sustav dodijeli (obično unutar sat vremena). Bez toga podatke ručno prepisujete u TRACES."
       },
       {
+        "q": "Kako dobavljač sam unosi svoje čestice?",
+        "a": "U Šifrarnici → Dobavljači otvorite dobavljača i stvorite poveznicu. Dobavljač je otvara na mobitelu bez prijave, označava čestice na karti i učitava dozvole. Vi ih zatim provjerite gumbom »Provjeri sada« na stranici Čestice."
+      },
+      {
         "q": "Što vidi kupac?",
         "a": "Samo odabranu pošiljku: tvrtku, proizvode, kartu čestica, brojeve DDS i po želji popis dokumenata. Imena dobavljača su zadano skrivena."
       },

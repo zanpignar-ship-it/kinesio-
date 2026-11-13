@@ -833,6 +833,10 @@
         "a": "Da, ako u Postavkama unesete korisnika web usluga TRACES. Pošiljku označite kao spremnu i kliknite „Podnesi izjavu u TRACES“; referentni i verifikacijski broj upisujemo automatski kada ih sistem dodijeli (obično u roku od sat vremena). Bez toga podatke ručno prepisujete u TRACES."
       },
       {
+        "q": "Kako dobavljač sam unosi svoje parcele?",
+        "a": "U Šifarnici → Dobavljači otvorite dobavljača i napravite link. Dobavljač ga otvara na telefonu bez prijave, označava parcele na karti i učitava dozvole. Vi ih zatim provjerite dugmetom „Provjeri sada“ na stranici Parcele."
+      },
+      {
         "q": "Šta vidi kupac?",
         "a": "Samo odabranu pošiljku: preduzeće, proizvode, kartu parcela, brojeve DDS i po želji spisak dokumenata. Imena dobavljača su zadano skrivena."
       },
