@@ -114,8 +114,19 @@
       "userExists": "Račun s tem e-poštnim naslovom že obstaja. Prijavite se.",
       "emailNotConfirmed": "E-poštni naslov še ni potrjen.",
       "rateLimited": "Preveč poskusov. Poskusite znova čez nekaj minut.",
-      "unknown": "Prišlo je do napake. Poskusite znova."
-    }
+      "unknown": "Prišlo je do napake. Poskusite znova.",
+      "resetExpired": "Povezava je potekla ali je bila že uporabljena. Zahtevajte novo.",
+      "samePassword": "Novo geslo mora biti drugačno od starega."
+    },
+    "forgotLink": "Pozabljeno geslo?",
+    "forgotTitle": "Pozabljeno geslo",
+    "forgotIntro": "Vpišite e-naslov računa. Poslali vam bomo povezavo za novo geslo.",
+    "sendReset": "Pošlji povezavo",
+    "resetSent": "Če račun s tem e-naslovom obstaja, smo vam poslali povezavo za novo geslo. Preverite tudi mapo z neželeno pošto.",
+    "backToLogin": "Nazaj na prijavo",
+    "updateTitle": "Novo geslo",
+    "newPassword": "Novo geslo",
+    "savePassword": "Shrani geslo"
   },
   "org": {
     "onboardingTitle": "Vaše podjetje",
@@ -631,7 +642,9 @@
     },
     "members": "Člani",
     "auditLink": "Revizijska sled",
-    "tracesTitle": "Oddaja v TRACES (EUDR Information System)"
+    "tracesTitle": "Oddaja v TRACES (EUDR Information System)",
+    "accountTitle": "Račun",
+    "changePassword": "Spremeni geslo"
   },
   "legal": {
     "terms": "Pogoji uporabe",

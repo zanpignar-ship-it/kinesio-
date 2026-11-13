@@ -117,8 +117,19 @@
       "userExists": "Nalog sa ovom adresom e-pošte već postoji. Prijavite se.",
       "emailNotConfirmed": "Adresa e-pošte još nije potvrđena.",
       "rateLimited": "Previše pokušaja. Pokušajte ponovo za nekoliko minuta.",
-      "unknown": "Došlo je do greške. Pokušajte ponovo."
-    }
+      "unknown": "Došlo je do greške. Pokušajte ponovo.",
+      "resetExpired": "Link je istekao ili je već iskorišćen. Zatražite novi.",
+      "samePassword": "Nova lozinka mora da se razlikuje od stare."
+    },
+    "forgotLink": "Zaboravljena lozinka?",
+    "forgotTitle": "Zaboravljena lozinka",
+    "forgotIntro": "Upišite e-adresu naloga. Poslaćemo vam link za novu lozinku.",
+    "sendReset": "Pošalji link",
+    "resetSent": "Ako nalog sa tom e-adresom postoji, poslali smo vam link za novu lozinku. Proverite i folder neželjene pošte.",
+    "backToLogin": "Nazad na prijavu",
+    "updateTitle": "Nova lozinka",
+    "newPassword": "Nova lozinka",
+    "savePassword": "Sačuvaj lozinku"
   },
   "org": {
     "onboardingTitle": "Vaše preduzeće",
@@ -634,7 +645,9 @@
     },
     "members": "Članovi",
     "auditLink": "Revizijski trag",
-    "tracesTitle": "Podnošenje u TRACES (EUDR Information System)"
+    "tracesTitle": "Podnošenje u TRACES (EUDR Information System)",
+    "accountTitle": "Nalog",
+    "changePassword": "Promeni lozinku"
   },
   "legal": {
     "terms": "Uslovi korišćenja",

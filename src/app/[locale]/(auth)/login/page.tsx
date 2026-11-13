@@ -18,6 +18,9 @@ export default async function LoginPage({ params, searchParams }: Props) {
     <>
       <h1 className="text-2xl font-bold tracking-tight">{t('signInTitle')}</h1>
       <AuthForm mode="signIn" action={signIn} next={next} />
+      <Link href="/forgot-password" className="text-muted-foreground -mt-2 text-sm underline-offset-4 hover:underline">
+        {t('forgotLink')}
+      </Link>
       <p className="text-muted-foreground text-sm">
         {t('noAccount')}{' '}
         <Link href={raw ? { pathname: '/signup', query: { next } } : '/signup'} className="text-primary font-medium underline-offset-4 hover:underline">

@@ -14,6 +14,11 @@ export const signUpSchema = z.object({
   password: z.string().min(8, 'auth.errors.passwordTooShort').max(72, 'auth.errors.passwordTooLong'),
 });
 
+export const resetRequestSchema = z.object({ email });
+export const newPasswordSchema = z.object({
+  password: z.string().min(8, 'auth.errors.passwordTooShort').max(72, 'auth.errors.passwordTooLong'),
+});
+
 /** Countries offered when creating an organization (ISO 3166-1 alpha-2). */
 export const ORG_COUNTRIES = ['SI', 'HR', 'BA', 'RS', 'ME', 'MK', 'AT', 'IT', 'HU', 'DE'] as const;
 

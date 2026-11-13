@@ -76,6 +76,16 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
           </CardContent>
         </Card>
       ) : null}
+      <Card>
+        <CardHeader>
+          <CardTitle>{t('accountTitle')}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Link href="/update-password" className={buttonVariants({ variant: 'outline' })}>
+            {t('changePassword')}
+          </Link>
+        </CardContent>
+      </Card>
       {user.email ? (
         <Card>
           <CardHeader>

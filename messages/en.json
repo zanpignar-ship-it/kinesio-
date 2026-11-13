@@ -114,8 +114,19 @@
       "userExists": "An account with this email already exists. Please sign in.",
       "emailNotConfirmed": "The email address is not confirmed yet.",
       "rateLimited": "Too many attempts. Try again in a few minutes.",
-      "unknown": "Something went wrong. Please try again."
-    }
+      "unknown": "Something went wrong. Please try again.",
+      "resetExpired": "The link has expired or was already used. Request a new one.",
+      "samePassword": "The new password must differ from the old one."
+    },
+    "forgotLink": "Forgot your password?",
+    "forgotTitle": "Forgotten password",
+    "forgotIntro": "Enter the email of your account. We will send you a link to set a new password.",
+    "sendReset": "Send link",
+    "resetSent": "If an account with this email exists, we have sent a link to set a new password. Check your spam folder too.",
+    "backToLogin": "Back to sign in",
+    "updateTitle": "New password",
+    "newPassword": "New password",
+    "savePassword": "Save password"
   },
   "org": {
     "onboardingTitle": "Your company",
@@ -631,7 +642,9 @@
     },
     "members": "Members",
     "auditLink": "Audit trail",
-    "tracesTitle": "Submission to TRACES (EUDR Information System)"
+    "tracesTitle": "Submission to TRACES (EUDR Information System)",
+    "accountTitle": "Account",
+    "changePassword": "Change password"
   },
   "legal": {
     "terms": "Terms of use",
