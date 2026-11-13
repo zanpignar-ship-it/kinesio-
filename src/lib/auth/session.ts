@@ -7,7 +7,7 @@ import { createServerSupabase } from '@/lib/supabase/server';
 import { ORG_COOKIE, pickOrganization } from './pick-organization';
 
 export type SessionUser = { id: string; email: string | null };
-type Org = Pick<Database['public']['Tables']['organizations']['Row'], 'id' | 'name' | 'size' | 'was_under_eutr' | 'country' | 'kind' | 'eori' | 'tax_id' | 'registration_no'>;
+type Org = Pick<Database['public']['Tables']['organizations']['Row'], 'id' | 'name' | 'size' | 'was_under_eutr' | 'country' | 'kind' | 'eori' | 'tax_id' | 'registration_no' | 'address'>;
 export type Membership = { role: Database['public']['Enums']['member_role']; organization: Org };
 
 /** The signed-in user (JWT verified by getClaims), or null. */
@@ -23,7 +23,7 @@ export const getMemberships = cache(async (userId: string): Promise<Membership[]
   const supabase = await createServerSupabase();
   const { data, error } = await supabase
     .from('memberships')
-    .select('role, organization:organizations (id, name, size, was_under_eutr, country, kind, eori, tax_id, registration_no)')
+    .select('role, organization:organizations (id, name, size, was_under_eutr, country, kind, eori, tax_id, registration_no, address)')
     .eq('user_id', userId)
     .order('created_at');
   if (error) throw error;

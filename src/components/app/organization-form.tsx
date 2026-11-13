@@ -67,7 +67,7 @@ export function OrganizationForm({ submit = createOrganization, initial = {}, su
         <input type="checkbox" name="wasUnderEutr" defaultChecked={v.wasUnderEutr === 'on'} className="mt-0.5" />
         {t('wasUnderEutr')}
       </label>
-      {(['taxId', 'registrationNo', 'eori'] as const).map((f) => (
+      {(['address', 'taxId', 'registrationNo', 'eori'] as const).map((f) => (
         <div key={f} className="flex flex-col gap-2">
           <Label htmlFor={f}>
             {t(f)} <span className="text-muted-foreground font-normal">({t('optional')})</span>

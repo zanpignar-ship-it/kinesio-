@@ -31,6 +31,7 @@ export async function updateOrganization(_prev: OrgFormState, formData: FormData
       size: o.size,
       tax_id: o.taxId,
       registration_no: o.registrationNo,
+      address: o.address,
       eori: o.eori,
       was_under_eutr: o.wasUnderEutr,
     })

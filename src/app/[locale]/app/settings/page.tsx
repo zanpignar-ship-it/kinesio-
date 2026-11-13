@@ -27,6 +27,7 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
     size: o.size,
     taxId: o.tax_id ?? '',
     registrationNo: o.registration_no ?? '',
+    address: o.address ?? '',
     eori: o.eori ?? '',
     ...(o.was_under_eutr ? { wasUnderEutr: 'on' } : {}),
   };

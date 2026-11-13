@@ -39,6 +39,7 @@ export const organizationSchema = z.object({
   size: z.enum(Constants.public.Enums.org_size, { message: 'org.errors.size' }),
   taxId: optionalText,
   registrationNo: optionalText,
+  address: z.string().trim().max(250).optional().transform((v) => (v ? v : null)),
   eori: optionalText,
   wasUnderEutr: checkbox,
 });
