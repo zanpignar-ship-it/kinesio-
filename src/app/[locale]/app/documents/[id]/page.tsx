@@ -1,4 +1,6 @@
 import { notFound } from 'next/navigation';
+import { ExternalLink, MapPinned, Pencil } from 'lucide-react';
+import { Facts, PageHeader } from '@/components/ui/page';
 import { getFormatter, getTranslations, setRequestLocale } from 'next-intl/server';
 import { DocumentDelete } from '@/components/documents/document-delete';
 import { ExpiryBadge } from '@/components/documents/expiry-badge';
@@ -20,48 +22,49 @@ export default async function DocumentPage({ params }: { params: Promise<{ local
   const date = (d: string | null) => (d ? format.dateTime(new Date(`${d}T00:00:00Z`), { dateStyle: 'long', timeZone: 'UTC' }) : '–');
   return (
     <div className="flex flex-col gap-6">
-      <Link href="/app/documents" className="text-muted-foreground text-sm underline-offset-4 hover:underline">
-        ← {t('back')}
-      </Link>
-      <div className="flex flex-wrap items-center gap-3">
-        <h1 className="text-2xl font-bold tracking-tight">{doc.title}</h1>
-        <ExpiryBadge expiry={doc.expiry} />
-      </div>
-      <dl className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-        <div>
-          <dt className="text-muted-foreground text-sm">{t('type')}</dt>
-          <dd className="font-medium">{t(`types.${doc.type}`)}</dd>
-        </div>
-        <div>
-          <dt className="text-muted-foreground text-sm">{t('validFrom')}</dt>
-          <dd className="font-medium">{date(doc.valid_from)}</dd>
-        </div>
-        <div>
-          <dt className="text-muted-foreground text-sm">{t('validTo')}</dt>
-          <dd className="font-medium">{date(doc.valid_to)}</dd>
-        </div>
-      </dl>
-      <div className="flex flex-wrap gap-2">
-        {doc.signedUrl ? (
-          <Button asChild>
-            <a href={doc.signedUrl} target="_blank" rel="noopener noreferrer">
-              {t('open')}
-            </a>
-          </Button>
-        ) : null}
-        <Button asChild variant="outline">
-          <Link href={`/app/documents/${doc.id}/edit`}>{t('edit')}</Link>
-        </Button>
-      </div>
-      <section className="flex flex-col gap-2">
-        <h2 className="font-semibold">{t('linkedPlots')}</h2>
+      <PageHeader
+        back={{ href: '/app/documents', label: t('back') }}
+        title={doc.title}
+        badges={<ExpiryBadge expiry={doc.expiry} />}
+        actions={
+          <>
+            {doc.signedUrl ? (
+              <Button asChild>
+                <a href={doc.signedUrl} target="_blank" rel="noopener noreferrer">
+                  <ExternalLink aria-hidden />
+                  {t('open')}
+                </a>
+              </Button>
+            ) : null}
+            <Button asChild variant="outline">
+              <Link href={`/app/documents/${doc.id}/edit`}>
+                <Pencil aria-hidden />
+                {t('edit')}
+              </Link>
+            </Button>
+          </>
+        }
+      />
+      <Facts
+        className="sm:grid-cols-3"
+        items={[
+          [t('type'), t(`types.${doc.type}`)],
+          [t('validFrom'), date(doc.valid_from)],
+          [t('validTo'), date(doc.valid_to)],
+        ]}
+      />
+      <section className="flex flex-col gap-3 rounded-xl border p-5">
+        <h2 className="flex items-center gap-2 font-semibold">
+          <MapPinned className="text-muted-foreground size-4" aria-hidden />
+          {t('linkedPlots')}
+        </h2>
         {doc.plots.length === 0 ? (
           <p className="text-muted-foreground text-sm">{t('noLinkedPlots')}</p>
         ) : (
           <ul className="flex flex-wrap gap-2">
             {doc.plots.map((p) => (
               <li key={p.id}>
-                <Link href={`/app/plots/${p.id}`} className="rounded-full border px-3 py-1.5 text-sm underline-offset-4 hover:underline">
+                <Link href={`/app/plots/${p.id}`} className="bg-secondary text-secondary-foreground hover:bg-accent inline-flex rounded-full px-3 py-1.5 text-sm font-medium transition-colors">
                   {p.label}
                 </Link>
               </li>

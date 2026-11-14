@@ -240,7 +240,32 @@
       "shipment": "Nova pošiljka"
     },
     "daysLeft": "dana do roka",
-    "viewAll": "Sve pošiljke"
+    "viewAll": "Sve pošiljke",
+    "setup": {
+      "title": "Prvi koraci",
+      "intro": "Četiri koraka do prve izjave o dužnoj pažnji.",
+      "progress": "{done} od {total} završeno",
+      "start": "Započni",
+      "done": "Završeno",
+      "steps": {
+        "supplier": {
+          "title": "Dodajte dobavljača",
+          "hint": "Vlasnik šume, šumsko gazdinstvo ili dobavljač iz inostranstva."
+        },
+        "plot": {
+          "title": "Dodajte parcelu",
+          "hint": "Nacrtajte je na karti ili uvezite datoteku."
+        },
+        "document": {
+          "title": "Otpremite dokument",
+          "hint": "Dozvola za seču, rešenje ili otpremnica."
+        },
+        "shipment": {
+          "title": "Pripremite pošiljku",
+          "hint": "Proizvodi, količine i parcele – zatim podnošenje."
+        }
+      }
+    }
   },
   "plots": {
     "title": "Parcele",

@@ -1,7 +1,7 @@
 /** Escape text for XML element content and attribute values. */
 export function esc(value: string | number): string {
   // Characters XML 1.0 does not allow are dropped (they would make the whole request invalid).
-  // eslint-disable-next-line no-control-regex
+   
   return String(value).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\uFFFE\uFFFF]/g, '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' })[c]!);
 }
 

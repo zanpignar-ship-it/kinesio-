@@ -1,4 +1,6 @@
 import { getFormatter, getTranslations, setRequestLocale } from 'next-intl/server';
+import { Plus, Truck } from 'lucide-react';
+import { EmptyState, PageHeader } from '@/components/ui/page';
 import { ShipmentStatusBadge } from '@/components/shipments/shipment-status-badge';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/navigation';
@@ -16,9 +18,10 @@ export default async function ShipmentsPage({ params }: { params: Promise<{ loca
   const format = await getFormatter();
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-bold tracking-tight">{t('title')}</h1>
-        <div className="flex flex-wrap gap-2">
+      <PageHeader
+        title={t('title')}
+        actions={
+          <>
           {rows.length > 0 ? (
             <Button asChild variant="ghost">
               <a href={`/${locale}/app/shipments/export`} download>
@@ -27,21 +30,37 @@ export default async function ShipmentsPage({ params }: { params: Promise<{ loca
             </Button>
           ) : null}
           <Button asChild>
-            <Link href="/app/shipments/new">{t('new')}</Link>
+            <Link href="/app/shipments/new">
+              <Plus aria-hidden />
+              {t('new')}
+            </Link>
           </Button>
-        </div>
-      </div>
+          </>
+        }
+      />
       {rows.length === 0 ? (
-        <div className="rounded-xl border border-dashed p-8 text-center">
-          <p className="font-medium">{t('empty')}</p>
-          <p className="text-muted-foreground mt-1 text-sm">{t('emptyHint')}</p>
-        </div>
+        <EmptyState
+          icon={Truck}
+          title={t('empty')}
+          hint={t('emptyHint')}
+          action={
+            <Button asChild>
+              <Link href="/app/shipments/new">
+                <Plus aria-hidden />
+                {t('new')}
+              </Link>
+            </Button>
+          }
+        />
       ) : (
         <ul className="divide-y rounded-xl border">
           {rows.map((s) => (
             <li key={s.id} data-testid="shipment-row" className="flex flex-wrap items-center gap-x-4 gap-y-1 px-4 py-3">
-              <Link href={`/app/shipments/${s.id}`} className="min-w-0 flex-1 truncate font-medium underline-offset-4 hover:underline">
-                {s.internal_ref}
+              <Link href={`/app/shipments/${s.id}`} className="flex min-w-0 flex-1 items-center gap-3 font-medium">
+                <span className="bg-secondary text-secondary-foreground flex size-8 shrink-0 items-center justify-center rounded-lg">
+                  <Truck className="size-4" aria-hidden />
+                </span>
+                <span className="truncate">{s.internal_ref}</span>
               </Link>
               <span className="text-muted-foreground text-sm">{s.customer?.name ?? ''}</span>
               <span className="text-muted-foreground text-sm tabular-nums">

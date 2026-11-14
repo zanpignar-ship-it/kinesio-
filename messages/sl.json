@@ -237,7 +237,32 @@
       "shipment": "Nova pošiljka"
     },
     "daysLeft": "dni do roka",
-    "viewAll": "Vse pošiljke"
+    "viewAll": "Vse pošiljke",
+    "setup": {
+      "title": "Prvi koraki",
+      "intro": "Štirje koraki do prve izjave o skrbnem pregledu.",
+      "progress": "{done} od {total} opravljenih",
+      "start": "Začni",
+      "done": "Opravljeno",
+      "steps": {
+        "supplier": {
+          "title": "Dodajte dobavitelja",
+          "hint": "Lastnik gozda, gozdno gospodarstvo ali dobavitelj iz tujine."
+        },
+        "plot": {
+          "title": "Dodajte parcelo",
+          "hint": "Narišite jo na karti ali uvozite datoteko."
+        },
+        "document": {
+          "title": "Naložite dokument",
+          "hint": "Dovoljenje za posek, odločba ali dobavnica."
+        },
+        "shipment": {
+          "title": "Pripravite pošiljko",
+          "hint": "Izdelki, količine in parcele – nato oddaja."
+        }
+      }
+    }
   },
   "plots": {
     "title": "Parcele",

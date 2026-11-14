@@ -1,10 +1,10 @@
+import { chipClass } from '@/components/ui/page';
 import { getFormatter, getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { auditSubject, changedFields } from '@/lib/audit/format';
 import { getCurrentMembership, requireUser } from '@/lib/auth/session';
 import { listMembers } from '@/lib/members/queries';
 import { createServerSupabase } from '@/lib/supabase/server';
-import { cn } from '@/lib/utils';
 
 const PAGE = 50;
 const TABLES = ['plots', 'documents', 'plot_documents', 'shipments', 'shipment_items', 'shipment_plots', 'shipment_documents', 'upstream_references', 'buyer_shares', 'suppliers', 'customers', 'products', 'memberships', 'invitations', 'organizations', 'plot_imports'] as const;
@@ -44,11 +44,11 @@ export default async function AuditPage({ params, searchParams }: Props) {
         <p className="text-muted-foreground mt-1 text-sm">{t('intro')}</p>
       </div>
       <nav className="flex flex-wrap gap-2 text-sm" aria-label={t('filter')}>
-        <Link href={href(1, undefined)} className={cn('rounded-full border px-3 py-1', !table && 'bg-foreground text-background')}>
+        <Link href={href(1, undefined)} className={chipClass(Boolean(!table))}>
           {t('all')}
         </Link>
         {(['plots', 'documents', 'shipments', 'buyer_shares', 'memberships'] as const).map((n) => (
-          <Link key={n} href={href(1, n)} className={cn('rounded-full border px-3 py-1', table === n && 'bg-foreground text-background')}>
+          <Link key={n} href={href(1, n)} className={chipClass(Boolean(table === n))}>
             {tableName(n)}
           </Link>
         ))}

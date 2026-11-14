@@ -1,3 +1,4 @@
+import { chipClass } from '@/components/ui/page';
 import { getFormatter, getTranslations, setRequestLocale } from 'next-intl/server';
 import { Button } from '@/components/ui/button';
 import type * as GeoJSON from 'geojson';
@@ -10,7 +11,6 @@ import { getCurrentMembership, requireUser } from '@/lib/auth/session';
 import type { PlotStatus } from '@/lib/geo/types';
 import { PAGE_SIZE, listPlots, parseFilters, plotsAwaitingReview, supplierOptions } from '@/lib/plots/queries';
 import { validateSubmittedPlots } from './actions';
-import { cn } from '@/lib/utils';
 
 type Props = { params: Promise<{ locale: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> };
 
@@ -76,16 +76,16 @@ export default async function PlotsPage({ params, searchParams }: Props) {
       ) : null}
 
       <nav className="flex flex-wrap gap-2" aria-label={t('issues')}>
-        <Link href={href({ status: undefined, archived: false })} className={cn('rounded-full border px-3 py-1.5 text-sm', !filters.status && !filters.archived && 'bg-foreground text-background')}>
+        <Link href={href({ status: undefined, archived: false })} className={chipClass(Boolean(!filters.status && !filters.archived))}>
           {t('all')} <span data-testid="count-all">{all}</span>
         </Link>
         {(['valid', 'warning', 'error'] as const).map((s) => (
-          <Link key={s} href={href({ status: s, archived: false })} className={cn('rounded-full border px-3 py-1.5 text-sm', filters.status === s && !filters.archived && 'bg-foreground text-background')}>
+          <Link key={s} href={href({ status: s, archived: false })} className={chipClass(Boolean(filters.status === s && !filters.archived))}>
             {t(`status.${s}`)} <span data-testid={`count-${s}`}>{byStatus[s]}</span>
           </Link>
         ))}
         {archivedCount > 0 || filters.archived ? (
-          <Link href={href({ status: undefined, archived: true })} className={cn('rounded-full border px-3 py-1.5 text-sm', filters.archived && 'bg-foreground text-background')}>
+          <Link href={href({ status: undefined, archived: true })} className={chipClass(Boolean(filters.archived))}>
             {t('archivedFilter')} <span data-testid="count-archived">{archivedCount}</span>
           </Link>
         ) : null}

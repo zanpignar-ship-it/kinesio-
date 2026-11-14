@@ -1,4 +1,6 @@
 import { notFound } from 'next/navigation';
+import { FileText, Pencil, Plus, ShieldCheck } from 'lucide-react';
+import { Facts, PageHeader } from '@/components/ui/page';
 import { getFormatter, getTranslations, setRequestLocale } from 'next-intl/server';
 import type * as GeoJSON from 'geojson';
 import { PlotMapClient } from '@/components/map/map-client';
@@ -55,55 +57,66 @@ export default async function PlotPage({ params }: Props) {
   ];
   return (
     <div className="flex flex-col gap-6">
-      <Link href="/app/plots" className="text-muted-foreground text-sm underline-offset-4 hover:underline">
-        ← {t('back')}
-      </Link>
-      <div className="flex flex-wrap items-center gap-3">
-        <h1 className="text-2xl font-bold tracking-tight">{plot.label}</h1>
-        <StatusBadge status={plot.validation_status} />
-        {plot.archived_at ? <span className="text-muted-foreground text-sm">{t('archived')}</span> : null}
-        <Button asChild variant="outline" size="sm" className="ml-auto">
-          <Link href={`/app/plots/${plot.id}/edit`}>{t('edit')}</Link>
-        </Button>
-      </div>
-      {geometry ? <PlotMapClient className="h-[45vh] min-h-72" plots={single} /> : null}
-      <dl className="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-2">
-        {facts
-          .filter(([, v]) => v)
-          .map(([k, v]) => (
-            <div key={k}>
-              <dt className="text-muted-foreground text-sm">{k}</dt>
-              <dd className="font-medium">{v}</dd>
-            </div>
-          ))}
-      </dl>
-      <section className="flex flex-col gap-3">
-        <h2 className="font-semibold">{t('issues')}</h2>
-        <IssueList issues={issues} />
-        {issues.some((i) => i.code === 'POLYGON_SELF_INTERSECTION') ? <RepairButton id={plot.id} /> : null}
-      </section>
-      <section className="flex flex-col gap-3">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <h2 className="font-semibold">{td('title')}</h2>
+      <PageHeader
+        back={{ href: '/app/plots', label: t('back') }}
+        title={plot.label}
+        badges={
+          <>
+            <StatusBadge status={plot.validation_status} />
+            {plot.archived_at ? <span className="text-muted-foreground text-sm">{t('archived')}</span> : null}
+          </>
+        }
+        actions={
           <Button asChild variant="outline" size="sm">
-            <Link href={{ pathname: '/app/documents/new', query: { plot: plot.id } }}>{td('new')}</Link>
+            <Link href={`/app/plots/${plot.id}/edit`}>
+              <Pencil aria-hidden />
+              {t('edit')}
+            </Link>
           </Button>
-        </div>
-        {documents.length === 0 ? (
-          <p className="text-muted-foreground text-sm">{td('empty')}</p>
-        ) : (
-          <ul className="divide-y rounded-xl border">
-            {documents.map((d) => (
-              <li key={d.id} className="flex items-center gap-3 px-4 py-2">
-                <Link href={`/app/documents/${d.id}`} className="flex-1 underline-offset-4 hover:underline">
-                  {d.title}
-                </Link>
-                <ExpiryBadge expiry={d.expiry} />
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
+        }
+      />
+      <div className={geometry ? 'grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]' : 'flex flex-col gap-6'}>
+        {geometry ? <PlotMapClient className="h-[50vh] min-h-72 overflow-hidden rounded-xl border" plots={single} /> : null}
+        <Facts items={facts} className={geometry ? 'sm:grid-cols-2 lg:grid-cols-1' : undefined} />
+      </div>
+      <div className="grid items-start gap-6 lg:grid-cols-2">
+        <section className="flex flex-col gap-3 rounded-xl border p-5">
+          <h2 className="flex items-center gap-2 font-semibold">
+            <ShieldCheck className="text-muted-foreground size-4" aria-hidden />
+            {t('issues')}
+          </h2>
+          <IssueList issues={issues} />
+          {issues.some((i) => i.code === 'POLYGON_SELF_INTERSECTION') ? <RepairButton id={plot.id} /> : null}
+        </section>
+        <section className="flex flex-col gap-3 rounded-xl border p-5">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h2 className="flex items-center gap-2 font-semibold">
+              <FileText className="text-muted-foreground size-4" aria-hidden />
+              {td('title')}
+            </h2>
+            <Button asChild variant="outline" size="sm">
+              <Link href={{ pathname: '/app/documents/new', query: { plot: plot.id } }}>
+                <Plus aria-hidden />
+                {td('new')}
+              </Link>
+            </Button>
+          </div>
+          {documents.length === 0 ? (
+            <p className="text-muted-foreground text-sm">{td('empty')}</p>
+          ) : (
+            <ul className="-mx-2 flex flex-col">
+              {documents.map((d) => (
+                <li key={d.id}>
+                  <Link href={`/app/documents/${d.id}`} className="hover:bg-muted flex items-center gap-3 rounded-lg px-2 py-2 transition-colors">
+                    <span className="flex-1 truncate">{d.title}</span>
+                    <ExpiryBadge expiry={d.expiry} />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      </div>
       <PlotActions id={plot.id} archived={Boolean(plot.archived_at)} />
     </div>
   );

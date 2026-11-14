@@ -237,7 +237,32 @@
       "shipment": "New shipment"
     },
     "daysLeft": "days to go",
-    "viewAll": "All shipments"
+    "viewAll": "All shipments",
+    "setup": {
+      "title": "Getting started",
+      "intro": "Four steps to your first due diligence statement.",
+      "progress": "{done} of {total} done",
+      "start": "Start",
+      "done": "Done",
+      "steps": {
+        "supplier": {
+          "title": "Add a supplier",
+          "hint": "A forest owner, forestry company or foreign supplier."
+        },
+        "plot": {
+          "title": "Add a plot",
+          "hint": "Draw it on the map or import a file."
+        },
+        "document": {
+          "title": "Upload a document",
+          "hint": "Felling permit, decision or delivery note."
+        },
+        "shipment": {
+          "title": "Prepare a shipment",
+          "hint": "Products, quantities and plots – then submit."
+        }
+      }
+    }
   },
   "plots": {
     "title": "Plots",

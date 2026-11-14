@@ -6,6 +6,8 @@ import { daysUntil, eudrStartDate } from '@/lib/eudr/deadline';
 import { expiringDocuments } from '@/lib/documents/queries';
 import { plotStatusCounts } from '@/lib/plots/queries';
 import { todoItems } from '@/lib/dashboard/todo';
+import { setupSteps } from '@/lib/dashboard/setup';
+import { SetupGuide } from '@/components/app/setup-guide';
 import { Button } from '@/components/ui/button';
 import { loadSampleData } from './actions';
 import { listShipments } from '@/lib/shipments/queries';
@@ -29,11 +31,12 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
   const td = await getTranslations('documents');
   const tp = await getTranslations('plots');
   const ts = await getTranslations('ship');
-  const [expiring, counts, shipments, todos] = await Promise.all([
+  const [expiring, counts, shipments, todos, setup] = await Promise.all([
     expiringDocuments(current.organization.id),
     plotStatusCounts(current.organization.id),
     listShipments(current.organization.id),
     todoItems(current.organization.id),
+    setupSteps(current.organization.id),
   ]);
   const recent = shipments.slice(0, 5);
   const format = await getFormatter();
@@ -107,6 +110,8 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
           </form>
         </Card>
       ) : null}
+
+      {setup.some((s) => !s.done) ? <SetupGuide steps={setup} /> : null}
 
       <div className="grid grid-cols-3 gap-3 sm:gap-4" data-testid="plot-counts">
         {PLOT_TILES.map(({ status, icon: Icon, tone }) => (
