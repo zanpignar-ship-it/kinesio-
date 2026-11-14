@@ -37,8 +37,8 @@ export function MultiPicker({ name, items, initial, legend, hint, searchLabel, e
       return next;
     });
   return (
-    <fieldset className="flex flex-col gap-2">
-      <legend className="text-sm font-medium">{legend}</legend>
+    <fieldset className="flex flex-col gap-2 rounded-xl border p-5">
+      <legend className="float-left w-full font-semibold">{legend}</legend>
       {hint ? <p className="text-muted-foreground text-xs">{hint}</p> : null}
       <input type="hidden" name={name} value={[...selected].join(',')} />
       {children}

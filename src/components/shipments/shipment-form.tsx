@@ -68,7 +68,7 @@ export function ShipmentForm({ options, initial, defaultCountry }: Props) {
       <input type="hidden" name="items" value={JSON.stringify(items)} />
       <input type="hidden" name="references" value={JSON.stringify(mode === 'forward_references' ? refs : [])} />
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-4 rounded-xl border p-5 sm:grid-cols-2">
         <div className="flex flex-col gap-2">
           <Label htmlFor="internalRef">{t('internalRef')}</Label>
           <Input id="internalRef" name="internalRef" required defaultValue={initial.internalRef} />
@@ -110,21 +110,21 @@ export function ShipmentForm({ options, initial, defaultCountry }: Props) {
         </div>
       </div>
 
-      <fieldset className="flex flex-col gap-2">
-        <legend className="mb-1 text-sm font-medium">{t('mode')}</legend>
+      <fieldset className="flex flex-col gap-2 rounded-xl border p-5">
+        <legend className="float-left mb-2 w-full font-semibold">{t('mode')}</legend>
         {Constants.public.Enums.shipment_mode.map((m) => (
-          <label key={m} className="has-[:checked]:border-primary flex items-start gap-3 rounded-md border p-3 text-sm">
+          <label key={m} className="has-[:checked]:border-primary has-[:checked]:bg-accent/50 flex cursor-pointer items-start gap-3 rounded-lg border p-3 text-sm transition-colors">
             <input type="radio" name="mode" value={m} checked={mode === m} onChange={() => setMode(m)} className="mt-0.5 size-4" />
             {t(`modes.${m}`)}
           </label>
         ))}
       </fieldset>
 
-      <section className="flex flex-col gap-3">
+      <section className="flex flex-col gap-3 rounded-xl border p-5">
         <h2 className="font-semibold">{t('items')}</h2>
         {options.products.length === 0 ? <p className="text-muted-foreground text-sm">{t('noProducts')}</p> : null}
         {items.map((it, i) => (
-          <div key={i} className="grid gap-2 rounded-md border p-3 sm:grid-cols-[2fr_1fr_1fr_1fr_auto] sm:items-end">
+          <div key={i} className="bg-muted/40 grid gap-2 rounded-lg border p-3 sm:grid-cols-[2fr_1fr_1fr_1fr_auto] sm:items-end">
             <div className="flex flex-col gap-1">
               <Label htmlFor={`product-${i}`}>{t('product')}</Label>
               <select id={`product-${i}`} className={selectClass} value={it.productId} onChange={(e) => setItem(i, { productId: e.target.value })}>
@@ -179,10 +179,10 @@ export function ShipmentForm({ options, initial, defaultCountry }: Props) {
       />
 
       {mode === 'forward_references' ? (
-        <section className="flex flex-col gap-3">
+        <section className="flex flex-col gap-3 rounded-xl border p-5">
           <h2 className="font-semibold">{t('references')}</h2>
           {refs.map((r, i) => (
-            <div key={i} className="grid gap-2 rounded-md border p-3 sm:grid-cols-2">
+            <div key={i} className="bg-muted/40 grid gap-2 rounded-lg border p-3 sm:grid-cols-2">
               <div className="flex flex-col gap-1">
                 <Label htmlFor={`refKind-${i}`}>{t('refKind')}</Label>
                 <select id={`refKind-${i}`} className={selectClass} value={r.kind} onChange={(e) => setRef(i, { kind: e.target.value as Ref['kind'] })}>
