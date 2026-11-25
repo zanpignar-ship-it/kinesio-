@@ -173,7 +173,7 @@ export async function addUnits(actor: Actor, listingId: string, units: z.input<t
            u.purchaseDate ?? null, u.replacementValueCents ?? null, u.operatingHours ?? null, u.notes ?? null],
         );
         await tx.query("release savepoint unit_insert");
-        await tx.query("insert into unit_status_history (org_id, unit_id, from_status, to_status, actor_user_id, reason) values ($1,$2,null,'available',$3,'created')", [actor.orgId, row.id, actor.userId]);
+        await tx.query("insert into unit_status_history (org_id, unit_id, from_status, to_status, actor_user_id, reason) values ($1,$2,null,'available',$3,'Dodano v inventar')", [actor.orgId, row.id, actor.userId]);
         created.push(row);
       } catch (e) {
         if (isUniqueViolation(e)) throw new DomainError("units.duplicateCode", undefined, { code: u.internalCode });

@@ -76,3 +76,13 @@ describe("inventory codes", () => {
     expect(generateCodes("mkt-hm", 4, 2)).toEqual(["MKT-HM-004", "MKT-HM-005"]);
   });
 });
+
+describe("business timezone", async () => {
+  const { localToDate, dateToLocal } = await import("@/lib/datetime");
+  it("interprets local input in Europe/Ljubljana across DST", () => {
+    expect(localToDate("2026-01-15T08:00")?.toISOString()).toBe("2026-01-15T07:00:00.000Z");
+    expect(localToDate("2026-07-15T08:00")?.toISOString()).toBe("2026-07-15T06:00:00.000Z");
+    expect(dateToLocal(new Date("2026-07-15T06:00:00Z"))).toBe("2026-07-15T08:00");
+    expect(localToDate("nope")).toBeNull();
+  });
+});

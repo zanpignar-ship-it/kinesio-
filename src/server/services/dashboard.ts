@@ -70,7 +70,7 @@ export async function getDashboard(actor: Actor) {
 
     const activity = await tx.query<{ action: string; entity_type: string; entity_id: string | null; data: Record<string, unknown>; created_at: Date; actor: string | null }>(
       `select al.action, al.entity_type, al.entity_id, al.data, al.created_at, u.full_name as actor
-         from audit_logs al left join users u on u.id = al.actor_user_id where al.org_id = $1 order by al.created_at desc limit 12`, [actor.orgId]);
+         from audit_logs al left join users u on u.id = al.actor_user_id where al.org_id = $1 order by al.created_at desc limit 8`, [actor.orgId]);
 
     const maintenance = await tx.query<{ id: string; internal_code: string; listing_title: string; status: string }>(
       `select u.id, u.internal_code, l.title as listing_title, u.status from units u join listings l on l.id = u.listing_id

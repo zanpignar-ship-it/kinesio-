@@ -80,3 +80,42 @@ describe("role permissions", () => {
     expect((await getUnit(a.owner, units[0].id))!.unit.status).toBe("maintenance");
   });
 });
+
+describe("public marketplace", () => {
+  it("exposes availability counts and provider identity only for published listings", async () => {
+    const { publicAvailability, searchListings, getPublicListing } = await import("@/server/services/marketplace");
+    const { createReservation } = await import("@/server/services/reservations");
+    const a = await makeOrg("Tržnica A");
+    const { listing } = await makeListing(a.owner, { units: 2, title: "Škarjasta dvižna ploščad" });
+    expect(await publicAvailability(listing.id, d("2028-01-01T08:00:00Z"), d("2028-01-02T08:00:00Z"))).toBeNull();
+    await withTenant({ orgId: a.org.id }, (tx) => tx.query("update listings set is_published = true where id = $1", [listing.id]));
+    const c = await makeCustomer(a.owner);
+    await createReservation(a.owner, { customerId: c.id, startsAt: d("2028-01-01T08:00:00Z"), endsAt: d("2028-01-03T08:00:00Z"), items: [{ listingId: listing.id, quantity: 1 }] });
+    const av = await publicAvailability(listing.id, d("2028-01-01T08:00:00Z"), d("2028-01-02T08:00:00Z"));
+    expect(av?.free).toBe(1);
+    const found = await searchListings({ q: "dvižna" });
+    expect(found.some((l) => l.id === listing.id)).toBe(true);
+    const pub = await getPublicListing(a.org.slug, listing.slug);
+    expect(pub?.provider_name).toBe("Tržnica A");
+    expect(pub?.provider_city).toBe(null);
+    // the platform-admin flag must not leak out of the definer function
+    await withPublic(async (tx) => {
+      await tx.query("select public_available_units($1, now(), now() + interval '1 day')", [listing.id]);
+      expect(await tx.query("select * from units")).toHaveLength(0);
+    });
+  });
+});
+
+describe("members", () => {
+  it("protects the last owner and limits who can change roles", async () => {
+    const { changeMemberRole, listMembers } = await import("@/server/services/members");
+    const a = await makeOrg("Člani");
+    const mgr = await addMember(a.org.id, "manager");
+    const rec = await addMember(a.org.id, "receptionist");
+    await expect(changeMemberRole(a.owner, a.user.id, "manager")).rejects.toThrow(/members.lastOwner/);
+    await expect(changeMemberRole(rec, mgr.userId, "readonly")).rejects.toThrow(/auth.forbidden/);
+    await expect(changeMemberRole(mgr, rec.userId, "owner")).rejects.toThrow(/auth.forbidden/);
+    await changeMemberRole(mgr, rec.userId, "warehouse");
+    expect((await listMembers(a.owner)).find((m) => m.user_id === rec.userId)?.role).toBe("warehouse");
+  });
+});

@@ -1,26 +1,170 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+   RENTORA design tokens
+   Premium SaaS restraint + industrial accents. Amber is a FILL colour
+   (safety tag) and is never used for text on light surfaces.
+--------------------------------------------------------------------------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #f5f6f3;
+  --surface: #ffffff;
+  --sunken: #eceee9;
+  --ink: #16191d;
+  --ink-2: #2b3036;
+  --steel: #5c646e;
+  --mute: #8a919a;
+  --line: #dce0da;
+  --line-strong: #c5cbc4;
+  --amber: #f2a71b;
+  --amber-soft: #fdf1d6;
+  --ok: #1f7a46;
+  --ok-soft: #e2f1e7;
+  --info: #24589a;
+  --info-soft: #e3ecf7;
+  --warn: #a35a00;
+  --warn-soft: #fbecd6;
+  --bad: #b23a26;
+  --bad-soft: #f8e3df;
+  --focus: #24589a;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 120ms;
+  --dur-base: 220ms;
+  --dur-slow: 480ms;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-sunken: var(--sunken);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-steel: var(--steel);
+  --color-mute: var(--mute);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-amber: var(--amber);
+  --color-amber-soft: var(--amber-soft);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: "Archivo Variable", var(--font-geist-sans), sans-serif;
+
+  --radius-xs: 3px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  --shadow-raise: 0 1px 0 rgb(22 25 29 / 0.04), 0 1px 2px rgb(22 25 29 / 0.06);
+  --shadow-float: 0 12px 32px -12px rgb(22 25 29 / 0.28), 0 2px 6px rgb(22 25 29 / 0.08);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+}
+
+/* Display type: expanded industrial width, tight leading */
+.display {
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 0.98;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--amber);
+  color: var(--ink);
+}
+
+/* Asset tag: the stamped-metal identity of a physical unit */
+.asset-tag {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.2rem 0.7rem 0.2rem 1.15rem;
+  border-radius: 5px;
+  background: linear-gradient(180deg, #fbfcfa, #e9ece7);
+  border: 1px solid var(--line-strong);
+  box-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 rgb(22 25 29 / 0.06);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.asset-tag::before {
+  content: "";
+  position: absolute;
+  left: 0.42rem;
+  top: 50%;
+  width: 0.38rem;
+  height: 0.38rem;
+  margin-top: -0.19rem;
+  border-radius: 999px;
+  background: var(--paper);
+  box-shadow: inset 0 1px 1px rgb(22 25 29 / 0.35);
+}
+.asset-tag[data-size="lg"] {
+  font-size: 1.15rem;
+  padding: 0.45rem 1rem 0.45rem 1.6rem;
+}
+.asset-tag[data-size="lg"]::before {
+  left: 0.6rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-top: -0.25rem;
+}
+
+/* Hazard stripe used once per surface to mark an operational alert */
+.hazard {
+  background-image: repeating-linear-gradient(-45deg, var(--amber) 0 10px, var(--ink) 10px 20px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  body {
+    background: #fff;
+  }
+  .no-print {
+    display: none !important;
+  }
 }
