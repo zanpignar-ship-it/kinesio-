@@ -41,7 +41,7 @@ export default async function ReservationPage({ params, searchParams }: { params
         description={<span className="flex flex-wrap items-center gap-2"><ReservationBadge status={r.status} /><span>{t(`src.${r.source as ReservationSource}`)}</span>{isCommissionable(r.source as ReservationSource) && <span className="text-xs">(provizija tržnice)</span>}</span>} />
       {created && <p role="status" className="mb-6 rounded-sm border border-ok/25 bg-ok-soft px-3 py-2.5 text-sm text-ok">Rezervacija je ustvarjena in enote so zasedene v koledarju.</p>}
 
-      <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
+      <div className="grid gap-6 [&>*]:min-w-0 lg:grid-cols-[1fr_360px]">
         <div className="space-y-6">
           <Panel title="Naslednji korak"><TransitionButtons action={transitionAction.bind(null, r.id)} options={options} /></Panel>
           <Panel title="Oprema in enote" padded={false}>

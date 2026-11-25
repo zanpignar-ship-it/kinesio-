@@ -10,7 +10,7 @@ export default defineConfig({
   reporter: [["list"]],
   use: { baseURL: `http://localhost:${PORT}`, trace: "off", locale: "sl-SI", timezoneId: "Europe/Ljubljana" },
   projects: [
-    { name: "desktop", use: { viewport: { width: 1440, height: 960 } } },
+    { name: "desktop", use: { viewport: { width: 1440, height: 960 } }, testIgnore: /mobile\.spec\.ts/ },
     { name: "mobile", use: { ...devices["iPhone 13"], browserName: "chromium" }, testMatch: /mobile\.spec\.ts/ },
   ],
   webServer: { command: `pnpm dev --port ${PORT}`, port: PORT, reuseExistingServer: true, timeout: 120_000 },

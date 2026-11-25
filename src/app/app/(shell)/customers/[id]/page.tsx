@@ -26,7 +26,7 @@ export default async function CustomerPage({ params }: { params: Promise<{ id: s
       <PageHeader title={c.company_name ?? c.name} back={{ href: "/app/customers", label: "Stranke" }}
         description={c.company_name ? `${c.name}${c.tax_id ? `, ${c.tax_id}` : ""}` : `Stranka od ${fmtDate(c.created_at)}`}
         actions={can(actor.role, "reservations.write") && <LinkButton href={`/app/reservations/new?customer=${c.id}`}><Icon name="plus" className="size-4" />Nova rezervacija</LinkButton>} />
-      <div className="grid gap-6 lg:grid-cols-[1fr_380px]">
+      <div className="grid gap-6 [&>*]:min-w-0 lg:grid-cols-[1fr_380px]">
         <Panel title={`Rezervacije (${reservations.length})`} action={<span className="text-sm text-steel">Skupaj <Money cents={lifetime} /></span>} padded={false}>
           {reservations.length === 0 ? <p className="p-4 text-sm text-steel">Stranka še nima rezervacij.</p> : (
             <ul className="divide-y divide-line">

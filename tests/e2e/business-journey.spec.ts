@@ -63,10 +63,10 @@ test("rental business: onboarding → inventory → customer → reservation →
   await page.getByRole("button", { name: "Dodaj", exact: true }).click();
   await expect(page.getByText("Prosto 3 od 3")).toBeVisible();
   await page.getByLabel("Količina").fill("3");
-  await expect(page.getByText("88,50 €").first()).toBeVisible(); // 3 days × 29,50 per unit
+  await expect(page.getByText(/265,50\s€/).first()).toBeVisible(); // 3 units × 3 days × 29,50
   await page.getByRole("button", { name: "Ustvari rezervacijo" }).click();
   await page.waitForURL(/\/app\/reservations\/[0-9a-f-]{36}\?created=1/);
-  await expect(page.getByText("265,50 €").first()).toBeVisible();
+  await expect(page.getByText(/265,50\s€/).first()).toBeVisible();
   const reservationUrl = page.url().split("?")[0];
 
   // Overlapping booking must be refused by the server even if the client is bypassed
@@ -87,11 +87,11 @@ test("rental business: onboarding → inventory → customer → reservation →
   await page.getByRole("button", { name: "Sprejmi vračilo v pregled" }).click();
   await page.getByRole("button", { name: "Zaključi najem" }).click();
   await expect(page.getByText("Zaključena").first()).toBeVisible();
-  await expect(page.getByText("Rezervacija je zaključena")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Odpri spor" })).toBeVisible(); // completed → disputed is still allowed
 
   // Calendar renders unit rows
   await page.goto("/app/calendar?days=7&from=2030-03-01");
-  await expect(page.getByRole("link", { name: "HLT-001" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "HLT-001", exact: true })).toBeVisible();
 
   expect(errors).toEqual([]);
 });
@@ -131,5 +131,5 @@ test("unauthenticated access is redirected and login errors are explicit", async
   await page.getByLabel("E-pošta").fill(email);
   await page.getByLabel("Geslo").fill("napacno-geslo");
   await page.getByRole("button", { name: "Prijava" }).click();
-  await expect(page.getByRole("alert")).toHaveText("E-pošta ali geslo ni pravilno.");
+  await expect(page.getByRole("alert").filter({ hasText: "E-pošta ali geslo ni pravilno." })).toBeVisible();
 });

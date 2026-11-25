@@ -25,7 +25,7 @@ export default async function SettingsPage() {
   return (
     <>
       <PageHeader title="Nastavitve" />
-      <div className="grid gap-6 xl:grid-cols-[1fr_400px]">
+      <div className="grid gap-6 [&>*]:min-w-0 xl:grid-cols-[1fr_400px]">
         <div className="space-y-6">
           <Panel title="Podjetje">
             {manage ? (

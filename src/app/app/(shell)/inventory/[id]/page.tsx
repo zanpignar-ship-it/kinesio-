@@ -35,7 +35,7 @@ export default async function ListingPage({ params, searchParams }: { params: Pr
         </>} />
       {created && <p role="status" className="mb-6 rounded-sm border border-ok/25 bg-ok-soft px-3 py-2.5 text-sm text-ok">Artikel je dodan. Enote lahko natisnete kot QR nalepke.</p>}
 
-      <div className="grid gap-6 xl:grid-cols-[1.5fr_1fr]">
+      <div className="grid gap-6 [&>*]:min-w-0 xl:grid-cols-[1.5fr_1fr]">
         <div className="space-y-6">
           <section>
             <h2 className="mb-3 text-sm font-semibold">Fizične enote <span className="font-normal text-steel">({units.length})</span></h2>

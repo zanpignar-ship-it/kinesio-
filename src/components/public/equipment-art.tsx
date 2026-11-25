@@ -116,7 +116,7 @@ export function ExcavatorDrawing(props: SVGProps<SVGSVGElement>) {
       <circle cx="546" cy="290" r="6" />
 
       {/* dimension lines and centre marks */}
-      <g data-dims strokeWidth={1} opacity={0.55}>
+      <g data-dims strokeWidth={1} opacity={0.55} className="motion-reduce:opacity-0">
         <path d="M60 376H592M60 370v12M592 370v12" />
         <path d="M612 120V349M606 120h12M606 349h12" />
         <path d="M286 264h16M294 256v16M456 140h16M464 132v16M538 290h16M546 282v16" />

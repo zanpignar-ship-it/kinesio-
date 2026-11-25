@@ -70,7 +70,7 @@ export default async function UnitPassportPage({ params, searchParams }: { param
         </div>
       </section>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_340px]">
+      <div className="mt-6 grid gap-6 [&>*]:min-w-0 lg:grid-cols-[1fr_340px]">
         <div className="space-y-6">
           <div data-pass="section">
             <Panel title="Termini" padded={false}>

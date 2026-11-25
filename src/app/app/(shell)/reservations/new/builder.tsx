@@ -43,7 +43,7 @@ export function ReservationBuilder(props: {
   const remaining = listings.filter((l) => !items.some((i) => i.listingId === l.id));
 
   return (
-    <ActionForm action={props.createAction} className="grid gap-6 lg:grid-cols-[1fr_360px]">
+    <ActionForm action={props.createAction} className="grid gap-6 [&>*]:min-w-0 lg:grid-cols-[1fr_360px]">
       <div className="space-y-6">
         <section className="rounded-md border border-line bg-surface p-4 sm:p-5">
           <h2 className="mb-4 text-sm font-semibold">Stranka in vir</h2>

@@ -107,8 +107,8 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
         ))}
       </div>
 
-      <div className="mt-6 grid gap-6 xl:grid-cols-[1.4fr_1fr]">
-        <div className="space-y-6">
+      <div className="mt-6 grid gap-6 [&>*]:min-w-0 xl:grid-cols-[1.4fr_1fr]">
+        <div className="min-w-0 space-y-6">
           <div data-enter id="danes">
             <Panel title="Danes" action={<Link href="/app/calendar" className="text-[13px] text-steel hover:text-ink">Odpri koledar</Link>} padded={false}>
               {d.overdue.length > 0 && (
@@ -182,7 +182,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
           </div>
         </div>
 
-        <div className="space-y-6">
+        <div className="min-w-0 space-y-6">
           <div data-enter>
             <Panel title="Oprema" action={<Link href="/app/units" className="text-[13px] text-steel hover:text-ink">Vse enote</Link>}>
               {totalUnits === 0 ? (
